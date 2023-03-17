@@ -1,0 +1,103 @@
+<template>
+  <main class="px-4 mt-10">
+    <arrow-back :route="goToHome" />
+    <title-bar title="Catálogos" subtitle="Proyectos" />
+    <section class="px-4">
+      <button-base label="Nuevo proyecto" @click="goToNewProject" class="mb-3 mr-0 ml-auto" />
+      <table-base
+        :options="featureOptions"
+        :headers="headers"
+        :data="projects"
+      />
+    </section>
+  </main>
+</template>
+
+<script>
+import { ref } from 'vue'
+import TableBase from '../../components/TableBase.vue'
+import { fetchProjects, deleteProject } from './../../api/project'
+import ArrowBack from '../../components/ArrowBack.vue'
+import ButtonBase from '../../components/ButtonBase.vue'
+import Breadcrumb from '../../components/Breadcrumb.vue'
+import { useRouter } from 'vue-router'
+import TitleBar from '../../components/TitleBar.vue'
+
+export default {
+  name: 'ProjectIndex',
+  components: {
+    TableBase,
+    ArrowBack,
+    ButtonBase,
+    Breadcrumb,
+    TitleBar,
+  },
+  setup() {
+    const router = useRouter()
+    const headers = [
+      {
+        label: 'Clave cartera',
+        field: 'clave_cartera',
+      },
+      {
+        label: 'Nombre proyecto',
+        field: 'nombre_proyecto',
+      },
+      {
+        label: 'Monto total inversion',
+        field: 'monto_total_inversion',
+      },
+      {
+        label: 'Estatus proyecto',
+        field: 'estatus_proyecto',
+      },
+      {
+        label: 'Fecha inicio',
+        field: 'fecha_inicio_proyecto',
+      },
+      {
+        label: 'Fecha fin',
+        field: 'fecha_fin_proyecto',
+      },
+    ]
+    const projects = ref([])
+    const getProjects = async () => {
+      const { data } = await fetchProjects()
+      projects.value = data
+    }
+    const featureOptions = [
+      {
+        label: 'Editar',
+        action: (project) => router
+          .push({
+            name: 'EditProject',
+            params: {
+              projectId: project.id_proyecto,
+            },
+          }),
+      },
+      {
+        label: 'Eliminar',
+        action: async (project) => {
+          if (confirm(`Estas seguro que desea eliminar el proyecto "${project.nombre_proyecto}"?`)) {
+            await deleteProject(project.id_proyecto)
+            await getProjects()
+          }
+        },
+      },
+    ]
+    const goToNewProject = () => router.push({ name: 'NewProject' })
+    const goToHome = () => router.push({ name: 'Home' })
+
+    getProjects()
+
+    return {
+      projects,
+      featureOptions,
+      headers,
+      goToNewProject,
+      goToHome,
+    }
+  },
+}
+</script>
