@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Áreas revisoras" />
+    <title-bar title="Áreas revisoras" subtitle="Editar" />
     <section class="px-4">
       <form-review-area @submit="saveReviewArea" :reviewArea="app.reviewArea" edit-mode v-if="!app.loading" />
     </section>

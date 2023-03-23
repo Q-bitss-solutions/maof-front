@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Areas Revisoras" />
+    <title-bar title="Contratos" subtitle="Nuevo" />
     <section class="px-4">
       <form-contract @submit="saveContract" />
     </section>

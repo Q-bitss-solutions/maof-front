@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Contratos" />
+    <title-bar title="Contratos" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo contrato" @click="goToNewContract" class="mb-3 mr-0 ml-auto" />
       <table-base

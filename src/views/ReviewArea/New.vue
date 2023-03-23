@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Áreas Revisoras" />
+    <title-bar title="Áreas revisoras" subtitle="Nuevo" />
     <section class="px-4">
       <form-review-area @submit="saveReviewArea" />
     </section>
@@ -26,7 +26,7 @@ export default {
     const router = useRouter()
     const saveReviewArea = async (reviewArea) => {
       await storeReviewArea(reviewArea)
-      alert('Area revisora guardada con exito!')
+      alert('Área revisora guardada con exito!')
       router.push({ name: 'ReviewAreas' })
     }
 

@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back :route="goToHome" />
-    <title-bar title="Catálogos" subtitle="Proyectos" />
+    <title-bar title="Proyectos" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo proyecto" @click="goToNewProject" class="mb-3 mr-0 ml-auto" />
       <table-base
@@ -44,7 +44,7 @@ export default {
         field: 'nombre_proyecto',
       },
       {
-        label: 'Monto total inversion',
+        label: 'Monto total inversión',
         field: 'monto_total_inversion',
       },
       {

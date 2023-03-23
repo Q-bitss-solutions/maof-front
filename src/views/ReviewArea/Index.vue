@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Áreas revisoras" />
+    <title-bar title="Áreas revisoras" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva área revisora" @click="goToNewReviewArea" class="mb-3 mr-0 ml-auto" />
       <table-base
@@ -36,7 +36,7 @@ export default {
     const router = useRouter()
     const headers = [
       {
-        label: 'Nombre unidad',
+        label: 'Nombre Unidad SICT',
         field: 'nombre_unidad',
       },
       {

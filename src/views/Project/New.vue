@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Proyectos" />
+    <title-bar title="Proyectos" subtitle="Nuevo" />
     <section class="px-4">
       <form-project @submit="saveProject" />
     </section>

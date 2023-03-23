@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Catálogos" subtitle="Contratos" />
+    <title-bar title="Contratos" subtitle="Editar" />
     <section class="px-4">
       <form-contract @submit="saveContract" :contract="app.contract" edit-mode v-if="!app.loading" />
     </section>
