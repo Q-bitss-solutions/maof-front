@@ -24,7 +24,7 @@
     <input-base
       id="monto_sin_iva"
       label="Monto sin IVA"
-      placeholder="Escribe el nombre"
+      placeholder="Escribe el monto sin IVA"
       type="number"
       v-model="app.contract.monto_sin_iva"
       class="mb-3"
@@ -32,14 +32,13 @@
     <input-base
       id="objeto_contrato"
       label="Objeto contrato"
-      placeholder="Escribe el nombre"
+      placeholder="Escribe el objeto contrato"
       v-model="app.contract.objeto_contrato"
       class="mb-4"
     />
     <input-base
       id="plazo_inicio"
       label="Fecha inicio"
-      placeholder="Escribe el nombre"
       type="date"
       v-model="app.contract.plazo_inicio"
       class="mb-4"
@@ -47,7 +46,6 @@
     <input-base
       id="plazo_fin"
       label="Fecha fin"
-      placeholder="Escribe el nombre"
       type="date"
       v-model="app.contract.plazo_fin"
       class="mb-4"
