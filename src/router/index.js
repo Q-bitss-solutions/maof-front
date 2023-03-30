@@ -51,6 +51,42 @@ const routes = [
     name: 'EditReviewArea',
     component: () => import('./../views/ReviewArea/Edit.vue'),
   },
+  {
+    path: '/residente',
+    name: 'Resident',
+    component: () => import('./../views/Resident/Index.vue'),
+  },
+  {
+    path: '/residente/nuevo',
+    name: 'NewResident',
+    component: () => import('./../views/Resident/New.vue'),
+  },
+  {
+    path: '/residente/:residentId',
+    name: 'EditResident',
+    component: () => import('./../views/Resident/Edit.vue'),
+  },
+  {
+    path: '/asginacion-residente',
+    name: 'AssignResident',
+    component: () => import('./../views/AssignResident/Index.vue'),
+  },
+  {
+    path: '/asginacion-residente/nuevo',
+    name: 'NewAssignResident',
+    component: () => import('./../views/AssignResident/New.vue'),
+  },
+  {
+    path: '/asginacion-residente/:id_asignacion_residente_contrato',
+    name: 'EditAssignResident',
+    component: () => import('./../views/AssignResident/Edit.vue'),
+  },
+  /*
+  {
+    path: '/areas-revisoras/:reviewAreaId',
+    name: 'EditReviewArea',
+    component: () => import('./../views/ReviewArea/Edit.vue'),
+  }, */
 ]
 
 const router = createRouter({

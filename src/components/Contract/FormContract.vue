@@ -101,6 +101,8 @@ export default {
     })
     if (props.editMode) {
       app.contract = props.contract
+      app.contract.plazo_inicio = props.contract.plazo_inicio.split('-').reverse().join('-')
+      app.contract.plazo_fin = props.contract.plazo_fin.split('-').reverse().join('-')  
     }
 
     const sendForm = () => emit('submit', app.contract)

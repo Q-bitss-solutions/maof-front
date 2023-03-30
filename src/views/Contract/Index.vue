@@ -19,7 +19,6 @@ import TableBase from '../../components/TableBase.vue'
 import { fetchContracts } from './../../api/contract'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
-import Breadcrumb from '../../components/Breadcrumb.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 
@@ -29,7 +28,6 @@ export default {
     TableBase,
     ArrowBack,
     ButtonBase,
-    Breadcrumb,
     TitleBar,
   },
   setup() {
