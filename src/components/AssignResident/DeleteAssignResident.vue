@@ -3,9 +3,9 @@
     <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
       class="mb-3" disabled />
     <select-base id="id_residente" label="Residente" :options="app.listResident" class="mb-3"
-      v-model="app.assingResident.id_residente" disabled/>
+      v-model="app.assingResident.id_residente" disabled />
     <input-base id="fecha_inicio_asignacion" label="Fecha de asignacion del Residente" type="date" class="mb-3"
-      v-model="app.assingResident.fecha_inicio_asignacion" disabled/>
+      v-model="app.assingResident.fecha_inicio_asignacion" disabled />
     <div>
       <div>
         <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3"
@@ -15,7 +15,7 @@
         <span>
           {{ app.fileName[5] }}
         </span>
-          <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
+        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
       </div>
     </div>
     <div>
@@ -78,9 +78,11 @@ export default {
       console.log('formData id_contrato: ', formData)
       emit('submit', formData) */
       /* emit('submit', app.assingResident) */
-      alert('Eliminado con exito!')
-      await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato)
-      router.push({ name: 'AssignResident' })
+      if (confirm(`Estas seguro que desea eliminar el registro?`)) {
+        await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato)
+        alert('Eliminado con exito!')
+        router.push({ name: 'AssignResident' })
+      }
     }
 
     const getContracts = async () => {
@@ -94,7 +96,7 @@ export default {
     }
 
     const downloadFile = async () => {
-      window.open(`${app.assingResident.archivo_asignacion}`,'_blank');
+      window.open(`${app.assingResident.archivo_asignacion}`, '_blank');
     }
 
 

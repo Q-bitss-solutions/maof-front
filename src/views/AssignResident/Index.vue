@@ -1,14 +1,10 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignacion Residente" subtitle="Inicio" />
+    <title-bar title="Asignacion Residente" subtitle="Inició" />
     <section class="px-4">
       <button-base label="Nueva  Asignacion" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
-      <table-base
-        :options="featureOptions"
-        :headers="headers"
-        :data="assingResident"
-      />
+      <table-base :options="featureOptions" :headers="headers" :data="assingResident" />
     </section>
   </main>
 </template>
@@ -46,7 +42,7 @@ export default {
         field: 'nombre_residente',
       },
       {
-        label: 'Fecha de inicio',
+        label: 'Fecha de Inició',
         field: 'fecha_inicio_asignacion',
       },
       {
@@ -56,10 +52,6 @@ export default {
       {
         label: 'Estado',
         field: 'estado_asignacion',
-      },
-      {
-        label: '',
-        field: 'archivo_asignacion',
       },
     ]
     const assingResident = ref([])
@@ -82,11 +74,17 @@ export default {
       {
         label: 'Eliminar',
         action: async (assingResident) => router.push({
-          name:'DeleteAssignResident',
-          params:{
+          name: 'DeleteAssignResident',
+          params: {
             assingResidentId: assingResident.id_asignacion_residente_contrato
           }
         })
+      },
+      {
+        label: 'PDF',
+        action: async (assingResident) => {
+          window.open(`${assingResident.archivo_asignacion}`, '_blank');
+        },
       },
     ]
     const goToNewAssingResident = () => router.push({ name: 'NewAssignResident' })

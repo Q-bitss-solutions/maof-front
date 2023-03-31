@@ -104,7 +104,7 @@ export default {
             labelSubMenu: 'Catalogos',
             subMenu2: [
               {
-                label: 'Area Revisora',
+                label: 'Área Revisora',
                 routeName: 'ReviewAreas',
               },
               {

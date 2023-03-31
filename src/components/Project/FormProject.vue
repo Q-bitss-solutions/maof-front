@@ -24,7 +24,7 @@
     />
     <input-base
       id="fecha_inicio_proyecto"
-      label="Fecha inicio proyecto"
+      label="Fecha Inició proyecto"
       type="date"
       v-model="app.project.fecha_inicio_proyecto"
       class="mb-3"

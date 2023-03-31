@@ -8,7 +8,7 @@
       v-model="app.assingResident.fecha_inicio_asignacion" />
     <div>
       <div>
-        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" @change="fileUpload" />
+        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" accept="application/pdf" @change="fileUpload" />
       </div>
       <div v-if="editMode === true" class="flex flex-row justify-end">
         <span>

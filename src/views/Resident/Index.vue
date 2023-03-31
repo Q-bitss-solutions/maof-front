@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Residente" subtitle="Inicio" />
+    <title-bar title="Residente" subtitle="Inició" />
     <section class="px-4">
       <button-base label="Nuevo Residente" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="resident" />
@@ -42,7 +42,7 @@ export default {
         field: 'unidad_sict',
       },
       {
-        label: 'Fecha de inicio',
+        label: 'Fecha de Inició',
         field: 'fecha_inicio_residente',
       },
       {
