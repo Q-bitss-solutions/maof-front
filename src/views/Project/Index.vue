@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back :route="goToHome" />
-    <title-bar title="Proyectos" subtitle="Inicio" />
+    <title-bar title="Proyectos" subtitle="Inició" />
     <section class="px-4">
       <button-base label="Nuevo proyecto" @click="goToNewProject" class="mb-3 mr-0 ml-auto" />
       <table-base
@@ -50,7 +50,7 @@ export default {
         field: 'estatus_proyecto',
       },
       {
-        label: 'Fecha inicio',
+        label: 'Fecha Inició',
         field: 'fecha_inicio_proyecto',
       },
       {

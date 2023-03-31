@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignacion Residente" subtitle="Nuevo" />
+    <title-bar title="Asignación Residente" subtitle="Nuevo" />
     <section class="px-4">
       <form-assign-resident @submit="saveAssingResident" />
     </section>

@@ -1,9 +1,9 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignacion Residente" subtitle="Inició" />
+    <title-bar title="Asignación Residente" subtitle="Inició" />
     <section class="px-4">
-      <button-base label="Nueva  Asignacion" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
+      <button-base label="Nueva  Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="assingResident" />
     </section>
   </main>

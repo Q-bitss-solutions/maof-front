@@ -1,10 +1,10 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
+    <select-base id="id_contrato" label="Contrató" :options="app.listContract" v-model="app.assingResident.id_contrato"
       class="mb-3" />
     <select-base id="id_residente" label="Residente" :options="app.listResident" class="mb-3"
       v-model="app.assingResident.id_residente" />
-    <input-base id="fecha_inicio_asignacion" label="Fecha de asignacion del Residente" type="date" class="mb-3"
+    <input-base id="fecha_inicio_asignacion" label="Fecha de asignación del Residente" type="date" class="mb-3"
       v-model="app.assingResident.fecha_inicio_asignacion" />
     <div>
       <div>

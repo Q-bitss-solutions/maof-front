@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignacion Residente" subtitle="Editar" />
+    <title-bar title="Asignación Residente" subtitle="Editar" />
     <section class="px-4">
       <form-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode v-if="!app.loading" />
     </section>
