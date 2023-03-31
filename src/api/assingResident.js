@@ -16,10 +16,10 @@ const storeAssingResident = (AssingResident) => fetchApi({
   data: AssingResident,
 })
 
-const updateAssingResident = (AssingResident) => fetchApi({
+const updateAssingResident = (AssingResident,data) => fetchApi({
   url: `/asignacion_residente_contrato/${AssingResident.id_asignacion_residente_contrato}/`,
   method: 'PUT',
-  data: AssingResident,
+  data: data,
 })
 const deleteAssingResident = (AssingResident_id) => fetchApi({
   url: `/asignacion_residente_contrato/${AssingResident_id}/`,

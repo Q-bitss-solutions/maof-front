@@ -18,6 +18,9 @@
           <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
       </div>
     </div>
+    <div>
+      <h4 class="text-2xl mt-4">¿Seguro de eliminar el registro?</h4>
+    </div>
     <button-base label="Eliminar" @click="deleteRegister" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -75,7 +78,6 @@ export default {
       console.log('formData id_contrato: ', formData)
       emit('submit', formData) */
       /* emit('submit', app.assingResident) */
-      console.log('app: ',app.assingResident.id_asignacion_residente_contrato)
       alert('Eliminado con exito!')
       await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato)
       router.push({ name: 'AssignResident' })

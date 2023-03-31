@@ -8,14 +8,13 @@
       v-model="app.assingResident.fecha_inicio_asignacion" />
     <div>
       <div>
-        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" @change="fileUpload"
-          :value="app.assingResident.archivo_asignacion" />
+        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" @change="fileUpload" />
       </div>
       <div v-if="editMode === true" class="flex flex-row justify-end">
         <span>
           {{ app.fileName[5] }}
         </span>
-          <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
+        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
       </div>
     </div>
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
@@ -56,21 +55,24 @@ export default {
         archivo_asignacion: '',
       },
       fileName: '',
+      fileURl: '',
       listResident: [],
       listContract: [],
     })
     let formData = new FormData()
     if (props.editMode) {
       app.assingResident = props.assingResident
-      app.fileName = props.assingResident.archivo_asignacion.split('/')
-      console.log('props.assingResident: ', props.assingResident)
-      console.log('app.fileName: ', app.fileName[5])
+      app.fileURl = app.assingResident.archivo_asignacion
+      app.fileName = app.assingResident.archivo_asignacion.split('/')
+      delete app.assingResident.archivo_asignacion
+      formData.append('id_contrato', app.assingResident.id_contrato);
+      formData.append('id_residente', app.assingResident.id_residente);
+      formData.append('fecha_inicio_asignacion', app.assingResident.fecha_inicio_asignacion);
     }
     const sendForm = () => {
       formData.append('id_contrato', app.assingResident.id_contrato);
       formData.append('id_residente', app.assingResident.id_residente);
       formData.append('fecha_inicio_asignacion', app.assingResident.fecha_inicio_asignacion);
-      console.log('formData id_contrato: ', formData)
       emit('submit', formData)
       /* emit('submit', app.assingResident) */
     }
@@ -90,7 +92,7 @@ export default {
     }
 
     const downloadFile = async () => {
-      window.open(`${app.assingResident.archivo_asignacion}`,'_blank');
+      window.open(`${app.fileURl}`, '_blank');
     }
 
 

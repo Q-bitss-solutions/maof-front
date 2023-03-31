@@ -35,12 +35,11 @@ export default {
       const { data } = await fetchAssingResidentById(route.params.assingResidentId)
       app.assingResident = data
       app.loading = false
-      console.log(app)
+      console.log('app: ', app)
     }
     const saveAssingResident = async (assingResident) => {
       console.log('assingResident: ',assingResident)
-      console.log('app: ',app.assingResident)
-      await updateAssingResident(app.assingResident)
+      await updateAssingResident(app.assingResident, assingResident)
       router.push({ name: 'AssignResident' })
     }
 
