@@ -3,12 +3,11 @@
     <arrow-back />
     <title-bar title="Asignacion Residente" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Nueva  Asignacion" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
-      {{ resident }}
+      <button-base label="Nueva  Asignacion" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
       <table-base
         :options="featureOptions"
         :headers="headers"
-        :data="resident"
+        :data="assingResident"
       />
     </section>
   </main>
@@ -17,7 +16,7 @@
 <script>
 import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResident } from './../../api/resident'
+import { fetchAssingResident } from './../../api/assingResident'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -58,41 +57,47 @@ export default {
         label: 'Estado',
         field: 'estado_asignacion',
       },
+      {
+        label: '',
+        field: 'archivo_asignacion',
+      },
     ]
-    const resident = ref([])
-    const getResident = async () => {
-      const { data } = await fetchResident()
-      resident.value = data
+    const assingResident = ref([])
+    const getAssingResident = async () => {
+      const { data } = await fetchAssingResident()
+      console.log('data: ', data)
+      assingResident.value = data
     }
     const featureOptions = [
       {
         label: 'Editar',
-        action: (resident) => router
+        action: (assingResident) => router
           .push({
-            name: 'EditResident',
+            name: 'EditAssignResident',
             params: {
-              residentId: resident.id_proyecto,
+              assingResidentId: assingResident.id_asignacion_residente_contrato,
             },
           }),
       },
       {
         label: 'Eliminar',
-        action: async (resident) => {
-          if (confirm(`Estas seguro que desea eliminar el proyecto "${resident.nombre_proyecto}"?`)) {
-            await deleteProject(project.id_proyecto)
-            await getProjects()
+        action: async (assingResident) => router.push({
+          name:'DeleteAssignResident',
+          params:{
+            assingResidentId: assingResident.id_asignacion_residente_contrato
           }
-        },
+        })
       },
     ]
-    const goToNewResident = () => router.push({ name: 'NewAssignResident' })
+    const goToNewAssingResident = () => router.push({ name: 'NewAssignResident' })
 
-    getResident
+    getAssingResident()
     return {
-      resident,
+      assingResident,
       featureOptions,
       headers,
-      goToNewResident,
+      goToNewAssingResident,
+      getAssingResident,
     }
   },
 }

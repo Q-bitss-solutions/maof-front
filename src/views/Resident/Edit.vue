@@ -14,7 +14,7 @@ import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { updateResident, fetchResidentById } from '../../api/resident'
 import { reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'EditResident',
@@ -25,6 +25,7 @@ export default {
   },
   setup() {
     const route = useRoute()
+    const router = useRouter()
     const app = reactive({
       resident: {},
       loading: true,
@@ -38,6 +39,8 @@ export default {
     }
     const saveResident = async (resident) => {
       await updateResident(resident)
+      alert('Residente actualizado con exito!')
+      router.push({ name: 'Resident' })
     }
 
     getResidentById()

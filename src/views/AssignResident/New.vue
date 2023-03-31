@@ -1,9 +1,9 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Residente" subtitle="Nuevo" />
+    <title-bar title="Asignacion Residente" subtitle="Nuevo" />
     <section class="px-4">
-      <form-assign-resident @submit="saveResident" />
+      <form-assign-resident @submit="saveAssingResident" />
     </section>
   </main>
 </template>
@@ -12,28 +12,29 @@
 import FormAssignResident from '../../components/AssignResident/FormAssignResident.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { storeReviewArea } from '../../api/reviewArea'
-import { useRouter } from 'vue-router'
+import { storeAssingResident } from '../../api/assingResident'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
-  name: 'NewResident',
+  name: 'NewAssingResident',
   components: {
     FormAssignResident,
     ArrowBack,
     TitleBar,
   },
   setup() {
+    const route = useRoute()
     const router = useRouter()
-    const saveResident = async (resident) => {
+    const saveAssingResident = async (assingResident) => {
       /* await storeReviewArea(reviewArea) */
-      /* await storeResident(resident) */
-      console.log('resident: ',resident)
+      console.log('assingResident: ',assingResident)
+      await storeAssingResident(assingResident)
       alert('Residente guardado con exito!')
-      router.push({ name: 'Resident' })
+      router.push({ name: 'AssignResident' })
     }
 
     return {
-      saveResident,
+      saveAssingResident,
     }
   },
 }

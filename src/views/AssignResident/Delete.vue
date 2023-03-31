@@ -1,15 +1,15 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignacion Residente" subtitle="Editar" />
+    <title-bar title="Asignacion Residente" subtitle="Eliminar" />
     <section class="px-4">
-      <form-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode v-if="!app.loading" />
+      <delete-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
 
 <script>
-import FormAssignResident from '../../components/AssignResident/FormAssignResident.vue'
+import DeleteAssignResident from '../../components/AssignResident/DeleteAssignResident.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { updateAssingResident, fetchAssingResidentById } from '../../api/assingResident'
@@ -17,9 +17,9 @@ import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export default {
-  name: 'EditAssingResident',
+  name: 'DeleteAssingResident',
   components: {
-    FormAssignResident,
+    DeleteAssignResident,
     ArrowBack,
     TitleBar,
   },
@@ -38,9 +38,8 @@ export default {
       console.log(app)
     }
     const saveAssingResident = async (assingResident) => {
-      console.log('assingResident: ',assingResident)
-      console.log('app: ',app.assingResident)
       await updateAssingResident(app.assingResident)
+      alert('Eliminado con exito!')
       router.push({ name: 'AssignResident' })
     }
 
@@ -49,6 +48,7 @@ export default {
     return {
       app,
       saveAssingResident,
+      
     }
   },
 }

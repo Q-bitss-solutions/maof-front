@@ -77,9 +77,14 @@ const routes = [
     component: () => import('./../views/AssignResident/New.vue'),
   },
   {
-    path: '/asginacion-residente/:id_asignacion_residente_contrato',
+    path: '/asginacion-residente/:assingResidentId',
     name: 'EditAssignResident',
     component: () => import('./../views/AssignResident/Edit.vue'),
+  },
+  {
+    path: '/asginacion-residente/delete/:assingResidentId',
+    name: 'DeleteAssignResident',
+    component: () => import('./../views/AssignResident/Delete.vue'),
   },
   /*
   {

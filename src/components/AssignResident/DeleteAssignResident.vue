@@ -1,15 +1,15 @@
 <template>
   <div class="max-w-xl mx-auto">
     <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
-      class="mb-3" />
+      class="mb-3" disabled />
     <select-base id="id_residente" label="Residente" :options="app.listResident" class="mb-3"
-      v-model="app.assingResident.id_residente" />
+      v-model="app.assingResident.id_residente" disabled/>
     <input-base id="fecha_inicio_asignacion" label="Fecha de asignacion del Residente" type="date" class="mb-3"
-      v-model="app.assingResident.fecha_inicio_asignacion" />
+      v-model="app.assingResident.fecha_inicio_asignacion" disabled/>
     <div>
       <div>
-        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" @change="fileUpload"
-          :value="app.assingResident.archivo_asignacion" />
+        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3"
+          :value="app.assingResident.archivo_asignacion" disabled />
       </div>
       <div v-if="editMode === true" class="flex flex-row justify-end">
         <span>
@@ -18,7 +18,7 @@
           <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
       </div>
     </div>
-    <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
+    <button-base label="Eliminar" @click="deleteRegister" class="mr-0 ml-auto" />
   </div>
 </template>
 
@@ -29,6 +29,8 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchResident } from '../../api/resident'
 import { fetchContracts } from '../../api/contract'
+import { deleteAssingResident } from '../../api/assingResident'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'FormAssignResident',
@@ -48,6 +50,8 @@ export default {
     SelectBase,
   },
   setup(props, { emit }) {
+    const route = useRoute()
+    const router = useRouter()
     const app = reactive({
       assingResident: {
         id_contrato: '',
@@ -63,16 +67,18 @@ export default {
     if (props.editMode) {
       app.assingResident = props.assingResident
       app.fileName = props.assingResident.archivo_asignacion.split('/')
-      console.log('props.assingResident: ', props.assingResident)
-      console.log('app.fileName: ', app.fileName[5])
     }
-    const sendForm = () => {
-      formData.append('id_contrato', app.assingResident.id_contrato);
+    const deleteRegister = async () => {
+      /* formData.append('id_contrato', app.assingResident.id_contrato);
       formData.append('id_residente', app.assingResident.id_residente);
       formData.append('fecha_inicio_asignacion', app.assingResident.fecha_inicio_asignacion);
       console.log('formData id_contrato: ', formData)
-      emit('submit', formData)
+      emit('submit', formData) */
       /* emit('submit', app.assingResident) */
+      console.log('app: ',app.assingResident.id_asignacion_residente_contrato)
+      alert('Eliminado con exito!')
+      await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato)
+      router.push({ name: 'AssignResident' })
     }
 
     const getContracts = async () => {
@@ -83,10 +89,6 @@ export default {
     const getResident = async () => {
       const { data } = await fetchResident()
       app.listResident = data.map(resident => ({ value: resident.id_residente, label: resident.nombre_completo }))
-    }
-
-    const fileUpload = (event) => {
-      formData.append('archivo_asignacion', event.target.files[0]);
     }
 
     const downloadFile = async () => {
@@ -100,11 +102,10 @@ export default {
     return {
       app,
       formData,
-      sendForm,
       getContracts,
       getResident,
-      fileUpload,
       downloadFile,
+      deleteRegister,
     }
   },
 }
