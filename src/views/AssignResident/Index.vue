@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignación Residente" subtitle="Inició" />
+    <title-bar title="Asignación Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva  Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="assingResident" />
@@ -42,7 +42,7 @@ export default {
         field: 'nombre_residente',
       },
       {
-        label: 'Fecha de Inició',
+        label: 'Fecha de inicio',
         field: 'fecha_inicio_asignacion',
       },
       {

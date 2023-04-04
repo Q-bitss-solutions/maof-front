@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Contratos" subtitle="Inició" />
+    <title-bar title="Contratos" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo contrato" @click="goToNewContract" class="mb-3 mr-0 ml-auto" />
       <table-base
@@ -50,7 +50,7 @@ export default {
         field: 'monto_sin_iva',
       },
       {
-        label: 'Fecha Inició',
+        label: 'Fecha inicio',
         field: 'plazo_inicio',
       },
       {

@@ -24,7 +24,7 @@
     />
     <input-base
       id="fecha_inicio_proyecto"
-      label="Fecha Inició proyecto"
+      label="Fecha inicio proyecto"
       type="date"
       v-model="app.project.fecha_inicio_proyecto"
       class="mb-3"
@@ -70,13 +70,15 @@ export default {
       project: {
         clave_cartera: '',
         nombre_proyecto: '',
-        monto_total_inversion: '',
+        monto_total_inversion: 0,
         fecha_inicio_proyecto: '',
         fecha_fin_proyecto: '',
       }
     })
     if (props.editMode) {
       app.project = props.project
+      app.project.fecha_inicio_proyecto = props.project.fecha_inicio_proyecto.split('-').reverse().join('-')
+      app.project.fecha_fin_proyecto = props.project.fecha_fin_proyecto.split('-').reverse().join('-') 
     }
 
     const sendForm = () => emit('submit', app.project)

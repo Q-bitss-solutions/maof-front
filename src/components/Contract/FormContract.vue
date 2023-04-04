@@ -38,7 +38,7 @@
     />
     <input-base
       id="plazo_inicio"
-      label="Fecha Inició"
+      label="Fecha inicio"
       type="date"
       v-model="app.contract.plazo_inicio"
       class="mb-4"

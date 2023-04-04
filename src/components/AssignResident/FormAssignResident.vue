@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_contrato" label="Contrató" :options="app.listContract" v-model="app.assingResident.id_contrato"
+    <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
       class="mb-3" />
     <select-base id="id_residente" label="Residente" :options="app.listResident" class="mb-3"
       v-model="app.assingResident.id_residente" />
@@ -8,7 +8,7 @@
       v-model="app.assingResident.fecha_inicio_asignacion" />
     <div>
       <div>
-        <input-base id="archivo_asignacion" label="Archivo" type="file" class="mb-3" accept="application/pdf" @change="fileUpload" />
+        <input-base id="archivo_asignacion" label="Carga oficio de designación" type="file" class="mb-3" accept="application/pdf" @change="fileUpload" />
       </div>
       <div v-if="editMode === true" class="flex flex-row justify-end">
         <span>

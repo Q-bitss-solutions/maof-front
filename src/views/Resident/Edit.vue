@@ -15,6 +15,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateResident, fetchResidentById } from '../../api/resident'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'EditResident',
@@ -39,7 +40,12 @@ export default {
     }
     const saveResident = async (resident) => {
       await updateResident(resident)
-      alert('Residente actualizado con exito!')
+      /* alert('Residente actualizado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Residente actualizado con exito!',
+        'success'
+      )
       router.push({ name: 'Resident' })
     }
 

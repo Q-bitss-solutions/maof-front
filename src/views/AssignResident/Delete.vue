@@ -15,6 +15,8 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateAssingResident, fetchAssingResidentById } from '../../api/assingResident'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'DeleteAssingResident',
@@ -39,7 +41,12 @@ export default {
     }
     const saveAssingResident = async (assingResident) => {
       await updateAssingResident(app.assingResident)
-      alert('Eliminado con exito!')
+      /* alert('Eliminado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Asignacion Inavilitada con exito!',
+        'success'
+      )
       router.push({ name: 'AssignResident' })
     }
 

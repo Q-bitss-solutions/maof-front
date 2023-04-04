@@ -15,6 +15,8 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateAssingResident, fetchAssingResidentById } from '../../api/assingResident'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'EditAssingResident',
@@ -38,8 +40,12 @@ export default {
       console.log('app: ', app)
     }
     const saveAssingResident = async (assingResident) => {
-      console.log('assingResident: ',assingResident)
       await updateAssingResident(app.assingResident, assingResident)
+      Swal.fire(
+        'Exito!',
+        'Asignacion actualizada con exito!',
+        'success'
+      )
       router.push({ name: 'AssignResident' })
     }
 

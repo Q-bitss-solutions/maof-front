@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Áreas revisoras" subtitle="Inició" />
+    <title-bar title="Áreas revisoras" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva área revisora" @click="goToNewReviewArea" class="mb-3 mr-0 ml-auto" />
       <table-base
@@ -42,7 +42,7 @@ export default {
         field: 'estado_area_revisora',
       },
       {
-        label: 'Fecha Inició',
+        label: 'Fecha inicio',
         field: 'fecha_inicio_area_revisora',
       },
       {

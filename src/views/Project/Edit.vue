@@ -15,6 +15,8 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateProject, fetchProjectById } from '../../api/project'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'EditProject',
@@ -38,7 +40,12 @@ export default {
     }
     const saveProject = async (project) => {
       await updateProject(project)
-      alert('Proyecto actualizado con exito!')
+      /* alert('Proyecto actualizado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Proyecto actualizado con exito!',
+        'success'
+      )
       router.push({ name: 'Projects' })
     }
 

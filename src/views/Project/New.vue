@@ -14,6 +14,7 @@ import { storeProject } from '../../api/project'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'EditProject',
@@ -26,7 +27,12 @@ export default {
     const router = useRouter()
     const saveProject = async (project) => {
       await storeProject(project)
-      alert('Proyecto guardado con exito!')
+      /* alert('Proyecto guardado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Proyecto guardado con exito!',
+        'success'
+      )
       router.push({ name: 'Projects' })
     }
 

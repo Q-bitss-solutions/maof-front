@@ -14,6 +14,7 @@ import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeContract } from '../../api/contract'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'NewContract',
@@ -26,7 +27,12 @@ export default {
     const router = useRouter()
     const saveContract = async (contract) => {
       await storeContract(contract)
-      alert('Contrato guardado con exito!')
+      /* alert('Contrato guardado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Contrato guardado con exito!',
+        'success'
+      )
       router.push({ name: 'Contracts' })
     }
 

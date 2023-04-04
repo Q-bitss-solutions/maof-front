@@ -14,6 +14,8 @@ import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeAssingResident } from '../../api/assingResident'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'NewAssingResident',
@@ -29,7 +31,12 @@ export default {
       /* await storeReviewArea(reviewArea) */
       console.log('assingResident: ',assingResident)
       await storeAssingResident(assingResident)
-      alert('Residente guardado con exito!')
+     /*  alert('Residente guardado con exito!') */
+     Swal.fire(
+        'Exito!',
+        'Asignacion guardada con exito!',
+        'success'
+      )
       router.push({ name: 'AssignResident' })
     }
 

@@ -15,6 +15,8 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
+
 
 export default {
   name: 'EditContract',
@@ -39,7 +41,12 @@ export default {
     }
     const saveContract = async (contract) => {
       await updateContract(contract)
-      alert('Contrato actualizado con exito!')
+      /* alert('Contrato actualizado con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Contrato actualizado con exito!',
+        'success'
+      )
       router.push({ name: 'Contracts' })
     }
 
