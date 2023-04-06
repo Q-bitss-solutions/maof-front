@@ -14,6 +14,7 @@ import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeReviewArea } from '../../api/reviewArea'
 import { useRouter } from 'vue-router'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'NewReviewArea',
@@ -26,7 +27,12 @@ export default {
     const router = useRouter()
     const saveReviewArea = async (reviewArea) => {
       await storeReviewArea(reviewArea)
-      alert('Área revisora guardada con exito!')
+      /* alert('Área revisora guardada con exito!') */
+      Swal.fire(
+        'Exito!',
+        'Área revisora guardada con exito!',
+        'success'
+      )
       router.push({ name: 'ReviewAreas' })
     }
 

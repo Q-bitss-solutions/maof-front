@@ -3,7 +3,7 @@
     <select-base
       id="clave_unidad"
       label="Unidad SICT"
-      v-model="app.reviewArea.clave_unidad"
+      v-model="app.reviewArea.id_unidad_sict"
       :options="app.listSICTUnits"
       class="mb-3"
     />
@@ -40,14 +40,14 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       reviewArea: {
-        clave_unidad: '',
+        id_unidad_sict: '',
       },
       listSICTUnits: [],
     })
     if (props.editMode) {
       app.reviewArea = {
         ...props.reviewArea,
-        clave_unidad: `${props.reviewArea.clave_unidad}`
+        id_unidad_sict: `${props.reviewArea.id_unidad_sict}`
       }
     }
 
@@ -55,7 +55,8 @@ export default {
 
     const getSICTUnits = async () => {
       const { data } = await fetchSICTUnits()
-      app.listSICTUnits = data.map(unit => ({ value: unit.clave_unidad, label: unit.unidad }))
+      console.log(data)
+      app.listSICTUnits = data.map(unit => ({ value: unit.id_unidad_sict, label: unit.unidad }))
     }
 
     getSICTUnits()

@@ -21,9 +21,10 @@ const updateAssingResident = (AssingResident,data) => fetchApi({
   method: 'PUT',
   data: data,
 })
-const deleteAssingResident = (AssingResident_id) => fetchApi({
+const deleteAssingResident = (AssingResident_id, data) => fetchApi({
   url: `/asignacion_residente_contrato/${AssingResident_id}/`,
-  method: 'DELETE',
+  method: 'PATCH',
+  data: data,
 })
 
 export {
