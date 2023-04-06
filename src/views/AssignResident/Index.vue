@@ -57,7 +57,6 @@ export default {
     const assingResident = ref([])
     const getAssingResident = async () => {
       const { data } = await fetchAssingResident()
-      console.log('data: ', data)
       assingResident.value = data
     }
     const featureOptions = [

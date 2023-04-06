@@ -34,7 +34,6 @@ export default {
       const { data } = await fetchReviewAreaById(route.params.reviewAreaId)
       app.reviewArea = data
       app.loading = false
-      console.log(app)
     }
     const saveReviewArea = async (reviewArea) => {
       await updateReviewArea(reviewArea)

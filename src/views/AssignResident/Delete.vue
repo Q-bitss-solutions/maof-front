@@ -37,7 +37,6 @@ export default {
       const { data } = await fetchAssingResidentById(route.params.assingResidentId)
       app.assingResident = data
       app.loading = false
-      console.log(app)
     }
     const saveAssingResident = async (assingResident) => {
       await updateAssingResident(app.assingResident)

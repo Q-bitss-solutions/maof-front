@@ -29,7 +29,6 @@ export default {
     const router = useRouter()
     const saveAssingResident = async (assingResident) => {
       /* await storeReviewArea(reviewArea) */
-      console.log('assingResident: ',assingResident)
       await storeAssingResident(assingResident)
      /*  alert('Residente guardado con exito!') */
      Swal.fire(

@@ -37,7 +37,6 @@ export default {
       const { data } = await fetchContractById(route.params.contractId)
       app.contract = data
       app.loading = false
-      console.log(app)
     }
     const saveContract = async (contract) => {
       await updateContract(contract)

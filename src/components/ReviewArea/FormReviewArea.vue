@@ -55,7 +55,6 @@ export default {
 
     const getSICTUnits = async () => {
       const { data } = await fetchSICTUnits()
-      console.log(data)
       app.listSICTUnits = data.map(unit => ({ value: unit.id_unidad_sict, label: unit.unidad }))
     }
 
