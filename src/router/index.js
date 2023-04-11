@@ -86,6 +86,21 @@ const routes = [
     name: 'DeleteAssignResident',
     component: () => import('./../views/AssignResident/Delete.vue'),
   },
+  {
+    path: '/convenio-colaboracion',
+    name: 'CollaborationAgreements',
+    component: () => import('./../views/CollaborationAgreements/Index.vue'),
+  },
+  {
+    path: '/convenio-colaboracion/nuevo',
+    name: 'NewCollaborationAgreements',
+    component: () => import('./../views/CollaborationAgreements/New.vue'),
+  },
+  {
+    path: '/convenio-colaboracion/:collaborationAgreementId',
+    name: 'EditCollaborationAgreements',
+    component: () => import('./../views/CollaborationAgreements/Edit.vue'),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

@@ -92,7 +92,7 @@ export default {
               },
               {
                 label: 'Contratos y convenios de colaboracion',
-                routeName: 'Contracts',
+                routeName: 'CollaborationAgreements',
               },
               {
                 label: 'Convenios Modificatorios',

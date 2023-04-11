@@ -2,13 +2,17 @@
   <div class="max-w-xl mx-auto">
     <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
       class="mb-3" />
+    <!-- <span v-for="error in v$.id_contrato.$errors" :key="error.$uid" class="text-red text-lg">
+      {{ error.$message }}
+    </span> -->
     <select-base id="id_residente" label="Residente" :options="app.listResident" class="mb-3"
       v-model="app.assingResident.id_residente" />
     <input-base id="fecha_inicio_asignacion" label="Fecha de asignación del Residente" type="date" class="mb-3"
       v-model="app.assingResident.fecha_inicio_asignacion" />
     <div>
       <div>
-        <input-base id="archivo_asignacion" label="Carga oficio de designación" type="file" class="mb-3" accept="application/pdf" @change="fileUpload" />
+        <input-base id="archivo_asignacion" label="Carga oficio de designación" type="file" class="mb-3"
+          accept="application/pdf" @change="fileUpload" />
       </div>
       <div v-if="editMode === true" class="flex flex-row justify-end">
         <span>
@@ -28,6 +32,8 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchResident } from '../../api/resident'
 import { fetchContracts } from '../../api/contract'
+import useVuelidate from '@vuelidate/core'
+import { required, helpers } from '@vuelidate/validators'
 
 export default {
   name: 'FormAssignResident',
@@ -59,6 +65,11 @@ export default {
       listResident: [],
       listContract: [],
     })
+    /* const rules = {
+      id_contrato: { required: helpers.withMessage('El id es requerido', required) },
+      id_residente: { required },
+    }
+    const v$ = useVuelidate(rules, app.assingResident) */
     let formData = new FormData()
     if (props.editMode) {
       app.assingResident = props.assingResident
@@ -69,11 +80,19 @@ export default {
       formData.append('id_residente', app.assingResident.id_residente);
       formData.append('fecha_inicio_asignacion', app.assingResident.fecha_inicio_asignacion);
     }
-    const sendForm = () => {
+    const sendForm = async () => {
       formData.append('id_contrato', app.assingResident.id_contrato);
       formData.append('id_residente', app.assingResident.id_residente);
       formData.append('fecha_inicio_asignacion', app.assingResident.fecha_inicio_asignacion);
       emit('submit', formData)
+      /* const result = await v$.value.$validate()
+      if (result) {
+        emit('submit', formData)
+        alert('Validation')
+
+      } else {
+        alert('no validation')
+      } */
       /* emit('submit', app.assingResident) */
     }
 
@@ -107,6 +126,7 @@ export default {
       getResident,
       fileUpload,
       downloadFile,
+      v$,
     }
   },
 }
