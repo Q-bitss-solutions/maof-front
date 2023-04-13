@@ -126,7 +126,7 @@ export default {
       getResident,
       fileUpload,
       downloadFile,
-      v$,
+      /* v$, */
     }
   },
 }

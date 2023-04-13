@@ -1,10 +1,21 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Convenios de Colaboración" subtitle="Inicio" />
+    <title-bar title="Convenio Modificatorio" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Nuevo Convenio de Colaboración" @click="goToNewCollaborationAgreements" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="collaborationAgreements" />
+      <button-base label="Nuevo Convenio Modificatorio" @click="goToNewAmendingAgreement" class="mb-3 mr-0 ml-auto" />
+      <table-base :options="featureOptions" :headers="headers" :data="amendingAgreement" />
+      <!-- <div class="root">
+      <teleport to="body">
+        <div class="modal flex" v-if="isOpen">
+          <div class="flex-row">
+            <h2>{{ amendingAgreementDetalles }}</h2>
+            <h2>{{ amendingAgreementDetalles }}</h2>
+            <button-base label="Modal" @click="isOpen =  false" class="mr-0 ml-auto" />
+          </div>
+        </div>
+      </teleport>
+    </div> -->
     </section>
   </main>
 </template>
@@ -20,7 +31,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'CollaborationAgreementsIndex',
+  name: 'AmendingAgreementIndex',
   components: {
     TableBase,
     ArrowBack,
@@ -28,6 +39,7 @@ export default {
     TitleBar,
   },
   setup() {
+    const isOpen = ref(false)
     const router = useRouter()
     const headers = [
       {
@@ -35,19 +47,7 @@ export default {
         field: '',
       },
       {
-        label: 'Tipo',
-        field: '',
-      },
-      {
-        label: 'Proyecto padre (Cartera de inversión)',
-        field: '',
-      },
-      {
-        label: 'Contratista',
-        field: '',
-      },
-      {
-        label: 'Unidad SICT',
+        label: 'Contrato o Convenio de Colaboración',
         field: '',
       },
       {
@@ -59,7 +59,7 @@ export default {
         field: '',
       },
       {
-        label: 'Monto (sin IVA)',
+        label: 'Monto sin IVA',
         field: '',
       },
       {
@@ -67,7 +67,11 @@ export default {
         field: '',
       },
       {
-        label: 'Plazo de fin',
+        label: 'Plazo finalización',
+        field: '',
+      },
+      {
+        label: 'Monto (sin IVA)',
         field: '',
       },
       {
@@ -75,27 +79,28 @@ export default {
         field: '',
       },
     ]
-    const collaborationAgreements = ref([])
-    const getCollaborationAgreements = async () => {
-      const { data } = await fetchCollaborationAgreements()
-      collaborationAgreements.value = data
+    const amendingAgreement = ref([])
+    const amendingAgreementDetalles = ref([])
+    const getResident = async () => {
+      const { data } = await fetchResident()
+      amendingAgreement.value = data
     }
     const featureOptions = [
       {
         label: 'Editar',
-        action: (collaborationAgreements) => router
+        action: (amendingAgreement) => router
           .push({
-            name: 'EditCollaborationAgreements',
+            name: 'EditAmendingAgreement',
             params: {
-              collaborationAgreementId: collaborationAgreements.id_collaborationAgreementse,
+              collaborationAgreementId: amendingAgreement.id_amendingAgreement,
             },
           }),
       },
       {
         label: 'Eliminar',
-        action: async (collaborationAgreements) => {
+        action: async (resident) => {
           Swal.fire({
-            title: `Estas seguro que desea inactivar el residente "${collaborationAgreements.nombre_completo}"?`,
+            title: `Estas seguro que desea inactivar el residente "${resident.nombre_completo}"?`,
             text: "Esto finalizara las asignaciones del residente",
             icon: 'warning',
             showCancelButton: true,
@@ -105,8 +110,8 @@ export default {
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                await deleteCollaborationAgreements(collaborationAgreements.id_collaborationAgreements)
-                await getCollaborationAgreements()
+                await deleteResident(resident.id_residente)
+                await getResident()
                 Swal.fire(
                   'Inactivo!',
                   'El residente se inactivó',
@@ -127,17 +132,49 @@ export default {
           } */
         },
       },
+      {
+        label: 'Detalles',
+        action: async (amendingAgreement) => {
+          isOpen = true
+          amendingAgreementDetalles = fetchAmendingAgreementById(amendingAgreement.id_amendingAgreement)
+        }
+      },
     ]
-    const goToNewCollaborationAgreements = () => router.push({ name: 'NewCollaborationAgreements' })
+    const goToNewAmendingAgreement = () => router.push({ name: 'NewAmendingAgreement' })
 
     /* getResident() */
 
     return {
-      collaborationAgreements,
+      isOpen,
+      amendingAgreement,
+      amendingAgreementDetalles,
       featureOptions,
       headers,
-      goToNewCollaborationAgreements,
+      goToNewAmendingAgreement,
     }
   },
 }
 </script>
+
+
+<style>
+.root {
+  position: relative
+}
+
+.modal {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(97, 92, 92, 0.329);
+}
+
+.modal>div {
+  background-color: rgb(255, 255, 255);
+}
+</style>

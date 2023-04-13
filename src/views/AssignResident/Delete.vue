@@ -42,8 +42,8 @@ export default {
       await updateAssingResident(app.assingResident)
       /* alert('Eliminado con exito!') */
       Swal.fire(
-        'Exito!',
-        'Asignacion Inavilitada con exito!',
+        '¡Éxito!',
+        'Asignacion Inavilitada con éxito!',
         'success'
       )
       router.push({ name: 'AssignResident' })

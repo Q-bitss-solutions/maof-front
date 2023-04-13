@@ -27,10 +27,10 @@ export default {
     const router = useRouter()
     const saveReviewArea = async (reviewArea) => {
       await storeReviewArea(reviewArea)
-      /* alert('Área revisora guardada con exito!') */
+      /* alert('Área revisora guardada con ¡Éxito!') */
       Swal.fire(
-        'Exito!',
-        'Área revisora guardada con exito!',
+        '¡Éxito!',
+        '¡Área revisora guardada con éxito!',
         'success'
       )
       router.push({ name: 'ReviewAreas' })

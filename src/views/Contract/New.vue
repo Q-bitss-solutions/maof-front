@@ -29,8 +29,8 @@ export default {
       await storeContract(contract)
       /* alert('Contrato guardado con exito!') */
       Swal.fire(
-        'Exito!',
-        'Contrato guardado con exito!',
+        '¡Éxito!',
+        'Contrato guardado con éxito!',
         'success'
       )
       router.push({ name: 'Contracts' })

@@ -3,13 +3,13 @@
     <arrow-back />
     <title-bar title="Convenio de Colaboración" subtitle="Nuevo" />
     <section class="px-4">
-      <form-collaboration-agreements @submit="saveCollaborationAgreements" />
+      <form-amending-agreement @submit="saveAmendingAgreement" />
     </section>
   </main>
 </template>
 
 <script>
-import FormCollaborationAgreements from '../../components/CollaborationAgreements/FormCollaborationAgreements.vue'
+import FormAmendingAgreement from '../../components/AmendingAgreement/FormAmendingAgreement.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeResident } from '../../api/resident'
@@ -17,27 +17,27 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'NewFormCollaborationAgreements',
+  name: 'NewAmendingAgreement',
   components: {
-    FormCollaborationAgreements,
+    FormAmendingAgreement,
     ArrowBack,
     TitleBar,
   },
   setup() {
     const router = useRouter()
-    const saveCollaborationAgreements = async (collaborationAgreements) => {
+    const saveAmendingAgreement = async (amendingAgreement) => {
       /* await storeResident(resident) */
-      console.log(collaborationAgreements)
+      console.log(amendingAgreement)
       Swal.fire(
-        '¡Éxito!',
+        'Exito!',
         'Residente guardado con éxito!',
         'success'
       )
-      router.push({ name: 'CollaborationAgreements' })
+      router.push({ name: 'AmendingAgreement' })
     }
 
     return {
-      saveCollaborationAgreements,
+      saveAmendingAgreement,
     }
   },
 }

@@ -32,8 +32,8 @@ export default {
       await storeAssingResident(assingResident)
      /*  alert('Residente guardado con exito!') */
      Swal.fire(
-        'Exito!',
-        'Asignacion guardada con exito!',
+        '¡Éxito!',
+        'Asignacion guardada con éxito!',
         'success'
       )
       router.push({ name: 'AssignResident' })

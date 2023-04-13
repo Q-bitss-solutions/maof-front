@@ -2,7 +2,10 @@
   <main class="px-4 pt-20">
     <div class="flex">
       <div v-for="(item, index) in menu" :key="index">
-        <button-base :label="item.labelMenu"
+        <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
+          class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
+          @click="goToRoute(item.routeName)" />
+        <button-base :label="item.labelMenu" v-if="item.routeName === ''"
           class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
           @click="showSubmenu(index)" />
         <div
@@ -59,6 +62,7 @@ import SelectBase from '../components/SelectBase.vue';
 import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'Home',
@@ -69,6 +73,7 @@ export default {
     SelectBase,
   },
   setup() {
+    const router = useRouter()
     const menu = [
       {
         labelMenu: 'Consulta',
@@ -78,10 +83,11 @@ export default {
       {
         labelMenu: 'Estimaciones',
         submenu: [],
-        routeName: ''
+        routeName: 'ResidentEstimate'
       },
       {
         labelMenu: 'Obras y Contratos',
+        routeName: '',
         submenu: [
           {
             labelSubMenu: 'Medios',
@@ -91,20 +97,20 @@ export default {
                 routeName: 'Projects',
               },
               {
-                label: 'Contratos y convenios de colaboracion',
+                label: 'Contratos y convenios de colaboración',
                 routeName: 'CollaborationAgreements',
               },
               {
                 label: 'Convenios Modificatorios',
-                routeName: '',
+                routeName: 'AmendingAgreement',
               },
             ],
           },
           {
-            labelSubMenu: 'Catalogos',
+            labelSubMenu: 'Catálogos',
             subMenu2: [
               {
-                label: 'Área Revisora',
+                label: 'Área revisora',
                 routeName: 'ReviewAreas',
               },
               {
@@ -122,6 +128,7 @@ export default {
       },
       {
         labelMenu: 'admon. MAOF',
+        routeName: '',
         submenu: [
           {
             labelSubMenu: 'Usuarios y roles',
@@ -129,7 +136,7 @@ export default {
             routeName: ''
           },
           {
-            labelSubMenu: 'Parametros',
+            labelSubMenu: 'Parámetros',
             subMenu2: [],
             routeName: ''
           },
@@ -193,12 +200,15 @@ export default {
       return indexActiveSubmenu2.value = index
     }
 
+    const goToRoute = (routerName) => router.push({ name: routerName })
+
     return {
       menu,
       showSubmenu,
       showSubmenu2,
       indexActiveSubmenu,
       indexActiveSubmenu2,
+      goToRoute,
     }
   },
 }

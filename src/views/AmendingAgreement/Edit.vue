@@ -3,13 +3,13 @@
     <arrow-back />
     <title-bar title="Áreas revisoras" subtitle="Editar" />
     <section class="px-4">
-      <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
+      <form-amending-agreement @submit="saveAmendingAgreement" :amendingAgreement="app.amendingAgreement" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
 
 <script>
-import FormResident from '../../components/Resident/FormResident.vue'
+import FormAmendingAgreement from '../../components/AmendingAgreement/FormAmendingAgreement.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { updateResident, fetchResidentById } from '../../api/resident'
@@ -18,9 +18,9 @@ import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'EditResident',
+  name: 'EditAmendingAgreement',
   components: {
-    FormResident,
+    FormAmendingAgreement,
     ArrowBack,
     TitleBar,
   },
@@ -28,31 +28,31 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      resident: {},
+      amendingAgreement: {},
       loading: true,
     })
-    const getResidentById = async () => {
+    const getAmendingAgreementById = async () => {
       app.loading = true
-      const { data } = await fetchResidentById(route.params.residentId)
-      app.resident = data
+      const { data } = await fetchAmendingAgreementById(route.params.amendingAgreementId)
+      app.amendingAgreement = data
       app.loading = false
     }
-    const saveResident = async (resident) => {
-      await updateResident(resident)
+    const saveAmendingAgreement = async (amendingAgreement) => {
+      await updateAmendingAgreement(amendingAgreement)
       /* alert('Residente actualizado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        '¡Residente actualizado con éxito!',
+        'Residente actualizado con éxito!',
         'success'
       )
-      router.push({ name: 'Resident' })
+      router.push({ name: 'AmendingAgreement' })
     }
 
-    getResidentById()
+    getAmendingAgreementById()
 
     return {
       app,
-      saveResident,
+      saveAmendingAgreement,
     }
   },
 }

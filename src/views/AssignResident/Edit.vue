@@ -41,8 +41,8 @@ export default {
     const saveAssingResident = async (assingResident) => {
       await updateAssingResident(app.assingResident, assingResident)
       Swal.fire(
-        'Exito!',
-        'Asignacion actualizada con exito!',
+        '¡Éxito!',
+        'Asignacion actualizada con éxito!',
         'success'
       )
       router.push({ name: 'AssignResident' })

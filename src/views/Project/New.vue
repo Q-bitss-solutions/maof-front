@@ -29,8 +29,8 @@ export default {
       await storeProject(project)
       /* alert('Proyecto guardado con exito!') */
       Swal.fire(
-        'Exito!',
-        'Proyecto guardado con exito!',
+        '¡Éxito!',
+        '!Proyecto guardado con éxito!',
         'success'
       )
       router.push({ name: 'Projects' })

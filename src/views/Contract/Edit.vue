@@ -42,8 +42,8 @@ export default {
       await updateContract(contract)
       /* alert('Contrato actualizado con exito!') */
       Swal.fire(
-        'Exito!',
-        'Contrato actualizado con exito!',
+        '¡Éxito!',
+        'Contrato actualizado con éxito!',
         'success'
       )
       router.push({ name: 'Contracts' })

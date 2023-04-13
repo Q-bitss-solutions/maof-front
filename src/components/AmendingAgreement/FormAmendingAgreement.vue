@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_area_revisora" label="Tipo" :options="app.listTypeContracts" class="mb-3"
+    <select-base id="id_area_revisora" label="Contrato o Convenio de Colaboración" :options="app.listTypeContracts" class="mb-3"
       v-if="editMode !== true" />
     <select-base id="id_numero_proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listReviewAreas"
       class="mb-3" v-if="editMode !== true" />
@@ -8,7 +8,7 @@
       v-if="editMode !== true" />
     <select-base id="id_empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
       v-if="editMode !== true" />
-    <input-base id="fecha_inicio_proyecto" label="Número de Contrato o Convenio de Colaboración" type="text"
+    <input-base id="fecha_inicio_proyecto" label="Número de Convenio Modificatorio" type="text"
       class="mb-3" />
     <text-area-base id="fecha_inicio_proyecto" label="Objeto" class="mb-3" />
     <input-base id="fecha_inicio_proyecto" label="Monto sin IVA" type="number" class="mb-3" />
@@ -30,7 +30,7 @@ import { fetchTypeContracts } from '../../api/typeContract'
 /* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
 export default {
-  name: 'FormCollaborationAgreements',
+  name: 'FormAmendingAgreement',
   props: {
     editMode: {
       type: Boolean,
@@ -49,7 +49,7 @@ export default {
   },
   setup(props, { emit }) {
     const app = reactive({
-      collaborationAgreements: {
+      amendingAgreement: {
         id_empleado_sict: '',
         fecha_inicio_residente: '',
         fecha_fin_residente: '',
@@ -60,10 +60,10 @@ export default {
       listTypeContracts: [],
     })
     if (props.editMode) {
-      app.collaborationAgreements = props.collaborationAgreements
-      app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-')
+      app.amendingAgreement = props.amendingAgreement
+      /* app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-') */
     }
-    const sendForm = () => emit('submit', app.collaborationAgreements)
+    const sendForm = () => emit('submit', app.amendingAgreement)
 
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()

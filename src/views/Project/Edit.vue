@@ -40,10 +40,10 @@ export default {
     }
     const saveProject = async (project) => {
       await updateProject(project)
-      /* alert('Proyecto actualizado con exito!') */
+      /* alert('Proyecto actualizado con ¡Éxito!') */
       Swal.fire(
-        'Exito!',
-        'Proyecto actualizado con exito!',
+        '¡Éxito!',
+        'Proyecto actualizado con éxito!',
         'success'
       )
       router.push({ name: 'Projects' })

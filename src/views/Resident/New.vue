@@ -30,8 +30,8 @@ export default {
       await storeResident(resident)
       /* alert('Residente guardado con exito!') */
       Swal.fire(
-        'Exito!',
-        'Residente guardado con exito!',
+        '¡Éxito!',
+        '¡Residente guardado con éxito!',
         'success'
       )
       router.push({ name: 'Resident' })

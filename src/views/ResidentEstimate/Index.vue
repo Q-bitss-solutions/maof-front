@@ -1,10 +1,10 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Residente" subtitle="Inicio" />
+    <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Nuevo Residente" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="resident" />
+      <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
+      <table-base :options="featureOptions" :headers="headers" :data="residentEstimate" />
     </section>
   </main>
 </template>
@@ -20,7 +20,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'ResidenteIndex',
+  name: 'ResidentEstimateIndex',
   components: {
     TableBase,
     ArrowBack,
@@ -55,40 +55,40 @@ export default {
         field: 'estado_residente',
       },
     ]
-    const resident = ref([])
-    const getResident = async () => {
-      const { data } = await fetchResident()
-      resident.value = data
+    const residentEstimate = ref([])
+    const getResidentEstimate = async () => {
+      const { data } = await fetchResidentEstimate()
+      residentEstimate.value = data
     }
     const featureOptions = [
       {
         label: 'Editar',
-        action: (resident) => router
+        action: (residentEstimate) => router
           .push({
-            name: 'EditResident',
+            name: 'EditResidentEstimate',
             params: {
-              residentId: resident.id_residente,
+              residentEstimateId: residentEstimate.id_residentEstimate,
             },
           }),
       },
       {
         label: 'Eliminar',
-        action: async (resident) => {
+        action: async (residentEstimate) => {
           Swal.fire({
-            title: `Estás seguro que desea inactivar el residente "${resident.nombre_completo}"?`,
+            title: `Estas seguro que desea inactivar la Estimación Residente "${residentEstimate.nombre_completo}"?`,
             text: "Esto finalizara las asignaciones del residente",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '¡Si, Inactivar!'
+            confirmButtonText: 'Si, Inactivar!'
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                await deleteResident(resident.id_residente)
+                await deleteResident(residentEstimate.id_residentEstimate)
                 await getResident()
                 Swal.fire(
-                  '¡Inactivo!',
+                  'Inactivo!',
                   'El residente se inactivó',
                   'success'
                 )
@@ -108,15 +108,15 @@ export default {
         },
       },
     ]
-    const goToNewResident = () => router.push({ name: 'NewResident' })
+    const goToNewResidentEstimate = () => router.push({ name: 'NewResidentEstimate' })
 
-    getResident()
+    /* getResident() */
 
     return {
-      resident,
+      residentEstimate,
       featureOptions,
       headers,
-      goToNewResident,
+      goToNewResidentEstimate,
     }
   },
 }

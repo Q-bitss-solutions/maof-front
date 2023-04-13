@@ -101,6 +101,41 @@ const routes = [
     name: 'EditCollaborationAgreements',
     component: () => import('./../views/CollaborationAgreements/Edit.vue'),
   },
+  {
+    path: '/convenio-modificatorio',
+    name: 'AmendingAgreement',
+    component: () => import('./../views/AmendingAgreement/Index.vue'),
+  },
+  {
+    path: '/convenio-modificatorio/nuevo',
+    name: 'NewAmendingAgreement',
+    component: () => import('./../views/AmendingAgreement/New.vue'),
+  },
+  {
+    path: '/convenio-modificatorio/:amendingAgreementId',
+    name: 'EditAmendingAgreement',
+    component: () => import('./../views/AmendingAgreement/Edit.vue'),
+  },
+  {
+    path: '/convenio-modificatorio/detalles/:amendingAgreementId',
+    name: 'DetallesAmendingAgreement',
+    component: () => import('./../views/AmendingAgreement/Detalles.vue'),
+  },
+  {
+    path: '/estimacion-residente',
+    name: 'ResidentEstimate',
+    component: () => import('./../views/ResidentEstimate/Index.vue'),
+  },
+  {
+    path: '/estimacion-residente/nuevo',
+    name: 'NewResidentEstimate',
+    component: () => import('./../views/ResidentEstimate/New.vue'),
+  },
+  {
+    path: '/estimacion-residente/:amendingAgreementId',
+    name: 'EditResidentEstimate',
+    component: () => import('./../views/ResidentEstimate/Edit.vue'),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',
