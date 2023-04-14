@@ -136,6 +136,11 @@ const routes = [
     name: 'EditResidentEstimate',
     component: () => import('./../views/ResidentEstimate/Edit.vue'),
   },
+  {
+    path: '/estimacion-residente/files/:amendingAgreementId',
+    name: 'FilesResidentEstimate',
+    component: () => import('./../views/ResidentEstimate/Files.vue'),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

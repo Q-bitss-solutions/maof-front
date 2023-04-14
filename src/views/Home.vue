@@ -83,7 +83,8 @@ export default {
       {
         labelMenu: 'Estimaciones',
         submenu: [],
-        routeName: 'ResidentEstimate'
+        /* routeName: 'ResidentEstimate' */
+        routeName: 'NewResidentEstimate'
       },
       {
         labelMenu: 'Obras y Contratos',
@@ -127,7 +128,7 @@ export default {
         ],
       },
       {
-        labelMenu: 'admon. MAOF',
+        labelMenu: 'Admon. MAOF',
         routeName: '',
         submenu: [
           {

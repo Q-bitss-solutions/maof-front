@@ -63,13 +63,19 @@ export default {
     const featureOptions = [
       {
         label: 'Editar',
-        action: (resident) => router
-          .push({
+        action: (resident) => {
+          if (resident.estado_residente === 'Activo') {
+            router.push({
             name: 'EditResident',
             params: {
               residentId: resident.id_residente,
             },
-          }),
+          })
+          } else {
+            return ''
+            
+          }
+        }
       },
       {
         label: 'Eliminar',

@@ -3,13 +3,13 @@
     <arrow-back />
     <title-bar title="Residente" subtitle="Nuevo" />
     <section class="px-4">
-      <form-resident @submit="saveResident" />
+      <form-resident-estimate @submit="saveResident" />
     </section>
   </main>
 </template>
 
 <script>
-import FormResident from '../../components/Resident/FormResident.vue'
+import FormResidentEstimate from '../../components/ResidentEstimate/FormResidentEstimate.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeResident } from '../../api/resident'
@@ -19,7 +19,7 @@ import Swal from 'sweetalert2'
 export default {
   name: 'NewResident',
   components: {
-    FormResident,
+    FormResidentEstimate,
     ArrowBack,
     TitleBar,
   },

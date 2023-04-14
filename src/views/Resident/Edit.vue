@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Áreas revisoras" subtitle="Editar" />
+    <title-bar title="Residente" subtitle="Editar" />
     <section class="px-4">
       <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
     </section>
