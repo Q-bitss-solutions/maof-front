@@ -3,7 +3,8 @@
     <arrow-back />
     <title-bar title="Convenios de Colaboración" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Nuevo Convenio de Colaboración" @click="goToNewCollaborationAgreements" class="mb-3 mr-0 ml-auto" />
+      <button-base label="Nuevo Convenio de Colaboración" @click="goToNewCollaborationAgreements"
+        class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="collaborationAgreements" />
     </section>
   </main>
@@ -12,7 +13,7 @@
 <script>
 import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResident, deleteResident } from './../../api/resident'
+import { fetchContracts, deleteContract } from './../../api/contract'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -32,19 +33,23 @@ export default {
     const headers = [
       {
         label: 'Id',
-        field: '',
+        field: 'id_contrato',
       },
       {
         label: 'Tipo',
-        field: '',
+        field: 'tipo_contrato',
+      },
+      {
+        label: '',
+        field: 'numero_contrato'
       },
       {
         label: 'Proyecto padre (Cartera de inversión)',
-        field: '',
+        field: 'nombre_proyecto'
       },
       {
         label: 'Contratista',
-        field: '',
+        field: 'nombre_contratista',
       },
       {
         label: 'Unidad SICT',
@@ -56,28 +61,28 @@ export default {
       },
       {
         label: 'Objeto',
-        field: '',
+        field: 'objeto_contrato',
       },
       {
         label: 'Monto (sin IVA)',
-        field: '',
+        field: 'monto_sin_iva',
       },
       {
         label: 'Plazo de inicio',
-        field: '',
+        field: 'plazo_inicio',
       },
       {
         label: 'Plazo de fin',
-        field: '',
+        field: 'plazo_fin',
       },
       {
         label: 'Estatus',
-        field: '',
+        field: 'estatus_contrato',
       },
     ]
     const collaborationAgreements = ref([])
     const getCollaborationAgreements = async () => {
-      const { data } = await fetchCollaborationAgreements()
+      const { data } = await fetchContracts()
       collaborationAgreements.value = data
     }
     const featureOptions = [
@@ -87,7 +92,7 @@ export default {
           .push({
             name: 'EditCollaborationAgreements',
             params: {
-              collaborationAgreementId: collaborationAgreements.id_collaborationAgreementse,
+              collaborationAgreementsId: collaborationAgreements.id_contrato,
             },
           }),
       },
@@ -95,27 +100,28 @@ export default {
         label: 'Eliminar',
         action: async (collaborationAgreements) => {
           Swal.fire({
-            title: `Estas seguro que desea inactivar el residente "${collaborationAgreements.nombre_completo}"?`,
-            text: "Esto finalizara las asignaciones del residente",
+            title: 'Se finalizará el Contrato o Convenio de Colaboración...',
+            text: "¿Está usted seguro?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Inactivar!'
+            confirmButtonText: 'Si, !Finalizar!',
+            reverseButtons:true,
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                await deleteCollaborationAgreements(collaborationAgreements.id_collaborationAgreements)
+                await deleteContract(collaborationAgreements.id_contrato)
                 await getCollaborationAgreements()
                 Swal.fire(
                   'Inactivo!',
-                  'El residente se inactivó',
+                  'El contrato o convenio de colaboración se inactivó',
                   'success'
                 )
               } catch (error) {
                 Swal.fire(
                   'Error',
-                  `${error.response.data.message}`,
+                  `${error.response.data.detail}`,
                   'error'
                 )
               }
@@ -130,7 +136,7 @@ export default {
     ]
     const goToNewCollaborationAgreements = () => router.push({ name: 'NewCollaborationAgreements' })
 
-    /* getResident() */
+    getCollaborationAgreements()
 
     return {
       collaborationAgreements,

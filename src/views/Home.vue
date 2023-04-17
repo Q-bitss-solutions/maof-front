@@ -98,11 +98,15 @@ export default {
                 routeName: 'Projects',
               },
               {
-                label: 'Contratos y convenios de colaboración',
+                label: 'Contratos',
+                routeName: 'Contracts',
+              },
+              {
+                label: 'Convenios de colaboración',
                 routeName: 'CollaborationAgreements',
               },
               {
-                label: 'Convenios Modificatorios',
+                label: 'Convenios modificatorios',
                 routeName: 'AmendingAgreement',
               },
             ],

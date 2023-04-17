@@ -26,6 +26,10 @@ const updateContract = (contract) => fetchApi({
   method: 'PUT',
   data: contract,
 })
+const deleteContract = (id) => fetchApi({
+  url: `contrato/${id}/`,
+  method: 'DELETE',
+})
 
 export {
   fetchContracts,
@@ -33,4 +37,5 @@ export {
   fetchContractById,
   storeContract,
   updateContract,
+  deleteContract,
 }

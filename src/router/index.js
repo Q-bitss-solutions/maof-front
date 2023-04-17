@@ -97,7 +97,7 @@ const routes = [
     component: () => import('./../views/CollaborationAgreements/New.vue'),
   },
   {
-    path: '/convenio-colaboracion/:collaborationAgreementId',
+    path: '/convenio-colaboracion/:collaborationAgreementsId',
     name: 'EditCollaborationAgreements',
     component: () => import('./../views/CollaborationAgreements/Edit.vue'),
   },

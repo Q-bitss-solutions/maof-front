@@ -5,17 +5,72 @@
     <section class="px-4">
       <button-base label="Nuevo Convenio Modificatorio" @click="goToNewAmendingAgreement" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="amendingAgreement" />
-      <!-- <div class="root">
-      <teleport to="body">
-        <div class="modal flex" v-if="isOpen">
-          <div class="flex-row">
-            <h2>{{ amendingAgreementDetalles }}</h2>
-            <h2>{{ amendingAgreementDetalles }}</h2>
-            <button-base label="Modal" @click="isOpen =  false" class="mr-0 ml-auto" />
+      <div class="root">
+        <teleport to="body">
+          <div class="modal items-center justify-center" v-if="isOpen">
+            <div>
+              <h1 class="text-center font-semibold pb-10 pt-5">Detalle del Contrato</h1>
+              <div class="grid grid-cols-2 ml-10">
+                <div class="grid grid-rows-2">
+                  <div>
+                    <h1 class="font-semibold">Clave Cartera de Inversión</h1>
+                    <p>{{ amendingAgreementDetalles.numero_contrato }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-rows-2  ">
+                  <div>
+                    <h1 class="font-semibold">Nombre</h1>
+                    <p>{{ amendingAgreementDetalles.nombre_proyecto }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-rows-2  ">
+                  <div>
+                    <h1 class="font-semibold">Número de Contrato</h1>
+                    <p>{{ amendingAgreementDetalles.numero_contrato }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-rows-2  ">
+                  <div>
+                    <h1 class="font-semibold">Objeto del Contrato</h1>
+                    <p>{{ amendingAgreementDetalles.objeto_contrato }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2  ">
+                  <div>
+                    <h1 class="font-semibold">Fecha inicio</h1>
+                    <p>{{ amendingAgreementDetalles.plazo_inicio }}</p>
+                  </div>
+                  <div>
+                    <h1 class="font-semibold">fecha fin</h1>
+                    <p>{{ amendingAgreementDetalles.plazo_fin }}</p>
+                  </div>
+                </div>
+                <div class="grid grid-rows-2  ">
+                  <div>
+                    <h1 class="font-semibold">Unidad SICT</h1>
+                    <p>{{ amendingAgreementDetalles.nombre_unidad }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3   mt-10 ml-10">
+                <div>
+                  <h1 class="font-semibold">Monto sin IVA</h1>
+                  <p> ${{ amendingAgreementDetalles.monto_sin_iva }}</p>
+                </div>
+                <div>
+                  <h1 class="font-semibold">Estatus del Contrato</h1>
+                  <p>{{ amendingAgreementDetalles.estatus_contrato }}</p>
+                </div>
+                <div>
+                  <h1 class="font-semibold">¿Existen Convenios Modificatorios?</h1>
+                  <p>{{ amendingAgreementDetalles.objeto_contrato }}</p>
+                </div>
+              </div>
+              <button-base label="Cerrar" @click="isOpen = false" class="mr-5 mx-auto my-5 " />
+            </div>
           </div>
-        </div>
-      </teleport>
-    </div> -->
+        </teleport>
+      </div>
     </section>
   </main>
 </template>
@@ -23,7 +78,7 @@
 <script>
 import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResident, deleteResident } from './../../api/resident'
+import { fetchContracts, deleteContract, fetchContractById } from './../../api/contract'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -44,46 +99,57 @@ export default {
     const headers = [
       {
         label: 'Id',
-        field: '',
+        field: 'id_contrato',
       },
       {
         label: 'Contrato o Convenio de Colaboración',
-        field: '',
+        field: 'nombre_proyecto',
       },
       {
         label: 'Número',
-        field: '',
+        field: 'numero_contrato',
       },
       {
         label: 'Objeto',
-        field: '',
+        field: 'objeto_contrato',
       },
       {
         label: 'Monto sin IVA',
-        field: '',
+        field: 'monto_sin_iva',
       },
       {
         label: 'Plazo de inicio',
-        field: '',
+        field: 'plazo_inicio',
       },
       {
-        label: 'Plazo finalización',
-        field: '',
-      },
-      {
-        label: 'Monto (sin IVA)',
-        field: '',
+        label: 'Plazo fin',
+        field: 'plazo_fin',
       },
       {
         label: 'Estatus',
-        field: '',
+        field: 'estatus_contrato',
       },
     ]
     const amendingAgreement = ref([])
     const amendingAgreementDetalles = ref([])
-    const getResident = async () => {
-      const { data } = await fetchResident()
-      amendingAgreement.value = data
+    const getContracts = async () => {
+      const { data } = await fetchContracts()
+      data.forEach(contrato => {
+        if (contrato.id_tipo_contrato === 3) {
+          amendingAgreement.value.push(contrato)
+          amendingAgreement.value.sort((a, b) => {
+            if (a.value > b.value) {
+              return 1;
+            }
+            if (a.value < b.value) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          })
+        }
+      });
+      /* amendingAgreement.value = data */
     }
     const featureOptions = [
       {
@@ -92,29 +158,31 @@ export default {
           .push({
             name: 'EditAmendingAgreement',
             params: {
-              collaborationAgreementId: amendingAgreement.id_amendingAgreement,
+              amendingAgreementId: amendingAgreement.id_contrato,
             },
           }),
       },
       {
         label: 'Eliminar',
-        action: async (resident) => {
+        action: async (contract) => {
           Swal.fire({
-            title: `Estas seguro que desea inactivar el residente "${resident.nombre_completo}"?`,
-            text: "Esto finalizara las asignaciones del residente",
+            title: 'Se finalizará el Convenio Modificatorio...',
+            text: "¿Está usted seguro?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Inactivar!'
+            confirmButtonText: 'Si, Finalizar!',
+            reverseButtons: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                await deleteResident(resident.id_residente)
-                await getResident()
+                await deleteContract(contract.id_contrato)
+                amendingAgreement.value = []
+                await getContracts()
                 Swal.fire(
                   'Inactivo!',
-                  'El residente se inactivó',
+                  'El convenio se inactivó',
                   'success'
                 )
               } catch (error) {
@@ -135,14 +203,16 @@ export default {
       {
         label: 'Detalles',
         action: async (amendingAgreement) => {
-          isOpen = true
-          amendingAgreementDetalles = fetchAmendingAgreementById(amendingAgreement.id_amendingAgreement)
+          isOpen.value = true
+          const { data } = await fetchContractById(amendingAgreement.id_contrato)
+          amendingAgreementDetalles.value = data
+
         }
       },
     ]
     const goToNewAmendingAgreement = () => router.push({ name: 'NewAmendingAgreement' })
 
-    /* getResident() */
+    getContracts()
 
     return {
       isOpen,
@@ -169,12 +239,14 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   background-color: rgba(97, 92, 92, 0.329);
 }
 
 .modal>div {
   background-color: rgb(255, 255, 255);
+  margin-left: 100px;
+  width: 700px;
+  height: auto;
 }
 </style>

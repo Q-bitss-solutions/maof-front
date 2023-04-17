@@ -1,9 +1,10 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Áreas revisoras" subtitle="Editar" />
+    <title-bar title="Convenio Modificatorio" subtitle="Editar" />
     <section class="px-4">
-      <form-amending-agreement @submit="saveAmendingAgreement" :amendingAgreement="app.amendingAgreement" edit-mode v-if="!app.loading" />
+      <form-amending-agreement @submit="saveAmendingAgreement" :amendingAgreement="app.amendingAgreement" edit-mode
+        v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -12,7 +13,7 @@
 import FormAmendingAgreement from '../../components/AmendingAgreement/FormAmendingAgreement.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { updateResident, fetchResidentById } from '../../api/resident'
+import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
@@ -33,16 +34,17 @@ export default {
     })
     const getAmendingAgreementById = async () => {
       app.loading = true
-      const { data } = await fetchAmendingAgreementById(route.params.amendingAgreementId)
+      const { data } = await fetchContractById(route.params.amendingAgreementId)
       app.amendingAgreement = data
       app.loading = false
     }
     const saveAmendingAgreement = async (amendingAgreement) => {
-      await updateAmendingAgreement(amendingAgreement)
+      amendingAgreement.id_contratista = parseInt(amendingAgreement.id_contratista)
+      await updateContract(amendingAgreement)
       /* alert('Residente actualizado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        'Residente actualizado con éxito!',
+        'Convenio actualizado con éxito!',
         'success'
       )
       router.push({ name: 'AmendingAgreement' })

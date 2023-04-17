@@ -1,26 +1,26 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Áreas revisoras" subtitle="Editar" />
+    <title-bar title="Convenio de Colaboración" subtitle="Editar" />
     <section class="px-4">
-      <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
+      <form-collaboration-agreements @submit="saveCollaborationAgreement" :collaborationAgreements="app.collaborationAgreements" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
 
 <script>
-import FormResident from '../../components/Resident/FormResident.vue'
+import FormCollaborationAgreements from '../../components/CollaborationAgreements/FormCollaborationAgreements.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { updateResident, fetchResidentById } from '../../api/resident'
+import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'EditResident',
+  name: 'EditCollaborationAgreement',
   components: {
-    FormResident,
+    FormCollaborationAgreements,
     ArrowBack,
     TitleBar,
   },
@@ -28,31 +28,31 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      resident: {},
+      collaborationAgreements: {},
       loading: true,
     })
-    const getResidentById = async () => {
+    const getCollaborationAgreementsById = async () => {
       app.loading = true
-      const { data } = await fetchResidentById(route.params.residentId)
-      app.resident = data
+      const { data } = await fetchContractById(route.params.collaborationAgreementsId)
+      app.collaborationAgreements = data
       app.loading = false
     }
-    const saveResident = async (resident) => {
-      await updateResident(resident)
+    const saveCollaborationAgreement = async (collaborationAgreements) => {
+      await updateContract(collaborationAgreements)
       /* alert('Residente actualizado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        'Residente actualizado con éxito!',
+        'Convenio de colaboración actualizado con éxito!',
         'success'
       )
-      router.push({ name: 'Resident' })
+      router.push({ name: 'CollaborationAgreements' })
     }
 
-    getResidentById()
+    getCollaborationAgreementsById()
 
     return {
       app,
-      saveResident,
+      saveCollaborationAgreement,
     }
   },
 }

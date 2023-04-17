@@ -1,19 +1,23 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_area_revisora" label="Contrato o Convenio de Colaboración" :options="app.listTypeContracts" class="mb-3"
-      v-if="editMode !== true" />
-    <select-base id="id_numero_proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listReviewAreas"
-      class="mb-3" v-if="editMode !== true" />
+    <select-base id="id_area_revisora" label="Contrato o Convenio de Colaboración" :options="app.listConvenioContrato"
+      class="mb-3" v-model="app.amendingAgreement.id_contrato_padre" />
+    <select-base id="id_numero_proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listProyects"
+      class="mb-3" v-model="app.amendingAgreement.id_proyecto" />
     <select-base id="id_area_revisora" label="Contratista" :options="app.listContratista" class="mb-3"
-      v-if="editMode !== true" />
+      v-model="app.amendingAgreement.id_contratista" />
     <select-base id="id_empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
-      v-if="editMode !== true" />
-    <input-base id="fecha_inicio_proyecto" label="Número de Convenio Modificatorio" type="text"
-      class="mb-3" />
-    <text-area-base id="fecha_inicio_proyecto" label="Objeto" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Monto sin IVA" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Plazo (inicio)" type="date" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Plazo (fin)" type="date" class="mb-3" />
+      v-model="app.amendingAgreement.id_area_revisora" />
+    <input-base id="fecha_inicio_proyecto" label="Número de Convenio Modificatorio" type="text" class="mb-3"
+      v-model="app.amendingAgreement.numero_contrato" />
+    <text-area-base id="fecha_inicio_proyecto" label="Objeto" class="mb-3"
+      v-model="app.amendingAgreement.objeto_contrato" />
+    <input-base id="fecha_inicio_proyecto" label="Monto sin IVA" type="number" class="mb-3"
+      v-model="app.amendingAgreement.monto_sin_iva" />
+    <input-base id="fecha_inicio_proyecto" label="Plazo (inicio)" type="date" class="mb-3"
+      v-model="app.amendingAgreement.plazo_inicio" />
+    <input-base id="fecha_inicio_proyecto" label="Plazo (fin)" type="date" class="mb-3"
+      v-model="app.amendingAgreement.plazo_fin" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -26,7 +30,8 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
-import { fetchTypeContracts } from '../../api/typeContract'
+import { fetchContracts } from '../../api/contract'
+import { fetchProjects } from '../../api/project'
 /* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
 export default {
@@ -36,7 +41,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    collaborationAgreements: {
+    amendingAgreement: {
       type: Object,
       default: () => ({})
     },
@@ -50,24 +55,33 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       amendingAgreement: {
-        id_empleado_sict: '',
-        fecha_inicio_residente: '',
-        fecha_fin_residente: '',
+        numero_contrato: '',
+        id_contratista: '',
+        id_area_revisora: '',
+        id_proyecto: '',
+        id_contrato_padre: '',
+        id_tipo_contrato: 3,
+        monto_sin_iva: '',
+        plazo_inicio: '',
+        plazo_fin: '',
+        objeto_contrato: '',
       },
       idAreaRevisora: '',
       listReviewAreas: [],
       listContratista: [],
-      listTypeContracts: [],
+      listConvenioContrato: [],
+      listProyects: [],
     })
     if (props.editMode) {
       app.amendingAgreement = props.amendingAgreement
-      /* app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-') */
+      app.amendingAgreement.plazo_inicio = props.amendingAgreement.plazo_inicio.split('-').reverse().join('-')
+      app.amendingAgreement.plazo_fin = props.amendingAgreement.plazo_fin.split('-').reverse().join('-')
     }
     const sendForm = () => emit('submit', app.amendingAgreement)
 
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
-      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id_unidad_sict, label: `${reviewArea.id_unidad_sict} - ${reviewArea.nombre_unidad}` }))
+      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_sict} - ${reviewArea.nombre_unidad}` }))
       app.listReviewAreas.sort((a, b) => {
         if (a.value > b.value) {
           return 1;
@@ -89,12 +103,46 @@ export default {
       data.forEach(contrato => {
         if (contrato.estatus_contratista === 'Activo') {
           app.listContratista.push({ value: contrato.id_contratista, label: contrato.nombre_contratista })
+          app.listContratista.sort((a, b) => {
+            if (a.value > b.value) {
+              return 1;
+            }
+            if (a.value < b.value) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          })
         }
       });
     }
-    const getTypeContracts = async () => {
-      const { data } = await fetchTypeContracts()
-      app.listTypeContracts = data.map(typeContract => ({ value: typeContract.tipo_contrato, label: `${typeContract.tipo_contrato} - ${typeContract.tipo_contrato_nombre}` }))
+    const getProjects = async () => {
+      const { data } = await fetchProjects()
+      app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
+      app.listProyects.sort((a, b) => {
+        if (a.value > b.value) {
+          return 1;
+        }
+        if (a.value < b.value) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
+    }
+    const getContracts = async () => {
+      const { data } = await fetchContracts()
+      app.listConvenioContrato = data.map(convenioContrato => ({ value: convenioContrato.id_contrato, label: `${convenioContrato.id_contrato} - ${convenioContrato.nombre_proyecto}` }))
+      app.listConvenioContrato.sort((a, b) => {
+        if (a.value > b.value) {
+          return 1;
+        }
+        if (a.value < b.value) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
     }
     /* const getEmpleadosSICT = async () => {
       const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
@@ -103,14 +151,16 @@ export default {
 
     getReviewAreas()
     getContratistas()
-    getTypeContracts()
+    getContracts()
+    getProjects()
 
     return {
       app,
       sendForm,
       getReviewAreas,
       getContratistas,
-      getTypeContracts,
+      getContracts,
+      getProjects,
     }
   },
 }

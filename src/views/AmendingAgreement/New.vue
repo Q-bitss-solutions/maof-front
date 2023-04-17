@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Convenio de Colaboración" subtitle="Nuevo" />
+    <title-bar title="Convenio Modificatorio" subtitle="Nuevo" />
     <section class="px-4">
       <form-amending-agreement @submit="saveAmendingAgreement" />
     </section>
@@ -12,7 +12,7 @@
 import FormAmendingAgreement from '../../components/AmendingAgreement/FormAmendingAgreement.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { storeResident } from '../../api/resident'
+import { storeContract } from '../../api/contract'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
@@ -26,8 +26,7 @@ export default {
   setup() {
     const router = useRouter()
     const saveAmendingAgreement = async (amendingAgreement) => {
-      /* await storeResident(resident) */
-      console.log(amendingAgreement)
+      await storeContract(amendingAgreement)
       Swal.fire(
         'Exito!',
         'Residente guardado con éxito!',

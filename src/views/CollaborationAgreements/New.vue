@@ -12,7 +12,7 @@
 import FormCollaborationAgreements from '../../components/CollaborationAgreements/FormCollaborationAgreements.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { storeResident } from '../../api/resident'
+import { storeContract } from '../../api/contract'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
@@ -26,14 +26,29 @@ export default {
   setup() {
     const router = useRouter()
     const saveCollaborationAgreements = async (collaborationAgreements) => {
-      /* await storeResident(resident) */
-      console.log(collaborationAgreements)
-      Swal.fire(
+      /* await storeCollaborationAgreements(collaborationAgreements) */
+      /* Swal.fire(
         '¡Éxito!',
         'Residente guardado con éxito!',
         'success'
+      ) */
+      try {
+        await storeContract(collaborationAgreements)
+        Swal.fire(
+        '¡Éxito!',
+        'Convenio de colaboración guardado con éxito!',
+        'success'
       )
-      router.push({ name: 'CollaborationAgreements' })
+        router.push({ name: 'CollaborationAgreements' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.error}`,
+          'error'
+        )
+        /* router.push({ name: 'AssignResident' }) */
+      }
+      /* router.push({ name: 'CollaborationAgreements' }) */
     }
 
     return {

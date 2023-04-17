@@ -1,19 +1,22 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_area_revisora" label="Tipo" :options="app.listTypeContracts" class="mb-3"
-      v-if="editMode !== true" />
-    <select-base id="id_numero_proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listReviewAreas"
-      class="mb-3" v-if="editMode !== true" />
-    <select-base id="id_area_revisora" label="Contratista" :options="app.listContratista" class="mb-3"
-      v-if="editMode !== true" />
-    <select-base id="id_empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
-      v-if="editMode !== true" />
-    <input-base id="fecha_inicio_proyecto" label="Número de Contrato o Convenio de Colaboración" type="text"
-      class="mb-3" />
-    <text-area-base id="fecha_inicio_proyecto" label="Objeto" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Monto sin IVA" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Plazo (inicio)" type="date" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Plazo (fin)" type="date" class="mb-3" />
+    <select-base id="tipo_contrato" label="Tipo" :options="app.listTypeContracts" class="mb-3"  
+      v-model="app.collaborationAgreements.id_tipo_contrato" />
+    <select-base id="proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listProyects" class="mb-3"
+        v-model="app.collaborationAgreements.id_proyecto" />
+    <select-base id="Contratista" label="Contratista" :options="app.listContratista" class="mb-3"  
+      v-model="app.collaborationAgreements.id_contratista" />
+    <select-base id="empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
+        v-model="app.collaborationAgreements.id_area_revisora" />
+    <input-base id="numero_Contrato" label="Número de Contrato o Convenio de Colaboración" type="text" class="mb-3"
+      v-model="app.collaborationAgreements.numero_contrato"   />
+    <text-area-base id="objeto" label="Objeto" class="mb-3" v-model="app.collaborationAgreements.objeto_contrato"   />
+    <input-base id="monto" label="Monto sin IVA" type="number" class="mb-3"
+      v-model="app.collaborationAgreements.monto_sin_iva"   />
+    <input-base id="plazo_inicio" label="Plazo (inicio)" type="date" class="mb-3"
+      v-model="app.collaborationAgreements.plazo_inicio"   />
+    <input-base id="plazo_fin" label="Plazo (fin)" type="date" class="mb-3"
+      v-model="app.collaborationAgreements.plazo_fin"   />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -27,6 +30,7 @@ import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
 import { fetchTypeContracts } from '../../api/typeContract'
+import { fetchProjects } from '../../api/project'
 /* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
 export default {
@@ -50,24 +54,37 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       collaborationAgreements: {
-        id_empleado_sict: '',
-        fecha_inicio_residente: '',
-        fecha_fin_residente: '',
+        numero_contrato: '',
+        id_proyecto: '',
+        id_contratista: '',
+        id_area_revisora: '',
+        id_tipo_contrato: '',
+        monto_sin_iva: '',
+        plazo_inicio: '',
+        plazo_fin: '',
+        objeto_contrato: ''
       },
       idAreaRevisora: '',
       listReviewAreas: [],
+      listProyects: [],
       listContratista: [],
       listTypeContracts: [],
     })
     if (props.editMode) {
       app.collaborationAgreements = props.collaborationAgreements
-      app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-')
+      delete props.collaborationAgreements.id_contrato_padre
+      app.collaborationAgreements.plazo_inicio = props.collaborationAgreements.plazo_inicio.split('-').reverse().join('-')
+      app.collaborationAgreements.plazo_fin = props.collaborationAgreements.plazo_fin.split('-').reverse().join('-')
     }
     const sendForm = () => emit('submit', app.collaborationAgreements)
 
+    const getProjects = async () => {
+      const { data } = await fetchProjects()
+      app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
+    }
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
-      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id_unidad_sict, label: `${reviewArea.id_unidad_sict} - ${reviewArea.nombre_unidad}` }))
+      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_sict} - ${reviewArea.nombre_unidad}` }))
       app.listReviewAreas.sort((a, b) => {
         if (a.value > b.value) {
           return 1;
@@ -104,6 +121,7 @@ export default {
     getReviewAreas()
     getContratistas()
     getTypeContracts()
+    getProjects()
 
     return {
       app,
@@ -111,6 +129,7 @@ export default {
       getReviewAreas,
       getContratistas,
       getTypeContracts,
+      getProjects,
     }
   },
 }
