@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Convenio de Colaboración" subtitle="Nuevo" />
+    <title-bar title="Contratos y Convenios de colaboración" subtitle="Nuevo" />
     <section class="px-4">
       <form-collaboration-agreements @submit="saveCollaborationAgreements" />
     </section>

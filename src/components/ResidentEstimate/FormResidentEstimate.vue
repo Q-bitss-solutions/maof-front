@@ -1,29 +1,40 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="id_area_revisora" label="Número de Contrato(de origen)" :options="app.listContrato"
+    <select-base id="id_contrato" label="Número de Contrato(de origen)" :options="app.listContrato"
       v-model="app.residentEstimate.id_contrato" class="mb-3" v-if="editMode !== true"
       @change="getName(app.residentEstimate.id_contrato)" />
     <input-base id="id_area_revisora" label="Objeto del Contrato" type="text" v-model="app.contratoName" class="mb-3"
       v-if="editMode !== true" disabled />
-    <input-base id="fecha_inicio_proyecto" label="Fecha de recepción de información del Contratista" type="date"
-      class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Fecha de autorización al Contratista" type="date" class="mb-3" />
+    <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
+      type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
+    <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
+      v-model="app.fecha_autorizacion_contratista" />
     <div class="flex flex-row ">
       <div>
-        <input-base id="Periodo_de_la_Estimacion" label="Período de la Estimación" type="date" />
+        <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
+          v-model="app.fecha_periodo_inicio_estimacion" />
       </div>
       <div>
-        <input-base id="al" label="al" type="date" class="pt-2" />
+        <input-base id="fecha_periodo_fin_estimacion" label="al" type="date" class="pt-2"
+          v-model="app.fecha_periodo_fin_estimacion" />
       </div>
     </div>
-    <input-base id="fecha_inicio_proyecto" label="Importe de la obra ejecutada" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="Importe a pagar" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="% de grado de avance" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="% de avance de la Estimación" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="% de avance de la Estimación acumulado" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="% de avance físico" type="number" class="mb-3" />
-    <input-base id="fecha_inicio_proyecto" label="% de avance financiero" type="number" class="mb-3" />
-    <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3" />
+    <input-base id="importe_obra_ejecutada" label="Importe de la obra ejecutada" type="number" class="mb-3"
+      v-model="app.residentEstimate.importe_obra_ejecutada" />
+    <input-base id="importe_pagar" label="Importe a pagar" type="number" class="mb-3"
+      v-model="app.residentEstimate.importe_pagar" />
+    <input-base id="grado_avance_obra" label="% de grado de avance" type="number" class="mb-3"
+      v-model="app.residentEstimate.grado_avance_obra" />
+    <input-base id="porcentaje_avance_estimacion" label="% de avance de la Estimación" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcentaje_avance_estimacion" />
+    <input-base id="porcentaje_avance_estimacion_acumulado" label="% de avance de la Estimación acumulado" type="number"
+      class="mb-3" v-model="app.residentEstimate.porcentaje_avance_estimacion_acumulado" />
+    <input-base id="porcentaje_Avance_fisico" label="% de avance físico" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcentaje_Avance_fisico" />
+    <input-base id="porcensaje_avance_financiero" label="% de avance financiero" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcensaje_avance_financiero" />
+    <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
+      v-model="app.residentEstimate.observaciones_residente" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -35,18 +46,19 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import TextAreaBase from '../TextAreaBase.vue'
 import { fetchContracts, fetchContractById } from '../../api/contract'
+import { storeResidentEstimate, fetchResidentEstimate } from '../../api/residentEstimate'
 import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'FormResident',
+  name: 'FormResidentEstimate',
   props: {
     editMode: {
       type: Boolean,
       default: false,
     },
-    resident: {
+    residentEstimate: {
       type: Object,
       default: () => ({})
     },
@@ -62,10 +74,28 @@ export default {
     const app = reactive({
       residentEstimate: {
         id_contrato: '',
-        fecha_inicio_residente: '',
-        fecha_fin_residente: '',
+        fecha_recepcion_info_contratista: '',
+        fecha_autorizacion_contratista: '',
+        fecha_periodo_inicio_estimacion: '',
+        fecha_periodo_fin_estimacion: '',
+        importe_obra_ejecutada: '',
+        importe_pagar: '',
+        grado_avance_obra: '',
+        porcentaje_avance_estimacion: '',
+        porcentaje_avance_estimacion_acumulado: '',
+        porcentaje_Avance_fisico: '',
+        porcensaje_avance_financiero: '',
+        observaciones_residente: '',
       },
+      fecha_recepcion_info_contratista: '',
+      fecha_autorizacion_contratista: '',
+      fecha_periodo_inicio_estimacion: '',
+      fecha_periodo_fin_estimacion: '',
       contratoName: '',
+      fileInfo: {
+        type: Object,
+        default: () => ({})
+      },
       listReviewAreas: [],
       listEmpleados: [],
       listContrato: [],
@@ -75,6 +105,14 @@ export default {
       app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-')
     }
     const sendForm = () => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
+      console.log(now);
+      app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
+      app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      app.residentEstimate.fecha_periodo_inicio_estimacion = app.fecha_periodo_inicio_estimacion + ' ' + now
+      app.residentEstimate.fecha_periodo_fin_estimacion = app.fecha_periodo_fin_estimacion + ' ' + now
       Swal.fire({
         title: `¿Confirma los cambios ?`,
         icon: 'question',
@@ -87,6 +125,8 @@ export default {
         if (result.isConfirmed) {
           try {
             /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
+            console.log('residentEstimate: ',app.residentEstimate)
+            await storeResidentEstimate(app.residentEstimate)
             Swal.fire({
               title: `Registro dado de alta`,
               text: "¿Desea ingresar los documentos?",
@@ -98,17 +138,15 @@ export default {
               cancelButtonText: 'No',
               reverseButtons: true
             }).then(async (result) => {
-              if (result.isConfirmed) {
-                /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData)
-                Swal.fire(
-                  'Eliminado!',
-                  'La asignacion se inactivo',
-                  'success'
-                ) */
+              if (result.isConfirmed) { 
+                const { data } =  await fetchResidentEstimate()
+                const lengthData = data.length - 1
+                app.fileInfo = data[lengthData]
+                console.log('fileInfo: ', app.fileInfo.id_estimacion)
                 router.push({
                   name: 'FilesResidentEstimate',
                   params: {
-                    amendingAgreementId: 1,
+                    amendingAgreementId: app.fileInfo.id_estimacion,
                   },
                 })
               } else {
@@ -117,9 +155,10 @@ export default {
             })
             /* router.push({ name: 'AssignResident' }) */
           } catch (error) {
+            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
-              `${error.response.data.message}`,
+              `${error.response.data.detail}`,
               'error'
             )
             /* router.push({ name: 'AssignResident' }) */
@@ -159,16 +198,16 @@ export default {
 </script>
 
 <style>
-label[for=al] {
+label[for=fecha_periodo_fin_estimacion] {
   flex-basis: 0;
   padding-left: 10px;
 }
 
-label[for=Periodo_de_la_Estimacion] {
+label[for=fecha_periodo_inicio_estimacion] {
   width: 200px;
 }
 
-input[id=Periodo_de_la_Estimacion] {
+input[id=fecha_periodo_inicio_estimacion] {
   margin-left: 60px;
 }
 </style>

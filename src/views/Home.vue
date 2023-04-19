@@ -97,12 +97,12 @@ export default {
                 label: 'Proyectos',
                 routeName: 'Projects',
               },
-              {
+             /*  {
                 label: 'Contratos',
                 routeName: 'Contracts',
-              },
+              }, */
               {
-                label: 'Convenios de colaboración',
+                label: 'Contratos y Convenios de colaboración',
                 routeName: 'CollaborationAgreements',
               },
               {

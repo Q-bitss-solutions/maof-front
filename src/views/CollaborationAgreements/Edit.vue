@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Convenio de Colaboración" subtitle="Editar" />
+    <title-bar title="Contratos y Convenios de colaboración" subtitle="Editar" />
     <section class="px-4">
       <form-collaboration-agreements @submit="saveCollaborationAgreement" :collaborationAgreements="app.collaborationAgreements" edit-mode v-if="!app.loading" />
     </section>

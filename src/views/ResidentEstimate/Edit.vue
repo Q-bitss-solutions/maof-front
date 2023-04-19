@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Residente" subtitle="Editar" />
+    <title-bar title="Estimación Residente" subtitle="Editar" />
     <section class="px-4">
       <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
     </section>
@@ -42,7 +42,7 @@ export default {
       /* alert('Residente actualizado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        'Residente actualizado con éxito!',
+        '!Estimación residente actualizado con éxito!',
         'success'
       )
       router.push({ name: 'Resident' })

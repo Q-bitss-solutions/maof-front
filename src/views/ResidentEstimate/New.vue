@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Residente" subtitle="Nuevo" />
+    <title-bar title="Estimación Residente" subtitle="Nuevo" />
     <section class="px-4">
       <form-resident-estimate @submit="saveResident" />
     </section>
