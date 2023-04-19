@@ -45,7 +45,7 @@ export default {
         field: 'ruta_archivo_residente',
       },
       {
-        label: 'Descripcion',
+        label: 'Descripción',
         field: 'descripcion_archivo',
       },
       {
@@ -100,35 +100,53 @@ export default {
             'aria-label': 'Upload your profile picture'
           }
         })
-        if (file !== undefined) {
+        if (file !== null && file !== undefined) {
           const { value: descripcionFile } = await Swal.fire({
-            title: 'Descripcion del archivo',
+            title: 'Descripción del archivo',
             input: 'text',
             showCancelButton: true,
             reverseButtons: true,
+            inputValidator: (value) => {
+              if (!value) {
+                return 'El campo es requerido'
+              }
+            }
           })
-          app.file.descripcionFile = descripcionFile
-          app.file.file = file
-          console.log(app.file.file)
-          console.log(app.file.descripcionFile)
-          formData.append('archivo_estimacion ', app.file.file);
-          formData.append('descripcion_archivo ', app.file.descripcionFile);
-        }
-        try {
-          await archivoResidentEstimate(formData)
-          getDocumentsResidentEstimateById()
+          if (descripcionFile !== undefined) {
+            /* Swal.fire(
+              'No selesccionaste ningun archivo',
+              'Agrega uno para continuar',
+              'warning'
+            ) */
+            app.file.descripcionFile = descripcionFile
+            app.file.file = file
+            formData.append('archivo_estimacion ', app.file.file);
+            formData.append('descripcion_archivo ', app.file.descripcionFile);
+            try {
+              await archivoResidentEstimate(formData)
+              getDocumentsResidentEstimateById()
+              Swal.fire(
+                '¡Éxito!',
+                '!Archivo guardado con éxito!',
+                'success'
+              )
+              app.file.file = ''
+              app.file.descripcionFile = ''
+            } catch (error) {
+              Swal.fire(
+                'Error',
+                `${error.response.data.detail}`,
+                'error'
+              )
+              /* router.push({ name: 'AssignResident' }) */
+            }
+          }
+        } else if (file === null) {
           Swal.fire(
-            '¡Éxito!',
-            '!Archivo guardado con éxito!',
-            'success'
+            'No selesccionaste ningun archivo',
+            'Agrega uno para continuar',
+            'warning'
           )
-        } catch (error) {
-          Swal.fire(
-            'Error',
-            `${error.response.data.detail}`,
-            'error'
-          )
-          /* router.push({ name: 'AssignResident' }) */
         }
 
       } catch (error) {
@@ -163,8 +181,8 @@ export default {
         label: 'Eliminar',
         action: async (files) => {
           Swal.fire({
-            title: `Estás seguro que desea inactivar el residente "${files.nombre_completo}"?`,
-            text: "Esto finalizara las asignaciones del residente",
+            title: `¿Estás seguro que desea inactivar el documento?`,
+            text: "Esto quitara el documento",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -174,12 +192,11 @@ export default {
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                console.log('Files Delete: ', files)
                 await deleteArchivoResidentEstimate(files.id_archivo_estimacion)
                 await getDocumentsResidentEstimateById()
                 Swal.fire(
                   '¡Inactivo!',
-                  'El residente se inactivó',
+                  'El documento se inactivó',
                   'success'
                 )
               } catch (error) {

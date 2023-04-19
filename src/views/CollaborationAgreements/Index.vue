@@ -45,7 +45,7 @@ export default {
       }, */
       {
         label: 'Proyecto padre (Cartera de inversión)',
-        field: 'nombre_proyecto'
+        field: 'clave_cartera'
       },
       {
         label: 'Contratista',

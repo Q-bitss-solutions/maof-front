@@ -103,7 +103,7 @@ export default {
       },
       {
         label: 'Contrato o Convenio de Colaboración',
-        field: 'nombre_proyecto',
+        field: 'clave_cartera',
       },
       {
         label: 'Número',
