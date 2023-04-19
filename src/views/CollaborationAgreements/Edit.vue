@@ -3,7 +3,8 @@
     <arrow-back />
     <title-bar title="Contratos y Convenios de colaboración" subtitle="Editar" />
     <section class="px-4">
-      <form-collaboration-agreements @submit="saveCollaborationAgreement" :collaborationAgreements="app.collaborationAgreements" edit-mode v-if="!app.loading" />
+      <form-collaboration-agreements @submit="saveCollaborationAgreement"
+        :collaborationAgreements="app.collaborationAgreements" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -38,14 +39,22 @@ export default {
       app.loading = false
     }
     const saveCollaborationAgreement = async (collaborationAgreements) => {
-      await updateContract(collaborationAgreements)
-      /* alert('Residente actualizado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        'Convenio de colaboración actualizado con éxito!',
-        'success'
-      )
-      router.push({ name: 'CollaborationAgreements' })
+      try {
+        await updateContract(collaborationAgreements)
+        /* alert('Residente actualizado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          'Convenio de colaboración actualizado con éxito!',
+          'success'
+        )
+        router.push({ name: 'CollaborationAgreements' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.message}`,
+          'error'
+        )
+      }
     }
 
     getCollaborationAgreementsById()

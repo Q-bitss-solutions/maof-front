@@ -3,8 +3,7 @@
     <arrow-back />
     <title-bar title="Estimación Residente" subtitle="Files" />
     <section class="px-4">
-      <h1>files</h1>
-      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto" />
+      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" />
       <table-base :options="featureOptions" :headers="headers" :data="filesById" />
     </section>
   </main>
@@ -117,6 +116,7 @@ export default {
         }
         try {
           await archivoResidentEstimate(formData)
+          getDocumentsResidentEstimateById()
           Swal.fire(
             '¡Éxito!',
             '!Archivo guardado con éxito!',
@@ -153,6 +153,12 @@ export default {
           }
         }
       }, */
+      {
+        label: 'Descargar',
+        action: async (files) => {
+          window.open(`${files.archivo_estimacion}`, '_blank');
+        },
+      },
       {
         label: 'Eliminar',
         action: async (files) => {

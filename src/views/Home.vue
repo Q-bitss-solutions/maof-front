@@ -102,7 +102,7 @@ export default {
                 routeName: 'Contracts',
               }, */
               {
-                label: 'Contratos y Convenios de colaboración',
+                label: 'Contratos y convenios de colaboración',
                 routeName: 'CollaborationAgreements',
               },
               {

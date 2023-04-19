@@ -39,15 +39,24 @@ export default {
       app.loading = false
     }
     const saveAmendingAgreement = async (amendingAgreement) => {
-      amendingAgreement.id_contratista = parseInt(amendingAgreement.id_contratista)
-      await updateContract(amendingAgreement)
+      /* amendingAgreement.id_contratista = parseInt(amendingAgreement.id_contratista) */
+
+      try {
+        await updateContract(amendingAgreement)
       /* alert('Residente actualizado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        'Convenio actualizado con éxito!',
+        'Convenio modificatorio actualizado con éxito!',
         'success'
       )
       router.push({ name: 'AmendingAgreement' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.message}`,
+          'error'
+        )
+      }
     }
 
     getAmendingAgreementById()

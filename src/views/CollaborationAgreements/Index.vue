@@ -39,10 +39,10 @@ export default {
         label: 'Tipo',
         field: 'tipo_contrato',
       },
-      {
+      /* {
         label: '',
         field: 'numero_contrato'
-      },
+      }, */
       {
         label: 'Proyecto padre (Cartera de inversión)',
         field: 'nombre_proyecto'
@@ -53,11 +53,11 @@ export default {
       },
       {
         label: 'Unidad SICT',
-        field: '',
+        field: 'nombre_unidad',
       },
       {
         label: 'Número',
-        field: '',
+        field: 'numero_contrato',
       },
       {
         label: 'Objeto',

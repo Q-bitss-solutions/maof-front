@@ -26,13 +26,21 @@ export default {
   setup() {
     const router = useRouter()
     const saveAmendingAgreement = async (amendingAgreement) => {
-      await storeContract(amendingAgreement)
-      Swal.fire(
-        'Exito!',
-        'Residente guardado con éxito!',
-        'success'
-      )
-      router.push({ name: 'AmendingAgreement' })
+      try {
+        await storeContract(amendingAgreement)
+        Swal.fire(
+          'Exito!',
+          'Convenio modificatorio guardado con éxito!',
+          'success'
+        )
+        router.push({ name: 'AmendingAgreement' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.message}`,
+          'error'
+        )
+      }
     }
 
     return {

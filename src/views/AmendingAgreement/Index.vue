@@ -182,7 +182,7 @@ export default {
                 await getContracts()
                 Swal.fire(
                   'Inactivo!',
-                  'El convenio se inactivó',
+                  'El convenio modificatorio se inactivó',
                   'success'
                 )
               } catch (error) {
