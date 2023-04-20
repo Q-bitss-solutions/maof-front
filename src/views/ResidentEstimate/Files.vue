@@ -182,7 +182,7 @@ export default {
         action: async (files) => {
           Swal.fire({
             title: `¿Estás seguro que desea inactivar el documento?`,
-            text: "Esto quitara el documento",
+            text: "Esto quitará el documento",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

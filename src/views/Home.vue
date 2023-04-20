@@ -102,11 +102,11 @@ export default {
                 routeName: 'Contracts',
               }, */
               {
-                label: 'Contratos y convenios de colaboración',
+                label: 'Contratos y Convenios de Colaboración',
                 routeName: 'CollaborationAgreements',
               },
               {
-                label: 'Convenios modificatorios',
+                label: 'Convenios Modificatorios',
                 routeName: 'AmendingAgreement',
               },
             ],

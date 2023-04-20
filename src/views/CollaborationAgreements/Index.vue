@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Contratos y Convenios de colaboración" subtitle="Inicio" />
+    <title-bar title="Contratos y Convenios de Colaboración" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Contrato o Convenio de Colaboración" @click="goToNewCollaborationAgreements"
         class="mb-3 mr-0 ml-auto" />

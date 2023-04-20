@@ -1,4 +1,12 @@
 <template>
+  <div class=" flex  content-start justify-end  items-center mb-10">
+    <div class="">
+      <h1> Número de la Estimación </h1>
+      <p>
+        {{app.residentEstimate.id_contrato }}
+      </p>
+    </div>
+  </div>
   <div class="max-w-xl mx-auto">
     <select-base id="id_contrato" label="Número de Contrato(de origen)" :options="app.listContrato"
       v-model="app.residentEstimate.id_contrato" class="mb-3" v-if="editMode !== true"
@@ -125,7 +133,7 @@ export default {
         if (result.isConfirmed) {
           try {
             /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
-            console.log('residentEstimate: ',app.residentEstimate)
+            console.log('residentEstimate: ', app.residentEstimate)
             await storeResidentEstimate(app.residentEstimate)
             Swal.fire({
               title: `Registro dado de alta`,
@@ -138,8 +146,8 @@ export default {
               cancelButtonText: 'No',
               reverseButtons: true
             }).then(async (result) => {
-              if (result.isConfirmed) { 
-                const { data } =  await fetchResidentEstimate()
+              if (result.isConfirmed) {
+                const { data } = await fetchResidentEstimate()
                 const lengthData = data.length - 1
                 app.fileInfo = data[lengthData]
                 console.log('fileInfo: ', app.fileInfo.id_estimacion)

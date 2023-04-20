@@ -1,13 +1,13 @@
 <template>
   <div class="max-w-xl mx-auto">
     <select-base id="id_area_revisora" label="Contrato o Convenio de Colaboración" :options="app.listConvenioContrato"
-      class="mb-3" v-model="app.amendingAgreement.id_contrato_padre" />
+      class="mb-3" v-model="app.amendingAgreement.id_contrato_padre" @change="getInfoContrato()" />
     <select-base id="id_numero_proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listProyects"
-      class="mb-3" v-model="app.amendingAgreement.id_proyecto" />
+      class="mb-3" v-model="app.amendingAgreement.id_proyecto" disabled />
     <select-base id="id_area_revisora" label="Contratista" :options="app.listContratista" class="mb-3"
-      v-model="app.amendingAgreement.id_contratista" />
+      v-model="app.amendingAgreement.id_contratista" disabled />
     <select-base id="id_empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
-      v-model="app.amendingAgreement.id_area_revisora" />
+      v-model="app.amendingAgreement.id_area_revisora" disabled />
     <input-base id="fecha_inicio_proyecto" label="Número de Convenio Modificatorio" type="text" class="mb-3"
       v-model="app.amendingAgreement.numero_contrato" />
     <text-area-base id="fecha_inicio_proyecto" label="Objeto" class="mb-3"
@@ -30,7 +30,7 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
-import { fetchContracts } from '../../api/contract'
+import { fetchContracts, fetchContractById } from '../../api/contract'
 import { fetchProjects } from '../../api/project'
 /* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
@@ -116,6 +116,26 @@ export default {
         }
       });
     }
+    const getInfoContrato = async () => {
+       const { data } = await fetchContractById(app.amendingAgreement.id_contrato_padre)
+       app.amendingAgreement.id_proyecto = data.id_proyecto
+       app.amendingAgreement.id_contratista = data.id_contratista
+       app.amendingAgreement.id_area_revisora = data.id_area_revisora
+       console.log('Data Contrato: ', data)
+       console.log('app.amendingAgreement: ', app.amendingAgreement)
+      /* const { data } = await fetchProjects()
+      app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
+      app.listProyects.sort((a, b) => {
+        if (a.value > b.value) {
+          return 1;
+        }
+        if (a.value < b.value) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      }) */
+    }
     const getProjects = async () => {
       const { data } = await fetchProjects()
       app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
@@ -160,6 +180,7 @@ export default {
       getReviewAreas,
       getContratistas,
       getContracts,
+      getInfoContrato,
       getProjects,
     }
   },

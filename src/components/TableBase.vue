@@ -1,10 +1,10 @@
 <template>
-  <table class="border border-solid border-gray-100 border-collapse text-gray-900 w-full">
+  <table class="border border-solid border-black border-collapse text-gray-900 w-full">
     <tr>
       <th
         v-for="(header, index) in headers"
         :key="index"
-        class="p-2 border border-b-2 border-solid border-gray-100"
+        class="p-2 border border-b-2 border-solid border-black"
       >
         {{ header.label }}
       </th>
@@ -14,11 +14,12 @@
       class=""
       v-for="(item, index) in data"
       :key="index"
+      :class="{' bg-gray-100': index % 2 === 0} "
     >
       <td
         v-for="(header, index) in headers"
         :key="index"
-        class="p-2 border border-solid border-gray-100"
+        class="p-2 border border-solid border-black"
       >
         {{ item[header.field] }}
       </td>
