@@ -122,6 +122,10 @@ export default {
                 label: 'Residentes',
                 routeName: 'Resident',
               },
+              {
+                label: 'Unidades MAOF',
+                routeName: 'UnitsMAOF',
+              },
             ],
           },
           {

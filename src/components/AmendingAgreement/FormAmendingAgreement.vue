@@ -121,8 +121,6 @@ export default {
        app.amendingAgreement.id_proyecto = data.id_proyecto
        app.amendingAgreement.id_contratista = data.id_contratista
        app.amendingAgreement.id_area_revisora = data.id_area_revisora
-       console.log('Data Contrato: ', data)
-       console.log('app.amendingAgreement: ', app.amendingAgreement)
       /* const { data } = await fetchProjects()
       app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
       app.listProyects.sort((a, b) => {

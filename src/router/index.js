@@ -141,6 +141,21 @@ const routes = [
     name: 'FilesResidentEstimate',
     component: () => import('./../views/ResidentEstimate/Files.vue'),
   },
+  {
+    path: '/unidades-maof',
+    name: 'UnitsMAOF',
+    component: () => import('./../views/UnitsMAOF/Index.vue'),
+  },
+  {
+    path: '/unidades-maof/nuevo',
+    name: 'NewUnitMAOF',
+    component: () => import('./../views/UnitsMAOF/New.vue'),
+  },
+  {
+    path: '/unidades-maof/:unityMAOFId',
+    name: 'EditUnitMAOF',
+    component: () => import('./../views/UnitsMAOF/Edit.vue'),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',
