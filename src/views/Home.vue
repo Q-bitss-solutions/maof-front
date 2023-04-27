@@ -84,7 +84,7 @@ export default {
         labelMenu: 'Estimaciones',
         submenu: [],
         /* routeName: 'ResidentEstimate' */
-        routeName: 'NewResidentEstimate'
+        routeName: 'ResidentEstimate'
       },
       {
         labelMenu: 'Obras y Contratos',

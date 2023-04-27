@@ -4,15 +4,18 @@
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="residentEstimate" />
+        <!-- <table-base :options="featureOptions" :headers="headers" /> -->
+        <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="residentEstimate" />
+        <!-- <tablero-estimacion-residente  /> -->
     </section>
   </main>
 </template>
 
 <script>
 import { ref } from 'vue'
+import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResident, deleteResident } from './../../api/resident'
+import { fetchResidentEstimate  } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -22,47 +25,81 @@ import Swal from 'sweetalert2'
 export default {
   name: 'ResidentEstimateIndex',
   components: {
-    TableBase,
+    TableroEstimacionResidente,
     ArrowBack,
     ButtonBase,
     TitleBar,
+    TableBase,
   },
   setup() {
     const router = useRouter()
     const headers = [
       {
-        label: 'Id',
+        label: 'Renglon',
         field: 'id_residente',
       },
       {
-        label: 'Nombre',
-        field: 'nombre_completo',
+        label: 'Contrato o Convenio de Colaboracion',
+        field: 'contrato',
       },
       {
-        label: 'Unidad SICT',
-        field: 'unidad_sict',
+        label: 'Convenio Modificatorio',
+        field: 'convenio_modificatorio',
+      },
+      {
+        label: '# Estimación',
+        field: 'num_consecutivo_estimacion',
       },
       {
         label: 'Fecha de inicio',
-        field: 'fecha_inicio_residente',
+        field: 'fecha_periodo_inicio_estimacion',
       },
       {
         label: 'Fecha de fin',
-        field: 'fecha_fin_residente',
+        field: 'fecha_periodo_fin_estimacion',
       },
       {
-        label: 'Estado',
-        field: 'estado_residente',
+        label: 'Fecha de alta',
+        field: '',
+      },
+      {
+        label: 'Fecha de autorización',
+        field: 'fecha_autorizacion_contratista',
+      },
+      {
+        label: 'Días transcurridos',
+        field: '',
+      },
+      {
+        label: 'RESIDENTE',
+        field: '',
+      },
+      {
+        label: 'ÁREA REVISORA',
+        field: '',
+      },
+      {
+        label: 'FINANZAS',
+        field: '',
+      },
+      {
+        label: 'TRÁMITE DE PAGO',
+        field: '',
+      },
+      {
+        label: 'PAGO',
+        field: '',
       },
     ]
     const residentEstimate = ref([])
     const getResidentEstimate = async () => {
       const { data } = await fetchResidentEstimate()
+      console.log(data)
       residentEstimate.value = data
     }
     const featureOptions = [
       {
-        label: 'Editar',
+        label: 'Detalles',
         action: (residentEstimate) => router
           .push({
             name: 'EditResidentEstimate',
@@ -72,7 +109,17 @@ export default {
           }),
       },
       {
-        label: 'Eliminar',
+        label: 'Nuevo',
+        action: (residentEstimate) => router
+          .push({
+            name: 'EditResidentEstimate',
+            params: {
+              residentEstimateId: residentEstimate.id_residentEstimate,
+            },
+          }),
+      },
+      {
+        label: 'Archivo',
         action: async (residentEstimate) => {
           Swal.fire({
             title: `Estas seguro que desea inactivar la Estimación Residente "${residentEstimate.nombre_completo}"?`,
@@ -110,13 +157,14 @@ export default {
     ]
     const goToNewResidentEstimate = () => router.push({ name: 'NewResidentEstimate' })
 
-    /* getResident() */
+    getResidentEstimate()
 
     return {
       residentEstimate,
       featureOptions,
       headers,
       goToNewResidentEstimate,
+      getResidentEstimate,
     }
   },
 }
