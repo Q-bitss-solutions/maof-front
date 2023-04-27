@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate  } from './../../api/residentEstimate'
+import { fetchResidentEstimate,fetchResidentEstimateHojaViajera  } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -40,11 +40,11 @@ export default {
       },
       {
         label: 'Contrato o Convenio de Colaboracion',
-        field: 'contrato',
+        field: 'numero_contrato',
       },
       {
         label: 'Convenio Modificatorio',
-        field: 'convenio_modificatorio',
+        field: 'numero_contrato_padre',
       },
       {
         label: '# Estimación',
@@ -60,7 +60,7 @@ export default {
       },
       {
         label: 'Fecha de alta',
-        field: '',
+        field: 'fecha_autorizacion_contratista',
       },
       {
         label: 'Fecha de autorización',
@@ -68,32 +68,32 @@ export default {
       },
       {
         label: 'Días transcurridos',
-        field: '',
+        field: 'dias_transcurridos',
       },
       {
         label: 'RESIDENTE',
-        field: '',
+        field: 'estatus_semaforo',
       },
       {
         label: 'ÁREA REVISORA',
-        field: '',
+        field: 'estatus_semaforo',
       },
       {
         label: 'FINANZAS',
-        field: '',
+        field: 'estatus_semaforo',
       },
       {
         label: 'TRÁMITE DE PAGO',
-        field: '',
+        field: 'estatus_semaforo',
       },
       {
         label: 'PAGO',
-        field: '',
+        field: 'estatus_semaforo',
       },
     ]
     const residentEstimate = ref([])
     const getResidentEstimate = async () => {
-      const { data } = await fetchResidentEstimate()
+      const { data } = await fetchResidentEstimateHojaViajera()
       console.log(data)
       residentEstimate.value = data
     }

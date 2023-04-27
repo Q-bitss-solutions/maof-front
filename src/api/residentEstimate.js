@@ -39,9 +39,15 @@ const deleteArchivoResidentEstimate = (id_archivo_estimacion) => fetchApi({
   url: `/archivo_estimacion/${id_archivo_estimacion}/`,
   method: 'DELETE',
 })
+
+const fetchResidentEstimateHojaViajera = () => fetchApi({
+  url: '/estimacion_residente/hoja_viajera/',
+  method: 'GET',
+})
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
+  fetchResidentEstimateHojaViajera,
   storeResidentEstimate,
   updateResidentEstimate,
   deleteResidentEstimate,

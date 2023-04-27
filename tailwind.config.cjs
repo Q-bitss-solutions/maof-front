@@ -19,6 +19,7 @@ module.exports = {
       'gray-600': '#6F7271',
       'blue': '#66afe9',
       'brown-300': '#B38E5D',
+      'green': '#00FF00',
     },
   },
   plugins: [],
