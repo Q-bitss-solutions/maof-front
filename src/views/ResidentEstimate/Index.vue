@@ -112,9 +112,9 @@ export default {
         label: 'Nuevo',
         action: (residentEstimate) => router
           .push({
-            name: 'EditResidentEstimate',
+            name: 'NewResidentEstimateById',
             params: {
-              residentEstimateId: residentEstimate.id_residentEstimate,
+              residentEstimateId: residentEstimate.contrato_estimacion,
             },
           }),
       },

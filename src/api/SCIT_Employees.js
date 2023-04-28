@@ -5,8 +5,8 @@ const fetchSCIT_Employees = () => fetchApi({
   method: 'GET',
 })
 
-const fetchSCIT_EmployeesQuery = (id_unidad_sict) => fetchApi({
-  url:  `/cat_empleados_sict/?unidad_sict=${id_unidad_sict}`,
+const fetchSCIT_EmployeesQuery = (id_unidad_maof) => fetchApi({
+  url:  `/cat_empleados_sict/?unidad_sict=${id_unidad_maof}`,
   method: 'GET',
 })
 

@@ -51,7 +51,7 @@ export default {
           router.push({
             name: 'EditUnitMAOF',
             params: {
-              unityMAOFId: unit.id_unidad_sict,
+              unityMAOFId: unit.id_unidad_maof,
             }
           })
         }
@@ -70,7 +70,7 @@ export default {
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
-                await deleteSICTUnits(unit.id_unidad_sict)
+                await deleteSICTUnits(unit.id_unidad_maof)
                 await getUnits()
                 Swal.fire(
                   '¡Inactivo!',

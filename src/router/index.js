@@ -132,12 +132,17 @@ const routes = [
     component: () => import('./../views/ResidentEstimate/New.vue'),
   },
   {
-    path: '/estimacion-residente/:amendingAgreementId',
+    path: '/estimacion-residente/nuevo/:residentEstimateId',
+    name: 'NewResidentEstimateById',
+    component: () => import('./../views/ResidentEstimate/NewById.vue'),
+  },
+  {
+    path: '/estimacion-residente/:residentEstimateId',
     name: 'EditResidentEstimate',
     component: () => import('./../views/ResidentEstimate/Edit.vue'),
   },
   {
-    path: '/estimacion-residente/files/:amendingAgreementId',
+    path: '/estimacion-residente/files/:residentEstimateId',
     name: 'FilesResidentEstimate',
     component: () => import('./../views/ResidentEstimate/Files.vue'),
   },

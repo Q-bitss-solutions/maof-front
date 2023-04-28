@@ -81,7 +81,7 @@ export default {
 
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
-      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_sict} - ${reviewArea.nombre_unidad}` }))
+      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_maof} - ${reviewArea.nombre_unidad}` }))
       app.listReviewAreas.sort((a, b) => {
         if (a.value > b.value) {
           return 1;
