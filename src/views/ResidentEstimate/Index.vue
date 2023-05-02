@@ -4,9 +4,9 @@
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
-        <!-- <table-base :options="featureOptions" :headers="headers" /> -->
-        <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="residentEstimate" />
-        <!-- <tablero-estimacion-residente  /> -->
+      <!-- <table-base :options="featureOptions" :headers="headers" /> -->
+      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="residentEstimate" />
+      <!-- <tablero-estimacion-residente  /> -->
     </section>
   </main>
 </template>
@@ -15,7 +15,7 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate,fetchResidentEstimateHojaViajera  } from './../../api/residentEstimate'
+import { fetchResidentEstimate, fetchResidentEstimateHojaViajera } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -35,8 +35,8 @@ export default {
     const router = useRouter()
     const headers = [
       {
-        label: 'Renglon',
-        field: 'id_residente',
+        label: '#',
+        field: '',
       },
       {
         label: 'Contrato o Convenio de Colaboracion',
@@ -45,6 +45,10 @@ export default {
       {
         label: 'Convenio Modificatorio',
         field: 'numero_contrato_padre',
+      },
+      {
+        label: ' ',
+        field: 'documents',
       },
       {
         label: '# Estimación',
@@ -121,37 +125,12 @@ export default {
       {
         label: 'Archivo',
         action: async (residentEstimate) => {
-          Swal.fire({
-            title: `Estas seguro que desea inactivar la Estimación Residente "${residentEstimate.nombre_completo}"?`,
-            text: "Esto finalizara las asignaciones del residente",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Inactivar!'
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                await deleteResident(residentEstimate.id_residentEstimate)
-                await getResident()
-                Swal.fire(
-                  'Inactivo!',
-                  'El residente se inactivó',
-                  'success'
-                )
-              } catch (error) {
-                Swal.fire(
-                  'Error',
-                  `${error.response.data.message}`,
-                  'error'
-                )
-              }
-            }
+          router.push({
+            name: 'FilesResidentEstimate',
+            params: {
+              residentEstimateId: residentEstimate.id_estimacion,
+            },
           })
-          /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-            await deleteResident(resident.id_residente)
-            await getResident()
-          } */
         },
       },
     ]

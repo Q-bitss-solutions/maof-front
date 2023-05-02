@@ -1,18 +1,18 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Estimación Residente" subtitle="Editar" />
+    <title-bar title="Semaforos Estimación Residente" subtitle="Editar" />
     <section class="px-4">
-      <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
+      <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/>
     </section>
   </main>
 </template>
 
 <script>
-import FormResident from '../../components/Resident/FormResident.vue'
+import FormResidentEstimate from '../../components/ResidentEstimate/FormResidentEstimateSemaforoById.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { updateResident, fetchResidentById } from '../../api/resident'
+import { fetchResidentEstimateById } from '../../api/residentEstimate'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
@@ -20,7 +20,7 @@ import Swal from 'sweetalert2'
 export default {
   name: 'EditResident',
   components: {
-    FormResident,
+    FormResidentEstimate,
     ArrowBack,
     TitleBar,
   },
@@ -28,13 +28,15 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      resident: {},
+      residentEstimate: {},
       loading: true,
     })
     const getResidentById = async () => {
       app.loading = true
-      const { data } = await fetchResidentById(route.params.residentId)
-      app.resident = data
+      const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
+      console.log('data: ', data)
+      app.residentEstimate = data
+      console.log('app.residentEstimate: ', app.residentEstimate)
       app.loading = false
     }
     const saveResident = async (resident) => {

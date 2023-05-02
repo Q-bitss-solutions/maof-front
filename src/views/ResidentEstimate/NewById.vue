@@ -3,8 +3,7 @@
     <arrow-back />
     <title-bar title="Estimación Residente By Id" subtitle="Nuevo" />
     <section class="px-4">
-      <form-resident-estimate @submit="saveResident" :residentEstimate="app.residentEstimate" edit-mode
-        v-if="!app.loading" />
+      <form-resident-estimate :residentEstimate="app.residentEstimate" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -13,7 +12,7 @@
 import FormResidentEstimate from '../../components/ResidentEstimate/FormResidentEstimateById.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { fetchResidentEstimateById } from '../../api/residentEstimate'
+import { fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
@@ -29,14 +28,17 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      residentEstimate: { id_contrato: '', num_consecutivo_estimacion: '' },
+      residentEstimate: { id_contrato: '', num_consecutivo_estimacion: '',numero_contrato:'', nombre_proyecto:'' },
       loading: true,
     })
     const getResidentById = async () => {
       app.loading = true
-      const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
-      app.residentEstimate.num_consecutivo_estimacion = data.num_consecutivo_estimacion
+      const { data } = await fetchContractById(route.params.residentEstimateId)
+      console.log(data)
+      app.residentEstimate.num_consecutivo_estimacion = data.contador_siguiente_estimacion
+      app.residentEstimate.numero_contrato = data.numero_contrato
       app.residentEstimate.id_contrato = data.id_contrato
+      app.residentEstimate.nombre_proyecto = data.nombre_proyecto
       console.log('app.residentEstimate', app.residentEstimate)
       app.loading = false
     }

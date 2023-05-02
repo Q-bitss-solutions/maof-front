@@ -66,7 +66,7 @@ export default {
     const filesById = ref([])
     const getResidentEstimateById = async () => {
       app.loading = true
-      const { data } = await fetchResidentEstimateById(route.params.amendingAgreementId)
+      const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
       app.file.id_estimacion = data.id_estimacion
       formData.append('id_estimacion', app.file.id_estimacion);
       app.loading = false

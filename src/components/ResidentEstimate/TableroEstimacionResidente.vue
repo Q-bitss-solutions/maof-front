@@ -2,18 +2,29 @@
   <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
     <tr>
       <th v-for="(header, index) in headers" :key="index" class="p-2 border-b-2 border-l-0"
-        :class="{ 'border-r-2': header.label === 'Convenio Modificatorio' }">
+        :class="{ 'border-r-2': header.label === ' ' }">
         {{ header.label }}
       </th>
     </tr>
-    <tr id="rows" class="" v-for="(item, index) in data" :key="index" :class="{ ' bg-gray-100': index % 2 === 0 }">
-      <td v-for="(header, index) in headers" :key="index" class="p-2 text-center"
-        :class="{ 'border-r-2 text-center': header.field === 'numero_contrato_padre', 'border-l': index == 0 }">
-        <p v-if="header.field === 'numero_contrato'" @click="detalleContrato(item)">
+    <tr id="rows" class="" v-for="(item, contador ) in data" :key="contador"
+      :class="{ ' bg-gray-100': contador % 2 === 0 }">
+      <td v-for="(header, index) in headers" :key="index" class="text-center"
+        :class="{ 'border-r-2 text-center': header.field === 'documents', 'border-l': index == 0 }">
+        <p v-if="header.label === '#'">
+          {{ contador }}
+        </p>
+
+        <img src="../../assets/PDF.png" @click="downloadFile(item)" v-if="header.field === 'documents'">
+
+
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null" @click="detalleContrato(item)">
           {{ item[header.field] }}
         </p>
-        <p v-if="header.field === 'numero_contrato_padre'" @click="detalleContrato(item)">
-          {{ item[header.field] }}
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" @click="detalleContrato(item)">
+          {{ item.numero_contrato_padre }}
+        </p>
+        <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null" @click="detalleContrato(item)">
+          {{ item.numero_contrato }}
         </p>
         <p
           v-if="header.field !== 'numero_contrato_padre' && header.field !== 'numero_contrato' && header.field !== 'estatus_semaforo'">
@@ -39,12 +50,12 @@
       </td>
       <td v-if="options.length" class="p-2 border border-solid border-gray-100 relative">
         <div class="flex justify-center">
-          <div class="p-1 cursor-pointer" @click="openActions(`table-actions-${index}`)">
+          <div class="p-1 cursor-pointer" @click="openActions(`table-actions-${contador}`)">
             <span v-for="(dot, index) in dots" :key="index" class="rounded-full h-1 w-1 block bg-blue mb-1" />
           </div>
         </div>
         <div class="hidden absolute right-4 top-8 bg-white z-10" style="box-shadow: -3px 3px 6px #00000029;"
-          :id="`table-actions-${index}`" @mouseleave="openActions(`table-actions-${index}`)">
+          :id="`table-actions-${contador}`" @mouseleave="openActions(`table-actions-${contador}`)">
           <div class="flex flex-col">
             <div v-for="(option, index) in options" :key="index" class="h-8 flex justify-center items-center py-2 px-8">
               <p class="text-xs border-b border-solid border-gray-100 cursor-pointer hover:border-gray hover:font-medium"
@@ -60,6 +71,7 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
 export default {
   name: 'TableBase',
   props: {
@@ -91,19 +103,40 @@ export default {
     },
   },
   setup() {
+    const router = useRouter()
     const dots = [1, 2, 3]
     const detalleContrato = (item) => {
-      console.log('Se muestran los detalles del contrato: ',item)
+      console.log('Se muestran los detalles del contrato: ', item)
     }
     const semaforo = (item) => {
       console.log('Se muestran el item: ', item)
+      router.push({
+        name: 'EditResidentEstimate',
+        params: {
+          residentEstimateId: item.id_estimacion,
+        },
+      })
     }
     const openActions = (id) => {
       document.getElementById(id).classList.toggle('hidden')
     }
 
-    return { dots, openActions, detalleContrato, semaforo }
+    const downloadFile = async (item) => {
+      console.log('Item a descargar: ', item)
+      console.log('Item a descargar: ', item.id_estimacion)
+      /* window.open(`${app.fileURl}`, '_blank'); */
+    }
+
+    return { dots, openActions, detalleContrato, semaforo, downloadFile }
   },
 }
 </script>
+
+<style>
+img {
+  max-width: 33px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+</style>
 

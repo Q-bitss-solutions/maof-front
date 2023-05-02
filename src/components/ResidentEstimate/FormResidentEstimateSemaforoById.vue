@@ -1,18 +1,38 @@
 <template>
-  <div class=" flex content-start justify-end items-center mb-10">
-    <div class=" items-center justify-center">
-      <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
-      <p class=" text-center font-semibold text-lg">
-        1
-      </p>
+  <!-- <div class=" flex flex-row justify-between">
+    <div>
+      {{ app.residentEstimate }}
+    </div>
+    <div class=" flex content-start justify-end items-center mb-10">
+      <div class=" items-center justify-center">
+        <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
+        <p class=" text-center font-semibold text-lg">
+          {{ app.residentEstimate.num_consecutivo_estimacion }}
+        </p>
+      </div>
+    </div>
+  </div> -->
+
+  <div class=" flex flex-row justify-between">
+    <div class="font-bold text-lg">
+      {{ app.residentEstimate.numero_contrato }}
+    </div>
+    <div class="font-bold text-lg">
+     Proyecto: {{ app.residentEstimate.nombre_proyecto }}
+    </div>
+    <div class=" flex content-start justify-end items-center mb-10">
+      <div class=" items-center justify-center">
+        <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
+        <p class=" text-center font-semibold text-lg">
+          {{ app.residentEstimate.num_consecutivo_estimacion }}
+        </p>
+      </div>
     </div>
   </div>
+
+
+  <button-base label="archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
   <div class="max-w-xl mx-auto">
-    <select-base id="id_contrato" label="Número de Contrato(de origen)" :options="app.listContrato"
-      v-model="app.residentEstimate.id_contrato" class="mb-3" v-if="editMode !== true"
-      @change="getName(app.residentEstimate.id_contrato)" />
-    <input-base id="id_area_revisora" label="Objeto del Contrato" type="text" v-model="app.contratoName" class="mb-3"
-      v-if="editMode !== true" disabled />
     <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
       type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
     <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
@@ -77,7 +97,7 @@ export default {
     SelectBase,
     TextAreaBase,
   },
-  setup(props, { emit }) {
+  setup(props) {
     const router = useRouter()
     const app = reactive({
       residentEstimate: {
@@ -108,9 +128,23 @@ export default {
       listEmpleados: [],
       listContrato: [],
     })
+    const formatFecha = (fecha) => {
+      let aux = []
+      aux = fecha.split(' ')
+      aux = aux[0].split('-')
+      aux = aux[0] + '-' + aux[1] + '-' + aux[2]
+      fecha = aux
+      console.log('Fecha funcion: ', fecha)
+      return fecha
+    }
+
     if (props.editMode) {
-      app.resident = props.resident
-      app.resident.fecha_inicio_residente = props.resident.fecha_inicio_residente.split('-').reverse().join('-')
+      console.log('props.residentEstimate: ', props.residentEstimate)
+      app.residentEstimate = props.residentEstimate
+      app.fecha_recepcion_info_contratista = formatFecha(props.residentEstimate.fecha_recepcion_info_contratista)
+      app.fecha_autorizacion_contratista = formatFecha(props.residentEstimate.fecha_autorizacion_contratista)
+      app.fecha_periodo_inicio_estimacion = formatFecha(props.residentEstimate.fecha_periodo_inicio_estimacion)
+      app.fecha_periodo_fin_estimacion = formatFecha(props.residentEstimate.fecha_periodo_fin_estimacion)
     }
     const sendForm = () => {
       let today = new Date();
@@ -133,7 +167,8 @@ export default {
         if (result.isConfirmed) {
           try {
             /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
-            console.log('residentEstimate: ', app.residentEstimate)
+            delete app.residentEstimate.num_consecutivo_estimacion
+            console.log('residentEstimate Post: ', app.residentEstimate)
             await storeResidentEstimate(app.residentEstimate)
             Swal.fire({
               title: `Registro dado de alta`,
@@ -176,30 +211,19 @@ export default {
       /* emit('submit', app.resident) */
     }
 
-    const getContratos = async () => {
-      const { data } = await fetchContracts()
-      app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.nombre_proyecto }))
-      console.log('app.listContrato:', app.listContrato)
-    }
+    const goToArchivos = () => router.push({
+      name: 'FilesResidentEstimate',
+      params: {
+        residentEstimateId: app.residentEstimate.id_estimacion,
+      },
+    })
 
-    const getName = async (id) => {
-      const { data } = await fetchContractById(id)
-      app.contratoName = data.nombre_proyecto
-    }
-
-    const getEmpleadosSICT = async () => {
-      const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
-      app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
-    }
-
-    getContratos()
 
     return {
       app,
       sendForm,
-      getContratos,
-      getEmpleadosSICT,
-      getName,
+      goToArchivos,
+      formatFecha,
     }
   },
 }

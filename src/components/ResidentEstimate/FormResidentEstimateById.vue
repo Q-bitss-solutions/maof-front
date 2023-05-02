@@ -1,10 +1,18 @@
 <template>
-  <div class=" flex  content-start justify-end  items-center mb-10">
-    <div class="">
-      <h1> Número de la Estimación </h1>
-      <p>
-        {{ app.residentEstimate.num_consecutivo_estimacion + 1 }}
-      </p>
+  <div class=" flex flex-row justify-between">
+    <div class="font-bold text-lg">
+      {{ app.residentEstimate.numero_contrato }}
+    </div>
+    <div class="font-bold text-lg">
+     Proyecto: {{ app.residentEstimate.nombre_proyecto }}
+    </div>
+    <div class=" flex content-start justify-end items-center mb-10">
+      <div class=" items-center justify-center">
+        <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
+        <p class=" text-center font-semibold text-lg">
+          {{ app.residentEstimate.num_consecutivo_estimacion }}
+        </p>
+      </div>
     </div>
   </div>
   <div class="max-w-xl mx-auto">
@@ -72,7 +80,7 @@ export default {
     SelectBase,
     TextAreaBase,
   },
-  setup(props, { emit }) {
+  setup(props) {
     const router = useRouter()
     const app = reactive({
       residentEstimate: {
@@ -154,7 +162,7 @@ export default {
                   },
                 })
               } else {
-                router.push({ name: 'Home' })
+                router.push({ name: 'ResidentEstimate' })
               }
             })
             /* router.push({ name: 'AssignResident' }) */
