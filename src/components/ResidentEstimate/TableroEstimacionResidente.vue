@@ -51,7 +51,7 @@
           v-if="header.label === 'PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'Pago Efectuado'">
           abcd</button>
       </td>
-      <td v-if="options.length" class="p-2 border border-solid border-gray-100 relative">
+      <td v-if="options.length" class="p-2 relative" :class="{ ' border-l-2 border-gray-100': contador % 2 !== 0 }">
         <div class="flex justify-center">
           <div class="p-1 cursor-pointer" @click="openActions(`table-actions-${contador}`)">
             <span v-for="(dot, index) in dots" :key="index" class="rounded-full h-1 w-1 block bg-blue mb-1" />
