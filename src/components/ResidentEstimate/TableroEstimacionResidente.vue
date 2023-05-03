@@ -14,16 +14,19 @@
           {{ contador }}
         </p>
 
-        <img src="../../assets/PDF.png" @click="downloadFile(item)" v-if="header.field === 'documents'">
+        <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer" v-if="header.field === 'documents'">
 
 
-        <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null" @click="detalleContrato(item)">
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
+        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
           {{ item[header.field] }}
         </p>
-        <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" @click="detalleContrato(item)">
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" 
+        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
           {{ item.numero_contrato_padre }}
         </p>
-        <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null" @click="detalleContrato(item)">
+        <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null"
+        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
           {{ item.numero_contrato }}
         </p>
         <p
