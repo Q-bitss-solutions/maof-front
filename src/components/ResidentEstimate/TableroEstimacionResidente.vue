@@ -1,32 +1,31 @@
 <template>
   <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
     <tr>
-      <th v-for="(header, index) in headers" :key="index" class="p-2 border-b-2 border-l-0"
+      <th v-for="(header, index) in headers" :key="index" class=" border-b-2 border-l-0 px-2"
         :class="{ 'border-r-2': header.label === ' ' }">
         {{ header.label }}
       </th>
     </tr>
-    <tr id="rows" class="" v-for="(item, contador ) in data" :key="contador"
-      :class="{ ' bg-gray-100': contador % 2 === 0 }">
+    <tr id="rows" class="mx-6" v-for="(item, contador ) in data" :key="contador"
+      :class="{ ' bg-gray-100': contador % 2 === 0 }"
+       >
       <td v-for="(header, index) in headers" :key="index" class="text-center"
         :class="{ 'border-r-2 text-center': header.field === 'documents', 'border-l': index == 0 }">
         <p v-if="header.label === '#'">
           {{ contador }}
         </p>
-
-        <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer" v-if="header.field === 'documents'">
-
-
-        <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
-        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
+        <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
+          v-if="header.field === 'documents'">
+        <p  v-if="header.field === 'numero_contrato' && item.contrato_padre === null" class=" text-blue cursor-pointer contratos"
+          @click="detalleContrato(item)">
           {{ item[header.field] }}
         </p>
-        <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" 
-        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
+        <p  v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" class=" text-blue cursor-pointer contratos"
+          @click="detalleContrato(item)">
           {{ item.numero_contrato_padre }}
         </p>
         <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null"
-        class=" text-blue cursor-pointer" @click="detalleContrato(item)">
+          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
           {{ item.numero_contrato }}
         </p>
         <p
@@ -75,6 +74,7 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import { fetchAssingResident } from '../../api/assingResident'
 export default {
   name: 'TableBase',
   props: {
@@ -125,9 +125,26 @@ export default {
     }
 
     const downloadFile = async (item) => {
+      const { data } = await fetchAssingResident()
+      /* console.log('Item a descargar: ', item)
+      console.log('Item a descargar: ', item.id_estimacion) */
+      let result = []
+      data.forEach(element => {
+        if (item.contrato_padre === null) {
+          if (item.contrato_estimacion === element.id_contrato) {
+            result = element
+          }
+        }
+        if (item.contrato_padre !== null) {
+          if (item.contrato_padre === element.id_contrato) {
+            result = element
+          }
+        }
+      });
       console.log('Item a descargar: ', item)
-      console.log('Item a descargar: ', item.id_estimacion)
-      /* window.open(`${app.fileURl}`, '_blank'); */
+      console.log('data: ', data)
+      console.log('result: ', result)
+      /* window.open(`${result.archivo_asignacion}`, '_blank'); */
     }
 
     return { dots, openActions, detalleContrato, semaforo, downloadFile }
@@ -141,5 +158,13 @@ img {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+p {
+  width: 85px;
+}
+p.contratos {
+  width: 112px;
+}
+
 </style>
 

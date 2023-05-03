@@ -28,7 +28,7 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      residentEstimate: { id_contrato: '', num_consecutivo_estimacion: '',numero_contrato:'', nombre_proyecto:'' },
+      residentEstimate: { id_contrato: '', num_consecutivo_estimacion: '',numero_contrato:'', objeto_contrato:'' },
       loading: true,
     })
     const getResidentById = async () => {
@@ -38,7 +38,7 @@ export default {
       app.residentEstimate.num_consecutivo_estimacion = data.contador_siguiente_estimacion
       app.residentEstimate.numero_contrato = data.numero_contrato
       app.residentEstimate.id_contrato = data.id_contrato
-      app.residentEstimate.nombre_proyecto = data.nombre_proyecto
+      app.residentEstimate.objeto_contrato = data.objeto_contrato
       console.log('app.residentEstimate', app.residentEstimate)
       app.loading = false
     }

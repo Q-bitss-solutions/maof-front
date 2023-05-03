@@ -44,7 +44,7 @@ export default {
         field: '',
       },
       {
-        label: 'Contrato o Convenio de Colaboracion',
+        label: 'Contrato o Convenio de Colaboración',
         field: 'numero_contrato',
       },
       {
@@ -60,16 +60,16 @@ export default {
         field: 'num_consecutivo_estimacion',
       },
       {
-        label: 'Fecha de inicio',
+        label: 'Inicio',
         field: 'fecha_periodo_inicio_estimacion',
       },
       {
-        label: 'Fecha de fin',
+        label: 'Fin',
         field: 'fecha_periodo_fin_estimacion',
       },
       {
-        label: 'Fecha de alta',
-        field: 'fecha_autorizacion_contratista',
+        label: 'Alta',
+        field: '',
       },
       {
         label: 'Fecha de autorización',
