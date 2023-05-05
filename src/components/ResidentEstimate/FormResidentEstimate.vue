@@ -2,7 +2,7 @@
   <div class=" flex content-start justify-end items-center mb-10">
     <div class=" items-center justify-center">
       <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
-      <p class=" text-center font-semibold text-lg">
+      <p class=" text-center font-semibold text-lg numEstimacion">
         1
       </p>
     </div>
@@ -138,29 +138,24 @@ export default {
         /* id_contrato: { required: helpers.withMessage('El id es requerido', required) },
         id_residente: { required }, */
         porcentaje_avance_estimacion: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcentaje_avance_estimacion_acumulado: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcentaje_Avance_fisico: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcensaje_avance_financiero: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         grado_avance_obra: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
       }
     })
@@ -270,13 +265,14 @@ export default {
 
     const getContratos = async () => {
       const { data } = await fetchContracts()
-      app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.nombre_proyecto }))
+      console.log(data)
+      app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.objeto_contrato }))
       console.log('app.listContrato:', app.listContrato)
     }
 
     const getName = async (id) => {
       const { data } = await fetchContractById(id)
-      app.contratoName = data.nombre_proyecto
+      app.contratoName = data.objeto_contrato
     }
 
     const getEmpleadosSICT = async () => {
@@ -310,5 +306,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 
 input[id=fecha_periodo_inicio_estimacion] {
   margin-left: 60px;
+}
+
+.numEstimacion {
+  width: auto;
 }
 </style>

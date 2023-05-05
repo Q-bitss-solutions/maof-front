@@ -18,12 +18,12 @@
       {{ app.residentEstimate.numero_contrato }}
     </div>
     <div class="font-bold text-lg">
-     Proyecto: {{ app.residentEstimate.nombre_proyecto }}
+      Proyecto: {{ app.residentEstimate.nombre_proyecto }}
     </div>
     <div class=" flex content-start justify-end items-center mb-10">
       <div class=" items-center justify-center">
-        <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
-        <p class=" text-center font-semibold text-lg">
+        <h1 class=" font-bold text-lg text-center"> Número de la Estimación </h1>
+        <p class=" text-center font-semibold text-lg numEstimacion">
           {{ app.residentEstimate.num_consecutivo_estimacion }}
         </p>
       </div>
@@ -31,7 +31,7 @@
   </div>
 
 
-  <button-base label="archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
+  <button-base label="Archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
   <div class="max-w-xl mx-auto">
     <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
       type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
@@ -63,7 +63,11 @@
       v-model="app.residentEstimate.porcensaje_avance_financiero" />
     <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
       v-model="app.residentEstimate.observaciones_residente" />
-    <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
+    <div class="flex justify-between items-center py-4 ">
+      <button-base label="Actualizar Datos" class=" px-4" />
+      <button-base label="Eliminar Estimacion" class=" px-4" />
+      <button-base label="Enviar al area revisora" class=" px-4" />
+    </div>
   </div>
 </template>
 
@@ -241,5 +245,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 
 input[id=fecha_periodo_inicio_estimacion] {
   margin-left: 60px;
+}
+
+.numEstimacion {
+  width: auto;
 }
 </style>

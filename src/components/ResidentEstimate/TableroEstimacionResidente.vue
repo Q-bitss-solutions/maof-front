@@ -132,19 +132,21 @@ export default {
       data.forEach(element => {
         if (item.contrato_padre === null) {
           if (item.contrato_estimacion === element.id_contrato) {
-            result = element
+            /* result = element */
+            result.push(element)
           }
         }
         if (item.contrato_padre !== null) {
           if (item.contrato_padre === element.id_contrato) {
-            result = element
+            /* result = element */
+            result.push(element)
           }
         }
       });
       console.log('Item a descargar: ', item)
       console.log('data: ', data)
       console.log('result: ', result)
-      /* window.open(`${result.archivo_asignacion}`, '_blank'); */
+      window.open(`${result[0].archivo_asignacion}`, '_blank');
     }
 
     return { dots, openActions, detalleContrato, semaforo, downloadFile }

@@ -9,7 +9,7 @@
     <div class=" flex content-start justify-end items-center mb-10">
       <div class=" items-center justify-center">
         <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
-        <p class=" text-center font-semibold text-lg">
+        <p class=" text-center font-semibold text-lg numEstimacion">
           {{ app.residentEstimate.num_consecutivo_estimacion }}
         </p>
       </div>
@@ -140,29 +140,24 @@ export default {
     const rules = computed(() => {
       return {
         porcentaje_avance_estimacion: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcentaje_avance_estimacion_acumulado: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcentaje_Avance_fisico: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         porcensaje_avance_financiero: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
         grado_avance_obra: {
-          required,
-          maxValue: helpers.withMessage('El valor maximo es %100', maxValue(100)),
-          minValue: helpers.withMessage('El valor minimo es %0', minValue(0))
+          maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
+          minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
       }
     })
@@ -267,5 +262,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 
 input[id=fecha_periodo_inicio_estimacion] {
   margin-left: 60px;
+}
+
+.numEstimacion {
+  width: auto;
 }
 </style>

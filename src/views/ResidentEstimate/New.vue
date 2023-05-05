@@ -3,7 +3,7 @@
     <arrow-back />
     <title-bar title="Estimación Residente" subtitle="Nuevo" />
     <section class="px-4">
-      <form-resident-estimate @submit="saveResident" />
+      <form-resident-estimate />
     </section>
   </main>
 </template>
