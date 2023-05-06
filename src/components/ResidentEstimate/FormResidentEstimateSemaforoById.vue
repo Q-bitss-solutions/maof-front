@@ -36,7 +36,7 @@
     <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
       type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
     <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
-      v-model="app.fecha_autorizacion_contratista" />
+      v-model="app.fecha_autorizacion_contratista" :disabled="app.residentEstimate.fecha_autorizacion_contratista !== null  " />
     <div class="flex flex-row ">
       <div>
         <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
