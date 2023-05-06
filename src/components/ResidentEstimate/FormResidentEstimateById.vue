@@ -3,7 +3,7 @@
     <div class="font-bold text-lg">
       {{ app.residentEstimate.numero_contrato }}
     </div>
-    <div class="font-bold text-lg">
+    <div class="font-bold text-lg w-128">
       Objeto: {{ app.residentEstimate.objeto_contrato }}
     </div>
     <div class=" flex content-start justify-end items-center mb-10">
@@ -35,11 +35,10 @@
     <input-base id="importe_pagar" label="Importe a pagar" type="number" class="mb-3"
       v-model="app.residentEstimate.importe_pagar" />
 
-      
+
     <input-base id="grado_avance_obra" label="% de grado de avance" type="number" class="mb-3"
       v-model="app.residentEstimate.grado_avance_obra" />
-    <span v-if="v$.grado_avance_obra.$error"
-      v-for="error in  v$.grado_avance_obra.$errors" :key="error"
+    <span v-if="v$.grado_avance_obra.$error" v-for="error in  v$.grado_avance_obra.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
@@ -172,7 +171,12 @@ export default {
       var now = today.toLocaleTimeString('en-GB');
       console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
-      app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      if (app.fecha_autorizacion_contratista === '') {
+        delete app.residentEstimate.fecha_autorizacion_contratista
+
+      } else {
+        app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      }
       app.residentEstimate.fecha_periodo_inicio_estimacion = app.fecha_periodo_inicio_estimacion + ' ' + now
       app.residentEstimate.fecha_periodo_fin_estimacion = app.fecha_periodo_fin_estimacion + ' ' + now
       Swal.fire({

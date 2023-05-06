@@ -17,14 +17,22 @@ const storeResidentEstimate = (residentEstimate) => fetchApi({
 })
 
 const updateResidentEstimate = (residentEstimate) => fetchApi({
-  url: `/estimacion_residente/${residentEstimate.id_residente}/`,
+  url: `/estimacion_residente/${residentEstimate.id_estimacion}/`,
   method: 'PUT',
   data: residentEstimate,
 })
-const deleteResidentEstimate = (id_residente) => fetchApi({
-  url: `/estimacion_residente/${id_residente}/`,
-  method: 'DELETE',
+
+const deleteResidentEstimate = (observacion,id_estimacion) => fetchApi({
+  url: `/estimacion_residente/${id_estimacion}/`,
+  method: 'PATCH',
+  data: observacion,
 })
+const sendToReviewArea = (residentEstimate) => fetchApi({
+  url: `/estimacion_residente/${residentEstimate.id_estimacion}/enviar_area_revisora/`,
+  method: 'PUT',
+  data: residentEstimate,
+})
+
 const archivoResidentEstimate = (fileData) => fetchApi({
   url: `/archivo_estimacion/`,
   method: 'POST',
@@ -44,6 +52,10 @@ const fetchResidentEstimateHojaViajera = () => fetchApi({
   url: '/estimacion_residente/hoja_viajera/',
   method: 'GET',
 })
+const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) => fetchApi({
+  url: `/estimacion_residente/hoja_viajera/?estatus_estimacion=${estatus_estimacion}`,
+  method: 'GET',
+})
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
@@ -54,4 +66,6 @@ export {
   archivoResidentEstimate,
   fetchArchivoResidentEstimateById,
   deleteArchivoResidentEstimate,
+  fetchResidentEstimateHojaViajeraInProgress,
+  sendToReviewArea,
 }

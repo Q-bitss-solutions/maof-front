@@ -17,8 +17,8 @@
     <div class="font-bold text-lg">
       {{ app.residentEstimate.numero_contrato }}
     </div>
-    <div class="font-bold text-lg">
-      Proyecto: {{ app.residentEstimate.nombre_proyecto }}
+    <div class="font-bold text-lg w-128">
+      Objeto: {{ app.residentEstimate.objeto_contrato }}
     </div>
     <div class=" flex content-start justify-end items-center mb-10">
       <div class=" items-center justify-center">
@@ -64,9 +64,10 @@
     <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
       v-model="app.residentEstimate.observaciones_residente" />
     <div class="flex justify-between items-center py-4 ">
-      <button-base label="Actualizar Datos" class=" px-4" />
-      <button-base label="Eliminar Estimacion" class=" px-4" />
-      <button-base label="Enviar al area revisora" class=" px-4" />
+      <button-base label="Actualizar Datos" class=" px-4" @click="editForm" />
+      <button-base label="Eliminar Estimacion" class=" px-4" @click="deleteForm" />
+      <button-base label="Enviar al area revisora" class=" px-4" @click="sendReviewArea"
+        v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
     </div>
   </div>
 </template>
@@ -78,7 +79,7 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import TextAreaBase from '../TextAreaBase.vue'
 import { fetchContracts, fetchContractById } from '../../api/contract'
-import { storeResidentEstimate, fetchResidentEstimate } from '../../api/residentEstimate'
+import { storeResidentEstimate, sendToReviewArea, updateResidentEstimate, deleteResidentEstimate } from '../../api/residentEstimate'
 import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
@@ -124,6 +125,7 @@ export default {
       fecha_periodo_inicio_estimacion: '',
       fecha_periodo_fin_estimacion: '',
       contratoName: '',
+      estatus_semaforo: '',
       fileInfo: {
         type: Object,
         default: () => ({})
@@ -138,25 +140,39 @@ export default {
       aux = aux[0].split('-')
       aux = aux[0] + '-' + aux[1] + '-' + aux[2]
       fecha = aux
-      console.log('Fecha funcion: ', fecha)
       return fecha
     }
 
     if (props.editMode) {
       console.log('props.residentEstimate: ', props.residentEstimate)
+      console.log('props: ', props)
       app.residentEstimate = props.residentEstimate
+      app.estatus_semaforo = props
       app.fecha_recepcion_info_contratista = formatFecha(props.residentEstimate.fecha_recepcion_info_contratista)
-      app.fecha_autorizacion_contratista = formatFecha(props.residentEstimate.fecha_autorizacion_contratista)
+
+      if (props.residentEstimate.fecha_autorizacion_contratista === null) {
+        app.fecha_autorizacion_contratista = null
+
+      } else {
+        app.fecha_autorizacion_contratista = formatFecha(props.residentEstimate.fecha_autorizacion_contratista)
+      }
       app.fecha_periodo_inicio_estimacion = formatFecha(props.residentEstimate.fecha_periodo_inicio_estimacion)
       app.fecha_periodo_fin_estimacion = formatFecha(props.residentEstimate.fecha_periodo_fin_estimacion)
     }
-    const sendForm = () => {
+    const editForm = () => {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
       console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
-      app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+
+      if (app.fecha_autorizacion_contratista === null || app.fecha_autorizacion_contratista === '') {
+        delete app.residentEstimate.fecha_autorizacion_contratista
+
+      } else {
+        app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      }
+
       app.residentEstimate.fecha_periodo_inicio_estimacion = app.fecha_periodo_inicio_estimacion + ' ' + now
       app.residentEstimate.fecha_periodo_fin_estimacion = app.fecha_periodo_fin_estimacion + ' ' + now
       Swal.fire({
@@ -171,36 +187,17 @@ export default {
         if (result.isConfirmed) {
           try {
             /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
-            delete app.residentEstimate.num_consecutivo_estimacion
-            console.log('residentEstimate Post: ', app.residentEstimate)
-            await storeResidentEstimate(app.residentEstimate)
-            Swal.fire({
-              title: `Registro dado de alta`,
-              text: "¿Desea ingresar los documentos?",
-              icon: 'success',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Si',
-              cancelButtonText: 'No',
-              reverseButtons: true
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                const { data } = await fetchResidentEstimate()
-                const lengthData = data.length - 1
-                app.fileInfo = data[lengthData]
-                console.log('fileInfo: ', app.fileInfo.id_estimacion)
-                router.push({
-                  name: 'FilesResidentEstimate',
-                  params: {
-                    residentEstimateId: app.fileInfo.id_estimacion,
-                  },
-                })
-              } else {
-                router.push({ name: 'ResidentEstimate' })
-              }
-            })
-            /* router.push({ name: 'AssignResident' }) */
+            /* delete app.residentEstimate.num_consecutivo_estimacion
+            delete app.residentEstimate.estatus_estimacion
+            delete app.residentEstimate.fecha_alta */
+            console.log('residentEstimate put: ', app.residentEstimate)
+            await updateResidentEstimate(app.residentEstimate)
+            Swal.fire(
+              '¡Éxito!',
+              'Actualización con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
           } catch (error) {
             console.log('error: ', error.response.data.detail)
             Swal.fire(
@@ -214,6 +211,79 @@ export default {
       })
       /* emit('submit', app.resident) */
     }
+    const deleteForm = () => {
+      Swal.fire({
+        title: `¿Confirma los cambios ?`,
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            console.log('app.residentEstimate.observaciones_residente: ', app.residentEstimate.observaciones_residente)
+            console.log('app.residentEstimate.id_estimacion: ', app.residentEstimate.id_estimacion)
+            await deleteResidentEstimate(app.residentEstimate, app.residentEstimate.id_estimacion)
+            Swal.fire(
+              '¡Éxito!',
+              'Actualización con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          } catch (error) {
+            console.log('error: ', error.response.data.detail)
+            Swal.fire(
+              'Error',
+              `${error.response.data.detail}`,
+              'error'
+            )
+            /* router.push({ name: 'AssignResident' }) */
+          }
+        }
+      })
+    }
+    const sendReviewArea = () => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
+      if (app.fecha_autorizacion_contratista === null) {
+        delete app.residentEstimate.fecha_autorizacion_contratista
+      } else {
+        app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      }
+      Swal.fire({
+        title: `Se realizará el envio de la Estimación al área revisora`,
+        icon: 'question',
+        showCancelButton: true,
+        text: '¿Está usted seguro?',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            await sendToReviewArea(app.residentEstimate)
+            Swal.fire(
+              '¡Éxito!',
+              'Actualización con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          } catch (error) {
+            console.log('error: ', error.response.data.detail)
+            Swal.fire(
+              'Error',
+              `${error.response.data.detail}`,
+              'error'
+            )
+            /* router.push({ name: 'AssignResident' }) */
+          }
+        }
+      })
+    }
 
     const goToArchivos = () => router.push({
       name: 'FilesResidentEstimate',
@@ -225,7 +295,9 @@ export default {
 
     return {
       app,
-      sendForm,
+      editForm,
+      deleteForm,
+      sendReviewArea,
       goToArchivos,
       formatFecha,
     }

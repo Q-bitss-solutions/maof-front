@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate, fetchResidentEstimateHojaViajera } from './../../api/residentEstimate'
+import { fetchResidentEstimate, fetchResidentEstimateHojaViajera, fetchResidentEstimateHojaViajeraInProgress } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
@@ -69,7 +69,7 @@ export default {
       },
       {
         label: 'Alta',
-        field: '',
+        field: 'fecha_alta',
       },
       {
         label: 'Fecha de autorización',
@@ -108,16 +108,16 @@ export default {
       residentEstimate.value = data
     }
     const featureOptions = [
-     /*  {
-        label: 'Detalles',
-        action: (residentEstimate) => router
-          .push({
-            name: 'EditResidentEstimate',
-            params: {
-              residentEstimateId: residentEstimate.id_residentEstimate,
-            },
-          }),
-      }, */
+      /*  {
+         label: 'Detalles',
+         action: (residentEstimate) => router
+           .push({
+             name: 'EditResidentEstimate',
+             params: {
+               residentEstimateId: residentEstimate.id_residentEstimate,
+             },
+           }),
+       }, */
       {
         label: 'Nuevo',
         action: (residentEstimate) => router
@@ -143,6 +143,14 @@ export default {
     const goToNewResidentEstimate = () => router.push({ name: 'NewResidentEstimate' })
     const processo = async () => {
       procesoVariable = !procesoVariable
+      if (procesoVariable === true) {
+        const { data } = await fetchResidentEstimateHojaViajeraInProgress(9)
+        console.log(data)
+        residentEstimate.value = data
+      }
+      if (procesoVariable === false) {
+        getResidentEstimate()
+      }
       console.log(procesoVariable)
     }
 

@@ -170,7 +170,13 @@ export default {
       var now = today.toLocaleTimeString('en-GB');
       console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
-      app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      
+      if (app.fecha_autorizacion_contratista === '') {
+        delete app.residentEstimate.fecha_autorizacion_contratista
+
+      }else {
+        app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      }
       app.residentEstimate.fecha_periodo_inicio_estimacion = app.fecha_periodo_inicio_estimacion + ' ' + now
       app.residentEstimate.fecha_periodo_fin_estimacion = app.fecha_periodo_fin_estimacion + ' ' + now
       Swal.fire({
