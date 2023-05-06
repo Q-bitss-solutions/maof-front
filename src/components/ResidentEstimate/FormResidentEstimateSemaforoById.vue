@@ -268,7 +268,7 @@ export default {
             await sendToReviewArea(app.residentEstimate)
             Swal.fire(
               '¡Éxito!',
-              'Actualización con éxito!',
+              'Estimación enviada al área revisora con éxito!',
               'success'
             )
             router.push({ name: 'ResidentEstimate' })
