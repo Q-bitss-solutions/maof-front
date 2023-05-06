@@ -52,6 +52,11 @@ const fetchResidentEstimateHojaViajera = () => fetchApi({
   url: '/estimacion_residente/hoja_viajera/',
   method: 'GET',
 })
+
+const fetchResidentEstimateHojaViajeraActivos = () => fetchApi({
+  url: '/estimacion_residente/hoja_viajera/?estatus_booleano=true',
+  method: 'GET',
+})
 const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) => fetchApi({
   url: `/estimacion_residente/hoja_viajera/?estatus_estimacion=${estatus_estimacion}`,
   method: 'GET',
@@ -67,5 +72,6 @@ export {
   fetchArchivoResidentEstimateById,
   deleteArchivoResidentEstimate,
   fetchResidentEstimateHojaViajeraInProgress,
+  fetchResidentEstimateHojaViajeraActivos,
   sendToReviewArea,
 }

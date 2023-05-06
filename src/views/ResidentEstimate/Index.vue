@@ -103,7 +103,7 @@ export default {
     const residentEstimate = ref([])
     let procesoVariable = false
     const getResidentEstimate = async () => {
-      const { data } = await fetchResidentEstimateHojaViajera()
+      const { data } = await fetchResidentEstimateHojaViajeraActivos()
       console.log(data)
       residentEstimate.value = data
     }
