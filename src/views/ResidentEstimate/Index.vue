@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate, fetchResidentEstimateHojaViajera, fetchResidentEstimateHojaViajeraInProgress } from './../../api/residentEstimate'
+import { fetchResidentEstimate, fetchResidentEstimateHojaViajera, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'

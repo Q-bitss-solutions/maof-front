@@ -54,13 +54,15 @@ const fetchResidentEstimateHojaViajera = () => fetchApi({
 })
 
 const fetchResidentEstimateHojaViajeraActivos = () => fetchApi({
-  url: '/estimacion_residente/hoja_viajera/?estatus_booleano=true',
+  url: '/estimacion_residente/hoja_viajera/?estatus_booleano=True',
   method: 'GET',
 })
+
 const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) => fetchApi({
-  url: `/estimacion_residente/hoja_viajera/?estatus_estimacion=${estatus_estimacion}`,
+  url: `/estimacion_residente/hoja_viajera/?estatus_estimacion=${estatus_estimacion}&estatus_booleano=1`,
   method: 'GET',
 })
+
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
