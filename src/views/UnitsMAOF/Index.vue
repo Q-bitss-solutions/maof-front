@@ -38,6 +38,10 @@ export default {
         label: 'Unidad SICT',
         field: 'unidad',
       },
+      {
+        label: 'Estatus',
+        field: 'estado_unidad_maof',
+      },
     ]
     const resident = ref([])
     const getUnits = async () => {

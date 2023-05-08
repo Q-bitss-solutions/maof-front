@@ -17,6 +17,10 @@
       type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
     <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
       v-model="app.fecha_autorizacion_contratista" />
+    <span v-if="v$.fecha_autorizacion_contratista.$error" v-for="error in  v$.fecha_autorizacion_contratista.$errors"
+      :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
+
+      
     <div class="flex flex-row ">
       <div>
         <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
@@ -133,6 +137,19 @@ export default {
       listEmpleados: [],
       listContrato: [],
     })
+    const fechaActualFunction = () => {
+      let today = new Date();
+      var dia = ("0" + today.getDate()).slice(-2);
+      var mes = ("0" + (today.getMonth() + 1)).slice(-2);
+      var anio = today.getFullYear();
+      var fechaActual = anio + "-" + mes + "-" + dia;
+      if (app.fecha_autorizacion_contratista > fechaActual) {
+        console.log('Entro')
+        return false
+      } else {
+        return true
+      }
+    }
     const rules = computed(() => {
       return {
         /* id_contrato: { required: helpers.withMessage('El id es requerido', required) },
@@ -157,6 +174,9 @@ export default {
           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
         },
+        fecha_autorizacion_contratista: {
+          fechaActualFunction: helpers.withMessage('La fecha es mayor al dia de hoy', fechaActualFunction),
+        },
       }
     })
     const v$ = useVuelidate(rules, app.residentEstimate)
@@ -170,11 +190,11 @@ export default {
       var now = today.toLocaleTimeString('en-GB');
       console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
-      
+
       if (app.fecha_autorizacion_contratista === '') {
         delete app.residentEstimate.fecha_autorizacion_contratista
 
-      }else {
+      } else {
         app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
       }
       app.residentEstimate.fecha_periodo_inicio_estimacion = app.fecha_periodo_inicio_estimacion + ' ' + now

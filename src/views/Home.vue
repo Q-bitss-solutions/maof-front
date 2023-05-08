@@ -136,7 +136,7 @@ export default {
         ],
       },
       {
-        labelMenu: 'Admon. MAOF',
+        labelMenu: 'Administración MAOF',
         routeName: '',
         submenu: [
           {
