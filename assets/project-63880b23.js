@@ -1,0 +1,1 @@
+import{f as t}from"./TitleBar-c6610f6e.js";const r=()=>t({url:"proyecto/",method:"GET"}),c=o=>t({url:`proyecto/${o}/`,method:"GET"}),s=o=>t({url:"proyecto/",method:"POST",data:o}),a=o=>t({url:`proyecto/${o.id_proyecto}/`,method:"PUT",data:o}),d=o=>t({url:`proyecto/${o}/`,method:"DELETE"});export{c as a,d,r as f,s,a as u};
