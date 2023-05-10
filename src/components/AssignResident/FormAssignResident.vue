@@ -108,8 +108,6 @@ export default {
 
     const fileUpload = (event) => {
       formData.append('archivo_asignacion', event.target.files[0]);
-      console.log(
-        event.target.files[0])
     }
 
     const downloadFile = async () => {

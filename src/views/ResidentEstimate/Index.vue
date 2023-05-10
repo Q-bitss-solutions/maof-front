@@ -104,7 +104,6 @@ export default {
     let procesoVariable = false
     const getResidentEstimate = async () => {
       const { data } = await fetchResidentEstimateHojaViajeraActivos()
-      console.log(data)
       residentEstimate.value = data
     }
     const featureOptions = [
@@ -145,13 +144,11 @@ export default {
       procesoVariable = !procesoVariable
       if (procesoVariable === true) {
         const { data } = await fetchResidentEstimateHojaViajeraInProgress(9)
-        console.log(data)
         residentEstimate.value = data
       }
       if (procesoVariable === false) {
         getResidentEstimate()
       }
-      console.log(procesoVariable)
     }
 
     getResidentEstimate()

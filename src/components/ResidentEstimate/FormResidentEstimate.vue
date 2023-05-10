@@ -141,7 +141,6 @@ export default {
       var anio = today.getFullYear();
       var fechaActual = anio + "-" + mes + "-" + dia;
       if (app.fecha_autorizacion_contratista > fechaActual) {
-        console.log('Entro')
         return false
       } else {
         return true
@@ -185,7 +184,6 @@ export default {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
-      console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
 
       if (app.fecha_autorizacion_contratista === '') {
@@ -223,13 +221,8 @@ export default {
               }).then(async (result) => {
                 if (result.isConfirmed) {
                   const { data } = await fetchResidentEstimate()
-                  console.log('data: ', data)
                   const lengthData = data.length - 1
-                  console.log('data.length: ', data.length)
-                  console.log('lengthData: ', lengthData)
-                  console.log('app.fileInfo: ', app.fileInfo)
                   app.fileInfo = data[lengthData]
-                  console.log('fileInfo: ', app.fileInfo.id_estimacion)
                   router.push({
                     name: 'FilesResidentEstimate',
                     params: {
@@ -277,7 +270,6 @@ export default {
              }) */
             /* router.push({ name: 'AssignResident' }) */
           } catch (error) {
-            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,
@@ -292,9 +284,7 @@ export default {
 
     const getContratos = async () => {
       const { data } = await fetchContracts()
-      console.log(data)
       app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.objeto_contrato }))
-      console.log('app.listContrato:', app.listContrato)
     }
 
     const getName = async (id) => {

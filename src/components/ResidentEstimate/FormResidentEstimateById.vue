@@ -141,7 +141,6 @@ export default {
       var anio = today.getFullYear();
       var fechaActual = anio + "-" + mes + "-" + dia;
       if (app.fecha_autorizacion_contratista > fechaActual) {
-        console.log('Entro')
         return false
       } else {
         return true
@@ -175,7 +174,6 @@ export default {
       }
     })
     if (props.editMode) {
-      console.log('props.residentEstimate: ', props.residentEstimate)
       app.residentEstimate = props.residentEstimate
     }
     const v$ = useVuelidate(rules, app.residentEstimate)
@@ -183,7 +181,6 @@ export default {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
-      console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
       if (app.fecha_autorizacion_contratista === '') {
         delete app.residentEstimate.fecha_autorizacion_contratista
@@ -207,7 +204,6 @@ export default {
             const validaciones = await v$.value.$validate()
             if (validaciones) {
               delete app.residentEstimate.num_consecutivo_estimacion
-              console.log('residentEstimate Post: ', app.residentEstimate)
               await storeResidentEstimate(app.residentEstimate)
               Swal.fire({
                 title: `Registro dado de alta`,
@@ -224,7 +220,6 @@ export default {
                   const { data } = await fetchResidentEstimate()
                   const lengthData = data.length - 1
                   app.fileInfo = data[lengthData]
-                  console.log('fileInfo: ', app.fileInfo.id_estimacion)
                   router.push({
                     name: 'FilesResidentEstimate',
                     params: {
@@ -245,7 +240,6 @@ export default {
             /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
             /* router.push({ name: 'AssignResident' }) */
           } catch (error) {
-            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,

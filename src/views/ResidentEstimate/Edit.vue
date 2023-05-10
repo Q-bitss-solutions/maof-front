@@ -34,9 +34,7 @@ export default {
     const getResidentById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
-      console.log('data: ', data)
       app.residentEstimate = data
-      console.log('app.residentEstimate: ', app.residentEstimate)
       app.loading = false
     }
     const saveResident = async (resident) => {

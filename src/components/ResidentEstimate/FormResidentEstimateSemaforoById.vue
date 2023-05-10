@@ -176,7 +176,6 @@ export default {
       var anio = today.getFullYear();
       var fechaActual = anio + "-" + mes + "-" + dia;
       if (app.fecha_autorizacion_contratista > fechaActual) {
-        console.log('Entro')
         return false
       } else {
         return true
@@ -213,8 +212,6 @@ export default {
     })
     const v$ = useVuelidate(rules, props.residentEstimate)
     if (props.editMode) {
-      console.log('props.residentEstimate: ', props.residentEstimate)
-      console.log('props: ', props)
       app.residentEstimate = props.residentEstimate
       app.estatus_semaforo = props
       app.fecha_recepcion_info_contratista = formatFecha(props.residentEstimate.fecha_recepcion_info_contratista)
@@ -232,7 +229,6 @@ export default {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
-      console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
       if (app.fecha_autorizacion_contratista === null || app.fecha_autorizacion_contratista === '') {
         app.residentEstimate.fecha_autorizacion_contratista = null
@@ -254,8 +250,6 @@ export default {
         if (result.isConfirmed) {
           try {
             const validaciones = await v$.value.$validate()
-            console.log('validaciones:', validaciones)
-            console.log('v$:', v$)
             if (validaciones) {
               await updateResidentEstimate(app.residentEstimate)
               Swal.fire(
@@ -273,7 +267,6 @@ export default {
             }
 
           } catch (error) {
-            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,
@@ -297,8 +290,6 @@ export default {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            console.log('app.residentEstimate.observaciones_residente: ', app.residentEstimate.observaciones_residente)
-            console.log('app.residentEstimate.id_estimacion: ', app.residentEstimate.id_estimacion)
             await deleteResidentEstimate(app.residentEstimate, app.residentEstimate.id_estimacion)
             Swal.fire(
               '¡Éxito!',
@@ -307,7 +298,6 @@ export default {
             )
             router.push({ name: 'ResidentEstimate' })
           } catch (error) {
-            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,
@@ -372,7 +362,6 @@ export default {
               )
             }
           } catch (error) {
-            console.log('error: ', error.response.data.detail)
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,

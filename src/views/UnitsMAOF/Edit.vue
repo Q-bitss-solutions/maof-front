@@ -48,7 +48,6 @@ export default {
         )
         router.push({ name: 'UnitsMAOF' })
       } catch (error) {
-        console.log(error)
         Swal.fire(
           'Error',
           `Registro inactivo`,

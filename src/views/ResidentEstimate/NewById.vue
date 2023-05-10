@@ -34,12 +34,10 @@ export default {
     const getResidentById = async () => {
       app.loading = true
       const { data } = await fetchContractById(route.params.residentEstimateId)
-      console.log(data)
       app.residentEstimate.num_consecutivo_estimacion = data.contador_siguiente_estimacion
       app.residentEstimate.numero_contrato = data.numero_contrato
       app.residentEstimate.id_contrato = data.id_contrato
       app.residentEstimate.objeto_contrato = data.objeto_contrato
-      console.log('app.residentEstimate', app.residentEstimate)
       app.loading = false
     }
     const saveResident = async (resident) => {
