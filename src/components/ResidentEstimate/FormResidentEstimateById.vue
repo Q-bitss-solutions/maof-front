@@ -68,9 +68,6 @@
     <span v-if="v$.porcensaje_avance_financiero.$error" v-for="error in  v$.porcensaje_avance_financiero.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-
-    <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
-      v-model="app.residentEstimate.observaciones_residente" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -123,7 +120,6 @@ export default {
         porcentaje_avance_estimacion_acumulado: '',
         porcentaje_Avance_fisico: '',
         porcensaje_avance_financiero: '',
-        observaciones_residente: '',
       },
       fecha_recepcion_info_contratista: '',
       fecha_autorizacion_contratista: '',
@@ -283,7 +279,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 }
 
 input[id=fecha_periodo_inicio_estimacion] {
-  margin-left: 60px;
+  margin-left: 97px;
+  margin-bottom: 29px;
+  width: 80px;
 }
 
 .numEstimacion {

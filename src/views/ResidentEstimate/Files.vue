@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Estimación Residente" subtitle="Files" />
+    <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
       <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" />
       <table-base :options="featureOptions" :headers="headers" :data="filesById" />
@@ -58,7 +58,6 @@ export default {
         id_estimacion: '',
         file: '',
         descripcionFile: '',
-        estatus_archivo: true,
       },
       filesById: [],
       loading: true,

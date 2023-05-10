@@ -86,8 +86,6 @@
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
-    <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
-      v-model="app.residentEstimate.observaciones_residente" />
     <div class="flex justify-between items-center py-4 ">
       <button-base label="Actualizar datos" class=" px-4" @click="editForm"
         v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
@@ -237,7 +235,7 @@ export default {
       console.log(now);
       app.residentEstimate.fecha_recepcion_info_contratista = app.fecha_recepcion_info_contratista + ' ' + now
       if (app.fecha_autorizacion_contratista === null || app.fecha_autorizacion_contratista === '') {
-         app.residentEstimate.fecha_autorizacion_contratista = null
+        app.residentEstimate.fecha_autorizacion_contratista = null
 
       } else {
         app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
@@ -325,7 +323,7 @@ export default {
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
       if (app.fecha_autorizacion_contratista === null) {
-        delete app.residentEstimate.fecha_autorizacion_contratista
+        app.residentEstimate.fecha_autorizacion_contratista = null
       } else {
         app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
       }
@@ -341,13 +339,38 @@ export default {
       }).then(async (result) => {
         if (result.isConfirmed) {
           try {
-            await sendToReviewArea(app.residentEstimate)
-            Swal.fire(
-              '¡Éxito!',
-              'Estimación enviada al área revisora con éxito!',
-              'success'
-            )
-            router.push({ name: 'ResidentEstimate' })
+            const { value: text } = await Swal.fire({
+              input: 'textarea',
+              inputLabel: 'Observaciones',
+              inputPlaceholder: 'Escribe tus observaciones...',
+              inputAttributes: {
+                'aria-label': 'Type your message here'
+              },
+              showCancelButton: true,
+              reverseButtons: true,
+              inputValidator: (value) => {
+                if (!value) {
+                  return 'El campo es requerido'
+                }
+              }
+            })
+            if (text !== undefined) {
+              app.residentEstimate.observaciones_residente = text
+              await sendToReviewArea(app.residentEstimate)
+              Swal.fire(
+                '¡Éxito!',
+                'Estimación enviada al área revisora con éxito!',
+                'success'
+              )
+              router.push({ name: 'ResidentEstimate' })
+            }
+            else {
+              Swal.fire(
+                'No agregaste ninguna observacion',
+                'Agrega uno para continuar',
+                'warning'
+              )
+            }
           } catch (error) {
             console.log('error: ', error.response.data.detail)
             Swal.fire(
@@ -393,7 +416,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 }
 
 input[id=fecha_periodo_inicio_estimacion] {
-  margin-left: 60px;
+  margin-left: 97px;
+  margin-bottom: 29px;
+  width: 80px;
 }
 
 .numEstimacion {

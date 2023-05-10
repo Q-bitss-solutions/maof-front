@@ -3,7 +3,7 @@
     <arrow-back />
     <title-bar title="Unidades MAOF" subtitle="Editar" />
     <section class="px-4">
-      <form-units-m-a-o-f  @submit="saveUnit" :unit="app.unit" edit-mode v-if="!app.loading" />
+      <form-units-m-a-o-f @submit="saveUnit" :unit="app.unit" edit-mode v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -38,14 +38,23 @@ export default {
       app.loading = false
     }
     const saveUnit = async (unit) => {
-      await updateSICTUnits(unit)
-      /* alert('Residente actualizado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        '¡Unidad actualizada con éxito!',
-        'success'
-      )
-      router.push({ name: 'UnitsMAOF' })
+      try {
+        await updateSICTUnits(unit)
+        /* alert('Residente actualizado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          '¡Unidad actualizada con éxito!',
+          'success'
+        )
+        router.push({ name: 'UnitsMAOF' })
+      } catch (error) {
+        console.log(error)
+        Swal.fire(
+          'Error',
+          `Registro inactivo`,
+          'error'
+        )
+      }
     }
 
     getUnitById()

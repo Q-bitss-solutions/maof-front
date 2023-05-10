@@ -1,9 +1,9 @@
 <template>
-  <div class=" flex content-start justify-end items-center mb-10">
+  <div v-if="app.residentEstimate.id_contrato !== ''" class=" flex content-start justify-end items-center mb-10">
     <div class=" items-center justify-center">
       <h1 class=" font-bold text-lg"> Número de la Estimación </h1>
       <p class=" text-center font-semibold text-lg numEstimacion">
-        1
+        {{ app.contador_siguiente_estimacion }}
       </p>
     </div>
   </div>
@@ -20,7 +20,7 @@
     <span v-if="v$.fecha_autorizacion_contratista.$error" v-for="error in  v$.fecha_autorizacion_contratista.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-      
+
     <div class="flex flex-row ">
       <div>
         <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
@@ -67,9 +67,6 @@
     <span v-if="v$.porcensaje_avance_financiero.$error" v-for="error in  v$.porcensaje_avance_financiero.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-
-    <text-area-base id="fecha_inicio_proyecto" label="Observaciones del Residente" class="mb-3"
-      v-model="app.residentEstimate.observaciones_residente" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -122,13 +119,13 @@ export default {
         porcentaje_avance_estimacion_acumulado: '',
         porcentaje_Avance_fisico: '',
         porcensaje_avance_financiero: '',
-        observaciones_residente: '',
       },
       fecha_recepcion_info_contratista: '',
       fecha_autorizacion_contratista: '',
       fecha_periodo_inicio_estimacion: '',
       fecha_periodo_fin_estimacion: '',
       contratoName: '',
+      contador_siguiente_estimacion: '',
       fileInfo: {
         type: Object,
         default: () => ({})
@@ -226,7 +223,11 @@ export default {
               }).then(async (result) => {
                 if (result.isConfirmed) {
                   const { data } = await fetchResidentEstimate()
+                  console.log('data: ', data)
                   const lengthData = data.length - 1
+                  console.log('data.length: ', data.length)
+                  console.log('lengthData: ', lengthData)
+                  console.log('app.fileInfo: ', app.fileInfo)
                   app.fileInfo = data[lengthData]
                   console.log('fileInfo: ', app.fileInfo.id_estimacion)
                   router.push({
@@ -299,12 +300,9 @@ export default {
     const getName = async (id) => {
       const { data } = await fetchContractById(id)
       app.contratoName = data.objeto_contrato
+      app.contador_siguiente_estimacion = data.contador_siguiente_estimacion
     }
 
-    const getEmpleadosSICT = async () => {
-      const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
-      app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
-    }
 
     getContratos()
 
@@ -312,7 +310,6 @@ export default {
       app,
       sendForm,
       getContratos,
-      getEmpleadosSICT,
       getName,
       v$,
     }
@@ -331,7 +328,9 @@ label[for=fecha_periodo_inicio_estimacion] {
 }
 
 input[id=fecha_periodo_inicio_estimacion] {
-  margin-left: 60px;
+  margin-left: 97px;
+  margin-bottom: 29px;
+  width: 80px;
 }
 
 .numEstimacion {

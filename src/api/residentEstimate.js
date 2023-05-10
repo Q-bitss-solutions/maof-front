@@ -39,7 +39,7 @@ const archivoResidentEstimate = (fileData) => fetchApi({
   data: fileData,
 })
 const fetchArchivoResidentEstimateById = (id) => fetchApi({
-  url: `/archivo_estimacion/?estimacion=${id}`,
+  url: `/archivo_estimacion/?estimacion=${id}&estatus_archivo=1`,
   method: 'GET',
 })
 
