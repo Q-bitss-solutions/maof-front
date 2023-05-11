@@ -1,5 +1,7 @@
 <template>
   <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
+    <Detail-Pop :data="dataContratoConvenio.data" :isOpen="isOpenContratoModal.isOpen"
+      @submit="isOpenContratoModal.isOpen = false" />
     <tr>
       <th v-for="(header, index) in headers" :key="index" class=" border-b-2 border-l-0 px-2"
         :class="{ 'border-r-2': header.label === ' ' }">
@@ -7,25 +9,24 @@
       </th>
     </tr>
     <tr id="rows" class="mx-6" v-for="(item, contador ) in data" :key="contador"
-      :class="{ ' bg-gray-100': contador % 2 === 0 }"
-       >
+      :class="{ ' bg-gray-100': contador % 2 === 0 }">
       <td v-for="(header, index) in headers" :key="index" class="text-center"
         :class="{ 'border-r-2 text-center': header.field === 'documents', 'border-l': index == 0 }">
         <p v-if="header.label === '#'">
-          {{ contador }}
+          {{ contador + 1 }}
         </p>
         <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
           v-if="header.field === 'documents'">
-        <p  v-if="header.field === 'numero_contrato' && item.contrato_padre === null" class=" text-blue cursor-pointer contratos"
-          @click="detalleContrato(item)">
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
+          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
           {{ item[header.field] }}
         </p>
-        <p  v-if="header.field === 'numero_contrato' && item.contrato_padre !== null" class=" text-blue cursor-pointer contratos"
-          @click="detalleContrato(item)">
+        <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null"
+          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
           {{ item.numero_contrato_padre }}
         </p>
         <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null"
-          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
+          class=" text-blue cursor-pointer contratos">
           {{ item.numero_contrato }}
         </p>
         <p
@@ -73,10 +74,16 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAssingResident } from '../../api/assingResident'
+import { fetchContractById } from '../../api/contract'
+import DetailPop from '../../components/DetailPop.vue'
 export default {
-  name: 'TableBase',
+  name: 'TableEstimateResident',
+  components: {
+    DetailPop
+  },
   props: {
     headers: {
       type: Array,
@@ -108,8 +115,17 @@ export default {
   setup() {
     const router = useRouter()
     const dots = [1, 2, 3]
-    const detalleContrato = (item) => {
-      console.log('Se muestran los detalles del contrato: ', item)
+    let isOpenContratoModal = reactive({ isOpen: false })
+    let dataContratoConvenio = reactive({
+      data: {}
+    })
+
+    const detalleContrato = async (item) => {
+      isOpenContratoModal.isOpen = !isOpenContratoModal.isOpen
+      const { data } = await fetchContractById(item.contrato_estimacion)
+      dataContratoConvenio.data = data
+      console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
+      /* console.log('Se muestran los detalles del contrato: ', item) */
     }
     const semaforo = (item) => {
       console.log('Se muestran el item: ', item)
@@ -149,7 +165,7 @@ export default {
       window.open(`${result[0].archivo_asignacion}`, '_blank');
     }
 
-    return { dots, openActions, detalleContrato, semaforo, downloadFile }
+    return { dots, openActions, detalleContrato, semaforo, downloadFile, isOpenContratoModal, dataContratoConvenio }
   },
 }
 </script>
@@ -164,9 +180,9 @@ img {
 p {
   width: 85px;
 }
+
 p.contratos {
   width: 112px;
 }
-
 </style>
 
