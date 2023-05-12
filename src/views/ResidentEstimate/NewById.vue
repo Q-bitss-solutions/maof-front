@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Estimación Residente By Id" subtitle="Nuevo" />
+    <title-bar title="Estimación Residente" subtitle="Nuevo" />
     <section class="px-4">
       <form-resident-estimate :residentEstimate="app.residentEstimate" edit-mode v-if="!app.loading" />
     </section>

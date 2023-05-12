@@ -122,10 +122,6 @@ export default {
                 label: 'Residentes',
                 routeName: 'Resident',
               },
-              {
-                label: 'Unidades MAOF',
-                routeName: 'UnitsMAOF',
-              },
             ],
           },
           {
@@ -153,6 +149,11 @@ export default {
             labelSubMenu: 'Correcciones',
             subMenu2: [],
             routeName: ''
+          },
+          {
+            labelSubMenu: 'Unidades MAOF',
+            subMenu2: [],
+            routeName: 'UnitsMAOF',
           },
         ],
       },
