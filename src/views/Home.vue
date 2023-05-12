@@ -9,7 +9,7 @@
           class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
           @click="showSubmenu(index)" />
         <div
-          class="bg-white rounded shadow-lg border border-gray-100 border-solid absolute mt-1 py-1 text-gray-900 text-lg"
+          class="flex flex-col bg-white rounded shadow-lg border border-gray-100 border-solid absolute py-1 text-gray-900 text-lg"
           v-show="indexActiveSubmenu === index">
           <p v-for="(item, index) in item.submenu" :key="index" class="py-2 px-5 cursor-pointer hover:bg-gray-50">
           <div v-if="item.subMenu2.length !== 0">
@@ -97,10 +97,10 @@ export default {
                 label: 'Proyectos',
                 routeName: 'Projects',
               },
-             /*  {
-                label: 'Contratos',
-                routeName: 'Contracts',
-              }, */
+              /*  {
+                 label: 'Contratos',
+                 routeName: 'Contracts',
+               }, */
               {
                 label: 'Contratos y Convenios de Colaboración',
                 routeName: 'CollaborationAgreements',

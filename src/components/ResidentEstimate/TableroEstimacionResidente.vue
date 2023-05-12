@@ -2,6 +2,9 @@
   <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
     <Detail-Pop :data="dataContratoConvenio.data" :isOpen="isOpenContratoModal.isOpen"
       @submit="isOpenContratoModal.isOpen = false" />
+
+    <DetailPopConvenioModificatorio :data="dataContratoConvenio.data" :isOpen="isOpenConvenioModificatorioModal.isOpen"
+      @submit="isOpenConvenioModificatorioModal.isOpen = false" />
     <tr>
       <th v-for="(header, index) in headers" :key="index" class=" border-b-2 border-l-0 px-2"
         :class="{ 'border-r-2': header.label === ' ' }">
@@ -26,7 +29,7 @@
           {{ item.numero_contrato_padre }}
         </p>
         <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null"
-          class=" text-blue cursor-pointer contratos">
+          class=" text-blue cursor-pointer contratos" @click="detalleConvenioModificatorio(item)">
           {{ item.numero_contrato }}
         </p>
         <p
@@ -78,11 +81,13 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAssingResident } from '../../api/assingResident'
 import { fetchContractById } from '../../api/contract'
-import DetailPop from '../../components/DetailPop.vue'
+import DetailPop from '../../components/ResidentEstimate/DetailPop.vue'
+import DetailPopConvenioModificatorio from '../../components/ResidentEstimate/DetailPopConvenioModificatorio.vue'
 export default {
   name: 'TableEstimateResident',
   components: {
-    DetailPop
+    DetailPop,
+    DetailPopConvenioModificatorio,
   },
   props: {
     headers: {
@@ -119,12 +124,30 @@ export default {
     let dataContratoConvenio = reactive({
       data: {}
     })
+    let isOpenConvenioModificatorioModal = reactive({ isOpen: false })
+    let dataConvenioModificatorio = reactive({
+      data: {}
+    })
 
     const detalleContrato = async (item) => {
       isOpenContratoModal.isOpen = !isOpenContratoModal.isOpen
+      console.log('Se muestran los detalles del contrato: ', item)
+      if (item.contrato_padre === null) {
+        const { data } = await fetchContractById(item.contrato_estimacion)
+        dataContratoConvenio.data = data
+        console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
+      }
+      if (item.contrato_padre !== null) {
+        const { data } = await fetchContractById(item.contrato_padre)
+        dataContratoConvenio.data = data
+        console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
+      }
+    }
+    const detalleConvenioModificatorio = async (item) => {
+      isOpenConvenioModificatorioModal.isOpen = !isOpenConvenioModificatorioModal.isOpen
       const { data } = await fetchContractById(item.contrato_estimacion)
-      dataContratoConvenio.data = data
-      console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
+      dataConvenioModificatorio.data = data
+      console.log('dataContratoConvenio.data: ', dataConvenioModificatorio.data)
       /* console.log('Se muestran los detalles del contrato: ', item) */
     }
     const semaforo = (item) => {
@@ -141,36 +164,44 @@ export default {
     }
 
     const downloadFile = async (item) => {
-      const { data } = await fetchAssingResident()
+      /* const { data } = await fetchAssingResident() */
       /* console.log('Item a descargar: ', item)
       console.log('Item a descargar: ', item.id_estimacion) */
-      let result = []
+      /* let result = []
       data.forEach(element => {
         if (item.contrato_padre === null) {
           if (item.contrato_estimacion === element.id_contrato) {
-            /* result = element */
             result.push(element)
           }
         }
         if (item.contrato_padre !== null) {
           if (item.contrato_padre === element.id_contrato) {
-            /* result = element */
             result.push(element)
           }
         }
-      });
+      }); */
       console.log('Item a descargar: ', item)
-      console.log('data: ', data)
-      console.log('result: ', result)
-      window.open(`${result[0].archivo_asignacion}`, '_blank');
+
+      window.open(`${item.archivo_residente}`, '_blank');
     }
 
-    return { dots, openActions, detalleContrato, semaforo, downloadFile, isOpenContratoModal, dataContratoConvenio }
+    return {
+      dots,
+      openActions,
+      detalleContrato,
+      semaforo,
+      downloadFile,
+      isOpenContratoModal,
+      dataContratoConvenio,
+      detalleConvenioModificatorio,
+      isOpenConvenioModificatorioModal,
+      dataConvenioModificatorio,
+    }
   },
 }
 </script>
 
-<style>
+<style scoped>
 img {
   max-width: 33px;
   margin-left: 10px;

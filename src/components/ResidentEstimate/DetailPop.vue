@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import ButtonBase from '.././components/ButtonBase.vue'
+import ButtonBase from '../../components/ButtonBase.vue'
 export default {
   name: 'ToggleSwitch',
   components: {
@@ -114,9 +114,13 @@ export default {
 }
 
 .modal>div {
-  background-color: rgb(255, 255, 255);
+  background-color: #A2DFE6;
   margin-left: 100px;
   width: 700px;
   height: auto;
+  border: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: black;
 }
 </style>
