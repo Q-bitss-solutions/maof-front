@@ -4,6 +4,8 @@
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
+        {{ detalleEstimacion }}
+        <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
         <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
         <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" />
       </div>
@@ -18,10 +20,11 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate, fetchResidentEstimateHojaViajera, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
+import { fetchResidentEstimate, fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
+import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
@@ -35,6 +38,7 @@ export default {
     TitleBar,
     TableBase,
     ToggleSwitch,
+    DetailEstimate,
   },
   setup() {
     const router = useRouter()
@@ -101,22 +105,24 @@ export default {
       },
     ]
     const residentEstimate = ref([])
+    const detalleEstimacionData = ref([])
     let procesoVariable = false
+    let detalleEstimacion = ref(false)
     const getResidentEstimate = async () => {
       const { data } = await fetchResidentEstimateHojaViajeraActivos()
       residentEstimate.value = data
     }
     const featureOptions = [
-      /*  {
-         label: 'Detalles',
-         action: (residentEstimate) => router
-           .push({
-             name: 'EditResidentEstimate',
-             params: {
-               residentEstimateId: residentEstimate.id_residentEstimate,
-             },
-           }),
-       }, */
+      {
+        label: 'Detalles',
+        action: async (residentEstimate) => {
+          detalleEstimacion.value = !detalleEstimacion.value
+          const { data } = await fetchResidentEstimateById(residentEstimate.id_estimacion)
+          detalleEstimacionData.value = data
+          console.log('residentEstimate.id_estimacion: ', residentEstimate.id_estimacion)
+          console.log('detalleEstimacionData: ', detalleEstimacionData)
+        }
+      },
       {
         label: 'Nuevo',
         action: (residentEstimate) => router
@@ -160,6 +166,8 @@ export default {
       goToNewResidentEstimate,
       getResidentEstimate,
       processo,
+      detalleEstimacionData,
+      detalleEstimacion,
     }
   },
 }
