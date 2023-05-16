@@ -3,10 +3,10 @@
     <select-base id="id_area_revisora" label="Área revisora" :options="app.listReviewAreas" v-model="app.idAreaRevisora"
       @change="getEmpleadosSICT()" class="mb-3" v-if="editMode !== true" />
     <select-base id="id_empleado_sict" label="Empleado SICT" :options="app.listEmpleados" class="mb-3"
-      v-if="editMode !== true" v-model="app.resident.id_empleado_sict" />
+      v-if="editMode !== true" v-model="app.resident.id_empleado_sict" :disabled="app.disabled" />
     <input-base id="fecha_inicio_proyecto" label="Fecha inicio del residente" type="date" class="mb-3"
       v-model="app.resident.fecha_inicio_residente" />
-    <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
+    <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" :disabled="app.disabled" />
   </div>
 </template>
 
@@ -17,6 +17,7 @@ import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees'
+import Swal from 'sweetalert2'
 
 export default {
   name: 'FormResident',
@@ -43,6 +44,7 @@ export default {
         fecha_fin_residente: '',
       },
       idAreaRevisora: '',
+      disabled:false,
       listReviewAreas: [],
       listEmpleados: [],
     })
@@ -55,12 +57,24 @@ export default {
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
       console.log(data)
-      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: reviewArea.nombre_unidad }))
+      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id_unidad_maof, label: reviewArea.nombre_unidad }))
+      console.log(app.listReviewAreas)
     }
 
     const getEmpleadosSICT = async () => {
-      const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
-      app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
+      try {
+        const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
+        app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
+        app.disabled = false
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+        app.disabled = true
+        app.listEmpleados = []
+      }
     }
 
     getReviewAreas()

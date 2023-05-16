@@ -26,15 +26,23 @@ export default {
   setup() {
     const router = useRouter()
     const saveResident = async (resident) => {
-      /* await storeReviewArea(reviewArea) */
-      await storeResident(resident)
-      /* alert('Residente guardado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        '¡Residente guardado con éxito!',
-        'success'
-      )
-      router.push({ name: 'Resident' })
+      try {
+        /* await storeReviewArea(reviewArea) */
+        await storeResident(resident)
+        /* alert('Residente guardado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          '¡Residente guardado con éxito!',
+          'success'
+        )
+        router.push({ name: 'Resident' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
     return {
