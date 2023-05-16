@@ -54,6 +54,7 @@ export default {
 
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
+      console.log(data)
       app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: reviewArea.nombre_unidad }))
     }
 
