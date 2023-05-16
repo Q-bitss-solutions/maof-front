@@ -4,7 +4,6 @@
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
-        {{ detalleEstimacion }}
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
         <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
         <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" />

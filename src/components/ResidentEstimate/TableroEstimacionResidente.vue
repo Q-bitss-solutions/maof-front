@@ -3,7 +3,7 @@
     <Detail-Pop :data="dataContratoConvenio.data" :isOpen="isOpenContratoModal.isOpen"
       @submit="isOpenContratoModal.isOpen = false" />
 
-    <DetailPopConvenioModificatorio :data="dataContratoConvenio.data" :isOpen="isOpenConvenioModificatorioModal.isOpen"
+    <DetailPopConvenioModificatorio :data="dataConvenioModificatorio.data" :isOpen="isOpenConvenioModificatorioModal.isOpen"
       @submit="isOpenConvenioModificatorioModal.isOpen = false" />
     <tr>
       <th v-for="(header, index) in headers" :key="index" class=" border-b-2 border-l-0 px-2"
@@ -80,7 +80,7 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { fetchAssingResident } from '../../api/assingResident'
-import { fetchContractById } from '../../api/contract'
+import { fetchContractById,fetchContractDetailById } from '../../api/contract'
 import DetailPop from '../../components/ResidentEstimate/DetailPop.vue'
 import DetailPopConvenioModificatorio from '../../components/ResidentEstimate/DetailPopConvenioModificatorio.vue'
 export default {
@@ -142,7 +142,7 @@ export default {
     }
     const detalleConvenioModificatorio = async (item) => {
       isOpenConvenioModificatorioModal.isOpen = !isOpenConvenioModificatorioModal.isOpen
-      const { data } = await fetchContractById(item.contrato_estimacion)
+      const { data } = await fetchContractDetailById(item.contrato_estimacion)
       dataConvenioModificatorio.data = data
       console.log('dataContratoConvenio.data: ', dataConvenioModificatorio.data)
       /* console.log('Se muestran los detalles del contrato: ', item) */

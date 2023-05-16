@@ -16,46 +16,46 @@
           </div>
           <div class=" mt-5">
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">Fecha de recepción de información del Contratista</h1>
-              <p class=" text-right "> {{ data.fecha_recepcion_info_contratista }} </p>
+              <h1 class=" text-center basis-1/2 font-semibold pr-9">Fecha de recepción de información del Contratista</h1>
+              <p class=" text-center "> {{ data.fecha_recepcion_info_contratista.split(' ')[0] }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">Fecha de autorización al Contratista</h1>
-              <p class=" text-right  "> {{ data.fecha_autorizacion_contratista }} </p>
+              <h1 class=" text-center basis-1/2 font-semibold ">Fecha de autorización al Contratista</h1>
+              <p class=" text-center  "> {{ data.fecha_autorizacion_contratista }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class="text-right  basis-1/3 font-semibold">Período de la Estimación</h1>
-              <p class=" text-right  "> {{ data.fecha_periodo_inicio_estimacion }} </p>
+              <h1 class="text-right  basis-1/3 font-semibold mr-[5.25rem]">Período de la Estimación</h1>
+              <p class=" text-right  "> {{ data.fecha_periodo_inicio_estimacion.split(' ')[0] }} </p>
               <h1 class="text-right  font-semibold">al</h1>
-              <p class=" text-right  "> {{ data.fecha_periodo_fin_estimacion }} </p>
+              <p class=" text-right  "> {{ data.fecha_periodo_fin_estimacion.split(' ')[0] }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">Importe de la obra ejecutada</h1>
-              <p class=" text-right  "> {{ data.importe_obra_ejecutada }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">Importe de la obra ejecutada</h1>
+              <p class=" text-left  "> {{ data.importe_obra_ejecutada }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">Importe a pagar</h1>
-              <p class=" text-right  "> {{ data.importe_pagar }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">Importe a pagar</h1>
+              <p class=" text-left  "> {{ data.importe_pagar }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">% de grado de avance</h1>
-              <p class=" text-right "> {{ data.grado_avance_obra }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">% de grado de avance</h1>
+              <p class=" text-left "> {{ data.grado_avance_obra }}% </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">% de avance de la Estimación</h1>
-              <p class=" text-right "> {{ data.porcentaje_avance_estimacion }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">% de avance de la Estimación</h1>
+              <p class=" text-left "> {{ data.porcentaje_avance_estimacion }}% </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">% de avance de la Estimación acumulado</h1>
-              <p class=" text-right "> {{ data.porcentaje_avance_estimacion_acumulado }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">% de avance de la Estimación acumulado</h1>
+              <p class=" text-left "> {{ data.porcentaje_avance_estimacion_acumulado }}% </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">% de avance físico</h1>
-              <p class=" text-right "> {{ data.porcentaje_Avance_fisico }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">% de avance físico</h1>
+              <p class=" text-left "> {{ data.porcentaje_Avance_fisico }}% </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
-              <h1 class=" text-right basis-1/3 font-semibold">% de avance financiero</h1>
-              <p class=" text-right  "> {{ data.porcensaje_avance_financiero }} </p>
+              <h1 class=" text-left basis-1/2 font-semibold">% de avance financiero</h1>
+              <p class=" text-left  "> {{ data.porcensaje_avance_financiero }}% </p>
             </div>
           </div>
           <button-base label="Cerrar" @click="sendStatusModal" class="mr-5 mx-auto my-5 " />

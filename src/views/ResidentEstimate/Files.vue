@@ -3,6 +3,22 @@
     <arrow-back />
     <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
+      <div class=" flex flex-row justify-between">
+        <div class="font-bold text-lg">
+          {{ app.data.numero_contrato }}
+        </div>
+        <div class="font-bold text-lg w-128 text-center">
+          Objeto: {{ app.data.objeto_contrato }}
+        </div>
+        <div class=" flex content-start justify-end items-center mb-10">
+          <div class=" items-center justify-center">
+            <h1 class=" font-bold text-lg text-center"> Número de la Estimación </h1>
+            <p class=" text-center font-semibold text-lg numEstimacion">
+              {{ app.data.num_consecutivo_estimacion }}
+            </p>
+          </div>
+        </div>
+      </div>
       <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" />
       <table-base :options="featureOptions" :headers="headers" :data="filesById" />
     </section>
@@ -48,10 +64,6 @@ export default {
         label: 'Descripción',
         field: 'descripcion_archivo',
       },
-      {
-        label: 'Estado',
-        field: 'estatus_archivo',
-      },
     ]
     const app = reactive({
       file: {
@@ -59,6 +71,7 @@ export default {
         file: '',
         descripcionFile: '',
       },
+      data: {},
       filesById: [],
       loading: true,
     })
@@ -66,6 +79,7 @@ export default {
     const getResidentEstimateById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
+      app.data = data
       app.file.id_estimacion = data.id_estimacion
       formData.append('id_estimacion', app.file.id_estimacion);
       app.loading = false

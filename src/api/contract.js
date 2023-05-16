@@ -14,6 +14,10 @@ const fetchContractById = (id) => fetchApi({
   url: `contrato/${id}/`,
   method: 'GET',
 })
+const fetchContractDetailById = (id) => fetchApi({
+  url: `contrato/${id}/detalle_convenios/`,
+  method: 'GET',
+})
 
 const storeContract = (contract) => fetchApi({
   url: 'contrato/',
@@ -35,6 +39,7 @@ export {
   fetchContracts,
   fetchContractStatus,
   fetchContractById,
+  fetchContractDetailById,
   storeContract,
   updateContract,
   deleteContract,
