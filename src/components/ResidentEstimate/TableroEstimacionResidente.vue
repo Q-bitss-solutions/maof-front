@@ -19,7 +19,7 @@
           {{ contador + 1 }}
         </p>
         <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
-          v-if="header.field === 'documents'">
+          v-if="header.field === 'documents' && item.archivo_residente !== null">
         <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
           class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
           {{ item[header.field] }}
@@ -131,16 +131,13 @@ export default {
 
     const detalleContrato = async (item) => {
       isOpenContratoModal.isOpen = !isOpenContratoModal.isOpen
-      console.log('Se muestran los detalles del contrato: ', item)
       if (item.contrato_padre === null) {
         const { data } = await fetchContractById(item.contrato_estimacion)
         dataContratoConvenio.data = data
-        console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
       }
       if (item.contrato_padre !== null) {
         const { data } = await fetchContractById(item.contrato_padre)
         dataContratoConvenio.data = data
-        console.log('dataContratoConvenio.data: ', dataContratoConvenio.data)
       }
     }
     const detalleConvenioModificatorio = async (item) => {
@@ -151,7 +148,6 @@ export default {
       /* console.log('Se muestran los detalles del contrato: ', item) */
     }
     const semaforo = (item) => {
-      console.log('Se muestran el item: ', item)
       router.push({
         name: 'EditResidentEstimate',
         params: {
@@ -180,7 +176,6 @@ export default {
           }
         }
       }); */
-      console.log('Item a descargar: ', item)
 
       window.open(`${item.archivo_residente}`, '_blank');
     }

@@ -3,7 +3,8 @@
     <teleport to="body">
       <div class="modal items-center justify-center " v-if="isOpen">
         <div class=" justify-items-center justify-center items-center">
-          <h1 class="text-center font-semibold pb-10 pt-5">Detalle del {{ data.tipo_contrato}}</h1>
+          <h1 class="text-center font-semibold pb-10 pt-5" v-if="data.tipo_contrato === 'Convenio de colaboración'">Detalle del Convenio de Colaboración</h1>
+          <h1 class="text-center font-semibold pb-10 pt-5" v-else>Detalle del {{ data.tipo_contrato}}</h1>
           <div class="grid grid-cols-2 ml-10 justify-center justify-items-center">
             <div class="grid grid-row">
               <div>
