@@ -29,8 +29,6 @@
       </div>
     </div>
   </div>
-
-
   <button-base label="Archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
   <div class="max-w-xl mx-auto">
     <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
