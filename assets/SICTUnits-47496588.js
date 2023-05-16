@@ -1,0 +1,1 @@
+import{f as t}from"./TitleBar-bd0b915b.js";const o=()=>t({url:"cat-unidad-maof/",method:"GET"}),s=a=>t({url:`/cat-unidad-maof/${a}/`,method:"GET"}),n=a=>t({url:"/cat-unidad-maof/",method:"POST",data:a}),e=a=>t({url:`/cat-unidad-maof/${a.id_unidad_maof}/`,method:"PUT",data:a}),c=a=>t({url:`/cat-unidad-maof/${a}/`,method:"DELETE"});export{s as a,c as d,o as f,n as s,e as u};
