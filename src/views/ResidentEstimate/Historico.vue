@@ -7,18 +7,19 @@
         <p class="font-semibold text-center">Numero de contrato (de origen)</p>
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.numero_contrato }}</p>
         <p class="font-semibold text-center ml-80 text-red">Número de la Estimación</p>
-        <p class=" text-sm font-semibold text-red text-center ml-4">{{ app.residentEstimate.num_consecutivo_estimacion }}
-        </p>
+        <p class=" text-xl font-semibold text-red text-center ml-2">{{ app.residentEstimate.num_consecutivo_estimacion }}</p>
+        <p class="font-semibold text-center ml-10 text-red">Días transcurridos</p>
+        <p class=" text-sm font-semibold text-red text-center ml-4">{{ app.residentEstimate.dias_transcurridos }}</p>
       </div>
       <div class="flex  items-center ">
         <p class="font-semibold text-center">Objeto del contrato</p>
         <p class=" text-sm text-center ml-4">{{ app.residentEstimate.objeto_contrato }}</p>
       </div>
       <div class="flex  items-center ">
-        <p class="font-semibold text-center ">Fecha de recepción del Contratista</p>
+        <p class="font-semibold text-center ">Fecha de recepción</p>
         <p class=" text-sm text-center ml-2">{{ app.fecha_recepcion_info_contratista }}
         </p>
-        <p class="font-semibold text-center ml-2 text-red">Fecha de autorización del Contratista</p>
+        <p class="font-semibold text-center ml-2 text-red">Fecha de autorización</p>
         <p class=" text-sm text-center ml-2 text-red">{{ app.residentEstimate.fecha_autorizacion_contratista }}</p>
         <p class="font-semibold text-center ml-2">Periodo de la Estimación</p>
         <p class=" text-sm text-center ml-2">{{ app.fecha_periodo_inicio_estimacion }}
@@ -29,9 +30,9 @@
       </div>
       <div class="flex  items-center ">
         <p class="font-semibold text-center">Importe de la obra ejecutada</p>
-        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.importe_obra_ejecutada }}</p>
+        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.frt_importe_obra_ejecutada }}</p>
         <p class="font-semibold text-center ml-2">Importe a pagar</p>
-        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.importe_pagar }}</p>
+        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.frt_importe_pagar }}</p>
       </div>
       <div class="flex  items-center ">
         <p class="font-semibold text-center">% de avance físico</p>
@@ -46,7 +47,7 @@
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcentaje_avance_estimacion_acumulado }}%</p>
       </div>
     </div>
-    <table-base class="mb-10"  :headers="headers" :data="app.residentEstimateHistory" :option="[]" />
+    <table-base-index class="mb-10"  :headers="headers" :data="app.residentEstimateHistory" :option="[]" />
     <!-- <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/> -->
   </main>
 </template>
@@ -55,7 +56,7 @@
 import FormResidentEstimate from '../../components/ResidentEstimate/FormResidentEstimateSemaforoById.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import TableBase from '../../components/TableBase.vue'
+import TableBaseIndex from '../../components/TableBaseIndex.vue'
 import { fetchResidentEstimateById, fetchHistoryResidentEstimateById } from '../../api/residentEstimate'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -67,7 +68,7 @@ export default {
     FormResidentEstimate,
     ArrowBack,
     TitleBar,
-    TableBase,
+    TableBaseIndex,
   },
   setup() {
     const route = useRoute()

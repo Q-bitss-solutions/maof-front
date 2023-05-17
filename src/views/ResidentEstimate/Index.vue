@@ -147,7 +147,7 @@ export default {
         },
       },
       {
-        label: 'Historico',
+        label: 'Histórico',
         action: async (residentEstimate) => {
           router.push({
             name: 'HistoricoResidentEstimate',

@@ -9,7 +9,7 @@
             <div class="grid grid-row">
               <div>
                 <h1 class="font-semibold text-center">Clave Cartera de Inversión</h1>
-                <p class=" text-sm w-full text-left">{{data.clave_cartera}}</p>
+                <p class=" text-sm w-full text-center">{{data.frt_clave_cartera}}</p>
               </div>
             </div>
             <div class="grid grid-row mb-10 ">
