@@ -147,6 +147,11 @@ const routes = [
     component: () => import('./../views/ResidentEstimate/Files.vue'),
   },
   {
+    path: '/estimacion-residente/historico/:residentEstimateId',
+    name: 'HistoricoResidentEstimate',
+    component: () => import('./../views/ResidentEstimate/Historico.vue'),
+  },
+  {
     path: '/unidades-maof',
     name: 'UnitsMAOF',
     component: () => import('./../views/UnitsMAOF/Index.vue'),

@@ -3,8 +3,7 @@
     <teleport to="body">
       <div class="modal flex flex-col items-center justify-center " v-if="isOpen">
         <div class=" justify-items-center justify-center items-center verdepastel pb-5">
-          <h1 class="text-center font-semibold pb-5 pt-5" v-if="data.contrato_padre.tipo_contrato === 'Convenio de colaboración'">Convenio de Colaboración</h1>
-          <h1 class="text-center font-semibold pb-5 pt-5" v-else>Detalle del {{ data.tipo_contrato}}</h1>
+          <h1 class="text-center font-semibold pb-5 pt-5">{{ data.contrato_padre.tipo_contrato === 'Convenio decolaboración'? 'Convenio de Colaboración':data.contrato_padre.tipo_contrato}}</h1>
           <div class="grid grid-cols-2 ml-5 justify-center justify-items-center">
             <div class="grid grid-row">
               <div class=" mr-5">
@@ -37,7 +36,7 @@
               </div>
               <div>
                 <h1 class="font-semibold text-center">Fecha fin</h1>
-                <p class=" text-sm w-full text-center">{{data.contrato_padre.plazo_fin }}</p>
+                <p class=" text-sm w-full text-center">{{ data.contrato_padre.plazo_fin }}</p>
               </div>
             </div>
           </div>
@@ -52,7 +51,7 @@
             </div>
           </div>
         </div>
-  <!--       <div>
+        <!--       <div>
           <h1 class="text-center">------------------------------------------------------------------------------------------------------------------------</h1>
         </div> -->
         <div class="justify-center verdeclaro">
@@ -164,7 +163,7 @@ export default {
 
 .modal>.verdeclaro {
   background-color: #A2DFE6;
-  border-bottom-left-radius:10px;
-  border-bottom-right-radius:10px ;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 </style>

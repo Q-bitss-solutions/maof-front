@@ -117,8 +117,11 @@ export default {
         action: async (residentEstimate) => {
           detalleEstimacion.value = !detalleEstimacion.value
           const { data } = await fetchResidentEstimateById(residentEstimate.id_estimacion)
+          data.fecha_recepcion_info_contratista = data.fecha_recepcion_info_contratista.split(" ")[0]
+          data.fecha_periodo_inicio_estimacion = data.fecha_periodo_inicio_estimacion.split(" ")[0]
+          data.fecha_periodo_fin_estimacion = data.fecha_periodo_fin_estimacion.split(" ")[0]
           detalleEstimacionData.value = data
-          console.log('residentEstimate.id_estimacion: ', residentEstimate.id_estimacion)
+          console.log('data: ', data)
           console.log('detalleEstimacionData: ', detalleEstimacionData)
         }
       },
@@ -137,6 +140,17 @@ export default {
         action: async (residentEstimate) => {
           router.push({
             name: 'FilesResidentEstimate',
+            params: {
+              residentEstimateId: residentEstimate.id_estimacion,
+            },
+          })
+        },
+      },
+      {
+        label: 'Historico',
+        action: async (residentEstimate) => {
+          router.push({
+            name: 'HistoricoResidentEstimate',
             params: {
               residentEstimateId: residentEstimate.id_estimacion,
             },
@@ -165,6 +179,7 @@ export default {
       goToNewResidentEstimate,
       getResidentEstimate,
       processo,
+      procesoVariable,
       detalleEstimacionData,
       detalleEstimacion,
     }

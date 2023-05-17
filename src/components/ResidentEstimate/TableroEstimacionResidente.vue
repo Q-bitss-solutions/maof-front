@@ -4,7 +4,7 @@
       @submit="isOpenContratoModal.isOpen = false" />
 
     <DetailPopConvenioModificatorio :data="dataConvenioModificatorio.data" :isOpen="isOpenConvenioModificatorioModal.isOpen"
-      @submit="isOpenConvenioModificatorioModal.isOpen = false" />
+      @submit="isOpenConvenioModificatorioModal.isOpen = false" v-if="!dataConvenioModificatorio.loading" />
     <tr>
       <th v-for="(header, index) in headers" :key="index" class=" border-b-2 border-l-0 px-2"
         :class="{ 'border-r-2': header.label === ' ' }">
@@ -126,7 +126,8 @@ export default {
     })
     let isOpenConvenioModificatorioModal = reactive({ isOpen: false })
     let dataConvenioModificatorio = reactive({
-      data: {}
+      data: {},
+      loading: true
     })
 
     const detalleContrato = async (item) => {
@@ -141,10 +142,11 @@ export default {
       }
     }
     const detalleConvenioModificatorio = async (item) => {
+      dataConvenioModificatorio.loading = true
       isOpenConvenioModificatorioModal.isOpen = !isOpenConvenioModificatorioModal.isOpen
       const { data } = await fetchContractDetailById(item.contrato_estimacion)
       dataConvenioModificatorio.data = data
-      console.log('dataContratoConvenio.data: ', dataConvenioModificatorio.data)
+      dataConvenioModificatorio.loading = false
       /* console.log('Se muestran los detalles del contrato: ', item) */
     }
     const semaforo = (item) => {

@@ -17,7 +17,7 @@
           <div class=" mt-5">
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class=" text-center basis-1/2 font-semibold pr-9">Fecha de recepción de información del Contratista</h1>
-              <p class=" text-center "> {{ data.fecha_recepcion_info_contratista.split(' ')[0] }} </p>
+              <p class=" text-center "> {{ data.fecha_recepcion_info_contratista }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class=" text-center basis-1/2 font-semibold ">Fecha de autorización al Contratista</h1>
@@ -25,9 +25,9 @@
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class="text-right  basis-1/3 font-semibold mr-[5.25rem]">Período de la Estimación</h1>
-              <p class=" text-right  "> {{ data.fecha_periodo_inicio_estimacion.split(' ')[0] }} </p>
+              <p class=" text-right  "> {{ data.fecha_periodo_inicio_estimacion }} </p>
               <h1 class="text-right  font-semibold">al</h1>
-              <p class=" text-right  "> {{ data.fecha_periodo_fin_estimacion.split(' ')[0] }} </p>
+              <p class=" text-right  "> {{ data.fecha_periodo_fin_estimacion }} </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class=" text-left basis-1/2 font-semibold">Importe de la obra ejecutada</h1>

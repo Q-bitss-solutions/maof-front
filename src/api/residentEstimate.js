@@ -9,6 +9,10 @@ const fetchResidentEstimateById = (id) => fetchApi({
   url: `/estimacion_residente/${id}/`,
   method: 'GET',
 })
+const fetchHistoryResidentEstimateById = (id) => fetchApi({
+  url: `/estimacion_residente/${id}/historial_estimacion/`,
+  method: 'GET',
+})
 
 const storeResidentEstimate = (residentEstimate) => fetchApi({
   url: '/estimacion_residente/',
@@ -66,6 +70,7 @@ const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) => fetch
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
+  fetchHistoryResidentEstimateById,
   fetchResidentEstimateHojaViajera,
   storeResidentEstimate,
   updateResidentEstimate,

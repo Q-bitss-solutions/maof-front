@@ -33,7 +33,7 @@
             />
           </div>
         </div>
-        <div class="hidden absolute right-4 top-8 bg-white z-10" style="box-shadow: -3px 3px 6px #00000029;" :id="`table-actions-${index}`" @mouseleave="openActions(`table-actions-${index}`)">
+        <div v-if="option !== null" class="hidden absolute right-4 top-8 bg-white z-10" style="box-shadow: -3px 3px 6px #00000029;" :id="`table-actions-${index}`" @mouseleave="openActions(`table-actions-${index}`)">
           <div class="flex flex-col">
             <div v-for="(option, index) in options" :key="index" class="h-8 flex justify-center items-center py-2 px-8">
               <p
@@ -73,12 +73,13 @@ export default {
     },
     options: {
       type: Array,
-      default: () => ([
+      default: []
+      /* default: () => ([
         {
           label: 'example',
           action: (context) => console.log(context),
         }
-      ]),
+      ]), */
     },
   },
   setup() {
