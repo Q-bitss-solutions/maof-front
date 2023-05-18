@@ -173,6 +173,21 @@ const routes = [
     name: 'EditUnitMAOF',
     component: () => import('./../views/UnitsMAOF/Edit.vue'),
   },
+  {
+    path: '/usuarios-roles-maof',
+    name: 'UsersRolesMAOF',
+    component: () => import('./../views/UsersAndRolsMAOF/Index.vue'),
+  },
+  {
+    path: '/usuarios-roles-maof/nuevo',
+    name: 'NewUsersRolesMAOF',
+    component: () => import('./../views/UsersAndRolsMAOF/New.vue'),
+  },
+  {
+    path: '/usuarios-roles-maof/:userRolMAOFId',
+    name: 'EditUsersRolesMAOF',
+    component: () => import('./../views/UsersAndRolsMAOF/Edit.vue'),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

@@ -7,7 +7,7 @@
         {{ user.email }}
         <input-base id="password" label="Password" type="password" class="mb-3" v-model="user.password" />
         {{ user.password }}
-        <button-base label="Enviar" @click="sendForm"  class="mr-0 ml-auto" />
+        <button-base label="Enviar" @click="sendForm" class="mr-0 ml-auto" />
       </div>
     </section>
   </main>
@@ -38,13 +38,13 @@ export default {
       password: '',
     })
     const sendForm = async () => {
-      const { response } = await postLogin()
+      /* const { response } = await postLogin() */
       //setItem se asigna el item
-      localStorage.setItem('token',response.token)
-      localStorage.setItem('rol',response.rol)
+      /*  localStorage.setItem('token', response.token)
+       localStorage.setItem('rol', response.rol) */
       //se consulta el item
-      const token = localStorage.getItem('token')
-      const isAdmin = localStorage.getItem('rol') === 'Admin'
+      /* const token = localStorage.getItem('token')
+      const isAdmin = localStorage.getItem('rol') === 'Admin' */
       console.log('Se envian los datos: ', user.value.email, user.value.password)
     }
     const goToNewResident = () => router.push({ name: 'NewResident' })

@@ -138,7 +138,7 @@ export default {
           {
             labelSubMenu: 'Usuarios y roles',
             subMenu2: [],
-            routeName: ''
+            routeName: 'UsersRolesMAOF'
           },
           {
             labelSubMenu: 'Parámetros',
