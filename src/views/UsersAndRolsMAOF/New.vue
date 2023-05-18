@@ -3,13 +3,13 @@
     <arrow-back />
     <title-bar title="Usuarios y Roles MAOF" subtitle="Nuevo" />
     <section class="px-4">
-      <form-units-m-a-o-f @submit="saveUnit" />
+      <form-users-and-rols-m-a-o-f @submit="saveUnit" />
     </section>
   </main>
 </template>
 
 <script>
-import FormUnitsMAOF from '../../components/UnitsMAOF/FormUnitsMAOF.vue'
+import FormUsersAndRolsMAOF from '../../components/UsersAndRolsMAOF/FormUsersAndRolsMAOF.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeSICTUnits } from './../../api/SICTUnits'
@@ -19,7 +19,7 @@ import Swal from 'sweetalert2'
 export default {
   name: 'NewUnitMAOF',
   components: {
-    FormUnitsMAOF,
+    FormUsersAndRolsMAOF,
     ArrowBack,
     TitleBar,
   },

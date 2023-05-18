@@ -1,22 +1,22 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="tipo_contrato" label="Tipo" :options="app.listTypeContracts" class="mb-3"  
+    <select-base id="tipo_contrato" label="Tipo" :options="app.listTypeContracts" class="mb-3"
       v-model="app.collaborationAgreements.id_tipo_contrato" />
     <select-base id="proyecto" label="Número de proyecto (Cartera de Inversión)" :options="app.listProyects" class="mb-3"
-        v-model="app.collaborationAgreements.id_proyecto" />
-    <select-base id="Contratista" label="Contratista" :options="app.listContratista" class="mb-3"  
+      v-model="app.collaborationAgreements.id_proyecto" />
+    <select-base id="Contratista" label="Contratista" :options="app.listContratista" class="mb-3"
       v-model="app.collaborationAgreements.id_contratista" />
     <select-base id="empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
-        v-model="app.collaborationAgreements.id_area_revisora" />
+      v-model="app.collaborationAgreements.id_area_revisora" />
     <input-base id="numero_Contrato" label="Número de Contrato o Convenio de Colaboración" type="text" class="mb-3"
-      v-model="app.collaborationAgreements.numero_contrato"   />
-    <text-area-base id="objeto" label="Objeto" class="mb-3" v-model="app.collaborationAgreements.objeto_contrato"   />
+      v-model="app.collaborationAgreements.numero_contrato" />
+    <text-area-base id="objeto" label="Objeto" class="mb-3" v-model="app.collaborationAgreements.objeto_contrato" />
     <input-base id="monto" label="Monto sin IVA" type="number" class="mb-3"
-      v-model="app.collaborationAgreements.monto_sin_iva"   />
+      v-model="app.collaborationAgreements.monto_sin_iva" />
     <input-base id="plazo_inicio" label="Plazo (inicio)" type="date" class="mb-3"
-      v-model="app.collaborationAgreements.plazo_inicio"   />
+      v-model="app.collaborationAgreements.plazo_inicio" />
     <input-base id="plazo_fin" label="Plazo (fin)" type="date" class="mb-3"
-      v-model="app.collaborationAgreements.plazo_fin"   />
+      v-model="app.collaborationAgreements.plazo_fin" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
@@ -84,12 +84,12 @@ export default {
     }
     const getReviewAreas = async () => {
       const { data } = await fetchReviewAreas()
-      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_maof} - ${reviewArea.nombre_unidad}` }))
+      app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_maof} - ${reviewArea.nombre_unidad}`, id_unit_maof: reviewArea.id_unidad_maof }))
       app.listReviewAreas.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.id_unit_maof > b.id_unit_maof) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.id_unit_maof < b.id_unit_maof) {
           return -1;
         }
         // a must be equal to b
