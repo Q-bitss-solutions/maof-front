@@ -4,7 +4,7 @@
     <title-bar title="Estimación Residente" subtitle="Histórico" />
     <div class="mb-10">
       <div class="flex  items-center ">
-        <p class="font-semibold text-center">Numero de contrato (de origen)</p>
+        <p class="font-semibold text-center">Número de contrato (de origen)</p>
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.numero_contrato }}</p>
         <p class="font-semibold text-center ml-80 text-red">Número de la Estimación</p>
         <p class=" text-xl font-semibold text-red text-center ml-2">{{ app.residentEstimate.num_consecutivo_estimacion }}</p>
