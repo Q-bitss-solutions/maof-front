@@ -83,10 +83,10 @@ export default {
       const { data } = await fetchReviewAreas()
       app.listReviewAreas = data.map(reviewArea => ({ value: reviewArea.id, label: `${reviewArea.id_unidad_maof} - ${reviewArea.nombre_unidad}` }))
       app.listReviewAreas.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.label > b.label) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.label < b.label) {
           return -1;
         }
         // a must be equal to b
@@ -104,10 +104,10 @@ export default {
         if (contrato.estatus_contratista === 'Activo') {
           app.listContratista.push({ value: contrato.id_contratista, label: contrato.nombre_contratista })
           app.listContratista.sort((a, b) => {
-            if (a.value > b.value) {
+            if (a.label > b.label) {
               return 1;
             }
-            if (a.value < b.value) {
+            if (a.label < b.label) {
               return -1;
             }
             // a must be equal to b
@@ -117,10 +117,10 @@ export default {
       });
     }
     const getInfoContrato = async () => {
-       const { data } = await fetchContractById(app.amendingAgreement.id_contrato_padre)
-       app.amendingAgreement.id_proyecto = data.id_proyecto
-       app.amendingAgreement.id_contratista = data.id_contratista
-       app.amendingAgreement.id_area_revisora = data.id_area_revisora
+      const { data } = await fetchContractById(app.amendingAgreement.id_contrato_padre)
+      app.amendingAgreement.id_proyecto = data.id_proyecto
+      app.amendingAgreement.id_contratista = data.id_contratista
+      app.amendingAgreement.id_area_revisora = data.id_area_revisora
       /* const { data } = await fetchProjects()
       app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
       app.listProyects.sort((a, b) => {
@@ -138,10 +138,10 @@ export default {
       const { data } = await fetchProjects()
       app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
       app.listProyects.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.label > b.label) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.label < b.label) {
           return -1;
         }
         // a must be equal to b
@@ -152,10 +152,10 @@ export default {
       const { data } = await fetchContracts()
       app.listConvenioContrato = data.map(convenioContrato => ({ value: convenioContrato.id_contrato, label: `${convenioContrato.id_contrato} - ${convenioContrato.nombre_proyecto}` }))
       app.listConvenioContrato.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.label > b.label) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.label < b.label) {
           return -1;
         }
         // a must be equal to b

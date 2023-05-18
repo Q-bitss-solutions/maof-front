@@ -100,10 +100,10 @@ export default {
       const { data } = await fetchContracts()
       app.listContract = data.map(contract => ({ value: contract.id_contrato, label: contract.nombre_proyecto }))
       app.listContract.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.label > b.label) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.label < b.label) {
           return -1;
         }
         // a must be equal to b
@@ -115,10 +115,10 @@ export default {
       const { data } = await fetchResident()
       app.listResident = data.map(resident => ({ value: resident.id_residente, label: resident.nombre_completo }))
       app.listResident.sort((a, b) => {
-        if (a.value > b.value) {
+        if (a.label > b.label) {
           return 1;
         }
-        if (a.value < b.value) {
+        if (a.label < b.label) {
           return -1;
         }
         // a must be equal to b

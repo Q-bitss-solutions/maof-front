@@ -3,8 +3,8 @@
     <arrow-back />
     <title-bar title="Usuarios y Roles MAOF" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Alta de Usuarios MAOF" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="resident" />
+      <button-base label="Alta de Usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
+      <table-base :options="featureOptions" :headers="headers" :data="userAndRols" />
     </section>
   </main>
 </template>
@@ -55,10 +55,10 @@ export default {
         field: 'estado_unidad_maof',
       },
     ]
-    const resident = ref([])
+    const userAndRols = ref([])
     const getUnits = async () => {
       const { data } = await fetchSICTUnits()
-      resident.value = data
+      userAndRols.value = data
     }
     const featureOptions = [
       {
@@ -109,15 +109,15 @@ export default {
         },
       },
     ]
-    const goToNewResident = () => router.push({ name: 'NewUsersRolesMAOF' })
+    const goToNewUserAndRols = () => router.push({ name: 'NewUsersRolesMAOF' })
 
     getUnits()
 
     return {
-      resident,
+      userAndRols,
       featureOptions,
       headers,
-      goToNewResident,
+      goToNewUserAndRols,
     }
   },
 }

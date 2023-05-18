@@ -138,10 +138,10 @@ export default {
         if (contrato.id_tipo_contrato === 3) {
           amendingAgreement.value.push(contrato)
           amendingAgreement.value.sort((a, b) => {
-            if (a.value > b.value) {
+            if (a.label > b.label) {
               return 1;
             }
-            if (a.value < b.value) {
+            if (a.label < b.label) {
               return -1;
             }
             // a must be equal to b
