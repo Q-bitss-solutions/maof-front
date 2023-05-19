@@ -1,0 +1,1 @@
+import{f as s}from"./fetchApi-9b5c6a20.js";const a=()=>s({url:"user/",method:"GET"}),o=e=>s({url:`user/${e}/`,method:"GET"}),d=e=>s({url:"user/",method:"POST",data:e}),u=e=>s({url:`user/${e.id}/`,method:"PUT",data:e}),c=(e,t)=>s({url:`/user/${e}/`,method:"PATCH",data:t});export{o as a,c as d,a as f,d as s,u};
