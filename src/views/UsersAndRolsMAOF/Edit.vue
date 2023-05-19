@@ -3,16 +3,17 @@
     <arrow-back />
     <title-bar title="Usuarios y Roles MAOF" subtitle="Editar" />
     <section class="px-4">
-      <form-units-m-a-o-f @submit="saveUnit" :unit="app.unit" edit-mode v-if="!app.loading" />
+      <form-users-and-rols-m-a-o-f @submit="saveUserAndRols" :userAndRols="app.userAndRols" edit-mode
+        v-if="!app.loading" />
     </section>
   </main>
 </template>
 
 <script>
-import FormUnitsMAOF from '../../components/UnitsMAOF/FormUnitsMAOF.vue'
+import FormUsersAndRolsMAOF from '../../components/UsersAndRolsMAOF/FormUsersAndRolsMAOF.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { updateSICTUnits, fetchSICTUnitsById } from './../../api/SICTUnits'
+import { updateUser, fetchUserById } from './../../api/users'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
@@ -20,7 +21,7 @@ import Swal from 'sweetalert2'
 export default {
   name: 'EditUnitMAOF',
   components: {
-    FormUnitsMAOF,
+    FormUsersAndRolsMAOF,
     ArrowBack,
     TitleBar,
   },
@@ -28,29 +29,32 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
-      unit: {},
+      userAndRols: {},
       loading: true,
     })
     const getUnitById = async () => {
       app.loading = true
-      const { data } = await fetchSICTUnitsById(route.params.unityMAOFId)
-      app.unit = data
+      const { data } = await fetchUserById(route.params.userRolMAOFId)
+      app.userAndRols = data
+      console.log('app.user: ', app.userAndRols);
       app.loading = false
     }
-    const saveUnit = async (unit) => {
+    const saveUserAndRols = async (userAndRol) => {
+      console.log('userAndRol: ', userAndRol);
       try {
-        await updateSICTUnits(unit)
+
+        await updateUser(userAndRol)
         /* alert('Residente actualizado con exito!') */
         Swal.fire(
           '¡Éxito!',
-          '¡Unidad actualizada con éxito!',
+          '¡Usuario actualizado con éxito!',
           'success'
         )
-        router.push({ name: 'UnitsMAOF' })
+        router.push({ name: 'UsersRolesMAOF' })
       } catch (error) {
         Swal.fire(
           'Error',
-          `Registro inactivo`,
+          `${error.response.data.detail}`,
           'error'
         )
       }
@@ -60,7 +64,7 @@ export default {
 
     return {
       app,
-      saveUnit,
+      saveUserAndRols,
     }
   },
 }

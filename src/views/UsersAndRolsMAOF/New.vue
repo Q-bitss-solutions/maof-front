@@ -3,7 +3,7 @@
     <arrow-back />
     <title-bar title="Usuarios y Roles MAOF" subtitle="Nuevo" />
     <section class="px-4">
-      <form-users-and-rols-m-a-o-f @submit="saveUnit" />
+      <form-users-and-rols-m-a-o-f @submit="saveUserAndRols" />
     </section>
   </main>
 </template>
@@ -12,7 +12,7 @@
 import FormUsersAndRolsMAOF from '../../components/UsersAndRolsMAOF/FormUsersAndRolsMAOF.vue'
 import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import { storeSICTUnits } from './../../api/SICTUnits'
+import { storeUser } from './../../api/users'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
@@ -25,20 +25,28 @@ export default {
   },
   setup() {
     const router = useRouter()
-    const saveUnit = async (unit) => {
-      /* await storeReviewArea(reviewArea) */
-      await storeSICTUnits(unit)
-      /* alert('Residente guardado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        '¡Unidad guardada con éxito!',
-        'success'
-      )
-      router.push({ name: 'UnitsMAOF' })
+    const saveUserAndRols = async (userAndRol) => {
+      try {
+        await storeUser(userAndRol)
+        console.log('Info: ', userAndRol)
+        Swal.fire(
+          '¡Éxito!',
+          '¡Unidad guardada con éxito!',
+          'success'
+        )
+        router.push({ name: 'UsersRolesMAOF' })
+      } catch (error) {
+        console.log(error)
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
     return {
-      saveUnit,
+      saveUserAndRols,
     }
   },
 }
