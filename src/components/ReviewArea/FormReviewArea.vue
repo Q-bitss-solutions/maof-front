@@ -1,17 +1,8 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base
-      id="clave_unidad"
-      label="Unidad SICT"
-      v-model="app.reviewArea.id_unidad_maof"
-      :options="app.listSICTUnits"
-      class="mb-3"
-    />
-    <button-base
-      label="Guardar"
-      @click="sendForm"
-      class="mr-0 ml-auto"
-    />
+    <select-base id="clave_unidad" label="Unidad SICT" v-model="app.reviewArea.id_unidad_maof"
+      :options="app.listSICTUnits" class="mb-3" />
+    <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>
 
@@ -56,6 +47,16 @@ export default {
     const getSICTUnits = async () => {
       const { data } = await fetchSICTUnits()
       app.listSICTUnits = data.map(unit => ({ value: unit.id_unidad_maof, label: unit.unidad }))
+      app.listSICTUnits.sort((a, b) => {
+        if (a.label > b.label) {
+          return 1;
+        }
+        if (a.label < b.label) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
     }
 
     getSICTUnits()
