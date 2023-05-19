@@ -26,14 +26,23 @@ export default {
   setup() {
     const router = useRouter()
     const saveProject = async (project) => {
-      await storeProject(project)
-      /* alert('Proyecto guardado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        '!Proyecto guardado con éxito!',
-        'success'
-      )
-      router.push({ name: 'Projects' })
+      try {
+        await storeProject(project)
+        /* alert('Proyecto guardado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          '!Proyecto guardado con éxito!',
+          'success'
+        )
+        router.push({ name: 'Projects' })
+
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
     return {
