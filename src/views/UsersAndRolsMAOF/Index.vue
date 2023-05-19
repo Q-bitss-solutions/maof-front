@@ -12,7 +12,7 @@
 <script>
 import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchSICTUnits, deleteSICTUnits } from './../../api/SICTUnits'
+import { fetchUser, deleteUser } from './../../api/users'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
@@ -20,7 +20,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
 
 export default {
-  name: 'UnitMAOFIndex',
+  name: 'UsersRolesMAOFIndex',
   components: {
     TableBase,
     ArrowBack,
@@ -32,89 +32,121 @@ export default {
     const headers = [
       {
         label: 'Id',
-        field: 'clave_unidad',
+        field: 'id',
       },
       {
         label: 'Nombre',
-        field: 'unidad',
+        field: 'nombre_completo',
       },
       {
         label: 'Unidad MAOF',
-        field: 'unidad',
+        field: 'unidad_maof',
       },
       {
         label: 'Correo',
-        field: 'unidad',
+        field: 'email',
       },
       {
         label: 'Rol MAOF',
-        field: 'unidad',
+        field: 'rol',
       },
       {
         label: 'Estatus',
-        field: 'estado_unidad_maof',
+        field: 'estatus_usuario',
       },
     ]
     const userAndRols = ref([])
-    const getUnits = async () => {
-      const { data } = await fetchSICTUnits()
+    const userAndRolStatus = ref({ estatus_usuario: '' })
+    const getUserAndRols = async () => {
+      const { data } = await fetchUser()
       userAndRols.value = data
     }
     const featureOptions = [
       {
         label: 'Editar',
-        action: (unit) => {
+        action: (userAndRol) => {
+          console.log(userAndRol);
           router.push({
-            name: 'EditUnitMAOF',
+            name: 'EditUsersRolesMAOF',
             params: {
-              userRolMAOFId: unit.id_unidad_maof,
+              userRolMAOFId: userAndRol.id,
             }
           })
         }
       },
       {
-        label: 'Eliminar',
-        action: async (unit) => {
-          Swal.fire({
-            title: `Estás seguro que desea inactivar la unidad "${unit.unidad}"?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '¡Si, Inactivar!',
-            reverseButtons: true,
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                await deleteSICTUnits(unit.id_unidad_maof)
-                await getUnits()
-                Swal.fire(
-                  '¡Inactivo!',
-                  'La unidad se inactivó',
-                  'success'
-                )
-              } catch (error) {
-                Swal.fire(
-                  'Error',
-                  `${error.response.data.detail}`,
-                  'error'
-                )
+        label: 'Cambio Estatus',
+        action: async (userAndRol) => {
+          if (userAndRol.estatus_usuario === 'Activo') {
+            Swal.fire({
+              title: `Estás seguro que desea inactivar al usuario "${userAndRol.nombre_completo}"?`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '¡Si, Inactivar!',
+              reverseButtons: true,
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  userAndRolStatus.estatus_usuario = 2
+                  await deleteUser(userAndRol.id, userAndRolStatus)
+                  await getUserAndRols()
+                  Swal.fire(
+                    '¡Inactivo!',
+                    'El usuario se inactivó',
+                    'success'
+                  )
+                } catch (error) {
+                  Swal.fire(
+                    'Error',
+                    `${error.response.data.detail}`,
+                    'error'
+                  )
+                }
               }
-            }
-          })
-          /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-            await deleteResident(resident.id_residente)
-            await getResident()
-          } */
+            })
+          }
+          if (userAndRol.estatus_usuario === 'Desactivado') {
+            Swal.fire({
+              title: `Estás seguro que desea activar al usuario "${userAndRol.nombre_completo}"?`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: '¡Si, Activar!',
+              reverseButtons: true,
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  userAndRolStatus.estatus_usuario = 0
+                  await deleteUser(userAndRol.id, userAndRolStatus)
+                  await getUserAndRols()
+                  Swal.fire(
+                    '¡Activo!',
+                    'El usuario se activó',
+                    'success'
+                  )
+                } catch (error) {
+                  Swal.fire(
+                    'Error',
+                    `${error.response.data.detail}`,
+                    'error'
+                  )
+                }
+              }
+            })
+          }
         },
       },
     ]
     const goToNewUserAndRols = () => router.push({ name: 'NewUsersRolesMAOF' })
 
-    getUnits()
+    getUserAndRols()
 
     return {
       userAndRols,
+      userAndRolStatus,
       featureOptions,
       headers,
       goToNewUserAndRols,
