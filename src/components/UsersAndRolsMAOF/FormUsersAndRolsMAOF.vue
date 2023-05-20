@@ -150,9 +150,9 @@ export default {
       })
     }
     const sendForm = async () => {
-      app.userAndRols.last_name = app.userAndRols.last_name + ' ' + app.maternal_surname
       const validaciones = await v$.value.$validate()
       if (validaciones) {
+        app.userAndRols.last_name = app.userAndRols.last_name + ' ' + app.maternal_surname
         /* app.userAndRols.username = app.userAndRols.email */
         emit('submit', app.userAndRols)
       } else {
