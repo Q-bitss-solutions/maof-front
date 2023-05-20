@@ -21,7 +21,7 @@ import TitleBar from '../components/TitleBar.vue'
 import InputBase from '../components/InputBase.vue'
 import { mapState } from 'vuex'
 import Swal from 'sweetalert2'
-import { fetchReviewAreas } from '../api/reviewArea.js'
+import { loginUser } from '../api/auth'
 
 
 export default {
@@ -38,14 +38,25 @@ export default {
       password: '',
     })
     const sendForm = async () => {
-      /* const { response } = await postLogin() */
+      try {
+        const { data } = await loginUser(user.value)
+        //setItem se asigna el item
+        console.log(data);
+        localStorage.setItem('acces', data.access)
+        localStorage.setItem('refresh', data.refresh)
+
+      } catch (error) {
+        console.log('error: ', error)
+
+      }
       //setItem se asigna el item
       /*  localStorage.setItem('token', response.token)
-       localStorage.setItem('rol', response.rol) */
+      localStorage.setItem('rol', response.rol) */
       //se consulta el item
       /* const token = localStorage.getItem('token')
       const isAdmin = localStorage.getItem('rol') === 'Admin' */
-      console.log('Se envian los datos: ', user.value.email, user.value.password)
+      console.log(localStorage.getItem('acces'));
+      console.log(localStorage.getItem('refresh'));
     }
     const goToNewResident = () => router.push({ name: 'NewResident' })
 

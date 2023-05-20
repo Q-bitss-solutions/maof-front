@@ -5,6 +5,11 @@ const fetchSICTUnits = () => fetchApi({
   method: 'GET',
 })
 
+const fetchSICTUnitsActive = () => fetchApi({
+  url: 'cat-unidad-maof/?estado_unidad_maof=1',
+  method: 'GET',
+})
+
 const fetchSICTUnitsById = (id) => fetchApi({
   url: `/cat-unidad-maof/${id}/`,
   method: 'GET',
@@ -28,6 +33,7 @@ const deleteSICTUnits = (id_unidad_maof) => fetchApi({
 
 export {
   fetchSICTUnits,
+  fetchSICTUnitsActive,
   fetchSICTUnitsById,
   storeSICTUnits,
   updateSICTUnits,
