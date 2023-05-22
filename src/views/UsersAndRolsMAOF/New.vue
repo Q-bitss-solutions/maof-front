@@ -31,7 +31,7 @@ export default {
         console.log('Info: ', userAndRol)
         Swal.fire(
           '¡Éxito!',
-          '¡Unidad guardada con éxito!',
+          '¡Ususario guardado con éxito!',
           'success'
         )
         router.push({ name: 'UsersRolesMAOF' })

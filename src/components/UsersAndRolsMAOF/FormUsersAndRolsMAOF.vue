@@ -1,14 +1,14 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <input-base id="aPaterno" label="Apellido paterno" class="mb-3" v-model="app.userAndRols.last_name" />
+    <input-base id="aPaterno" label="Apellidos" class="mb-3" v-model="app.userAndRols.last_name" />
     <span v-if="v$.last_name.$error" v-for="error in  v$.last_name.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-    <input-base id="aMaterno" label="Apellido materno" class="mb-3" v-model="app.maternal_surname" />
+    <!-- <input-base id="aMaterno" label="Apellido materno" class="mb-3" v-model="app.maternal_surname" />
     <span v-if="v$.last_name.$error" v-for="error in  v$.last_name.$errors" :key="error"
-      class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
+      class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span> -->
 
-    <input-base id="nombre" label="Nombres(s)" class="mb-3" v-model="app.userAndRols.first_name" />
+    <input-base id="nombre" label="Nombre(s)" class="mb-3" v-model="app.userAndRols.first_name" />
     <span v-if="v$.first_name.$error" v-for="error in  v$.first_name.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
@@ -71,14 +71,14 @@ export default {
         rol: '',
         unidad_maof: ''
       },
-      maternal_surname: '',
+      /*       maternal_surname: '', */
       listUnitsMAOF: [],
       listRolesMAOF: [],
     })
     if (props.editMode) {
       app.userAndRols = props.userAndRols
-      app.maternal_surname = props.userAndRols.last_name.split(' ')[1]
-      app.userAndRols.last_name = props.userAndRols.last_name.split(' ')[0]
+      /* app.maternal_surname = props.userAndRols.last_name.split(' ')[1]
+      app.userAndRols.last_name = props.userAndRols.last_name.split(' ')[0] */
       app.userAndRols.rol = props.userAndRols.rol_id
       app.userAndRols.unidad_maof = props.userAndRols.unidad_maof_id
       console.log('app: ', app.userAndRols);
@@ -152,7 +152,7 @@ export default {
     const sendForm = async () => {
       const validaciones = await v$.value.$validate()
       if (validaciones) {
-        app.userAndRols.last_name = app.userAndRols.last_name + ' ' + app.maternal_surname
+        /* app.userAndRols.last_name = app.userAndRols.last_name + ' ' + app.maternal_surname */
         /* app.userAndRols.username = app.userAndRols.email */
         emit('submit', app.userAndRols)
       } else {
