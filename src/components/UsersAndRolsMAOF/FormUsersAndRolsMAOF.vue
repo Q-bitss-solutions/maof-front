@@ -1,15 +1,15 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <input-base id="aPaterno" label="Apellidos" class="mb-3" v-model="app.userAndRols.last_name" />
-    <span v-if="v$.last_name.$error" v-for="error in  v$.last_name.$errors" :key="error"
+    <input-base id="aPaterno" label="Apellido Paterno" class="mb-3" v-model="app.userAndRols.apellido_paterno" />
+    <span v-if="v$.apellido_paterno.$error" v-for="error in  v$.apellido_paterno.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-    <!-- <input-base id="aMaterno" label="Apellido materno" class="mb-3" v-model="app.maternal_surname" />
-    <span v-if="v$.last_name.$error" v-for="error in  v$.last_name.$errors" :key="error"
-      class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span> -->
+    <input-base id="aMaterno" label="Apellido Materno" class="mb-3" v-model="app.userAndRols.apellido_materno" />
+    <span v-if="v$.apellido_materno.$error" v-for="error in  v$.apellido_materno.$errors" :key="error"
+      class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-    <input-base id="nombre" label="Nombre(s)" class="mb-3" v-model="app.userAndRols.first_name" />
-    <span v-if="v$.first_name.$error" v-for="error in  v$.first_name.$errors" :key="error"
+    <input-base id="nombre" label="Nombre(s)" class="mb-3" v-model="app.userAndRols.nombre" />
+    <span v-if="v$.nombre.$error" v-for="error in  v$.nombre.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
@@ -20,12 +20,13 @@
 
 
     <select-base id="id_rol_maof" label="Rol en el sistema" :options="app.listRolesMAOF" class="mb-3"
-      v-model="app.userAndRols.rol" />
-    <span v-if="v$.rol.$error" v-for="error in  v$.rol.$errors" :key="error"
+      v-model="app.userAndRols.rol_maof" />
+    <span v-if="v$.rol_maof.$error" v-for="error in  v$.rol_maof.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
-    <input-base id="email" label="Correo electrónico" class="mb-3" type="email" v-model="app.userAndRols.email" />
-    <span v-if="v$.email.$error" v-for="error in  v$.email.$errors" :key="error"
+    <input-base id="email" label="Correo electrónico" class="mb-3" type="email"
+      v-model="app.userAndRols.correo_electronico" />
+    <span v-if="v$.correo_electronico.$error" v-for="error in  v$.correo_electronico.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
@@ -64,11 +65,11 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       userAndRols: {
-        email: '',
-        /* username: '', */
-        first_name: '',
-        last_name: '',
-        rol: '',
+        correo_electronico: '',
+        nombre: '',
+        apellido_materno: '',
+        apellido_paterno: '',
+        rol_maof: '',
         unidad_maof: ''
       },
       /*       maternal_surname: '', */
@@ -79,44 +80,20 @@ export default {
       app.userAndRols = props.userAndRols
       /* app.maternal_surname = props.userAndRols.last_name.split(' ')[1]
       app.userAndRols.last_name = props.userAndRols.last_name.split(' ')[0] */
-      app.userAndRols.rol = props.userAndRols.rol_id
+      app.userAndRols.rol_maof = props.userAndRols.rol_maof_id
       app.userAndRols.unidad_maof = props.userAndRols.unidad_maof_id
       console.log('app: ', app.userAndRols);
     }
     const rules = computed(() => {
       return {
-        /* id_contrato: { required: helpers.withMessage('El id es requerido', required) },
-        id_residente: { required }, */
-        /*  porcentaje_avance_estimacion: {
-           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
-           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
-         },
-         porcentaje_avance_estimacion_acumulado: {
-           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
-           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
-         },
-         porcentaje_Avance_fisico: {
-           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
-           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
-         },
-         porcensaje_avance_financiero: {
-           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
-           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
-         },
-         grado_avance_obra: {
-           maxValue: helpers.withMessage('El valor maximo es 100%', maxValue(100)),
-           minValue: helpers.withMessage('El valor minimo es 0%', minValue(0))
-         },
-         fecha_autorizacion_contratista: {
-           fechaActualFunction: helpers.withMessage('La fecha es mayor al dia de hoy', fechaActualFunction),
-         }, */
-        email: {
+        correo_electronico: {
           required: helpers.withMessage('El email es requerido', required),
-          email: helpers.withMessage('No es un correo valido', email)
+          correo_electronico: helpers.withMessage('No es un correo valido', email)
         },
-        first_name: { required: helpers.withMessage('El nombre es requerido', required) },
-        last_name: { required: helpers.withMessage('El apellido es requerido', required) },
-        rol: { required: helpers.withMessage('El rol es requerido', required) },
+        nombre: { required: helpers.withMessage('El nombre es requerido', required) },
+        apellido_paterno: { required: helpers.withMessage('El apellido paterno es requerido', required) },
+        apellido_materno: { required: helpers.withMessage('El apellido materno es requerido', required) },
+        rol_maof: { required: helpers.withMessage('El rol es requerido', required) },
         unidad_maof: { required: helpers.withMessage('La unidad es requerido', required) },
       }
     })
@@ -137,7 +114,7 @@ export default {
     }
     const getRolesMAOF = async () => {
       const { data } = await fetchRoles()
-      app.listRolesMAOF = data.map(rol => ({ value: rol.id, label: rol.nombre_rol }))
+      app.listRolesMAOF = data.map(rol => ({ value: rol.rol_maof, label: rol.nombre_rol_maof }))
       app.listRolesMAOF.sort((a, b) => {
         if (a.label > b.label) {
           return 1;

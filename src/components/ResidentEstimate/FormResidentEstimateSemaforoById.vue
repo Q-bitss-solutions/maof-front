@@ -101,13 +101,11 @@ import InputBase from '../InputBase.vue'
 import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import TextAreaBase from '../TextAreaBase.vue'
-import { fetchContracts, fetchContractById } from '../../api/contract'
-import { storeResidentEstimate, sendToReviewArea, updateResidentEstimate, deleteResidentEstimate } from '../../api/residentEstimate'
-import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees'
+import { sendToReviewArea, updateResidentEstimate, deleteResidentEstimate } from '../../api/residentEstimate'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import useVuelidate from '@vuelidate/core'
-import { required, helpers, minValue, maxValue } from '@vuelidate/validators'
+import { helpers, minValue, maxValue } from '@vuelidate/validators'
 
 export default {
   name: 'FormResidentEstimate',

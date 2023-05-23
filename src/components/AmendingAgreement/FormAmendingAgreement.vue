@@ -32,7 +32,6 @@ import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
 import { fetchContracts, fetchContractById } from '../../api/contract'
 import { fetchProjects } from '../../api/project'
-/* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
 export default {
   name: 'FormAmendingAgreement',
@@ -162,10 +161,6 @@ export default {
         return 0;
       })
     }
-    /* const getEmpleadosSICT = async () => {
-      const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
-      app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
-    } */
 
     getReviewAreas()
     getContratistas()

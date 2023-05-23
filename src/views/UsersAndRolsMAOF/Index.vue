@@ -32,7 +32,7 @@ export default {
     const headers = [
       {
         label: 'Id',
-        field: 'id',
+        field: 'empleado_maof',
       },
       {
         label: 'Nombre',
@@ -44,19 +44,19 @@ export default {
       },
       {
         label: 'Correo',
-        field: 'email',
+        field: 'correo_electronico',
       },
       {
         label: 'Rol MAOF',
-        field: 'rol',
+        field: 'rol_maof',
       },
       {
         label: 'Estatus',
-        field: 'estatus_usuario',
+        field: 'estatus_empleado',
       },
     ]
     const userAndRols = ref([])
-    const userAndRolStatus = ref({ estatus_usuario: '' })
+    const userAndRolStatus = ref({ estatus_empleado: '' })
     const getUserAndRols = async () => {
       const { data } = await fetchUser()
       userAndRols.value = data
@@ -69,7 +69,7 @@ export default {
           router.push({
             name: 'EditUsersRolesMAOF',
             params: {
-              userRolMAOFId: userAndRol.id,
+              userRolMAOFId: userAndRol.empleado_maof,
             }
           })
         }
@@ -77,7 +77,7 @@ export default {
       {
         label: 'Cambio Estatus',
         action: async (userAndRol) => {
-          if (userAndRol.estatus_usuario === 'Activo') {
+          if (userAndRol.estatus_empleado === 'Activo') {
             Swal.fire({
               title: `Estás seguro que desea inactivar al usuario "${userAndRol.nombre_completo}"?`,
               icon: 'warning',
@@ -89,8 +89,8 @@ export default {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_usuario = 2
-                  await deleteUser(userAndRol.id, userAndRolStatus)
+                  userAndRolStatus.estatus_empleado = 2
+                  await deleteUser(userAndRol.empleado_maof, userAndRolStatus)
                   await getUserAndRols()
                   Swal.fire(
                     '¡Inactivo!',
@@ -107,7 +107,7 @@ export default {
               }
             })
           }
-          if (userAndRol.estatus_usuario === 'Desactivado') {
+          if (userAndRol.estatus_empleado === 'Desactivado') {
             Swal.fire({
               title: `Estás seguro que desea activar al usuario "${userAndRol.nombre_completo}"?`,
               icon: 'warning',
@@ -119,7 +119,7 @@ export default {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_usuario = 0
+                  userAndRolStatus.estatus_empleado = 0
                   await deleteUser(userAndRol.id, userAndRolStatus)
                   await getUserAndRols()
                   Swal.fire(

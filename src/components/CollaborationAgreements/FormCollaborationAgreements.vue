@@ -31,7 +31,6 @@ import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
 import { fetchTypeContracts } from '../../api/typeContract'
 import { fetchProjects } from '../../api/project'
-/* import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees' */
 
 export default {
   name: 'FormCollaborationAgreements',
@@ -113,10 +112,6 @@ export default {
       const { data } = await fetchTypeContracts()
       app.listTypeContracts = data.map(typeContract => ({ value: typeContract.tipo_contrato, label: `${typeContract.tipo_contrato} - ${typeContract.tipo_contrato_nombre}` }))
     }
-    /* const getEmpleadosSICT = async () => {
-      const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
-      app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
-    } */
 
     getReviewAreas()
     getContratistas()
