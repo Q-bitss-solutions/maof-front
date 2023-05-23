@@ -16,7 +16,7 @@ import InputBase from '../InputBase.vue'
 import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
-import { fetchSCIT_EmployeesQuery } from '../../api/SCIT_Employees'
+import { fetchMAOF_EmployeesQuery } from '../../api/users'
 import Swal from 'sweetalert2'
 
 export default {
@@ -44,7 +44,7 @@ export default {
         fecha_fin_residente: '',
       },
       idAreaRevisora: '',
-      disabled:false,
+      disabled: false,
       listReviewAreas: [],
       listEmpleados: [],
     })
@@ -63,7 +63,7 @@ export default {
 
     const getEmpleadosSICT = async () => {
       try {
-        const { data } = await fetchSCIT_EmployeesQuery(app.idAreaRevisora)
+        const { data } = await fetchMAOF_EmployeesQuery(app.idAreaRevisora)
         app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
         app.disabled = false
       } catch (error) {
