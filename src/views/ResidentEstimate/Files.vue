@@ -104,12 +104,12 @@ export default {
       /* app.resident.file */
       try {
         const { value: file } = await Swal.fire({
-          title: 'Select file',
+          title: 'Subir Archivo',
           input: 'file',
           showCancelButton: true,
           reverseButtons: true,
           inputAttributes: {
-            'accept': 'pdf/*',
+            'accept': 'application/pdf',
             'aria-label': 'Upload your profile picture'
           }
         })
