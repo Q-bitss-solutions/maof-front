@@ -72,6 +72,13 @@ export default {
     TableBase,
     SelectBase,
   },
+  /*  mounted() {
+     if (localStorage.getItem('acces') != null) {
+       router.push({ name: 'NewUnitMAOF' })
+     } else {
+       router.push({ name: 'NewUnitMAOF' })
+     }
+   }, */
   setup() {
     const router = useRouter()
     const menu = [
@@ -158,43 +165,6 @@ export default {
         ],
       },
     ]
-    /* const menu = [
-      {
-        labelMenu: 'Usuarios',
-        submenu: [],
-      },
-      {
-        labelMenu: 'Consultas',
-        submenu: [],
-      },
-      {
-        labelMenu: 'Proyectos',
-        submenu: [
-          {
-            label: 'Proyectos',
-            routeName: 'Projects'
-          },
-        ],
-      },
-      {
-        labelMenu: 'Contratos',
-        submenu: [
-          {
-            label: 'Contratos',
-            routeName: 'Contracts',
-          },
-        ],
-      },
-      {
-        labelMenu: 'Catálogos',
-        submenu: [
-          {
-            label: 'Área revisora',
-            routeName: 'ReviewAreas'
-          },
-        ],
-      },
-    ] */
     const indexActiveSubmenu = ref(null)
     const indexActiveSubmenu2 = ref(null)
     const showSubmenu = (index) => {
@@ -209,9 +179,13 @@ export default {
       }
       return indexActiveSubmenu2.value = index
     }
-
+    const logIn = () => {
+      if (localStorage.getItem('acces') === null) {
+        router.push({ name: 'Login' })
+      }
+    }
     const goToRoute = (routerName) => router.push({ name: routerName })
-
+    /* logIn() */
     return {
       menu,
       showSubmenu,
@@ -219,6 +193,7 @@ export default {
       indexActiveSubmenu,
       indexActiveSubmenu2,
       goToRoute,
+      logIn,
     }
   },
 }

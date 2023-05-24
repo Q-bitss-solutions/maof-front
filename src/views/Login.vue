@@ -44,6 +44,9 @@ export default {
         console.log(data);
         localStorage.setItem('acces', data.access)
         localStorage.setItem('refresh', data.refresh)
+        router.push({ name: 'Home' })
+        console.log(localStorage.getItem('acces'));
+        console.log(localStorage.getItem('refresh'));
 
       } catch (error) {
         console.log('error: ', error)
@@ -55,16 +58,12 @@ export default {
       //se consulta el item
       /* const token = localStorage.getItem('token')
       const isAdmin = localStorage.getItem('rol') === 'Admin' */
-      console.log(localStorage.getItem('acces'));
-      console.log(localStorage.getItem('refresh'));
     }
-    const goToNewResident = () => router.push({ name: 'NewResident' })
 
 
 
     return {
       sendForm,
-      goToNewResident,
       user,
     }
   },
