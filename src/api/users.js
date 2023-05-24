@@ -8,7 +8,7 @@ const fetchUser = () =>
 
 const fetchMAOF_EmployeesQuery = (id_unidad_maof) =>
   fetchApi({
-    url: `/cat_empleados_maof/?unidad_sict=${id_unidad_maof}`,
+    url: `/cat_empleados_maof/?unidad_maof=${id_unidad_maof}`,
     method: "GET",
   });
 
