@@ -3,7 +3,7 @@
     <select-base id="id_area_revisora" label="Área revisora" :options="app.listReviewAreas" v-model="app.idAreaRevisora"
       @change="getEmpleadosSICT()" class="mb-3" v-if="editMode !== true" />
     <select-base id="id_empleado_sict" label="Empleado SICT" :options="app.listEmpleados" class="mb-3"
-      v-if="editMode !== true" v-model="app.resident.id_empleado_sict" :disabled="app.disabled" />
+      v-if="editMode !== true" v-model="app.resident.id_empleado_maof" :disabled="app.disabled" />
     <input-base id="fecha_inicio_proyecto" label="Fecha inicio del residente" type="date" class="mb-3"
       v-model="app.resident.fecha_inicio_residente" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" :disabled="app.disabled" />
@@ -39,7 +39,7 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       resident: {
-        id_empleado_sict: '',
+        id_empleado_maof: '',
         fecha_inicio_residente: '',
         fecha_fin_residente: '',
       },
@@ -63,8 +63,12 @@ export default {
 
     const getEmpleadosSICT = async () => {
       try {
+        console.log(app.idAreaRevisora)
         const { data } = await fetchMAOF_EmployeesQuery(app.idAreaRevisora)
-        app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_sict, label: empleado.nombre_completo }))
+        console.log(data)
+        app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_maof, label: empleado.nombre_completo }))
+        console.log(app.listEmpleados)
+
         app.disabled = false
       } catch (error) {
         Swal.fire(

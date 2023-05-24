@@ -10,7 +10,7 @@
 import { reactive } from 'vue'
 import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
-import { fetchSICTUnits } from '../../api/SICTUnits'
+import { fetchSICTUnitsActive } from '../../api/SICTUnits'
 
 export default {
   name: 'FormReviewArea',
@@ -45,7 +45,7 @@ export default {
     const sendForm = () => emit('submit', app.reviewArea)
 
     const getSICTUnits = async () => {
-      const { data } = await fetchSICTUnits()
+      const { data } = await fetchSICTUnitsActive()
       app.listSICTUnits = data.map(unit => ({ value: unit.id_unidad_maof, label: unit.unidad }))
       app.listSICTUnits.sort((a, b) => {
         if (a.label > b.label) {

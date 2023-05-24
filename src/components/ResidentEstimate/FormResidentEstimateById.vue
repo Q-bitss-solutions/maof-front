@@ -268,12 +268,12 @@ label[for=fecha_periodo_fin_estimacion] {
 }
 
 label[for=fecha_periodo_inicio_estimacion] {
-  width: 200px;
+  width: 270px;
 }
 
 input[id=fecha_periodo_inicio_estimacion] {
-  margin-left: 97px;
-  margin-bottom: 29px;
+  margin-left: 75px;
+  /* margin-bottom: 29px; */
   width: 80px;
 }
 
