@@ -51,7 +51,7 @@ export default {
       } catch (error) {
         Swal.fire(
           'Error',
-          `${error.response.data.message}`,
+          `${error.response.data.detail}`,
           'error'
         )
       }

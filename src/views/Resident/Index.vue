@@ -81,7 +81,7 @@ export default {
         label: 'Inactivar',
         action: async (resident) => {
           Swal.fire({
-            title: `Estás seguro que desea inactivar el residente "${resident.nombre_completo}"?`,
+            title: `Estás seguro que deseas inactivar el residente "${resident.nombre_completo}"?`,
             text: "Esto finalizara las asignaciones del residente",
             icon: 'warning',
             showCancelButton: true,

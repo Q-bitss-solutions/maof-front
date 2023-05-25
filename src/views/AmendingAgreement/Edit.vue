@@ -43,17 +43,17 @@ export default {
 
       try {
         await updateContract(amendingAgreement)
-      /* alert('Residente actualizado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        'Convenio modificatorio actualizado con éxito!',
-        'success'
-      )
-      router.push({ name: 'AmendingAgreement' })
+        /* alert('Residente actualizado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          'Convenio modificatorio actualizado con éxito!',
+          'success'
+        )
+        router.push({ name: 'AmendingAgreement' })
       } catch (error) {
         Swal.fire(
           'Error',
-          `${error.response.data.message}`,
+          `${error.response.data.detail}`,
           'error'
         )
       }

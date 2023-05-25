@@ -3,7 +3,7 @@
     <arrow-back />
     <title-bar title="Usuarios y Roles MAOF" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Alta de Usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
+      <button-base label="Alta de usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="userAndRols" />
     </section>
   </main>
@@ -77,9 +77,9 @@ export default {
       {
         label: 'Estatus',
         action: async (userAndRol) => {
-          if (userAndRol.estatus_empleado === 'Activo') {
+          if (userAndRol.estatus_empleado === 'Inactivo') {
             Swal.fire({
-              title: `Estás seguro que desea inactivar al usuario "${userAndRol.nombre_completo}"?`,
+              title: `Estás seguro que deseas activar al usuario "${userAndRol.nombre_completo}"?`,
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -89,8 +89,7 @@ export default {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_empleado = 2
-                  await deleteUser(userAndRol.empleado_maof, userAndRolStatus)
+                  await deleteUser(userAndRol.empleado_maof)
                   await getUserAndRols()
                   Swal.fire(
                     '¡Inactivo!',
@@ -107,24 +106,23 @@ export default {
               }
             })
           }
-          if (userAndRol.estatus_empleado === 'Desactivado') {
+          if (userAndRol.estatus_empleado === 'Activo') {
             Swal.fire({
-              title: `Estás seguro que desea activar al usuario "${userAndRol.nombre_completo}"?`,
+              title: `Estás seguro que desea inactivar al usuario "${userAndRol.nombre_completo}"?`,
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: '¡Si, Activar!',
+              confirmButtonText: '¡Si, Inactivar!',
               reverseButtons: true,
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_empleado = 0
-                  await deleteUser(userAndRol.id, userAndRolStatus)
+                  await deleteUser(userAndRol.empleado_maof)
                   await getUserAndRols()
                   Swal.fire(
-                    '¡Activo!',
-                    'El usuario se activó',
+                    '¡Inactivo!',
+                    'El usuario se inactivó',
                     'success'
                   )
                 } catch (error) {
