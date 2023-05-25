@@ -52,7 +52,7 @@ export default {
         field: 'nombre_contratista',
       },
       {
-        label: 'Unidad SICT',
+        label: 'Unidad MAOF',
         field: 'nombre_unidad',
       },
       {

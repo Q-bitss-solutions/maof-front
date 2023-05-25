@@ -94,11 +94,6 @@ export default {
     }
     const getContratistas = async () => {
       const { data } = await fetchContractors()
-      /* app.listContratista = data.map((contrato) => {
-        if (contrato.estatus_contratista === 'Activo') {
-          return { value: contrato.id_contratista, label: contrato.nombre_contratista }
-        }
-      }) */
       data.forEach(contrato => {
         if (contrato.estatus_contratista === 'Activo') {
           app.listContratista.push({ value: contrato.id_contratista, label: contrato.nombre_contratista })

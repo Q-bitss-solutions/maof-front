@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <arrow-back />
-    <title-bar title="Asignación Residente" subtitle="Eliminar" />
+    <title-bar title="Asignación Residente" subtitle="Inactivar" />
     <section class="px-4">
       <delete-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode
         v-if="!app.loading" />
