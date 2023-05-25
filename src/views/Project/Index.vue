@@ -79,27 +79,28 @@ export default {
             await getProjects()
           } */
           Swal.fire({
-            title: `Estas seguro que desea Inactivar el proyecto "${project.nombre_proyecto}"?`,
-            text: "Esto Inactivara el proyecto!",
+            title: `Estás seguro que deseas inactivar el proyecto "${project.nombre_proyecto}"?`,
+            text: "Esto inactivará el proyecto!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Inactivar!'
+            confirmButtonText: 'Si, Inactivar!',
+            reverseButtons: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
                 await deleteProject(project.id_proyecto)
                 await getProjects()
                 Swal.fire(
-                  'Eliminado!',
-                  'El proyecto se elimino',
+                  'Inactivado!',
+                  'El proyecto se inactivó',
                   'success'
                 )
               } catch (error) {
                 Swal.fire(
                   'Error',
-                  `${error.response.data.message}`,
+                  `${error.response.data.detail}`,
                   'error'
                 )
               }

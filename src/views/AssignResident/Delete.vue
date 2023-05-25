@@ -3,7 +3,8 @@
     <arrow-back />
     <title-bar title="Asignación Residente" subtitle="Eliminar" />
     <section class="px-4">
-      <delete-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode v-if="!app.loading" />
+      <delete-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode
+        v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -43,7 +44,7 @@ export default {
       /* alert('Eliminado con exito!') */
       Swal.fire(
         '¡Éxito!',
-        'Asignacion Inavilitada con éxito!',
+        'Asignacion inhabilitada con éxito!',
         'success'
       )
       router.push({ name: 'AssignResident' })
@@ -54,7 +55,7 @@ export default {
     return {
       app,
       saveAssingResident,
-      
+
     }
   },
 }

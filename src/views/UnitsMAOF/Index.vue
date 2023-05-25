@@ -35,7 +35,7 @@ export default {
         field: 'clave_unidad',
       },
       {
-        label: 'Unidad SICT',
+        label: 'Unidad MAOF',
         field: 'unidad',
       },
       {
@@ -64,7 +64,7 @@ export default {
         label: 'Inactivar',
         action: async (unit) => {
           Swal.fire({
-            title: `Estás seguro que desea inactivar la unidad "${unit.unidad}"?`,
+            title: `Estás seguro que deseas inactivar la unidad "${unit.unidad}"?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
