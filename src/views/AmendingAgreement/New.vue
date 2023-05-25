@@ -29,7 +29,7 @@ export default {
       try {
         await storeContract(amendingAgreement)
         Swal.fire(
-          'Exito!',
+          'Éxito!',
           'Convenio modificatorio guardado con éxito!',
           'success'
         )

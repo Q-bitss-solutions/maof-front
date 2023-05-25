@@ -87,7 +87,7 @@
     <div class="flex justify-between items-center py-4 ">
       <button-base label="Actualizar datos" class=" px-4" @click="editForm"
         v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
-      <button-base label="Eliminar Estimación" class=" px-4" @click="deleteForm"
+      <button-base label="Inactivar Estimación" class=" px-4" @click="deleteForm"
         v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
       <button-base label="Enviar al área revisora" class=" px-4" @click="sendReviewArea"
         v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />

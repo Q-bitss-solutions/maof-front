@@ -34,7 +34,7 @@ export default {
     const router = useRouter()
     const headers = [
       {
-        label: 'Nombre Unidad SICT',
+        label: 'Nombre Unidad MAOF',
         field: 'nombre_unidad',
       },
       {

@@ -215,7 +215,7 @@ export default {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Si',
+                confirmButtonText: 'Sí',
                 cancelButtonText: 'No',
                 reverseButtons: true
               }).then(async (result) => {
@@ -240,46 +240,15 @@ export default {
                 'error'
               )
             }
-            /* await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData) */
-            /* await storeResidentEstimate(app.residentEstimate) */
-            /*  Swal.fire({
-               title: `Registro dado de alta`,
-               text: "¿Desea ingresar los documentos?",
-               icon: 'success',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Si',
-               cancelButtonText: 'No',
-               reverseButtons: true
-             }).then(async (result) => {
-               if (result.isConfirmed) {
-                 const { data } = await fetchResidentEstimate()
-                 const lengthData = data.length - 1
-                 app.fileInfo = data[lengthData]
-                 console.log('fileInfo: ', app.fileInfo.id_estimacion)
-                 router.push({
-                   name: 'FilesResidentEstimate',
-                   params: {
-                     residentEstimateId: app.fileInfo.id_estimacion,
-                   },
-                 })
-               } else {
-                 router.push({ name: 'ResidentEstimate' })
-               }
-             }) */
-            /* router.push({ name: 'AssignResident' }) */
           } catch (error) {
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,
               'error'
             )
-            /* router.push({ name: 'AssignResident' }) */
           }
         }
       })
-      /* emit('submit', app.resident) */
     }
 
     const getContratos = async () => {

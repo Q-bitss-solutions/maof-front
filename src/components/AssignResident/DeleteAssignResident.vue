@@ -18,12 +18,12 @@
         <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
       </div>
     </div>
-    <input-base id="fecha_fin_asignacion" label="Fecha de asignación del Residente" type="date" class="mb-3"
+    <input-base id="fecha_fin_asignacion" label="Fecha de fin del Residente" type="date" class="mb-3"
       v-model="app.assingResident.fecha_fin_asignacion" />
     <div>
-      <h4 class="text-2xl mt-4">¿Seguro de eliminar el registro?</h4>
+      <h4 class="text-2xl mt-4">¿Seguro de inactivar el registro?</h4>
     </div>
-    <button-base label="Eliminar" @click="deleteRegister" class="mr-0 ml-auto" />
+    <button-base label="Inactivar" @click="deleteRegister" class="mr-0 ml-auto" />
   </div>
 </template>
 
