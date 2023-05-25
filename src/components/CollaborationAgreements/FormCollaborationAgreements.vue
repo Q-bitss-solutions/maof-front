@@ -30,7 +30,7 @@ import SelectBase from '../SelectBase.vue'
 import { fetchReviewAreas } from '../../api/reviewArea'
 import { fetchContractors } from '../../api/contractor'
 import { fetchTypeContracts } from '../../api/typeContract'
-import { fetchProjects } from '../../api/project'
+import { fetchProjectsActive } from '../../api/project'
 
 export default {
   name: 'FormCollaborationAgreements',
@@ -78,7 +78,7 @@ export default {
     const sendForm = () => emit('submit', app.collaborationAgreements)
 
     const getProjects = async () => {
-      const { data } = await fetchProjects()
+      const { data } = await fetchProjectsActive()
       app.listProyects = data.map(projetc => ({ value: projetc.id_proyecto, label: `${projetc.clave_cartera} - ${projetc.nombre_proyecto}` }))
     }
     const getReviewAreas = async () => {

@@ -66,19 +66,19 @@ export default {
         action: (resident) => {
           if (resident.estado_residente === 'Activo') {
             router.push({
-            name: 'EditResident',
-            params: {
-              residentId: resident.id_residente,
-            },
-          })
+              name: 'EditResident',
+              params: {
+                residentId: resident.id_residente,
+              },
+            })
           } else {
             return ''
-            
+
           }
         }
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (resident) => {
           Swal.fire({
             title: `Estás seguro que desea inactivar el residente "${resident.nombre_completo}"?`,
@@ -87,7 +87,8 @@ export default {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '¡Si, Inactivar!'
+            confirmButtonText: '¡Si, Inactivar!',
+            reverseButtons: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {
@@ -101,7 +102,7 @@ export default {
               } catch (error) {
                 Swal.fire(
                   'Error',
-                  `${error.response.data.message}`,
+                  `${error.response.data.detail}`,
                   'error'
                 )
               }

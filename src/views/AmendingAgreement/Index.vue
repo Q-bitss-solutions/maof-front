@@ -163,7 +163,7 @@ export default {
           }),
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (contract) => {
           Swal.fire({
             title: 'Se finalizará el Convenio Modificatorio...',

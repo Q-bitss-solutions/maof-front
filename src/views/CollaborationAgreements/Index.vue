@@ -97,7 +97,7 @@ export default {
           }),
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (collaborationAgreements) => {
           Swal.fire({
             title: 'Se finalizará el Contrato o Convenio de Colaboración...',
@@ -107,7 +107,7 @@ export default {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, !Finalizar!',
-            reverseButtons:true,
+            reverseButtons: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {

@@ -191,7 +191,7 @@ export default {
         },
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (files) => {
           Swal.fire({
             title: `¿Estás seguro que desea inactivar el documento?`,

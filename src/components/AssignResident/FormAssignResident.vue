@@ -98,7 +98,7 @@ export default {
 
     const getContracts = async () => {
       const { data } = await fetchContracts()
-      app.listContract = data.map(contract => ({ value: contract.id_contrato, label: contract.nombre_proyecto }))
+      app.listContract = data.map(contract => ({ value: contract.id_contrato, label: contract.numero_contrato }))
       app.listContract.sort((a, b) => {
         if (a.label > b.label) {
           return 1;

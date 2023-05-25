@@ -61,7 +61,7 @@ export default {
         }
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (unit) => {
           Swal.fire({
             title: `Estás seguro que desea inactivar la unidad "${unit.unidad}"?`,
