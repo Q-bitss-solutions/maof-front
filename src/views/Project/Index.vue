@@ -72,20 +72,20 @@ export default {
           }),
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (project) => {
           /* if (confirm(`Estas seguro que desea eliminar el proyecto "${project.nombre_proyecto}"?`)) {
             await deleteProject(project.id_proyecto)
             await getProjects()
           } */
           Swal.fire({
-            title: `Estas seguro que desea eliminar el proyecto "${project.nombre_proyecto}"?`,
-            text: "Esto eliminara el proyecto!",
+            title: `Estas seguro que desea Inactivar el proyecto "${project.nombre_proyecto}"?`,
+            text: "Esto Inactivara el proyecto!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Eliminar!'
+            confirmButtonText: 'Si, Inactivar!'
           }).then(async (result) => {
             if (result.isConfirmed) {
               try {

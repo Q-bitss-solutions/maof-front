@@ -63,12 +63,17 @@ export default {
 
     const getEmpleadosSICT = async () => {
       try {
-        console.log(app.idAreaRevisora)
         const { data } = await fetchMAOF_EmployeesQuery(app.idAreaRevisora)
-        console.log(data)
-        app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_maof, label: empleado.nombre_completo }))
-        console.log(app.listEmpleados)
-
+        /*  app.listEmpleados = data.map(empleado => ({ value: empleado.empleado_maof, label: empleado.nombre_completo }))
+         console.log(app.listEmpleados)
+         app.disabled = false */
+        let result = []
+        data.forEach(element => {
+          if (element.rol_maof === 'Residente') {
+            result.push({ value: element.empleado_maof, label: element.nombre_completo })
+          }
+        });
+        app.listEmpleados = result
         app.disabled = false
       } catch (error) {
         Swal.fire(

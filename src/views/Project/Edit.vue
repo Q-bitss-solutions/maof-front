@@ -39,14 +39,22 @@ export default {
       app.loading = false
     }
     const saveProject = async (project) => {
-      await updateProject(project)
-      /* alert('Proyecto actualizado con ¡Éxito!') */
-      Swal.fire(
-        '¡Éxito!',
-        'Proyecto actualizado con éxito!',
-        'success'
-      )
-      router.push({ name: 'Projects' })
+      try {
+        await updateProject(project)
+        /* alert('Proyecto actualizado con ¡Éxito!') */
+        Swal.fire(
+          '¡Éxito!',
+          'Proyecto actualizado con éxito!',
+          'success'
+        )
+        router.push({ name: 'Projects' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
     getProjectById()

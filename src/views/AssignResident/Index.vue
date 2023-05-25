@@ -71,7 +71,7 @@ export default {
           }),
       },
       {
-        label: 'Eliminar',
+        label: 'Inactivar',
         action: async (assingResident) => router.push({
           name: 'DeleteAssignResident',
           params: {

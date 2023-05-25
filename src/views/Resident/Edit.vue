@@ -38,14 +38,22 @@ export default {
       app.loading = false
     }
     const saveResident = async (resident) => {
-      await updateResident(resident)
-      /* alert('Residente actualizado con exito!') */
-      Swal.fire(
-        '¡Éxito!',
-        '¡Residente actualizado con éxito!',
-        'success'
-      )
-      router.push({ name: 'Resident' })
+      try {
+        await updateResident(resident)
+        /* alert('Residente actualizado con exito!') */
+        Swal.fire(
+          '¡Éxito!',
+          '¡Residente actualizado con éxito!',
+          'success'
+        )
+        router.push({ name: 'Resident' })
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
     getResidentById()

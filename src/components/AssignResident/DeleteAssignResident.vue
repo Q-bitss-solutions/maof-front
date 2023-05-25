@@ -84,11 +84,11 @@ export default {
       emit('submit', formData) */
       /* emit('submit', app.assingResident) */
       formData.append('fecha_fin_asignacion', app.assingResident.fecha_fin_asignacion);
-/*       if (confirm(`Estas seguro que desea eliminar el registro?`)) {
-        await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData)
-        alert('Eliminado con exito!')
-        router.push({ name: 'AssignResident' })
-      } */
+      /*       if (confirm(`Estas seguro que desea eliminar el registro?`)) {
+              await deleteAssingResident(app.assingResident.id_asignacion_residente_contrato, formData)
+              alert('Eliminado con exito!')
+              router.push({ name: 'AssignResident' })
+            } */
       Swal.fire({
         title: `Estas seguro que desea inactivar el registro?`,
         text: "Esto inactiva la asignacion!",
