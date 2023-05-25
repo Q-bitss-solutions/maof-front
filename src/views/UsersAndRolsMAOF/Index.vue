@@ -11,7 +11,7 @@
 
 <script>
 import { ref } from 'vue'
-import TableBase from '../../components/TableBase.vue'
+import TableBase from '../../components/UsersAndRolsMAOF/TableUsers.vue'
 import { fetchUser, deleteUser } from './../../api/users'
 import ArrowBack from '../../components/ArrowBack.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
@@ -75,7 +75,7 @@ export default {
         }
       },
       {
-        label: 'Cambio Estatus',
+        label: 'Estatus',
         action: async (userAndRol) => {
           if (userAndRol.estatus_empleado === 'Activo') {
             Swal.fire({

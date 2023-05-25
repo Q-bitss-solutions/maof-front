@@ -7,8 +7,11 @@ const fetchProjects = () =>
   });
 const fetchProjectsActive = () =>
   fetchApi({
-    url: "proyecto/?estatus_proyecto=3",
+    url: "proyecto/",
     method: "GET",
+    params: {
+      estatus_proyecto: 3,
+    },
   });
 
 const fetchProjectById = (id) =>
