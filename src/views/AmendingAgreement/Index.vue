@@ -47,7 +47,7 @@
                 </div>
                 <div class="grid grid-rows-2  ">
                   <div>
-                    <h1 class="font-semibold">Unidad SICT</h1>
+                    <h1 class="font-semibold">Unidad MAOF</h1>
                     <p>{{ amendingAgreementDetalles.nombre_unidad }}</p>
                   </div>
                 </div>

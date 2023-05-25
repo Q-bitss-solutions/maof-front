@@ -39,8 +39,8 @@ export default {
         field: 'nombre_completo',
       },
       {
-        label: 'Unidad SICT',
-        field: 'unidad_sict',
+        label: 'Unidad MAOF',
+        field: 'unidad_maof',
       },
       {
         label: 'Fecha de inicio',

@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-xl mx-auto">
     <input-base id="clave_unidad" label="Clave Unidad" v-model="app.unit.clave_unidad" class="mb-3" />
-    <input-base id="id_empleado_sict" label="Unidad" class="mb-3" v-model="app.unit.unidad" />
+    <input-base id="id_empleado_maof" label="Unidad" class="mb-3" v-model="app.unit.unidad" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>
 </template>

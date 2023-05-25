@@ -6,7 +6,7 @@
       class="mb-3" v-model="app.amendingAgreement.id_proyecto" disabled />
     <select-base id="id_area_revisora" label="Contratista" :options="app.listContratista" class="mb-3"
       v-model="app.amendingAgreement.id_contratista" disabled />
-    <select-base id="id_empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
+    <select-base id="id_empleado_maof" label="Unidad MAOF" :options="app.listReviewAreas" class="mb-3"
       v-model="app.amendingAgreement.id_area_revisora" disabled />
     <input-base id="fecha_inicio_proyecto" label="Número de Convenio Modificatorio" type="text" class="mb-3"
       v-model="app.amendingAgreement.numero_contrato" />

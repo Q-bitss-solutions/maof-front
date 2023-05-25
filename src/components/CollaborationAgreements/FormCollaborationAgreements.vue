@@ -6,7 +6,7 @@
       v-model="app.collaborationAgreements.id_proyecto" />
     <select-base id="Contratista" label="Contratista" :options="app.listContratista" class="mb-3"
       v-model="app.collaborationAgreements.id_contratista" />
-    <select-base id="empleado_sict" label="Unidad SICT" :options="app.listReviewAreas" class="mb-3"
+    <select-base id="empleado_maof" label="Unidad MAOF" :options="app.listReviewAreas" class="mb-3"
       v-model="app.collaborationAgreements.id_area_revisora" />
     <input-base id="numero_Contrato" label="Número de Contrato o Convenio de Colaboración" type="text" class="mb-3"
       v-model="app.collaborationAgreements.numero_contrato" />
@@ -110,7 +110,12 @@ export default {
     }
     const getTypeContracts = async () => {
       const { data } = await fetchTypeContracts()
-      app.listTypeContracts = data.map(typeContract => ({ value: typeContract.tipo_contrato, label: `${typeContract.tipo_contrato} - ${typeContract.tipo_contrato_nombre}` }))
+      data.forEach(typeContract => {
+        if (typeContract.tipo_contrato_nombre !== 'Convenio Modificatorio') {
+          app.listTypeContracts.push({ value: typeContract.tipo_contrato, label: `${typeContract.tipo_contrato} - ${typeContract.tipo_contrato_nombre}` })
+        }
+      });
+      /* app.listTypeContracts = data.map(typeContract => ({ value: typeContract.tipo_contrato, label: `${typeContract.tipo_contrato} - ${typeContract.tipo_contrato_nombre}` })) */
     }
 
     getReviewAreas()

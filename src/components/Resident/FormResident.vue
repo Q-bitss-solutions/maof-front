@@ -2,7 +2,7 @@
   <div class="max-w-xl mx-auto">
     <select-base id="id_area_revisora" label="Área revisora" :options="app.listReviewAreas" v-model="app.idAreaRevisora"
       @change="getEmpleadosSICT()" class="mb-3" v-if="editMode !== true" />
-    <select-base id="id_empleado_sict" label="Empleado SICT" :options="app.listEmpleados" class="mb-3"
+    <select-base id="id_empleado_maof" label="Empleado MAOF" :options="app.listEmpleados" class="mb-3"
       v-if="editMode !== true" v-model="app.resident.id_empleado_maof" :disabled="app.disabled" />
     <input-base id="fecha_inicio_proyecto" label="Fecha inicio del residente" type="date" class="mb-3"
       v-model="app.resident.fecha_inicio_residente" />
