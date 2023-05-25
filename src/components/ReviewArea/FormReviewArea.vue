@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto">
-    <select-base id="clave_unidad" label="Unidad SICT" v-model="app.reviewArea.id_unidad_maof"
+    <select-base id="clave_unidad" label="Unidad MAOF" v-model="app.reviewArea.id_unidad_maof"
       :options="app.listSICTUnits" class="mb-3" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
   </div>

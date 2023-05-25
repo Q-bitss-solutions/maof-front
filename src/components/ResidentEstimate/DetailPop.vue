@@ -3,13 +3,14 @@
     <teleport to="body">
       <div class="modal items-center justify-center " v-if="isOpen">
         <div class=" justify-items-center justify-center items-center">
-          <h1 class="text-center font-semibold pb-10 pt-5" v-if="data.tipo_contrato === 'Convenio de colaboración'">Detalle del Convenio de Colaboración</h1>
-          <h1 class="text-center font-semibold pb-10 pt-5" v-else>Detalle del {{ data.tipo_contrato}}</h1>
+          <h1 class="text-center font-semibold pb-10 pt-5" v-if="data.tipo_contrato === 'Convenio de colaboración'">
+            Detalle del Convenio de Colaboración</h1>
+          <h1 class="text-center font-semibold pb-10 pt-5" v-else>Detalle del {{ data.tipo_contrato }}</h1>
           <div class="grid grid-cols-2 ml-10 justify-center justify-items-center">
             <div class="grid grid-row">
               <div>
                 <h1 class="font-semibold text-center">Clave Cartera de Inversión</h1>
-                <p class=" text-sm w-full text-center">{{data.frt_clave_cartera}}</p>
+                <p class=" text-sm w-full text-center">{{ data.frt_clave_cartera }}</p>
               </div>
             </div>
             <div class="grid grid-row mb-10 ">
@@ -37,12 +38,12 @@
               </div>
               <div>
                 <h1 class="font-semibold">Fecha fin</h1>
-                <p class=" text-sm w-full text-center">{{ data.plazo_fin  }}</p>
+                <p class=" text-sm w-full text-center">{{ data.plazo_fin }}</p>
               </div>
             </div>
             <div class="grid grid-rows-2  ">
               <div>
-                <h1 class="font-semibold ml-10">Unidad SICT</h1>
+                <h1 class="font-semibold ml-10">Unidad MAOF</h1>
                 <p class=" text-sm w-full text-left">{{ data.nombre_unidad }}</p>
               </div>
             </div>
@@ -58,7 +59,7 @@
             </div>
             <div>
               <h1 class="font-semibold">¿Existen Convenios Modificatorios?</h1>
-              <p class=" text-sm w-full text-left ml-10">{{ data.id_contrato_padre === null ? 'No': 'Si'}}</p>
+              <p class=" text-sm w-full text-left ml-10">{{ data.id_contrato_padre === null ? 'No' : 'Si' }}</p>
             </div>
           </div>
           <button-base label="Cerrar" @click="sendStatusModal" class="mr-5 mx-auto my-5 " />
@@ -89,11 +90,11 @@ export default {
       default: () => (false),
     }
   },
-  setup(props,{emit}){
+  setup(props, { emit }) {
 
-    const sendStatusModal = () => emit('submit',props.isOpen)
+    const sendStatusModal = () => emit('submit', props.isOpen)
 
-    return{sendStatusModal}
+    return { sendStatusModal }
   }
 }
 </script>
