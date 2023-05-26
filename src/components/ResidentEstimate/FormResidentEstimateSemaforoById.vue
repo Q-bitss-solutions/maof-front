@@ -82,16 +82,20 @@
       v-model="app.residentEstimate.porcensaje_avance_financiero" />
     <span v-if="v$.porcensaje_avance_financiero.$error" v-for="error in  v$.porcensaje_avance_financiero.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
+  </div>
 
-
-    <div class="flex justify-between items-center py-4 ">
-      <button-base label="Actualizar datos" class=" px-4" @click="editForm"
-        v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
-      <button-base label="Inactivar Estimación" class=" px-4" @click="deleteForm"
-        v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
-      <button-base label="Enviar al área revisora" class=" px-4" @click="sendReviewArea"
-        v-if="app.residentEstimate.estatus_semaforo === 'Residente'" />
-    </div>
+  <!-- Actions Residente -->
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Residente'">
+    <button-base label="Inactivar Estimación" class=" px-4" @click="deleteForm"
+      v-if="app.residentEstimate.estatus_estimacion === 'Capturada por Residente' || app.residentEstimate.estatus_estimacion === 'Autorizada por Residente'" />
+    <button-base label="Actualizar datos" class=" px-4" @click="editForm" />
+    <button-base label="Enviar al área revisora" class=" px-4" @click="sendReviewArea" />
+  </div>
+  <!-- Actions Area Revisora -->
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora'">
+    <button-base label="Regresar a  Residente" class=" px-4"/>
+    <button-base label="Actualizar datos" class=" px-4"/>
+    <button-base label="Enviar a finanzas" class=" px-4"  />
   </div>
 </template>
 
@@ -105,7 +109,7 @@ import { sendToReviewArea, updateResidentEstimate, deleteResidentEstimate } from
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import useVuelidate from '@vuelidate/core'
-import { helpers, minValue, maxValue } from '@vuelidate/validators'
+import { helpers, minValue, maxValue, or } from '@vuelidate/validators'
 
 export default {
   name: 'FormResidentEstimate',

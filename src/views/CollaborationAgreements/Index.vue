@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back  />
+      <home-page />
+    </div>
     <title-bar title="Contratos y Convenios de Colaboración" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Contrato o Convenio de Colaboración" @click="goToNewCollaborationAgreements"
@@ -15,6 +18,7 @@ import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
 import { fetchContracts, deleteContract } from './../../api/contract'
 import ArrowBack from '../../components/ArrowBack.vue'
+import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
@@ -25,6 +29,7 @@ export default {
   components: {
     TableBase,
     ArrowBack,
+    HomePage,
     ButtonBase,
     TitleBar,
   },
