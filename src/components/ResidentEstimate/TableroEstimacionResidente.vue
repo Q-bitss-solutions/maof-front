@@ -13,7 +13,7 @@
     </tr>
     <tr id="rows" class="mx-6" v-for="(item, contador ) in data" :key="contador"
       :class="{ ' bg-gray-100': contador % 2 === 0 }">
-      <td v-for="(header, index) in headers" :key="index" class="text-center"
+      <td v-for="(header, index) in headers" :key="index" class="text-center px-2"
         :class="{ 'border-r-2 text-center': header.field === 'documents', 'border-l': index == 0 }">
         <p v-if="header.label === '#'">
           {{ contador + 1 }}
@@ -21,15 +21,15 @@
         <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
           v-if="header.field === 'documents' && item.archivo_residente !== null">
         <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
-          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
+          class=" text-blue cursor-pointer contratos text-center" @click="detalleContrato(item)">
           {{ item[header.field] }}
         </p>
         <p v-if="header.field === 'numero_contrato' && item.contrato_padre !== null"
-          class=" text-blue cursor-pointer contratos" @click="detalleContrato(item)">
+          class=" text-blue cursor-pointer contratos text-center" @click="detalleContrato(item)">
           {{ item.numero_contrato_padre }}
         </p>
         <p v-if="header.field === 'numero_contrato_padre' && item.contrato_padre !== null"
-          class=" text-blue cursor-pointer contratos" @click="detalleConvenioModificatorio(item)">
+          class=" text-blue cursor-pointer contratos text-center" @click="detalleConvenioModificatorio(item)">
           {{ item.numero_contrato }}
         </p>
         <p
@@ -38,21 +38,21 @@
         </p>
         <!--
           {{ item[header.field] }} -->
-        <button class=" bg-red rounded-full text-red" @click="semaforo(item)"
+        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
           v-if="header.label === 'RESIDENTE' && header.field === 'estatus_semaforo' && item[header.field] === 'Residente'">
-          abcd</button>
-        <button class=" bg-red rounded-full text-red" @click="semaforo(item)"
+          ab</button>
+        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
           v-if="header.label === 'ÁREA REVISORA' && header.field === 'estatus_semaforo' && item[header.field] === 'Area Revisora'">
-          abcd</button>
-        <button class=" bg-red rounded-full text-red" @click="semaforo(item)"
+          ab</button>
+        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
           v-if="header.label === 'FINANZAS' && header.field === 'estatus_semaforo' && item[header.field] === 'Finanzas'">
-          abcd</button>
-        <button class=" bg-red rounded-full text-red" @click="semaforo(item)"
+          ab</button>
+        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
           v-if="header.label === 'TRÁMITE DE PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'DGPOP'">
-          abcd</button>
-        <button class=" bg-green rounded-full text-green" @click="semaforo(item)"
+          ab</button>
+        <button class=" bg-green rounded-full text-green w-6" @click="semaforo(item)"
           v-if="header.label === 'PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'Pago Efectuado'">
-          abcd</button>
+          ab</button>
       </td>
       <td v-if="options.length" class="p-2 relative" :class="{ ' border-l-2 border-gray-100': contador % 2 !== 0 }">
         <div class="flex justify-center">
@@ -205,12 +205,12 @@ img {
   margin-right: 10px;
 }
 
-p {
+/* p {
   width: 85px;
-}
+} */
 
-p.contratos {
+/* p.contratos {
   width: 112px;
-}
+} */
 </style>
 

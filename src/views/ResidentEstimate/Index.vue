@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back  />
+      <home-page />
+    </div>
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
@@ -19,8 +22,9 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import { fetchResidentEstimate, fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
+import {fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
+import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
@@ -33,6 +37,7 @@ export default {
   components: {
     TableroEstimacionResidente,
     ArrowBack,
+    HomePage,
     ButtonBase,
     TitleBar,
     TableBase,
