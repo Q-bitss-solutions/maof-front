@@ -1,13 +1,42 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back  />
+      <arrow-back />
       <home-page />
     </div>
     <title-bar title="Consulta MAOF" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Alta de usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="userAndRols" />
+      <div class="flex justify-center">
+        <div class="px-10 text-green">
+          <p class=" text-center">4</p>
+          <h1 class=" text-center">Pendientes</h1>
+        </div>
+        <div class="px-10 text-red">
+          <p class=" text-center">2</p>
+          <h1 class=" text-center">Pagadas</h1>
+        </div>
+        <div class="px-10">
+          <p class=" text-center">6</p>
+          <h1 class=" text-center">Total</h1>
+        </div>
+      </div>
+      <div class="flex flex-col mt-20">
+        <div class="flex justify-start items-center pb-10">
+          <img src="../../assets/Filter.png" alt="filter" class=" w-10 items-center ">
+          <!-- <h1 class="text-center pl-5">
+            Filtros
+          </h1> -->
+          <select-base label="Filtros" class="text-center w-48 " id="filtros"/>
+        </div>
+        <div class="flex justify-start items-center pt-10">
+          <img src="../../assets/Search.png" alt="filter" class=" w-10 items-center">
+          <h1 class="text-center font-bold text-lg">
+            Busqueda
+          </h1>
+          <!-- <select-base label="Filtros" class="text-center w-48" id="filtros"/> -->
+          <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"/>
+        </div>
+      </div>
     </section>
   </main>
 </template>
@@ -18,6 +47,7 @@ import TableBase from '../../components/UsersAndRolsMAOF/TableUsers.vue'
 import { fetchUser, deleteUser } from './../../api/users'
 import ArrowBack from '../../components/ArrowBack.vue'
 import HomePage from '../../components/HomePage.vue'
+import SelectBase from '../../components/SelectBase.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
@@ -31,6 +61,7 @@ export default {
     HomePage,
     ButtonBase,
     TitleBar,
+    SelectBase,
   },
   setup() {
     const router = useRouter()
@@ -157,3 +188,13 @@ export default {
   },
 }
 </script>
+
+<style >
+label[for=filtros] {
+  margin-top: 5px;
+  width: 10px;
+}
+select[id=filtros] {
+  width: 300px;
+}
+</style>
