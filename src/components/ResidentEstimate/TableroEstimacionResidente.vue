@@ -38,16 +38,16 @@
         </p>
         <!--
           {{ item[header.field] }} -->
-        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
+        <button class=" bg-orange rounded-full text-orange w-6" @click="semaforo(item)"
           v-if="header.label === 'RESIDENTE' && header.field === 'estatus_semaforo' && item[header.field] === 'Residente'">
           ab</button>
-        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
+        <button class=" bg-orange rounded-full text-orange w-6" @click="semaforo(item)"
           v-if="header.label === 'ÁREA REVISORA' && header.field === 'estatus_semaforo' && item[header.field] === 'Area Revisora'">
           ab</button>
-        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
+        <button class=" bg-orange rounded-full text-orange w-6" @click="semaforo(item)"
           v-if="header.label === 'FINANZAS' && header.field === 'estatus_semaforo' && item[header.field] === 'Finanzas'">
           ab</button>
-        <button class=" bg-brown-300 rounded-full text-brown-300 w-6" @click="semaforo(item)"
+        <button class=" bg-orange rounded-full text-orange w-6" @click="semaforo(item)"
           v-if="header.label === 'TRÁMITE DE PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'DGPOP'">
           ab</button>
         <button class=" bg-green rounded-full text-green w-6" @click="semaforo(item)"
