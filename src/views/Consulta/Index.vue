@@ -1,10 +1,10 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back />
+      <arrow-back  />
       <home-page />
     </div>
-    <title-bar title="Usuarios y Roles MAOF" subtitle="Inicio" />
+    <title-bar title="Consulta MAOF" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Alta de usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="userAndRols" />
@@ -89,17 +89,16 @@ export default {
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: '¡Si, Activar!',
+              confirmButtonText: '¡Si, Inactivar!',
               reverseButtons: true,
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_empleado = true
-                  await deleteUser(userAndRol.empleado_maof, userAndRolStatus)
+                  await deleteUser(userAndRol.empleado_maof)
                   await getUserAndRols()
                   Swal.fire(
-                    '¡Activo!',
-                    'El usuario se Activó',
+                    '¡Inactivo!',
+                    'El usuario se inactivó',
                     'success'
                   )
                 } catch (error) {
@@ -124,8 +123,7 @@ export default {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_empleado  = false
-                  await deleteUser(userAndRol.empleado_maof, userAndRolStatus)
+                  await deleteUser(userAndRol.empleado_maof)
                   await getUserAndRols()
                   Swal.fire(
                     '¡Inactivo!',

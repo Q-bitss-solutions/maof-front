@@ -241,6 +241,7 @@ export default {
               )
             }
           } catch (error) {
+            console.log(error);
             Swal.fire(
               'Error',
               `${error.response.data.detail}`,

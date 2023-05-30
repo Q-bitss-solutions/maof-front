@@ -35,20 +35,31 @@ export default {
       try {
         await storeContract(collaborationAgreements)
         Swal.fire(
-        '¡Éxito!',
-        'Convenio de colaboración guardado con éxito!',
-        'success'
-      )
+          '¡Éxito!',
+          'Convenio de colaboración guardado con éxito!',
+          'success'
+        )
         router.push({ name: 'CollaborationAgreements' })
       } catch (error) {
-        Swal.fire(
-          'Error',
-          `${error.response.data.error}`,
-          'error'
-        )
-        /* router.push({ name: 'AssignResident' }) */
+        if (error.response.data.detail) {
+          Swal.fire(
+            'Error',
+            `${error.response.data.detail}`,
+            'error'
+          )
+        } else {
+          let errors = []
+          for (const [clave, valor] of Object.entries(error.response.data)) {
+            errors.push(`\n${clave} - ${valor}\n`);
+          }
+          Swal.fire(
+            'Error',
+            `${errors}`,
+            'error'
+          )
+
+        }
       }
-      /* router.push({ name: 'CollaborationAgreements' }) */
     }
 
     return {
