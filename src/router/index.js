@@ -186,6 +186,11 @@ const routes = [
     name: "EditUsersRolesMAOF",
     component: () => import("./../views/UsersAndRolsMAOF/Edit.vue"),
   },
+  {
+    path: "/consultas",
+    name: "ConsultasMAOF",
+    component: () => import("./../views/Consulta/Index.vue"),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

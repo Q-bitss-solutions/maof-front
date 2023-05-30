@@ -85,7 +85,7 @@ export default {
       {
         labelMenu: 'Consulta',
         submenu: [],
-        routeName: ''
+        routeName: 'ConsultasMAOF'
       },
       {
         labelMenu: 'Estimaciones',

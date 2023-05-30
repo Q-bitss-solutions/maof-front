@@ -49,11 +49,24 @@ export default {
         )
         router.push({ name: 'Projects' })
       } catch (error) {
-        Swal.fire(
-          'Error',
-          `${error.response.data.detail}`,
-          'error'
-        )
+        if (error.response.data.detail) {
+          Swal.fire(
+            'Error',
+            `${error.response.data.detail}`,
+            'error'
+          )
+        } else {
+          let errors = []
+          for (const [clave, valor] of Object.entries(error.response.data)) {
+            errors.push(`\n${clave} - ${valor}\n`);
+          }
+          Swal.fire(
+            'Error',
+            `${errors}`,
+            'error'
+          )
+
+        }
       }
     }
 
