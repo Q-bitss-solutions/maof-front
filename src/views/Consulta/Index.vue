@@ -8,17 +8,11 @@
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center">
-        <div
-          class="px-10 text-green cursor-pointer"
-          @click="getStatusEstimations()"
-        >
+        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
           <p class="text-center">4</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
-        <div
-          class="px-10 text-red cursor-pointer"
-          @click="getStatusEstimations()"
-        >
+        <div class="px-10 text-red cursor-pointer" @click="getStatusEstimations()">
           <p class="text-center">2</p>
           <h1 class="text-center">Pagadas</h1>
         </div>
@@ -31,61 +25,30 @@
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
         <div class="flex justify-start items-center pb-10">
-          <img
-            src="../../assets/Filter.png"
-            alt="filter"
-            class="w-10 items-center"
-          />
-          <select-base
-            label="Filtros"
-            class="text-center w-48"
-            id="filtros"
-            :options="app.filtro.listFiltros"
-            v-model="app.filtro.tipoDocumento"
-            @change="getDocsByType(app.filtro.tipoDocumento)"
-          />
-          <select-base
-            label=""
-            class="text-center w-48 ml-28"
-            id="filtrosDocs"
-            :options="app.filtro.listDocsFiltrados"
+          <img src="../../assets/Filter.png" alt="filter" class="w-10 items-center" />
+          <select-base label="Filtros" class="text-center w-48" id="filtros" :options="app.filtro.listFiltros"
+            v-model="app.filtro.tipoDocumento" @change="getDocsByType(app.filtro.tipoDocumento)" />
+          <select-base label="" class="text-center w-48 ml-28" id="filtrosDocs" :options="app.filtro.listDocsFiltrados"
             v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
-            v-model="app.filtro.filtroDocValue"
-          />
-          <button-base
-            label="Aplicar"
-            class="ml-48 border-gray text-black hover:bg-white hover:text-red"
-            v-if="app.filtro.tipoDocumento === '4'"
-          />
+            v-model="app.filtro.filtroDocValue" />
+          <button-base label="Aplicar" class="ml-48 border-gray text-black hover:bg-white hover:text-red"
+            v-if="app.filtro.tipoDocumento === '4'" />
         </div>
         Id tipoDocumento {{ app.filtro.tipoDocumento }}
         <br />
         id filtroDocValue {{ app.filtro.filtroDocValue }}
         <!-- Busqueda -->
         <div class="flex justify-start items-center pt-10">
-          <img
-            src="../../assets/Search.png"
-            alt="filter"
-            class="w-10 items-center"
-          />
+          <img src="../../assets/Search.png" alt="filter" class="w-10 items-center" />
           <h1 class="text-center font-bold text-lg">Busqueda</h1>
           <!-- <select-base label="Filtros" class="text-center w-48" id="filtros"/> -->
-          <button-base
-            label="Criterio de búsqueda"
-            class="ml-5 border-gray text-black hover:bg-white hover:text-red"
-            @click="showBusqueda"
-          />
+          <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"
+            @click="showBusqueda" />
         </div>
       </div>
-      <!-- Form Filtro -->
-      <div></div>
     </section>
     <!-- Form Busqueda -->
-    <form-consulta-busqueda
-      @submit="saveBusqueda"
-      class="mt-20 w-full"
-      v-if="showBusquedaValue"
-    />
+    <form-consulta-busqueda @submit="saveBusqueda" class="mt-20 w-full" v-if="showBusquedaValue" />
   </main>
 </template>
 
@@ -141,6 +104,9 @@ export default {
       console.log("Se muestra el resultado ");
     };
     const getDocsByType = async (id) => {
+      if (showBusquedaValue.value === true) {
+        showBusquedaValue.value = false
+      }
       switch (id) {
         case "1":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 1
@@ -219,6 +185,7 @@ export default {
     };
     const showBusqueda = () => {
       app.value.filtro.tipoDocumento = ''
+      app.value.filtro.filtroDocValue = ''
       showBusquedaValue.value = !showBusquedaValue.value;
       /* if (procesoVariable === true) {
         const { data } = await fetchResidentEstimateHojaViajeraInProgress(9)
