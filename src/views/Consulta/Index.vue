@@ -6,27 +6,26 @@
     </div>
     <title-bar title="Consulta MAOF" subtitle="Inicio" />
     <section class="px-4">
+      <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center">
-        <div class="px-10 text-green">
+        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
           <p class=" text-center">4</p>
           <h1 class=" text-center">Pendientes</h1>
         </div>
-        <div class="px-10 text-red">
+        <div class="px-10 text-red cursor-pointer" @click="getStatusEstimations()">
           <p class=" text-center">2</p>
           <h1 class=" text-center">Pagadas</h1>
         </div>
-        <div class="px-10">
+        <div class="px-10 cursor-pointer" @click="getStatusEstimations()">
           <p class=" text-center">6</p>
           <h1 class=" text-center">Total</h1>
         </div>
       </div>
+      <!-- Filtro y Busqueda -->
       <div class="flex flex-col mt-20">
         <div class="flex justify-start items-center pb-10">
           <img src="../../assets/Filter.png" alt="filter" class=" w-10 items-center ">
-          <!-- <h1 class="text-center pl-5">
-            Filtros
-          </h1> -->
-          <select-base label="Filtros" class="text-center w-48 " id="filtros"/>
+          <select-base label="Filtros" class="text-center w-48 " id="filtros" />
         </div>
         <div class="flex justify-start items-center pt-10">
           <img src="../../assets/Search.png" alt="filter" class=" w-10 items-center">
@@ -34,10 +33,17 @@
             Busqueda
           </h1>
           <!-- <select-base label="Filtros" class="text-center w-48" id="filtros"/> -->
-          <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"/>
+          <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"
+            @click="showBusqueda" />
         </div>
       </div>
+      <!-- Form Filtro -->
+      <div>
+
+      </div>
+      <!-- Form Busqueda -->
     </section>
+    <form-consulta-busqueda @submit="saveBusqueda" class="mt-20 w-full" v-if="showBusquedaValue" />
   </main>
 </template>
 
@@ -51,6 +57,7 @@ import SelectBase from '../../components/SelectBase.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
+import FormConsultaBusqueda from '../../components/Consulta/FormConsultaBusqueda.vue'
 import Swal from 'sweetalert2'
 
 export default {
@@ -62,6 +69,7 @@ export default {
     ButtonBase,
     TitleBar,
     SelectBase,
+    FormConsultaBusqueda,
   },
   setup() {
     const router = useRouter()
@@ -69,121 +77,60 @@ export default {
       {
         label: 'Id',
         field: 'empleado_maof',
-      },
-      {
-        label: 'Nombre',
-        field: 'nombre_completo',
-      },
-      {
-        label: 'Unidad MAOF',
-        field: 'unidad_maof',
-      },
-      {
-        label: 'Correo',
-        field: 'correo_electronico',
-      },
-      {
-        label: 'Rol MAOF',
-        field: 'rol_maof',
-      },
-      {
-        label: 'Estatus',
-        field: 'estatus_empleado',
-      },
+      }
     ]
     const userAndRols = ref([])
-    const userAndRolStatus = ref({ estatus_empleado: '' })
+    let showBusquedaValue = ref(false)
     const getUserAndRols = async () => {
       const { data } = await fetchUser()
       userAndRols.value = data
     }
-    const featureOptions = [
-      {
-        label: 'Editar',
-        action: (userAndRol) => {
-          console.log(userAndRol);
-          router.push({
-            name: 'EditUsersRolesMAOF',
-            params: {
-              userRolMAOFId: userAndRol.empleado_maof,
-            }
-          })
-        }
-      },
-      {
-        label: 'Estatus',
-        action: async (userAndRol) => {
-          if (userAndRol.estatus_empleado === 'Inactivo') {
-            Swal.fire({
-              title: `Estás seguro que deseas activar al usuario "${userAndRol.nombre_completo}"?`,
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: '¡Si, Inactivar!',
-              reverseButtons: true,
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                try {
-                  await deleteUser(userAndRol.empleado_maof)
-                  await getUserAndRols()
-                  Swal.fire(
-                    '¡Inactivo!',
-                    'El usuario se inactivó',
-                    'success'
-                  )
-                } catch (error) {
-                  Swal.fire(
-                    'Error',
-                    `${error.response.data.detail}`,
-                    'error'
-                  )
-                }
-              }
-            })
-          }
-          if (userAndRol.estatus_empleado === 'Activo') {
-            Swal.fire({
-              title: `Estás seguro que desea inactivar al usuario "${userAndRol.nombre_completo}"?`,
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: '¡Si, Inactivar!',
-              reverseButtons: true,
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                try {
-                  await deleteUser(userAndRol.empleado_maof)
-                  await getUserAndRols()
-                  Swal.fire(
-                    '¡Inactivo!',
-                    'El usuario se inactivó',
-                    'success'
-                  )
-                } catch (error) {
-                  Swal.fire(
-                    'Error',
-                    `${error.response.data.detail}`,
-                    'error'
-                  )
-                }
-              }
-            })
-          }
-        },
-      },
-    ]
+    const featureOptions = []
     const goToNewUserAndRols = () => router.push({ name: 'NewUsersRolesMAOF' })
+    const getStatusEstimations = () => {
+      console.log('Se muestra el resultado ');
+    }
+    const showBusqueda = () => {
+      showBusquedaValue.value = !showBusquedaValue.value
+      /* if (procesoVariable === true) {
+        const { data } = await fetchResidentEstimateHojaViajeraInProgress(9)
+        residentEstimate.value = data
+      }
+      if (procesoVariable === false) {
+        getResidentEstimate()
+      } */
+      console.log('Se muestra el la busqueda  ');
+    }
+    const saveBusqueda = async (criterios) => {
+      console.log('Criterios de busqueda: ', criterios);
+      /* try {
+        await storeProject(project)
+        Swal.fire(
+          '¡Éxito!',
+          '!Proyecto guardado con éxito!',
+          'success'
+        )
+        router.push({ name: 'Projects' })
 
+      } catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      } */
+    }
     getUserAndRols()
 
     return {
       userAndRols,
-      userAndRolStatus,
       featureOptions,
       headers,
       goToNewUserAndRols,
+      getStatusEstimations,
+      showBusqueda,
+      showBusquedaValue,
+      saveBusqueda,
     }
   },
 }
@@ -194,6 +141,7 @@ label[for=filtros] {
   margin-top: 5px;
   width: 10px;
 }
+
 select[id=filtros] {
   width: 300px;
 }
