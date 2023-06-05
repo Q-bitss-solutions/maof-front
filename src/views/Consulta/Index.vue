@@ -6,6 +6,10 @@
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
+      <dialog-base>
+        <h2 class="text-lg font-bold mb-4">Título del diálogo</h2>
+        <p class="text-gray-700">Contenido del diálogo.</p>
+      </dialog-base>
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center text-3xl">
         <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
@@ -38,14 +42,13 @@
             /* ' ml-[6.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue === '', */
             /* ' ml-[2.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue !== '', */
           }" v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
-          @click="saveFiltro(app.filtro.filtroDocValue)" />
+            @click="saveFiltro(app.filtro.filtroDocValue)" />
           <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
-            v-if="app.filtro.tipoDocumento === '4'"
-            @click="saveFiltro(5)" />
+            v-if="app.filtro.tipoDocumento === '4'" @click="saveFiltro(5)" />
         </div>
-        Id tipoDocumento {{ app.filtro.tipoDocumento }}
+<!--         Id tipoDocumento {{ app.filtro.tipoDocumento }}
         <br />
-        id filtroDocValue {{ app.filtro.filtroDocValue }}
+        id filtroDocValue {{ app.filtro.filtroDocValue }} -->
         <!-- Busqueda -->
         <div class="flex justify-start items-center pt-10">
           <img src="../../assets/Search.png" alt="filter" class="w-10 items-center" />
@@ -76,7 +79,7 @@ import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda
 import Swal from "sweetalert2";
 import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
-
+import DialogBase from "../../components/DialogBase.vue"
 export default {
   name: "UsersRolesMAOFIndex",
   components: {
@@ -87,6 +90,7 @@ export default {
     TitleBar,
     SelectBase,
     FormConsultaBusqueda,
+    DialogBase,
   },
   setup() {
     const router = useRouter();
