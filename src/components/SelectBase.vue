@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-3 gap-3">
-    <label :for="id" class="text-lg font-bold">
+    <label :for="id" class="text-lg font-bold" v-if="label !== ''">
       {{ label }}
     </label>
     <select
