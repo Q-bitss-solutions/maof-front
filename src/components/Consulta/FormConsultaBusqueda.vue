@@ -1,17 +1,19 @@
 <template>
-  <div class="max-w-xl pb-10">
+  <div class=" max-w-4xl pb-10 grow  ">
     <select-base id="clave_cartera" label="C, CC, CM*" class="mb-3" />
     <select-base id="nombre_proyecto" label="Residente" class="mb-3" />
     <select-base id="nombre_proyecto" label="Mes de la estimación" class="mb-3" />
     <select-base id="nombre_proyecto" label="Año de la Estimación" class="mb-3" />
     <select-base id="nombre_proyecto" label="Estatus de la Estimación" class="mb-3" />
     <select-base id="nombre_proyecto" label="Unidad MAOF responsable" class="mb-3" />
-    <div class="flex justify-center items-center align-baseline">
-      <input-base id="dias_inicio" label="Días transcurridos entre" type="number" class="mr-5" />
-      <input-base id="dias_fin" label="al" type="number" class="" />
+    <div class="grid grid-cols-2">
+      <input-base id="dias_inicio" label="Días transcurridos del" type="number" class=" grow" />
+      <input-base id="dias_fin" label="al" type="number" class="flex-auto" />
     </div>
-    <div class="flex  items-center align-baseline">
-      <input-base id="fecha_inicio" label="Autorizacion entre" type="date" class="mr-5" />
+    <!-- <div class="flex  items-center w-full ">
+    </div> -->
+    <div class="grid grid-cols-2">
+      <input-base id="fecha_inicio" label="Autorización entre" type="date" class=" grow" />
       <input-base id="fecha_fin" label="y" type="date" class="" />
     </div>
     <button-base label="Buscar" @click="sendForm" class="mr-0 ml-auto mt-5" />
@@ -74,21 +76,44 @@ export default {
 </script>
 
 <style >
+input[id=dias_inicio] {
+  position: relative;
+  left: 125px;
+  margin-left: 35px;
+  margin-right: 10px;
+
+}
+
 label[for=dias_fin] {
-  margin-right: 25px;
+  position: relative;
+  left: 140px;
 
 }
 
 input[id=dias_fin] {
   padding-right: 0px;
   width: 155px;
+  margin-left: 35px;;
 }
 
-input[id=dias_inicio] {
-  margin-left: 70px;
-  width: 75px;
+input[id=fecha_inicio] {
+  position: relative;
+  left: 125px;
+  margin-left: 35px;
+  margin-right: 10px;
 }
 
+label[for=fecha_fin] {
+  position: relative;
+  left: 140px;
+}
+
+input[id=fecha_fin] {
+  padding-right: 0px;
+  width: 155px;
+  margin-left: 35px;
+}
+/* 
 input[id=fecha_inicio] {
   margin-left: 70px;
   width: 155px;
@@ -99,7 +124,7 @@ label[for=fecha_fin] {
 }
 input[id=fecha_fin] {
   width: 245px;
-} 
+}  */
 /* 
 
 */

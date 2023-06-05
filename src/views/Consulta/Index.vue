@@ -4,10 +4,10 @@
       <arrow-back />
       <home-page />
     </div>
-    <title-bar title="Consulta MAOF" subtitle="Inicio" />
+    <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
-      <div class="flex justify-center">
+      <div class="flex justify-center text-3xl">
         <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
           <p class="text-center">4</p>
           <h1 class="text-center">Pendientes</h1>
@@ -26,13 +26,22 @@
         <!-- Filtro -->
         <div class="flex justify-start items-center pb-10">
           <img src="../../assets/Filter.png" alt="filter" class="w-10 items-center" />
-          <select-base label="Filtros" class="text-center w-48" id="filtros" :options="app.filtro.listFiltros"
+          <select-base label="Filtros" class="text-center w-48 mr-10" id="filtros" :options="app.filtro.listFiltros"
             v-model="app.filtro.tipoDocumento" @change="getDocsByType(app.filtro.tipoDocumento)" />
-          <select-base label="" class="text-center w-48 ml-28" id="filtrosDocs" :options="app.filtro.listDocsFiltrados"
+          <select-base label="" class="text-center w-48 ml-36" id="filtrosDocs" :options="app.filtro.listDocsFiltrados"
             v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
             v-model="app.filtro.filtroDocValue" />
-          <button-base label="Aplicar" class="ml-48 border-gray text-black hover:bg-white hover:text-red"
-            v-if="app.filtro.tipoDocumento === '4'" />
+          <button-base label="Aplicar" class=" border-gray text-black hover:bg-white hover:text-red" :class="{
+            'ml-[36rem]': app.filtro.tipoDocumento === '1',
+            ' ml-[3.7rem]': app.filtro.tipoDocumento !== '1' && app.filtro.filtroDocValue === '',
+            ' ml-[0rem]': app.filtro.tipoDocumento !== '1' && app.filtro.filtroDocValue !== '',
+            /* ' ml-[6.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue === '', */
+            /* ' ml-[2.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue !== '', */
+          }" v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
+          @click="saveFiltro(app.filtro.filtroDocValue)" />
+          <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
+            v-if="app.filtro.tipoDocumento === '4'"
+            @click="saveFiltro(5)" />
         </div>
         Id tipoDocumento {{ app.filtro.tipoDocumento }}
         <br />
@@ -40,15 +49,17 @@
         <!-- Busqueda -->
         <div class="flex justify-start items-center pt-10">
           <img src="../../assets/Search.png" alt="filter" class="w-10 items-center" />
-          <h1 class="text-center font-bold text-lg">Busqueda</h1>
+          <h1 class="text-center font-bold text-lg">Búsqueda</h1>
           <!-- <select-base label="Filtros" class="text-center w-48" id="filtros"/> -->
           <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"
             @click="showBusqueda" />
         </div>
       </div>
+      <div class="flex justify-center">
+        <!-- Form Busqueda -->
+        <form-consulta-busqueda @submit="saveBusqueda" class="mt-20 " v-if="showBusquedaValue" />
+      </div>
     </section>
-    <!-- Form Busqueda -->
-    <form-consulta-busqueda @submit="saveBusqueda" class="mt-20 w-full" v-if="showBusquedaValue" />
   </main>
 </template>
 
@@ -87,15 +98,15 @@ export default {
     ];
     const app = ref({
       filtro: {
-        tipoDocumento: "",
+        tipoDocumento: '',
         listFiltros: [
-          { value: 1, label: "Proyecto / Cartera de inversión" },
           { value: 2, label: "Contrato o Convenio de Colaboración" },
           { value: 3, label: "Convenio Modificatorio" },
           { value: 4, label: "Esperando una acción" },
+          { value: 1, label: "Proyecto / Cartera de inversión" },
         ],
         listDocsFiltrados: [],
-        filtroDocValue: "",
+        filtroDocValue: '',
       },
     });
     let showBusquedaValue = ref(false);
@@ -111,20 +122,24 @@ export default {
         case "1":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 1
           app.value.filtro.listDocsFiltrados = [];
+          app.value.filtro.filtroDocValue = ''
           getProjects();
           break;
         case "2":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 2
           app.value.filtro.listDocsFiltrados = [];
+          app.value.filtro.filtroDocValue = ''
           getContracts(id);
           break;
         case "3":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 3
           app.value.filtro.listDocsFiltrados = [];
+          app.value.filtro.filtroDocValue = ''
           getContracts(id);
           break;
         case "4":
           app.value.filtro.listDocsFiltrados = [];
+          app.value.filtro.filtroDocValue = ''
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 4
           break;
         default:
@@ -215,6 +230,10 @@ export default {
         )
       } */
     };
+    const saveFiltro = (id) => {
+      /*  const { data } = await fetchProjectsActive(id); */
+      console.log('Consulta con el id seleccionado: ', id)
+    }
 
     return {
       app,
@@ -225,6 +244,7 @@ export default {
       getStatusEstimations,
       showBusqueda,
       saveBusqueda,
+      saveFiltro,
       getDocsByType,
       getProjects,
       getContracts,
