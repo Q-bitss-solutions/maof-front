@@ -6,10 +6,6 @@
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
-      <dialog-base>
-        <h2 class="text-lg font-bold mb-4">Título del diálogo</h2>
-        <p class="text-gray-700">Contenido del diálogo.</p>
-      </dialog-base>
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center text-3xl">
         <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
@@ -46,7 +42,7 @@
           <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
             v-if="app.filtro.tipoDocumento === '4'" @click="saveFiltro(5)" />
         </div>
-<!--         Id tipoDocumento {{ app.filtro.tipoDocumento }}
+        <!--         Id tipoDocumento {{ app.filtro.tipoDocumento }}
         <br />
         id filtroDocValue {{ app.filtro.filtroDocValue }} -->
         <!-- Busqueda -->
@@ -79,7 +75,7 @@ import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda
 import Swal from "sweetalert2";
 import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
-import DialogBase from "../../components/DialogBase.vue"
+
 export default {
   name: "UsersRolesMAOFIndex",
   components: {
@@ -90,7 +86,6 @@ export default {
     TitleBar,
     SelectBase,
     FormConsultaBusqueda,
-    DialogBase,
   },
   setup() {
     const router = useRouter();
@@ -213,7 +208,7 @@ export default {
       if (procesoVariable === false) {
         getResidentEstimate()
       } */
-      console.log("Se muestra el la busqueda  ");
+      console.log("Se muestra la busqueda  ");
     };
     const saveBusqueda = async (criterios) => {
       console.log("Criterios de busqueda: ", criterios);
@@ -233,6 +228,7 @@ export default {
           'error'
         )
       } */
+      showBusqueda()
     };
     const saveFiltro = (id) => {
       /*  const { data } = await fetchProjectsActive(id); */
