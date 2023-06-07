@@ -7,17 +7,17 @@
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
-      <div class="flex justify-center text-3xl">
-        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations()">
-          <p class="text-center">4</p>
+      <div class="flex justify-center text-3xl" v-if="!app.loading">
+        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations(app.filtro.data[0].estimaciones)">
+          <p class="text-center">{{ app.filtro.data[0].pendientes }}</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
         <div class="px-10 text-red cursor-pointer" @click="getStatusEstimations()">
-          <p class="text-center">2</p>
+          <p class="text-center">{{ app.filtro.data[0].pagados }}</p>
           <h1 class="text-center">Pagadas</h1>
         </div>
         <div class="px-10 cursor-pointer" @click="getStatusEstimations()">
-          <p class="text-center">6</p>
+          <p class="text-center">{{ app.filtro.data[0].total }}</p>
           <h1 class="text-center">Total</h1>
         </div>
       </div>
@@ -29,16 +29,24 @@
           <select-base label="Filtros" class="text-center w-48 mr-10" id="filtros" :options="app.filtro.listFiltros"
             v-model="app.filtro.tipoDocumento" @change="getDocsByType(app.filtro.tipoDocumento)" />
           <select-base label="" class="text-center w-48 ml-36" id="filtrosDocs" :options="app.filtro.listDocsFiltrados"
-            v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
-            v-model="app.filtro.filtroDocValue" />
-          <button-base label="Aplicar" class=" border-gray text-black hover:bg-white hover:text-red" :class="{
+            v-if="
+              app.filtro.listDocsFiltrados != '' &&
+              app.filtro.tipoDocumento !== ''
+            " v-model="app.filtro.filtroDocValue" />
+          <button-base label="Aplicar" class="border-gray text-black hover:bg-white hover:text-red" :class="{
             'ml-[36rem]': app.filtro.tipoDocumento === '1',
-            ' ml-[3.7rem]': app.filtro.tipoDocumento !== '1' && app.filtro.filtroDocValue === '',
-            ' ml-[0rem]': app.filtro.tipoDocumento !== '1' && app.filtro.filtroDocValue !== '',
-            /* ' ml-[6.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue === '', */
-            /* ' ml-[2.7rem]': app.filtro.tipoDocumento === '3' && app.filtro.filtroDocValue !== '', */
-          }" v-if="app.filtro.listDocsFiltrados != '' && app.filtro.tipoDocumento !== ''"
-            @click="saveFiltro(app.filtro.filtroDocValue)" />
+            ' ml-[3.7rem]':
+              app.filtro.tipoDocumento !== '1' &&
+              app.filtro.filtroDocValue === '',
+            ' ml-[0rem]':
+              app.filtro.tipoDocumento !== '1' &&
+              app.filtro.filtroDocValue !== '',
+          }" v-if="
+  app.filtro.listDocsFiltrados != '' &&
+  app.filtro.tipoDocumento !== ''
+" @click="
+  saveFiltro(app.filtro.filtroDocValue, app.filtro.tipoDocumento)
+" :disabled="app.filtro.filtroDocValue === ''" />
           <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
             v-if="app.filtro.tipoDocumento === '4'" @click="saveFiltro(5)" />
         </div>
@@ -56,7 +64,7 @@
       </div>
       <div class="flex justify-center">
         <!-- Form Busqueda -->
-        <form-consulta-busqueda @submit="saveBusqueda" class="mt-20 " v-if="showBusquedaValue" />
+        <form-consulta-busqueda @submit="saveBusqueda" class="mt-20" v-if="showBusquedaValue" />
       </div>
     </section>
   </main>
@@ -69,12 +77,14 @@ import ArrowBack from "../../components/ArrowBack.vue";
 import HomePage from "../../components/HomePage.vue";
 import SelectBase from "../../components/SelectBase.vue";
 import ButtonBase from "../../components/ButtonBase.vue";
-import { useRouter } from "vue-router";
+import { useRouter, } from "vue-router";
 import TitleBar from "../../components/TitleBar.vue";
 import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda.vue";
 import Swal from "sweetalert2";
 import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
+import { fetchFiltroAll } from "../../api/consulta";
+import { consultas } from '../../store/Consultas/Consultas'
 
 export default {
   name: "UsersRolesMAOFIndex",
@@ -89,6 +99,7 @@ export default {
   },
   setup() {
     const router = useRouter();
+    const store = consultas()
     const headers = [
       {
         label: "Id",
@@ -97,7 +108,7 @@ export default {
     ];
     const app = ref({
       filtro: {
-        tipoDocumento: '',
+        tipoDocumento: "",
         listFiltros: [
           { value: 2, label: "Contrato o Convenio de Colaboración" },
           { value: 3, label: "Convenio Modificatorio" },
@@ -105,40 +116,46 @@ export default {
           { value: 1, label: "Proyecto / Cartera de inversión" },
         ],
         listDocsFiltrados: [],
-        filtroDocValue: '',
+        filtroDocValue: "",
+        data: {},
       },
+      loading: true,
     });
     let showBusquedaValue = ref(false);
     const featureOptions = [];
-    const getStatusEstimations = () => {
-      console.log("Se muestra el resultado ");
+    const getStatusEstimations = (estimacion) => {
+      store.addPendientes(estimacion)
+      console.log(store);
+      router
+        .push({
+          name: 'ConsultasPedientesMAOF'})
     };
     const getDocsByType = async (id) => {
       if (showBusquedaValue.value === true) {
-        showBusquedaValue.value = false
+        showBusquedaValue.value = false;
       }
       switch (id) {
         case "1":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 1
           app.value.filtro.listDocsFiltrados = [];
-          app.value.filtro.filtroDocValue = ''
+          app.value.filtro.filtroDocValue = "";
           getProjects();
           break;
         case "2":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 2
           app.value.filtro.listDocsFiltrados = [];
-          app.value.filtro.filtroDocValue = ''
+          app.value.filtro.filtroDocValue = "";
           getContracts(id);
           break;
         case "3":
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 3
           app.value.filtro.listDocsFiltrados = [];
-          app.value.filtro.filtroDocValue = ''
+          app.value.filtro.filtroDocValue = "";
           getContracts(id);
           break;
         case "4":
           app.value.filtro.listDocsFiltrados = [];
-          app.value.filtro.filtroDocValue = ''
+          app.value.filtro.filtroDocValue = "";
           //Declaraciones ejecutadas cuando el resultado de expresión coincide con valor 4
           break;
         default:
@@ -147,6 +164,7 @@ export default {
           break;
       }
     };
+
     const getProjects = async () => {
       const { data } = await fetchProjectsActive();
       app.value.filtro.listDocsFiltrados = data.map((project) => ({
@@ -154,6 +172,7 @@ export default {
         label: `${project.clave_cartera}-${project.nombre_proyecto}`,
       }));
     };
+
     const getContracts = async (id) => {
       const { data } = await fetchContracts();
       if (id === "2") {
@@ -197,9 +216,10 @@ export default {
         });
       }
     };
+
     const showBusqueda = () => {
-      app.value.filtro.tipoDocumento = ''
-      app.value.filtro.filtroDocValue = ''
+      app.value.filtro.tipoDocumento = "";
+      app.value.filtro.filtroDocValue = "";
       showBusquedaValue.value = !showBusquedaValue.value;
       /* if (procesoVariable === true) {
         const { data } = await fetchResidentEstimateHojaViajeraInProgress(9)
@@ -208,8 +228,8 @@ export default {
       if (procesoVariable === false) {
         getResidentEstimate()
       } */
-      console.log("Se muestra la busqueda  ");
     };
+
     const saveBusqueda = async (criterios) => {
       console.log("Criterios de busqueda: ", criterios);
       /* try {
@@ -228,12 +248,37 @@ export default {
           'error'
         )
       } */
-      showBusqueda()
+      showBusqueda();
     };
-    const saveFiltro = (id) => {
+
+    const saveFiltro = async (id_doc, id_typeDoc) => {
       /*  const { data } = await fetchProjectsActive(id); */
-      console.log('Consulta con el id seleccionado: ', id)
-    }
+      app.value.loading = true;
+      let params = {};
+      if (id_typeDoc === "1") {
+        console.log("Es un Proyecto");
+        params = { id_proyecto: id_doc };
+      } else if (id_typeDoc > "1" && id_typeDoc < "4") {
+        console.log(
+          "Es un Contrato,Convenio de Colaboración,Convenio Modificatorio"
+        );
+        params = { id_contrato: id_doc };
+      }
+      console.log("Consulta con params: ", params);
+      const { data } = await fetchFiltroAll(params);
+      console.log("data: ", data);
+      app.value.filtro.data = data;
+      app.value.loading = false;
+    };
+
+    const getFiltroDefault = async () => {
+      app.value.loading = true;
+      const { data } = await fetchFiltroAll();
+      app.value.filtro.data = data;
+      app.value.loading = false;
+    };
+
+    getFiltroDefault();
 
     return {
       app,
@@ -248,6 +293,7 @@ export default {
       getDocsByType,
       getProjects,
       getContracts,
+      getFiltroDefault,
     };
   },
 };

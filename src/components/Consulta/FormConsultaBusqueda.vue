@@ -1,5 +1,5 @@
 <template>
-  <div class=" max-w-4xl pb-10 grow  ">
+  <div class=" max-w-6xl pb-10 grow  ">
     <select-base id="clave_cartera" label="C, CC, CM*" class="mb-3" v-model="app.busqueda.c_cc_cm" />
     <select-base id="nombre_proyecto" label="Residente" class="mb-3" v-model="app.busqueda.resident" />
     <select-base id="nombre_proyecto" label="Mes de la estimación" class="mb-3" v-model="app.busqueda.mesEstimacion" />
@@ -14,7 +14,7 @@
     </div>
     <!-- <div class="flex  items-center w-full ">
     </div> -->
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2 pt-3">
       <input-base id="fecha_inicio" label="Autorización entre" type="date" class=" grow"
         v-model="app.busqueda.fechaInicio" />
       <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.busqueda.fechaFin" />
@@ -85,21 +85,21 @@ export default {
 </script>
 
 <style >
-input[id=dias_inicio] {
-  position: relative;
-  left: 140px;
-  width: 16rem;
-
-}
-
 label[for=dias_inicio] {
   width: max-content;
 }
 
 label[for=dias_fin] {
   position: relative;
-  left: 150px;
+  left: 198px;
   width: max-content;
+
+}
+
+input[id=dias_inicio] {
+  position: relative;
+  left: 188px;
+  width: 16rem;
 
 }
 
@@ -112,15 +112,16 @@ input[id=dias_fin] {
 
 input[id=fecha_inicio] {
   position: relative;
-  left: 140px;
+  left: 188px;
   width: 16rem;
 }
 
 label[for=fecha_fin] {
   position: relative;
-  left: 150px;
+  left: 200px;
   width: max-content;
 }
+
 label[for=fecha_inicio] {
   width: max-content;
 }
@@ -145,4 +146,5 @@ input[id=fecha_fin] {
 }  */
 /* 
 
-*/</style>
+*/
+</style>
