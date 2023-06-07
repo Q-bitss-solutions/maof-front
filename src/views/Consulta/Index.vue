@@ -181,34 +181,46 @@ export default {
         case "pendientes":
           if (estimacion.length > 0) {
             store.addPendientes(estimacion);
-            console.log(store.filtros);
             router.push({
               name: "ConsultasPedientesMAOF",
             });
           } else {
             console.log("No hay estimaciones pendientes");
+            Swal.fire(
+              "No hay estimaciones",
+              "Intenta con otro filtro",
+              "warning"
+            );
           }
           break;
         case "pagadas":
           if (estimacion.length > 0) {
             store.addPagados(estimacion);
-            console.log(store.filtros);
             router.push({
               name: "ConsultasPagadosMAOF",
             });
           } else {
             console.log("No hay estimaciones pagadas");
+            Swal.fire(
+              "No hay estimaciones",
+              "Intenta con otro filtro",
+              "warning"
+            );
           }
           break;
         case "totales":
           if (estimacion.length > 0) {
             store.addTotal(estimacion);
-            console.log(store.filtros);
-            /* router.push({
-              name: "ConsultasPedientesMAOF",
-            }); */
+            router.push({
+              name: "ConsultasTotalesMAOF",
+            });
           } else {
             console.log("No hay estimaciones totales");
+            Swal.fire(
+              "No hay estimaciones",
+              "Intenta con otro filtro",
+              "warning"
+            );
           }
           break;
 
@@ -341,8 +353,6 @@ export default {
     const saveFiltro = async (id_doc, id_typeDoc) => {
       app.value.loading = true;
       let params = {};
-      let pagado = [];
-      let pendiente = [];
       if (id_typeDoc === "1") {
         console.log("Es un Proyecto");
         params = { id_proyecto: id_doc };
@@ -355,16 +365,9 @@ export default {
       console.log("Consulta con params: ", params);
       const { data } = await fetchFiltroAll(params);
       console.log("data: ", data);
-      data.forEach((element) => {
-        if (element.estatus_semaforo !== "Pago Efectuado") {
-          pendiente.push(element);
-        } else {
-          pagado.push(element);
-        }
-      });
-      app.value.filtro.data.totales = data;
-      app.value.filtro.data.pagados = pagado;
-      app.value.filtro.data.pendientes = pendiente;
+      app.value.filtro.data.totales = data.total;
+      app.value.filtro.data.pagados = data.pagadas;
+      app.value.filtro.data.pendientes = data.pendiente;
       app.value.loading = false;
     };
 

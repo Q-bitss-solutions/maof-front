@@ -4,7 +4,7 @@ import fetchApi from "./fetchApi";
 
 const fetchFiltroAll = (params) =>
   fetchApi({
-    url: `/agenda_estimacion/`,
+    url: `/agenda_estimacion/filtros/`,
     method: "GET",
     params: params ? params : {},
   });
