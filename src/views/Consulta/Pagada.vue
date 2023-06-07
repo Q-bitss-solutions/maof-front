@@ -4,7 +4,7 @@
       <arrow-back />
       <home-page />
     </div>
-    <title-bar title="Estimación Residente" subtitle="Pendientes" />
+    <title-bar title="Estimación Residente" subtitle="Pagadas" />
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
@@ -30,7 +30,7 @@ import Swal from 'sweetalert2'
 import { consultas } from '../../store/Consultas/Consultas'
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 export default {
-  name: 'ConsultaPendientes',
+  name: 'ConsultasPagadosMAOF',
   components: {
     TableroEstimacionResidente,
     ArrowBack,
@@ -41,7 +41,7 @@ export default {
   },
   setup() {
     const app = ref({
-      pendiente: {},
+      pagados: {},
       loading: true,
     });
     const headers = [
@@ -164,9 +164,9 @@ export default {
     const getQuery = () => {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true
-      app.value.pendiente = store.filtros.pendientes
-      console.log(store.filtros.pendientes);
-      console.log('Valor del parámetro:', app.value.pendiente);
+      app.value.pagados = store.filtros.pagapagadosdos
+      console.log(store.filtros.pagados);
+      console.log('Valor del parámetro:', app.value.pagados);
       app.value.loading = false
     }
     getQuery()

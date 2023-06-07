@@ -195,7 +195,11 @@ const routes = [
     path: "/consultas/pendientes",
     name: "ConsultasPedientesMAOF",
     component: () => import("./../views/Consulta/Pendiente.vue"),
-    props: true
+  },
+  {
+    path: "/consultas/pagadas",
+    name: "ConsultasPagadosMAOF",
+    component: () => import("./../views/Consulta/Pagada.vue"),
   },
   /*
   {
