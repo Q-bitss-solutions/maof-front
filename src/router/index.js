@@ -191,6 +191,21 @@ const routes = [
     name: "ConsultasMAOF",
     component: () => import("./../views/Consulta/Index.vue"),
   },
+  {
+    path: "/consultas/pendientes",
+    name: "ConsultasPedientesMAOF",
+    component: () => import("./../views/Consulta/Pendiente.vue"),
+  },
+  {
+    path: "/consultas/pagadas",
+    name: "ConsultasPagadosMAOF",
+    component: () => import("./../views/Consulta/Pagada.vue"),
+  },
+  {
+    path: "/consultas/totales",
+    name: "ConsultasTotalesMAOF",
+    component: () => import("./../views/Consulta/Total.vue"),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',
