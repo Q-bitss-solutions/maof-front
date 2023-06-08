@@ -354,21 +354,22 @@ export default {
       app.value.loading = true;
       let params = {};
       if (id_typeDoc === "1") {
-        console.log("Es un Proyecto");
         params = { id_proyecto: id_doc };
       } else if (id_typeDoc === "2" || id_typeDoc === "3") {
-        console.log(
-          "Es un Contrato,Convenio de Colaboración,Convenio Modificatorio"
-        );
         params = { id_contrato: id_doc };
       }
-      console.log("Consulta con params: ", params);
       const { data } = await fetchFiltroAll(params);
-      console.log("data: ", data);
       app.value.filtro.data.totales = data.total;
       app.value.filtro.data.pagados = data.pagadas;
       app.value.filtro.data.pendientes = data.pendiente;
+      infoToStore(data.pendiente, data.pagadas, data.total);
       app.value.loading = false;
+    };
+
+    const infoToStore = (pendiente, pagado, total) => {
+      store.addPendientes(pendiente);
+      store.addPagados(pagado);
+      store.addTotal(total);
     };
 
     const getFiltroDefault = async () => {
@@ -386,6 +387,7 @@ export default {
       app.value.filtro.data.totales = data;
       app.value.filtro.data.pagados = pagado;
       app.value.filtro.data.pendientes = pendiente;
+      infoToStore(pendiente, pagado, data);
       app.value.loading = false;
     };
 
@@ -405,6 +407,7 @@ export default {
       getProjects,
       getContracts,
       getFiltroDefault,
+      infoToStore,
     };
   },
 };

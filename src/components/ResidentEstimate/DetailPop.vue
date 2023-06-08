@@ -55,7 +55,7 @@
             </div>
             <div>
               <h1 class="font-semibold ">Estatus del Contrato</h1>
-              <p class=" text-sm w-full text-left ml-10">{{ data.estatus_contrato }}</p>
+              <p class=" text-sm w-full text-left ">{{ data.estatus_contrato }}</p>
             </div>
             <div>
               <h1 class="font-semibold">¿Existen Convenios Modificatorios?</h1>
