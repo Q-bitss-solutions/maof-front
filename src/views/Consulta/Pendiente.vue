@@ -28,8 +28,8 @@ import ButtonBase from '../../components/ButtonBase.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
 import { useRouter, useRoute } from 'vue-router'
 import Swal from 'sweetalert2'
-import { consultas } from '../../store/Consultas/Consultas'
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
+import { consultas } from '../../store/consultas/consultas';
 export default {
   name: 'ConsultaPendientes',
   components: {
