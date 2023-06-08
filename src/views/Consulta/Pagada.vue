@@ -11,7 +11,8 @@
         <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
-      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pendiente"  v-if="!app.loading"/>
+      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pendiente"
+        v-if="!app.loading" />
       <!-- <tablero-estimacion-residente  /> -->
     </section>
   </main>
@@ -156,7 +157,7 @@ export default {
     ]
     const router = useRouter()
     const store = consultas()
-   /*  const residentEstimate = ref([]) */
+    /*  const residentEstimate = ref([]) */
     const detalleEstimacionData = ref([])
     let detalleEstimacion = ref(false)
     const goToNewResidentEstimate = () => router.push({ name: 'NewResidentEstimate' })

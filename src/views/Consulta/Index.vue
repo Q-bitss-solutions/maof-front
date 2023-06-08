@@ -8,26 +8,17 @@
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center text-3xl" v-if="!app.loading">
-        <div
-          class="px-10 text-red cursor-pointer"
-          @click="
-            getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
-          "
-        >
+        <div class="px-10 text-red cursor-pointer" @click="
+          getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
+        ">
           <p class="text-center">{{ app.filtro.data.pendientes.length }}</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
-        <div
-          class="px-10 text-green cursor-pointer"
-          @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')"
-        >
+        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')">
           <p class="text-center">{{ app.filtro.data.pagados.length }}</p>
           <h1 class="text-center">Pagadas</h1>
         </div>
-        <div
-          class="px-10 cursor-pointer"
-          @click="getStatusEstimations(app.filtro.data.totales, 'totales')"
-        >
+        <div class="px-10 cursor-pointer" @click="getStatusEstimations(app.filtro.data.totales, 'totales')">
           <p class="text-center">{{ app.filtro.data.totales.length }}</p>
           <h1 class="text-center">Total</h1>
         </div>
@@ -36,84 +27,46 @@
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
         <div class="flex justify-start items-center pb-10">
-          <img
-            src="../../assets/Filter.png"
-            alt="filter"
-            class="w-10 items-center"
-          />
-          <select-base
-            label="Filtros"
-            class="text-center w-48 mr-10"
-            id="filtros"
-            :options="app.filtro.listFiltros"
-            v-model="app.filtro.tipoDocumento"
-            @change="getDocsByType(app.filtro.tipoDocumento)"
-          />
-          <select-base
-            label=""
-            class="text-center w-48 ml-36"
-            id="filtrosDocs"
-            :options="app.filtro.listDocsFiltrados"
+          <img src="../../assets/Filter.png" alt="filter" class="w-10 items-center" />
+          <select-base label="Filtros" class="text-center w-48 mr-10" id="filtros" :options="app.filtro.listFiltros"
+            v-model="app.filtro.tipoDocumento" @change="getDocsByType(app.filtro.tipoDocumento)" />
+          <select-base label="" class="text-center w-48 ml-36" id="filtrosDocs" :options="app.filtro.listDocsFiltrados"
             v-if="
               app.filtro.listDocsFiltrados != '' &&
               app.filtro.tipoDocumento !== ''
-            "
-            v-model="app.filtro.filtroDocValue"
-          />
-          <button-base
-            label="Aplicar"
-            class="border-gray text-black hover:bg-white hover:text-red"
-            :class="{
-              'ml-[36rem]': app.filtro.tipoDocumento === '1',
-              ' ml-[3.7rem]':
-                app.filtro.tipoDocumento !== '1' &&
-                app.filtro.filtroDocValue === '',
-              ' ml-[0rem]':
-                app.filtro.tipoDocumento !== '1' &&
-                app.filtro.filtroDocValue !== '',
-            }"
-            v-if="
-              app.filtro.listDocsFiltrados != '' &&
-              app.filtro.tipoDocumento !== ''
-            "
-            @click="
-              saveFiltro(app.filtro.filtroDocValue, app.filtro.tipoDocumento)
-            "
-            :disabled="app.filtro.filtroDocValue === ''"
-          />
-          <button-base
-            label="Aplicar"
-            class="ml-40 border-gray text-black hover:bg-white hover:text-red"
-            v-if="app.filtro.tipoDocumento === '4'"
-            @click="saveFiltro(5)"
-          />
+            " v-model="app.filtro.filtroDocValue" />
+          <button-base label="Aplicar" class="border-gray text-black hover:bg-white hover:text-red" :class="{
+            'ml-[36rem]': app.filtro.tipoDocumento === '1',
+            ' ml-[3.7rem]':
+              app.filtro.tipoDocumento !== '1' &&
+              app.filtro.filtroDocValue === '',
+            ' ml-[0rem]':
+              app.filtro.tipoDocumento !== '1' &&
+              app.filtro.filtroDocValue !== '',
+          }" v-if="
+  app.filtro.listDocsFiltrados != '' &&
+  app.filtro.tipoDocumento !== ''
+" @click="
+  saveFiltro(app.filtro.filtroDocValue, app.filtro.tipoDocumento)
+" :disabled="app.filtro.filtroDocValue === ''" />
+          <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
+            v-if="app.filtro.tipoDocumento === '4'" @click="saveFiltro(5)" />
         </div>
         <!--         Id tipoDocumento {{ app.filtro.tipoDocumento }}
         <br />
         id filtroDocValue {{ app.filtro.filtroDocValue }} -->
         <!-- Busqueda -->
         <div class="flex justify-start items-center pt-10">
-          <img
-            src="../../assets/Search.png"
-            alt="filter"
-            class="w-10 items-center"
-          />
+          <img src="../../assets/Search.png" alt="filter" class="w-10 items-center" />
           <h1 class="text-center font-bold text-lg">Búsqueda</h1>
           <!-- <select-base label="Filtros" class="text-center w-48" id="filtros"/> -->
-          <button-base
-            label="Criterio de búsqueda"
-            class="ml-5 border-gray text-black hover:bg-white hover:text-red"
-            @click="showBusqueda"
-          />
+          <button-base label="Criterio de búsqueda" class="ml-5 border-gray text-black hover:bg-white hover:text-red"
+            @click="showBusqueda" />
         </div>
       </div>
       <div class="flex justify-center">
         <!-- Form Busqueda -->
-        <form-consulta-busqueda
-          @submit="saveBusqueda"
-          class="mt-20"
-          v-if="showBusquedaValue"
-        />
+        <form-consulta-busqueda @submit="saveBusqueda" class="mt-20" v-if="showBusquedaValue" />
       </div>
     </section>
   </main>
