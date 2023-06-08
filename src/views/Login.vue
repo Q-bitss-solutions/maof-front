@@ -19,7 +19,6 @@ import { useRouter } from 'vue-router'
 import ButtonBase from '../components/ButtonBase.vue'
 import TitleBar from '../components/TitleBar.vue'
 import InputBase from '../components/InputBase.vue'
-import { mapState } from 'vuex'
 import Swal from 'sweetalert2'
 import { loginUser } from '../api/auth'
 
