@@ -86,7 +86,7 @@ import Swal from "sweetalert2";
 import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
 import { fetchFiltroAll } from "../../api/consulta";
-import { consultas } from "../../store/Consultas/Consultas";
+import { consultas } from '../../store/consultas';
 
 export default {
   name: "UsersRolesMAOFIndex",
