@@ -165,8 +165,6 @@ export default {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true
       app.value.pendiente = store.filtros.pendientes
-      console.log(store.filtros.pendientes);
-      console.log('Valor del parámetro:', app.value.pendiente);
       app.value.loading = false
     }
     getQuery()
