@@ -47,7 +47,7 @@ import DetailEstimate from "../../components/ResidentEstimate/DetailEstimate.vue
 import { useRouter, useRoute } from "vue-router";
 import Swal from "sweetalert2";
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
-import { consultas } from '../../store/consultas/consultas';
+import { consultas } from '../../store/consultas';
 export default {
   name: "ConsultaPendientes",
   components: {
