@@ -11,7 +11,7 @@
         <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
-      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pendiente"
+      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pagados"
         v-if="!app.loading" />
       <!-- <tablero-estimacion-residente  /> -->
     </section>
@@ -165,7 +165,7 @@ export default {
     const getQuery = () => {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true
-      app.value.pagados = store.filtros.pagapagadosdos
+      app.value.pagados = store.filtros.pagados
       console.log(store.filtros.pagados);
       console.log('Valor del parámetro:', app.value.pagados);
       app.value.loading = false
