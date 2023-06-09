@@ -201,6 +201,7 @@ export default {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true;
       app.value.total = store.filtros.total;
+      console.log('Hola ');
       app.value.loading = false;
     };
 
