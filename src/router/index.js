@@ -217,7 +217,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(
     import.meta.env.NODE_ENV === 'production'
-      ? import.meta.env.VITE_PREFIX_URL || '/'
+      ? import.meta.env.VITE_PREFIX_URL
       : '/'
   ),
   routes,
