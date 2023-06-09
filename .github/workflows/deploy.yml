@@ -18,6 +18,7 @@ jobs:
       - name: Install and Build 🔧
         env:
           VITE_API: ${{ secrets.VITE_API }}
+          VITE_PREFIX_URL: ${{ secrets.VITE_PREFIX_URL }}
         run: |
           npm i
           npm run build
