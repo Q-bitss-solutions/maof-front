@@ -73,6 +73,7 @@ export default {
     ]
     const contract = ref([])
     const getContracts = async () => {
+      console.log('Hola mundo');
       const { data } = await fetchContracts()
       contract.value = data
     }
