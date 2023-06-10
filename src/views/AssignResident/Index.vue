@@ -1,7 +1,7 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back  />
+      <arrow-back />
       <home-page />
     </div>
     <title-bar title="Asignación Residente" subtitle="Inicio" />
@@ -67,13 +67,16 @@ export default {
     const featureOptions = [
       {
         label: 'Editar',
-        action: (assingResident) => router
-          .push({
-            name: 'EditAssignResident',
-            params: {
-              assingResidentId: assingResident.id_asignacion_residente_contrato,
-            },
-          }),
+        action: (assingResident) => {
+          if (assingResident.estado_asignacion !== "Inactivo") {
+            router.push({
+              name: 'EditAssignResident',
+              params: {
+                assingResidentId: assingResident.id_asignacion_residente_contrato,
+              },
+            })
+          }
+        }
       },
       {
         label: 'Inactivar',
