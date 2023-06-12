@@ -37,13 +37,6 @@ const deleteResidentEstimate = (observacion, id_estimacion) =>
     method: "PATCH",
     data: observacion,
   });
-const sendToReviewArea = (residentEstimate) =>
-  fetchApi({
-    url: `/estimacion_residente/${residentEstimate.id_estimacion}/enviar_area_revisora/`,
-    method: "PUT",
-    data: residentEstimate,
-  });
-
 const archivoResidentEstimate = (fileData) =>
   fetchApi({
     url: `/archivo_estimacion/`,
@@ -89,6 +82,13 @@ const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) =>
       estatus_estimacion: estatus_estimacion,
       estatus_booleano: 1,
     },
+  });
+//Endpoints Funcion Semaforo
+const sendToReviewArea = (residentEstimate) =>
+  fetchApi({
+    url: `/estimacion_residente/${residentEstimate.id_estimacion}/enviar_area_revisora/`,
+    method: "PUT",
+    data: residentEstimate,
   });
 
 export {
