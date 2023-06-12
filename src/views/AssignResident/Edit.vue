@@ -3,7 +3,8 @@
     <arrow-back />
     <title-bar title="Asignación Residente" subtitle="Editar" />
     <section class="px-4">
-      <form-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode v-if="!app.loading" />
+      <form-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode
+        v-if="!app.loading" />
     </section>
   </main>
 </template>
@@ -39,13 +40,34 @@ export default {
       app.loading = false
     }
     const saveAssingResident = async (assingResident) => {
-      await updateAssingResident(app.assingResident, assingResident)
-      Swal.fire(
-        '¡Éxito!',
-        'Asignacion actualizada con éxito!',
-        'success'
-      )
-      router.push({ name: 'AssignResident' })
+      try {
+        await updateAssingResident(app.assingResident, assingResident)
+        Swal.fire(
+          '¡Éxito!',
+          'Asignacion actualizada con éxito!',
+          'success'
+        )
+        router.push({ name: 'AssignResident' })
+      } catch (error) {
+        if (error.response.data.detail) {
+          Swal.fire(
+            'Error',
+            `${error.response.data.detail}`,
+            'error'
+          )
+        } else {
+          let errors = []
+          for (const [clave, valor] of Object.entries(error.response.data)) {
+            errors.push(`\n${clave} - ${valor}\n`);
+          }
+          Swal.fire(
+            'Error',
+            `${errors}`,
+            'error'
+          )
+
+        }
+      }
     }
 
     getReviewAreaById()
