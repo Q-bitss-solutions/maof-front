@@ -2,7 +2,7 @@
   <div class=" max-w-6xl pb-10 grow  ">
     <select-base id="clave_cartera" label="C, CC, CM*" class="mb-3" v-model="app.busqueda.c_cc_cm" />
     <select-base id="nombre_proyecto" label="Residente" class="mb-3" v-model="app.busqueda.resident" />
-    <select-base id="nombre_proyecto" label="Mes de la estimación" class="mb-3" v-model="app.busqueda.mesEstimacion" />
+    <select-base id="nombre_proyecto" label="Mes de la Estimación" class="mb-3" v-model="app.busqueda.mesEstimacion" />
     <select-base id="nombre_proyecto" label="Año de la Estimación" class="mb-3" v-model="app.busqueda.anioEstimacion" />
     <select-base id="nombre_proyecto" label="Estatus de la Estimación" class="mb-3"
       v-model="app.busqueda.estatusEstimacion" />
