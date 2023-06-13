@@ -347,7 +347,7 @@ export default {
           'error'
         )
       } */
-      showBusqueda();
+      /* showBusqueda(); */
     };
 
     const saveFiltro = async (id_doc, id_typeDoc) => {
