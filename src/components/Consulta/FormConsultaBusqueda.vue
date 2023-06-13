@@ -91,7 +91,7 @@ export default {
       listResident: [],
       listUnitMAOF: [],
     })
-    if (props.editMode) {
+/*     if (props.editMode) {
       app.project = props.project
       console.log(props.project)
 
@@ -101,7 +101,7 @@ export default {
       } else {
         app.project.fecha_fin_proyecto = props.project.fecha_fin_proyecto.split('-').reverse().join('-')
       }
-    }
+    } */
     const getC_CC_CM = async () => {
       const { data } = await fetchContracts()
       console.log('contratos:', data);

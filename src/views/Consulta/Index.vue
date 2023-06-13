@@ -69,12 +69,6 @@ export default {
   setup() {
     const router = useRouter();
     const store = consultas();
-    const headers = [
-      {
-        label: "Id",
-        field: "empleado_maof",
-      },
-    ];
     const app = ref({
       filtro: {
         tipoDocumento: "",
@@ -94,8 +88,9 @@ export default {
       },
       loading: true,
     });
+
     let showBusquedaValue = ref(false);
-    const featureOptions = [];
+
     const getStatusEstimations = (estimacion, estatus) => {
       switch (estatus) {
         case "pendientes":
@@ -249,6 +244,31 @@ export default {
       } */
     };
 
+    const infoToStore = (pendiente, pagado, total) => {
+      store.addPendientes(pendiente);
+      store.addPagados(pagado);
+      store.addTotal(total);
+    };
+
+    const getFiltroDefault = async () => {
+      app.value.loading = true;
+      let pagado = [];
+      let pendiente = [];
+      const { data } = await fetchFiltroAll();
+      data.forEach((element) => {
+        if (element.estatus_semaforo !== "Pago Efectuado") {
+          pendiente.push(element);
+        } else {
+          pagado.push(element);
+        }
+      });
+      app.value.filtro.data.totales = data;
+      app.value.filtro.data.pagados = pagado;
+      app.value.filtro.data.pendientes = pendiente;
+      infoToStore(pendiente, pagado, data);
+      app.value.loading = false;
+    };
+
     const saveBusqueda = async (criterios) => {
       console.log("Criterios de busqueda: ", criterios);
       /* try {
@@ -286,38 +306,11 @@ export default {
       app.value.loading = false;
     };
 
-    const infoToStore = (pendiente, pagado, total) => {
-      store.addPendientes(pendiente);
-      store.addPagados(pagado);
-      store.addTotal(total);
-    };
-
-    const getFiltroDefault = async () => {
-      app.value.loading = true;
-      let pagado = [];
-      let pendiente = [];
-      const { data } = await fetchFiltroAll();
-      data.forEach((element) => {
-        if (element.estatus_semaforo !== "Pago Efectuado") {
-          pendiente.push(element);
-        } else {
-          pagado.push(element);
-        }
-      });
-      app.value.filtro.data.totales = data;
-      app.value.filtro.data.pagados = pagado;
-      app.value.filtro.data.pendientes = pendiente;
-      infoToStore(pendiente, pagado, data);
-      app.value.loading = false;
-    };
 
     getFiltroDefault();
 
     return {
       app,
-      featureOptions,
-      headers,
-      /* listFiltros, */
       showBusquedaValue,
       getStatusEstimations,
       showBusqueda,
