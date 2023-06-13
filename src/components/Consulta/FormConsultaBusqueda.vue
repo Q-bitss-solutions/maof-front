@@ -151,7 +151,7 @@ export default {
 
       const anioActual = new Date().getFullYear();
       for (let i = 0; i < cantidad; i++) {
-        app.listAnios.push({ value: anioActual - i, label: `${anioActual - i}` });
+        app.listAnios.push({ value: anioActual + i, label: `${anioActual + i}` });
       }
 
       console.log('Años generados', app.listAnios);
@@ -162,7 +162,7 @@ export default {
     getC_CC_CM()
     getResident()
     getUnitMAOF()
-    generateAnios(3)
+    generateAnios(10)
 
     return {
       app,
