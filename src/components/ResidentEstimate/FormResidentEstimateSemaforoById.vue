@@ -103,6 +103,12 @@
     <button-base label="Cancelar" class=" px-4" @click="back"/>
     <button-base label="Enviar a trámite de pago" class=" px-4" @click="sendToPaymentProcess"/>
   </div>
+  <!-- Actions Tramite de pagos -->
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP'">
+    <button-base label="Regresar a Finanzas" class=" px-4" @click="sendFinance" />
+    <button-base label="Cancelar" class=" px-4"  @click="back" />
+    <button-base label="Registrar Pago" class=" px-4"  @click="paymentToRegister" />
+  </div>
 </template>
 
 <script>
@@ -510,6 +516,118 @@ export default {
       }
     }
 
+    const sendFinance = () => {
+      Swal.fire({
+        title: `Se realizará el envio de la Estimación al área de Finanzas`,
+        icon: 'question',
+        showCancelButton: true,
+        text: '¿Está usted seguro?',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const { value: text } = await Swal.fire({
+              input: 'textarea',
+              inputLabel: 'Observaciones',
+              inputPlaceholder: 'Escribe tus observaciones...',
+              inputAttributes: {
+                'aria-label': 'Type your message here'
+              },
+              showCancelButton: true,
+              reverseButtons: true,
+              inputValidator: (value) => {
+                if (!value) {
+                  return 'El campo es requerido'
+                }
+              }
+            })
+            if (text !== undefined) {
+              app.residentEstimate.observaciones_residente = text
+              await console.log('Sending to Finance ... ')
+              Swal.fire(
+                '¡Éxito!',
+                'Estimación enviada al área de Finanzas con éxito!',
+                'success'
+              )
+              router.push({ name: 'ResidentEstimate' })
+            }
+            else {
+              Swal.fire(
+                'No agregaste ninguna observacion',
+                'Agrega uno para continuar',
+                'warning'
+              )
+            }
+          } catch (error) {
+            Swal.fire(
+              'Error',
+              `${error.response.data.detail}`,
+              'error'
+            )
+          }
+        }
+      })
+    }
+
+    const paymentToRegister = () => {
+      Swal.fire({
+        title: `Se realizará el registro del pago`,
+        icon: 'question',
+        showCancelButton: true,
+        text: '¿Está usted seguro?',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Continuar',
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const { value: text } = await Swal.fire({
+              input: 'textarea',
+              inputLabel: 'Observaciones',
+              inputPlaceholder: 'Escribe tus observaciones...',
+              inputAttributes: {
+                'aria-label': 'Type your message here'
+              },
+              showCancelButton: true,
+              reverseButtons: true,
+              inputValidator: (value) => {
+                if (!value) {
+                  return 'El campo es requerido'
+                }
+              }
+            })
+            if (text !== undefined) {
+              app.residentEstimate.observaciones_residente = text
+              await console.log('Saving payment ...')
+              Swal.fire(
+                '¡Éxito!',
+                'Pago registrado con éxito!',
+                'success'
+              )
+              router.push({ name: 'ResidentEstimate' })
+            }
+            else {
+              Swal.fire(
+                'No agregaste ninguna observacion',
+                'Agrega uno para continuar',
+                'warning'
+              )
+            }
+          } catch (error) {
+            Swal.fire(
+              'Error',
+              `${error.response.data.detail}`,
+              'error'
+            )
+          }
+        }
+      })
+    }
+
 
     return {
       app,
@@ -521,7 +639,9 @@ export default {
       v$,
       back,
       returnToReviewArea,
-      sendToPaymentProcess
+      sendToPaymentProcess,
+      sendFinance,
+      paymentToRegister,
     }
   },
 }
