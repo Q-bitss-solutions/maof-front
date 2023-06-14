@@ -101,9 +101,9 @@
   </div>
   <!-- Actions Area Revisora -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora'">
-    <button-base label="Regresar a  Residente" class=" px-4" />
-    <button-base label="Actualizar datos" class=" px-4" />
-    <button-base label="Enviar a finanzas" class=" px-4" />
+    <button-base label="Regresar a  Residente" class=" px-4" @click="sendResident" />
+    <button-base label="Cancelar" class=" px-4" @click="back" />
+    <button-base label="Enviar a finanzas" class=" px-4" @click="sendFinance" />
   </div>
   <!-- Actions Finanzas -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas'">
@@ -113,7 +113,7 @@
   </div>
   <!-- Actions Tramite de pagos -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP'">
-    <button-base label="Regresar a Finanzas" class=" px-4" @click="sendFinance" />
+    <button-base label="Regresar a Finanzas" class=" px-4" @click="returnToFinance" />
     <button-base label="Cancelar" class=" px-4" @click="back" />
     <button-base label="Registrar Pago" class=" px-4" @click="paymentToRegister" />
   </div>
@@ -181,6 +181,7 @@ export default {
       listEmpleados: [],
       listContrato: [],
     })
+    //Formato Fecha
     const formatFecha = (fecha) => {
       let aux = []
       aux = fecha.split(' ')
@@ -201,6 +202,7 @@ export default {
         return true
       }
     }
+    //Validaciones
     const rules = computed(() => {
       return {
         /* id_contrato: { required: helpers.withMessage('El id es requerido', required) },
@@ -245,6 +247,7 @@ export default {
       app.fecha_periodo_inicio_estimacion = formatFecha(props.residentEstimate.fecha_periodo_inicio_estimacion)
       app.fecha_periodo_fin_estimacion = formatFecha(props.residentEstimate.fecha_periodo_fin_estimacion)
     }
+    //Acciones Residente
     const editForm = () => {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
@@ -328,7 +331,7 @@ export default {
         }
       })
     }
-    const sendReviewArea = () => {
+    const sendReviewArea = async () => {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
       var now = today.toLocaleTimeString('en-GB');
@@ -337,71 +340,189 @@ export default {
       } else {
         app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
       }
-      Swal.fire({
-        title: `Se realizará el envio de la Estimación al área revisora`,
-        icon: 'question',
-        showCancelButton: true,
-        text: '¿Está usted seguro?',
-        cancelButtonColor: '#d33',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Continuar',
-        reverseButtons: true
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const { value: text } = await Swal.fire({
-              input: 'textarea',
-              inputLabel: 'Observaciones',
-              inputPlaceholder: 'Escribe tus observaciones...',
-              inputAttributes: {
-                'aria-label': 'Type your message here'
-              },
-              showCancelButton: true,
-              reverseButtons: true,
-              inputValidator: (value) => {
-                if (!value) {
-                  return 'El campo es requerido'
-                }
-              }
-            })
-            if (text !== undefined) {
-              app.residentEstimate.observaciones_residente = text
-              await sendToReviewArea(app.residentEstimate)
-              Swal.fire(
-                '¡Éxito!',
-                'Estimación enviada al área revisora con éxito!',
-                'success'
-              )
-              router.push({ name: 'ResidentEstimate' })
+      try {
+
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones para el área revisora',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
             }
-            else {
-              Swal.fire(
-                'No agregaste ninguna observacion',
-                'Agrega uno para continuar',
-                'warning'
-              )
-            }
-          } catch (error) {
+          }
+        })
+        if (text !== undefined) {
+          const res = await Swal.fire({
+            title: `En esta fecha se regresará la Estimación al área revisora`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await sendToReviewArea(app.residentEstimate)
             Swal.fire(
-              'Error',
-              `${error.response.data.detail}`,
-              'error'
+              '¡Éxito!',
+              'Estimación enviada al área revisora con éxito!',
+              'success'
             )
-            /* router.push({ name: 'AssignResident' }) */
+            router.push({ name: 'ResidentEstimate' })
           }
         }
-      })
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
-    const goToArchivos = () => router.push({
-      name: 'FilesResidentEstimate',
-      params: {
-        residentEstimateId: app.residentEstimate.id_estimacion,
-      },
-    })
+    //Acciones Area Revisora
+    const sendResident = async () => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
+      if (app.fecha_autorizacion_contratista === null) {
+        app.residentEstimate.fecha_autorizacion_contratista = null
+      } else {
+        app.residentEstimate.fecha_autorizacion_contratista = app.fecha_autorizacion_contratista + ' ' + now
+      }
+      try {
 
-    const back = () => router.push({ name: 'ResidentEstimate' })
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones para el residente',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
+            }
+          }
+        })
+        if (text !== undefined) {
+          const res = await Swal.fire({
+            title: `En esta fecha se enviará la Estimación a el residente`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await console.log('Enviar a el residente')
+            Swal.fire(
+              '¡Éxito!',
+              'Estimación enviada a el residente con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
+        }
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
+    }
+    const sendFinance = async () => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
 
+      try {
+
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones para finanzas',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
+            }
+          }
+        })
+        if (text !== undefined) {
+          const res = await Swal.fire({
+            title: `En esta fecha se enviará la Estimación a finanzas`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await console.log('Enviar a finanzas')
+            Swal.fire(
+              '¡Éxito!',
+              'Estimación enviada finanzas con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
+        }
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
+    }
+
+    //Acciones Finanzas
     const returnToReviewArea = async () => {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
@@ -462,7 +583,6 @@ export default {
         )
       }
     }
-
     const sendToPaymentProcess = async () => {
       let today = new Date();
       // obtener la hora en la configuración regional de EE. UU.
@@ -524,7 +644,8 @@ export default {
       }
     }
 
-    const sendFinance = async () => {
+    //Acciones Trámite de pago
+    const returnToFinance = async () => {
       try {
         const { value: text } = await Swal.fire({
           input: 'textarea',
@@ -580,7 +701,6 @@ export default {
         )
       }
     }
-
     const paymentToRegister = async () => {
       try {
         const { value: text } = await Swal.fire({
@@ -651,20 +771,31 @@ export default {
       }
     }
 
+    //Acciones Estimaciones
+    const goToArchivos = () => router.push({
+      name: 'FilesResidentEstimate',
+      params: {
+        residentEstimateId: app.residentEstimate.id_estimacion,
+      },
+    })
+
+    const back = () => router.push({ name: 'ResidentEstimate' })
 
     return {
       app,
+      v$,
       editForm,
       deleteForm,
-      sendReviewArea,
-      goToArchivos,
       formatFecha,
-      v$,
-      back,
+      sendReviewArea,
+      sendResident,
       returnToReviewArea,
       sendToPaymentProcess,
       sendFinance,
+      returnToFinance,
       paymentToRegister,
+      back,
+      goToArchivos,
     }
   },
 }
@@ -688,4 +819,5 @@ input[id=fecha_periodo_inicio_estimacion] {
 
 .numEstimacion {
   width: auto;
-}</style>
+}
+</style>
