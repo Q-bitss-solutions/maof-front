@@ -524,35 +524,35 @@ export default {
       }
     }
 
-    const sendFinance = () => {
-      Swal.fire({
-        title: `Se realizará el envio de la Estimación al área de Finanzas`,
-        icon: 'question',
-        showCancelButton: true,
-        text: '¿Está usted seguro?',
-        cancelButtonColor: '#d33',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Continuar',
-        reverseButtons: true
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const { value: text } = await Swal.fire({
-              input: 'textarea',
-              inputLabel: 'Observaciones',
-              inputPlaceholder: 'Escribe tus observaciones...',
-              inputAttributes: {
-                'aria-label': 'Type your message here'
-              },
-              showCancelButton: true,
-              reverseButtons: true,
-              inputValidator: (value) => {
-                if (!value) {
-                  return 'El campo es requerido'
-                }
-              }
-            })
-            if (text !== undefined) {
+    const sendFinance = async () => {
+      try {
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
+            }
+          }
+        })
+        if (text !== undefined) {
+          Swal.fire({
+            title: `En esta fecha se regresará la Estimación a Finanzas`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          }).then(async (result) => {
+            if (result.isConfirmed) {
               app.residentEstimate.observaciones_residente = text
               await console.log('Sending to Finance ... ')
               Swal.fire(
@@ -562,78 +562,93 @@ export default {
               )
               router.push({ name: 'ResidentEstimate' })
             }
-            else {
-              Swal.fire(
-                'No agregaste ninguna observacion',
-                'Agrega uno para continuar',
-                'warning'
-              )
-            }
-          } catch (error) {
-            Swal.fire(
-              'Error',
-              `${error.response.data.detail}`,
-              'error'
-            )
-          }
+          })
         }
-      })
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
-    const paymentToRegister = () => {
-      Swal.fire({
-        title: `Se realizará el registro del pago`,
-        icon: 'question',
-        showCancelButton: true,
-        text: '¿Está usted seguro?',
-        cancelButtonColor: '#d33',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Continuar',
-        reverseButtons: true
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const { value: text } = await Swal.fire({
-              input: 'textarea',
-              inputLabel: 'Observaciones',
-              inputPlaceholder: 'Escribe tus observaciones...',
-              inputAttributes: {
-                'aria-label': 'Type your message here'
-              },
-              showCancelButton: true,
-              reverseButtons: true,
-              inputValidator: (value) => {
-                if (!value) {
-                  return 'El campo es requerido'
-                }
-              }
-            })
-            if (text !== undefined) {
-              app.residentEstimate.observaciones_residente = text
-              await console.log('Saving payment ...')
-              Swal.fire(
-                '¡Éxito!',
-                'Pago registrado con éxito!',
-                'success'
-              )
-              router.push({ name: 'ResidentEstimate' })
+    const paymentToRegister = async () => {
+      try {
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
             }
-            else {
-              Swal.fire(
-                'No agregaste ninguna observacion',
-                'Agrega uno para continuar',
-                'warning'
-              )
-            }
-          } catch (error) {
-            Swal.fire(
-              'Error',
-              `${error.response.data.detail}`,
-              'error'
-            )
           }
+        })
+        if (text !== undefined) {
+          Swal.fire({
+            title: `En esta fecha quedará registrado el pago de la Estimación`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: `En esta fecha quedará registrado el pago de la Estimación`,
+                icon: 'warning',
+                showCancelButton: true,
+                text: '¿Está usted seguro?',
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Continuar',
+                reverseButtons: true
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  app.residentEstimate.observaciones_residente = text
+                  await console.log('Saving payment ...')
+                  Swal.fire(
+                    '¡Éxito!',
+                    'Pago registrado con éxito!',
+                    'success'
+                  )
+                  router.push({ name: 'ResidentEstimate' })
+                }
+              })
+            }
+          })
         }
-      })
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
     }
 
 
