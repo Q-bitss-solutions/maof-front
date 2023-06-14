@@ -196,17 +196,17 @@ export default {
               value: contract.id_contrato,
               label: contract.numero_contrato,
             });
-            app.value.filtro.listDocsFiltrados.sort((a, b) => {
-              if (a.label > b.label) {
-                return 1;
-              }
-              if (a.label < b.label) {
-                return -1;
-              }
-              // a must be equal to b
-              return 0;
-            });
           }
+        });
+        app.value.filtro.listDocsFiltrados.sort((a, b) => {
+          if (a.label > b.label) {
+            return 1;
+          }
+          if (a.label < b.label) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
         });
       }
       if (id === "3") {
@@ -216,17 +216,17 @@ export default {
               value: contract.id_contrato,
               label: contract.numero_contrato,
             });
-            app.value.filtro.listDocsFiltrados.sort((a, b) => {
-              if (a.label > b.label) {
-                return 1;
-              }
-              if (a.label < b.label) {
-                return -1;
-              }
-              // a must be equal to b
-              return 0;
-            });
           }
+        });
+        app.value.filtro.listDocsFiltrados.sort((a, b) => {
+          if (a.label > b.label) {
+            return 1;
+          }
+          if (a.label < b.label) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
         });
       }
     };

@@ -142,18 +142,18 @@ export default {
       data.forEach(contrato => {
         if (contrato.id_tipo_contrato === 3) {
           amendingAgreement.value.push(contrato)
-          amendingAgreement.value.sort((a, b) => {
-            if (a.label > b.label) {
-              return 1;
-            }
-            if (a.label < b.label) {
-              return -1;
-            }
-            // a must be equal to b
-            return 0;
-          })
         }
       });
+      amendingAgreement.value.sort((a, b) => {
+        if (a.label > b.label) {
+          return 1;
+        }
+        if (a.label < b.label) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
       /* amendingAgreement.value = data */
     }
     const featureOptions = [
