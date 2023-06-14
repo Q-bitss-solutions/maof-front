@@ -32,7 +32,8 @@
   <button-base label="Archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
   <div class="max-w-xl mx-auto">
     <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
-      type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" />
+      type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
       v-model="app.fecha_autorizacion_contratista" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.fecha_autorizacion_contratista.$error" v-for="error in  v$.fecha_autorizacion_contratista.$errors"
@@ -41,45 +42,52 @@
     <div class="flex flex-row ">
       <div>
         <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
-          v-model="app.fecha_periodo_inicio_estimacion" />
+          v-model="app.fecha_periodo_inicio_estimacion"
+          :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
       </div>
       <div>
         <input-base id="fecha_periodo_fin_estimacion" label="al" type="date" class="pt-2"
-          v-model="app.fecha_periodo_fin_estimacion" />
+          v-model="app.fecha_periodo_fin_estimacion" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
       </div>
     </div>
     <input-base id="importe_obra_ejecutada" label="Importe de la obra ejecutada" type="number" class="mb-3"
-      v-model="app.residentEstimate.importe_obra_ejecutada" />
+      v-model="app.residentEstimate.importe_obra_ejecutada"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <input-base id="importe_pagar" label="Importe a pagar" type="number" class="mb-3"
-      v-model="app.residentEstimate.importe_pagar" />
+      v-model="app.residentEstimate.importe_pagar" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
 
     <input-base id="grado_avance_obra" label="% de grado de avance" type="number" class="mb-3"
-      v-model="app.residentEstimate.grado_avance_obra" />
+      v-model="app.residentEstimate.grado_avance_obra"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.grado_avance_obra.$error" v-for="error in  v$.grado_avance_obra.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
     <input-base id="porcentaje_avance_estimacion" label="% de avance de la Estimación" type="number" class="mb-3"
-      v-model="app.residentEstimate.porcentaje_avance_estimacion" />
+      v-model="app.residentEstimate.porcentaje_avance_estimacion"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.porcentaje_avance_estimacion.$error" v-for="error in  v$.porcentaje_avance_estimacion.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
     <input-base id="porcentaje_avance_estimacion_acumulado" label="% de avance de la Estimación acumulado" type="number"
-      class="mb-3" v-model="app.residentEstimate.porcentaje_avance_estimacion_acumulado" />
+      class="mb-3" v-model="app.residentEstimate.porcentaje_avance_estimacion_acumulado"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.porcentaje_avance_estimacion_acumulado.$error"
       v-for="error in  v$.porcentaje_avance_estimacion_acumulado.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
     <input-base id="porcentaje_Avance_fisico" label="% de avance físico" type="number" class="mb-3"
-      v-model="app.residentEstimate.porcentaje_Avance_fisico" />
+      v-model="app.residentEstimate.porcentaje_Avance_fisico"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.porcentaje_Avance_fisico.$error" v-for="error in  v$.porcentaje_Avance_fisico.$errors" :key="error"
       class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
 
 
     <input-base id="porcensaje_avance_financiero" label="% de avance financiero" type="number" class="mb-3"
-      v-model="app.residentEstimate.porcensaje_avance_financiero" />
+      v-model="app.residentEstimate.porcensaje_avance_financiero"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente'" />
     <span v-if="v$.porcensaje_avance_financiero.$error" v-for="error in  v$.porcensaje_avance_financiero.$errors"
       :key="error" class=" text-red font-semibold text-center ml-80"> {{ error.$message }} </span>
   </div>
@@ -93,21 +101,21 @@
   </div>
   <!-- Actions Area Revisora -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora'">
-    <button-base label="Regresar a  Residente" class=" px-4"/>
-    <button-base label="Actualizar datos" class=" px-4"/>
-    <button-base label="Enviar a finanzas" class=" px-4"  />
+    <button-base label="Regresar a  Residente" class=" px-4" />
+    <button-base label="Actualizar datos" class=" px-4" />
+    <button-base label="Enviar a finanzas" class=" px-4" />
   </div>
   <!-- Actions Finanzas -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas'">
-    <button-base label="Regresar al área revisora" class=" px-4" @click="returnToReviewArea"/>
-    <button-base label="Cancelar" class=" px-4" @click="back"/>
-    <button-base label="Enviar a trámite de pago" class=" px-4" @click="sendToPaymentProcess"/>
+    <button-base label="Regresar al área revisora" class=" px-4" @click="returnToReviewArea" />
+    <button-base label="Cancelar" class=" px-4" @click="back" />
+    <button-base label="Enviar a trámite de pago" class=" px-4" @click="sendToPaymentProcess" />
   </div>
   <!-- Actions Tramite de pagos -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP'">
     <button-base label="Regresar a Finanzas" class=" px-4" @click="sendFinance" />
-    <button-base label="Cancelar" class=" px-4"  @click="back" />
-    <button-base label="Registrar Pago" class=" px-4"  @click="paymentToRegister" />
+    <button-base label="Cancelar" class=" px-4" @click="back" />
+    <button-base label="Registrar Pago" class=" px-4" @click="paymentToRegister" />
   </div>
 </template>
 
@@ -417,26 +425,26 @@ export default {
           }
         })
         if (text !== undefined) {
-            const res = await Swal.fire({
-              title: `En esta fecha se regresará la Estimación al área revisora`,
-              icon: 'question',
-              showCancelButton: true,
-              text: '¿Está usted seguro?',
-              cancelButtonColor: '#d33',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'Continuar',
-              reverseButtons: true
-            })
-            if(res.isConfirmed){
-              app.residentEstimate.observaciones_residente = text
-              await console.log('Regresar a area revisora')
-              Swal.fire(
-                '¡Éxito!',
-                'Estimación enviada al área revisora con éxito!',
-                'success'
-              )
-              router.push({ name: 'ResidentEstimate' })
-            }
+          const res = await Swal.fire({
+            title: `En esta fecha se regresará la Estimación al área revisora`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await console.log('Regresar a area revisora')
+            Swal.fire(
+              '¡Éxito!',
+              'Estimación enviada al área revisora con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
         }
         else {
           Swal.fire(
@@ -446,7 +454,7 @@ export default {
           )
         }
       }
-      catch(error){
+      catch (error) {
         Swal.fire(
           'Error',
           `${error.response.data.detail}`,
@@ -478,26 +486,26 @@ export default {
           }
         })
         if (text !== undefined) {
-            const res = await Swal.fire({
-              title: `En esta fecha se enviará la Estimación a trámite de pago`,
-              icon: 'question',
-              showCancelButton: true,
-              text: '¿Está usted seguro?',
-              cancelButtonColor: '#d33',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'Continuar',
-              reverseButtons: true
-            })
-            if(res.isConfirmed){
-              app.residentEstimate.observaciones_residente = text
-              await console.log('Enviar a a trámite de pago')
-              Swal.fire(
-                '¡Éxito!',
-                'Estimación enviada a trámite de pago con éxito!',
-                'success'
-              )
-              router.push({ name: 'ResidentEstimate' })
-            }
+          const res = await Swal.fire({
+            title: `En esta fecha se enviará la Estimación a trámite de pago`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await console.log('Enviar a a trámite de pago')
+            Swal.fire(
+              '¡Éxito!',
+              'Estimación enviada a trámite de pago con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
         }
         else {
           Swal.fire(
@@ -507,7 +515,7 @@ export default {
           )
         }
       }
-      catch(error){
+      catch (error) {
         Swal.fire(
           'Error',
           `${error.response.data.detail}`,
@@ -665,5 +673,4 @@ input[id=fecha_periodo_inicio_estimacion] {
 
 .numEstimacion {
   width: auto;
-}
-</style>
+}</style>
