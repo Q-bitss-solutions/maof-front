@@ -1,6 +1,6 @@
 <template>
-  <main class="min-h-screen flex flex-col px-4 pt-20">
-    <div class="flex">
+  <div class=" flex flex-col px-4 pt-20 min-h-screen">
+    <div class="flex ">
       <div v-for="(item, index) in menu" :key="index">
         <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
           class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
@@ -32,28 +32,7 @@
         </div>
       </div>
     </div>
-  </main>
-  <!-- <main class="px-4 pt-20">
-    <div class="flex">
-      <div v-for="(item, index) in menu" :key="index">
-        <button-base
-          :label="item.labelMenu"
-          class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
-          @click="showSubmenu(index)"
-        />
-        <div
-          class="bg-white rounded shadow-lg border border-gray-100 border-solid absolute mt-1 py-1 text-gray-900 text-lg"
-          v-show="indexActiveSubmenu === index"
-        >
-          <p v-for="(item, index) in item.submenu" :key="index" class="py-2 px-5 cursor-pointer hover:bg-gray-50">
-            <router-link :to="{ name: item.routeName }">
-              {{ item.label }}
-            </router-link>
-          </p>
-        </div>
-      </div>
-    </div>
-  </main> -->
+  </div>
 </template>
 
 <script>
@@ -198,3 +177,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.min-h-screen {
+    min-height: 55vh;
+}
+</style>
