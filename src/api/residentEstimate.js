@@ -91,6 +91,14 @@ const sendToReviewArea = (residentEstimate) =>
     data: residentEstimate,
   });
 
+const sendNewStatus = (id_estimacion,params) =>
+  fetchApi({
+    url: `/estimacion_residente/${id_estimacion}/cambiar_estatus_estimacion/`,
+    method: "PUT",
+    params: params ? params : {},
+    /* data: residentEstimate, */
+  });
+
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
@@ -105,4 +113,5 @@ export {
   fetchResidentEstimateHojaViajeraInProgress,
   fetchResidentEstimateHojaViajeraActivos,
   sendToReviewArea,
+  sendNewStatus,
 };

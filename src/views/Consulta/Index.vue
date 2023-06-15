@@ -48,7 +48,7 @@ import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda
 import Swal from "sweetalert2";
 import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
-import { fetchFiltroAll } from "../../api/consulta";
+import { fetchFiltroAll, fetchBusqueda } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
 import Filtro from "../../components/Consulta/Filtro.vue";
 import Busqueda from "../../components/Consulta/Busqueda.vue";
@@ -271,6 +271,28 @@ export default {
 
     const saveBusqueda = async (criterios) => {
       console.log("Criterios de busqueda: ", criterios);
+      //Funcion para construir los parametros enviados
+      const params = Object.entries(criterios)
+        .filter(([clave, valor]) => {
+          if (Array.isArray(valor)) {
+            return valor.length > 0;
+          } else {
+            return valor !== "";
+          }
+        })
+        .reduce((resultado, [clave, valor]) => {
+          if (Array.isArray(valor)) {
+            resultado[clave] = valor.join(",");
+          } else {
+            resultado[clave] = valor;
+          }
+          return resultado;
+        }, {});
+
+      console.log('params: ', params);
+
+      const { data } = await fetchBusqueda(params)
+      console.log('data:', data);
       /* try {
         await storeProject(project)
         Swal.fire(
