@@ -125,7 +125,7 @@ import InputBase from '../InputBase.vue'
 import ButtonBase from '../ButtonBase.vue'
 import SelectBase from '../SelectBase.vue'
 import TextAreaBase from '../TextAreaBase.vue'
-import { sendToReviewArea, updateResidentEstimate, deleteResidentEstimate } from '../../api/residentEstimate'
+import { sendToReviewArea, updateResidentEstimate, deleteResidentEstimate, sendNewStatus } from '../../api/residentEstimate'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import useVuelidate from '@vuelidate/core'
@@ -521,6 +521,66 @@ export default {
         )
       }
     }
+    /* const sendNewStatus = async (areaDestino) => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
+
+      try {
+
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: 'Observaciones para finanzas',
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
+            }
+          }
+        })
+        if (text !== undefined) {
+          const res = await Swal.fire({
+            title: `En esta fecha se enviará la Estimación a finanzas`,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            app.residentEstimate.observaciones_residente = text
+            await console.log('Enviar a finanzas')
+            Swal.fire(
+              '¡Éxito!',
+              'Estimación enviada finanzas con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
+        }
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
+    } */
 
     //Acciones Finanzas
     const returnToReviewArea = async () => {

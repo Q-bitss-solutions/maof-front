@@ -1,31 +1,31 @@
 <template>
   <div class=" max-w-6xl pb-10 grow  ">
     <select-base id="clave_cartera" label="C, CC, CM*" :options="app.listC_CC_CM" class="mb-3"
-      v-model="app.busqueda.c_cc_cm" />
-    {{ app.busqueda.c_cc_cm }}
+      v-model="app.busqueda.id_contrato" />
+    {{ app.busqueda.id_contrato }}
     <select-base id="nombre_proyecto" label="Residente" :options="app.listResident" class="mb-3"
-      v-model="app.busqueda.resident" />
-    {{ app.busqueda.resident }}
+      v-model="app.busqueda.id_residente" />
+    {{ app.busqueda.id_residente }}
     <select-base id="nombre_proyecto" label="Mes de la Estimación" :options="app.listMesEstimacion" class="mb-3"
-      v-model="app.busqueda.mesEstimacion" />
-    {{ app.busqueda.mesEstimacion }}
+      v-model="app.busqueda.mes_estimacion" />
+    {{ app.busqueda.mes_estimacion }}
     <select-base id="nombre_proyecto" label="Año de la Estimación" :options="app.listAnios" class="mb-3"
-      v-model="app.busqueda.anioEstimacion" />
-    {{ app.busqueda.anioEstimacion }}
+      v-model="app.busqueda.año_estimacion" />
+    {{ app.busqueda.año_estimacion }}
     <select-base id="nombre_proyecto" label="Estatus de la Estimación" class="mb-3"
-      v-model="app.busqueda.estatusEstimacion" />
+      v-model="app.busqueda.estatus_estimacion" />
     <select-base id="nombre_proyecto" label="Unidad MAOF responsable" :options="app.listUnitMAOF" class="mb-3"
-      v-model="app.busqueda.unitMAOF" />
-    {{ app.busqueda.unitMAOF }}
+      v-model="app.busqueda.unidad_maof" />
+    {{ app.busqueda.unidad_maof }}
     <div class="grid grid-cols-2">
       <input-base id="dias_inicio" label="Días transcurridos del" type="number" class=" grow"
-        v-model="app.busqueda.diasInicio" />
-      <input-base id="dias_fin" label="al" type="number" class="flex-auto" v-model="app.busqueda.diasFin" />
+        v-model="app.diasInicio" />
+      <input-base id="dias_fin" label="al" type="number" class="flex-auto" v-model="app.diasFin" />
     </div>
     <div class="grid grid-cols-2 pt-3">
       <input-base id="fecha_inicio" label="Autorización entre" type="date" class=" grow"
-        v-model="app.busqueda.fechaInicio" />
-      <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.busqueda.fechaFin" />
+        v-model="app.fechaInicio" />
+      <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.fechaFin" />
     </div>
     <button-base label="Buscar" @click="sendForm" class="mr-0 ml-auto mt-5" />
     <p>*Contrato, Convenio de Colaboración, Convenio Modificatorio</p>
@@ -159,7 +159,21 @@ export default {
       console.log('Años generados', app.listAnios);
 
     }
-    const sendForm = () => emit('submit', app.busqueda)
+    const sendForm = () => {
+      if (app.diasInicio !== '' ) {
+        app.busqueda.dias_transcurridos.push(app.diasInicio)
+      }
+      if (app.diasFin !== '' ) {
+        app.busqueda.dias_transcurridos.push(app.diasFin)
+      }
+      if (app.fechaInicio !== '' ) {
+        app.busqueda.fechas_autorizacion.push(app.fechaInicio)
+      }
+      if (app.fechaFin !== '' ) {
+        app.busqueda.fechas_autorizacion.push(app.fechaFin)
+      }
+      emit('submit', app.busqueda)
+    } 
 
     getC_CC_CM()
     getResident()
