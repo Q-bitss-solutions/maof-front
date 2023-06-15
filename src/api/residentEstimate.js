@@ -99,6 +99,16 @@ const sendNewStatus = (id_estimacion,params) =>
     /* data: residentEstimate, */
   });
 
+
+
+const catStatusEstimate = () =>
+  fetchApi({
+    url: `/cat_estatus_estimacion/`,
+    method: "GET",
+  });
+
+
+
 export {
   fetchResidentEstimate,
   fetchResidentEstimateById,
@@ -114,4 +124,5 @@ export {
   fetchResidentEstimateHojaViajeraActivos,
   sendToReviewArea,
   sendNewStatus,
+  catStatusEstimate,
 };
