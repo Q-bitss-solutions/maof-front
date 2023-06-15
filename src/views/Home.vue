@@ -1,5 +1,5 @@
 <template>
-  <main class="px-4 pt-20">
+  <main class="min-h-screen flex flex-col px-4 pt-20">
     <div class="flex">
       <div v-for="(item, index) in menu" :key="index">
         <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
