@@ -9,21 +9,11 @@ const fetchFiltroAll = (params) =>
     params: params ? params : {},
   });
 
-
-const fetchResidentEstimateById = (id) =>
+const fetchBusqueda = (params) =>
   fetchApi({
-    url: `/estimacion_residente/${id}/`,
+    url: `/agenda_estimacion/busqueda/`,
     method: "GET",
+    params: params ? params : {},
   });
 
-const storeResidentEstimate = (residentEstimate) =>
-  fetchApi({
-    url: "/estimacion_residente/",
-    method: "POST",
-    data: residentEstimate,
-  });
-
-
-export {
-  fetchFiltroAll,
-};
+export { fetchFiltroAll, fetchBusqueda };

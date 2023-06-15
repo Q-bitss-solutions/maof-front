@@ -61,16 +61,14 @@ export default {
   setup(props, { emit }) {
     const app = reactive({
       busqueda: {
-        c_cc_cm: '',
-        resident: '',
-        mesEstimacion: '',
-        anioEstimacion: '',
-        estatusEstimacion: '',
-        unitMAOF: '',
-        diasInicio: '',
-        diasFin: '',
-        fechaInicio: '',
-        fechaFin: '',
+        id_contrato: '',
+        id_residente: '',
+        mes_estimacion: '',
+        año_estimacion: '',
+        estatus_estimacion: '',
+        unidad_maof: '',
+        dias_transcurridos: [],
+        fechas_autorizacion: [],
       },
       listMesEstimacion: [
         { value: 1, label: 'Enero' },
@@ -86,22 +84,26 @@ export default {
         { value: 11, label: 'Noviembre' },
         { value: 12, label: 'Diciembre' },
       ],
+      diasInicio: '',
+      diasFin: '',
+      fechaInicio: '',
+      fechaFin: '',
       listAnios: [],
       listC_CC_CM: [],
       listResident: [],
       listUnitMAOF: [],
     })
-/*     if (props.editMode) {
-      app.project = props.project
-      console.log(props.project)
-
-      app.project.fecha_inicio_proyecto = props.project.fecha_inicio_proyecto.split('-').reverse().join('-')
-      if (app.project.fecha_fin_proyecto === null) {
-        app.project.fecha_fin_proyecto = ''
-      } else {
-        app.project.fecha_fin_proyecto = props.project.fecha_fin_proyecto.split('-').reverse().join('-')
-      }
-    } */
+    /*     if (props.editMode) {
+          app.project = props.project
+          console.log(props.project)
+    
+          app.project.fecha_inicio_proyecto = props.project.fecha_inicio_proyecto.split('-').reverse().join('-')
+          if (app.project.fecha_fin_proyecto === null) {
+            app.project.fecha_fin_proyecto = ''
+          } else {
+            app.project.fecha_fin_proyecto = props.project.fecha_fin_proyecto.split('-').reverse().join('-')
+          }
+        } */
     const getC_CC_CM = async () => {
       const { data } = await fetchContracts()
       console.log('contratos:', data);
