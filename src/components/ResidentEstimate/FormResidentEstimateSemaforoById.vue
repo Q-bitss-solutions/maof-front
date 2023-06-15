@@ -103,11 +103,11 @@
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora'">
     <button-base label="Regresar a  Residente" class=" px-4" @click="sendResident" />
     <button-base label="Cancelar" class=" px-4" @click="back" />
-    <button-base label="Enviar a finanzas" class=" px-4" @click="sendFinance" />
+    <button-base label="Enviar a finanzas" class=" px-4" @click="changeStatus(STATUS.sendFinance)" />
   </div>
   <!-- Actions Finanzas -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas'">
-    <button-base label="Regresar al área revisora" class=" px-4" @click="returnToReviewArea" />
+    <button-base label="Regresar al área revisora" class=" px-4" @click="changeStatus(STATUS.returnToReviewArea)" />
     <button-base label="Cancelar" class=" px-4" @click="back" />
     <button-base label="Enviar a trámite de pago" class=" px-4" @click="sendToPaymentProcess" />
   </div>
@@ -150,6 +150,21 @@ export default {
     TextAreaBase,
   },
   setup(props) {
+    const STATUS = Object.freeze({
+      sendFinance:{
+        id : 5,
+        obs_label: 'Observaciones para finanzas',
+        title: 'En esta fecha se enviará la Estimación a finanzas',
+        exito: 'Estimación enviada finanzas con éxito!'
+      },
+      returnToReviewArea:{
+        id : 6,
+        obs_label: 'Observaciones para el área revisora',
+        title: 'En esta fecha se regresará la Estimación al área revisora',
+        exito: 'Estimación enviada al área revisora con éxito!'
+      },
+    })
+
     const router = useRouter()
     const app = reactive({
       residentEstimate: {
@@ -374,6 +389,72 @@ export default {
             Swal.fire(
               '¡Éxito!',
               'Estimación enviada al área revisora con éxito!',
+              'success'
+            )
+            router.push({ name: 'ResidentEstimate' })
+          }
+        }
+        else {
+          Swal.fire(
+            'No agregaste ninguna observacion',
+            'Agrega uno para continuar',
+            'warning'
+          )
+        }
+      }
+      catch (error) {
+        Swal.fire(
+          'Error',
+          `${error.response.data.detail}`,
+          'error'
+        )
+      }
+    }
+
+    //Funcion para cambiar status
+    const changeStatus = async (areaDestino) => {
+      let today = new Date();
+      // obtener la hora en la configuración regional de EE. UU.
+      var now = today.toLocaleTimeString('en-GB');
+
+      try {
+
+        const { value: text } = await Swal.fire({
+          input: 'textarea',
+          inputLabel: areaDestino.obs_label,
+          inputPlaceholder: 'Escribe tus observaciones...',
+          inputAttributes: {
+            'aria-label': 'Type your message here'
+          },
+          showCancelButton: true,
+          reverseButtons: true,
+          inputValidator: (value) => {
+            if (!value) {
+              return 'El campo es requerido'
+            }
+          }
+        })
+        if (text !== undefined) {
+          const res = await Swal.fire({
+            title: areaDestino.title,
+            icon: 'question',
+            showCancelButton: true,
+            text: '¿Está usted seguro?',
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Continuar',
+            reverseButtons: true
+          })
+          if (res.isConfirmed) {
+            // app.residentEstimate.observaciones_residente = text
+            await sendNewStatus(app.residentEstimate.id_estimacion,{
+              estatus_estimacion: areaDestino.id,
+              observaciones: text,
+              id_estimacion: app.residentEstimate.id_estimacion
+            })
+            Swal.fire(
+              '¡Éxito!',
+              areaDestino.exito,
               'success'
             )
             router.push({ name: 'ResidentEstimate' })
@@ -842,6 +923,7 @@ export default {
     const back = () => router.push({ name: 'ResidentEstimate' })
 
     return {
+      STATUS,
       app,
       v$,
       editForm,
@@ -856,6 +938,7 @@ export default {
       paymentToRegister,
       back,
       goToArchivos,
+      changeStatus
     }
   },
 }
