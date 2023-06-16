@@ -206,6 +206,11 @@ const routes = [
     name: "ConsultasTotalesMAOF",
     component: () => import("./../views/Consulta/Total.vue"),
   },
+  {
+    path: "/consultas/busqueda",
+    name: "ConsultasBusquedaMAOF",
+    component: () => import("../views/Consulta/BusquedaResult.vue"),
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

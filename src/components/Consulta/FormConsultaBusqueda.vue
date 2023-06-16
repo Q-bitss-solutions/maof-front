@@ -20,13 +20,13 @@
       <input-base id="fecha_inicio" label="Autorización entre" type="date" class="grow" v-model="app.fechaInicio" />
       <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.fechaFin" />
     </div>
-    <button-base label="Buscar" @click="sendForm" class="mr-0 ml-auto mt-5" />
+    <button-base label="Buscar" @click="sendForm" class="mr-0 ml-auto mt-5" :disabled="isFormEmpty" />
     <p>*Contrato, Convenio de Colaboración, Convenio Modificatorio</p>
   </div>
 </template>
 
 <script>
-import { reactive } from "vue";
+import { reactive, computed } from "vue";
 import InputBase from "../InputBase.vue";
 import SelectBase from "../SelectBase.vue";
 import ButtonBase from "../ButtonBase.vue";
@@ -88,17 +88,29 @@ export default {
       listUnitMAOF: [],
       listStatusEstimate: [],
     });
-    /*     if (props.editMode) {
-          app.project = props.project
-          console.log(props.project)
-    
-          app.project.fecha_inicio_proyecto = props.project.fecha_inicio_proyecto.split('-').reverse().join('-')
-          if (app.project.fecha_fin_proyecto === null) {
-            app.project.fecha_fin_proyecto = ''
-          } else {
-            app.project.fecha_fin_proyecto = props.project.fecha_fin_proyecto.split('-').reverse().join('-')
-          }
-        } */
+    const isFormEmpty = computed(() => {
+      const {
+        id_contrato,
+        id_residente,
+        mes_estimacion,
+        año_estimacion,
+        estatus_estimacion,
+        unidad_maof,
+        dias_transcurridos,
+        fechas_autorizacion
+      } = app.busqueda;
+
+      return (
+        !id_contrato &&
+        !id_residente &&
+        !mes_estimacion &&
+        !año_estimacion &&
+        !estatus_estimacion &&
+        !unidad_maof &&
+        dias_transcurridos.length === 0 &&
+        fechas_autorizacion.length === 0
+      );
+    });
     const getC_CC_CM = async () => {
       const { data } = await fetchContracts();
       app.listC_CC_CM = data.map((contrato) => ({
@@ -206,6 +218,7 @@ export default {
 
     return {
       app,
+      isFormEmpty,
       sendForm,
       getC_CC_CM,
       getResident,
