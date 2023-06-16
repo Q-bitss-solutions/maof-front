@@ -293,6 +293,11 @@ export default {
 
       const { data } = await fetchBusqueda(params)
       console.log('data:', data);
+      store.addBusqueda(data)
+      console.log('store:', store.busqueda);
+      router.push({
+        name: "ConsultasBusquedaMAOF",
+      });
       /* try {
         await storeProject(project)
         Swal.fire(
