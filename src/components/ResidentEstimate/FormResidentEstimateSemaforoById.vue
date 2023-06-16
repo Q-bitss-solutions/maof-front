@@ -127,6 +127,10 @@
     <button-base label="Cancelar" class=" px-4" @click="back" />
     <button-base label="Registrar Pago" class=" px-4" @click="changeStatus(STATUS.savePayment)" />
   </div>
+  <!-- Actions Pagos -->
+  <div class="flex justify-center items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Pago Efectuado'">
+    <button-base label="Regresar" class=" px-4" @click="back" />
+  </div>
 </template>
 
 <script>

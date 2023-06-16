@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" />
+      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="app.data.estatus_estimacion !== 'Pagada'" />
       <table-base :options="featureOptions" :headers="headers" :data="filesById" />
     </section>
   </main>
