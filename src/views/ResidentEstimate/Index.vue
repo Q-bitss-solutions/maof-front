@@ -126,8 +126,6 @@ export default {
           data.fecha_periodo_inicio_estimacion = data.fecha_periodo_inicio_estimacion.split(" ")[0]
           data.fecha_periodo_fin_estimacion = data.fecha_periodo_fin_estimacion.split(" ")[0]
           detalleEstimacionData.value = data
-          console.log('data: ', data)
-          console.log('detalleEstimacionData: ', detalleEstimacionData)
         }
       },
       {
