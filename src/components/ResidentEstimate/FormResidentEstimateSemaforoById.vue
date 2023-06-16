@@ -119,7 +119,7 @@
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas'">
     <button-base label="Regresar al área revisora" class="px-4" @click="changeStatus(STATUS.returnToReviewArea)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
-    <button-base label="Enviar a trámite de pago" class="px-4" @click="sendToPaymentProcess" />
+    <button-base label="Enviar a trámite de pago" class="px-4" @click="changeStatus(STATUS.sendToPaymentProcess)"/>
   </div>
   <!-- Actions Tramite de pagos -->
   <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP'">
@@ -192,6 +192,12 @@ export default {
         obs_label: "Observaciones para el área revisora",
         title: "En esta fecha se regresará la Estimación al área revisora",
         exito: "Estimación enviada al área revisora con éxito!",
+      },
+      sendToPaymentProcess: {
+        id: 7,
+        obs_label: "Observaciones para el trámite de pago",
+        title: "En esta fecha se regresará la Estimación al trámite de pago",
+        exito: "Estimación enviada al trámite de pago con éxito!",
       },
       returnToFinance: {
         id: 8,
