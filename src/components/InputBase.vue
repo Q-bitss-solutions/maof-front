@@ -15,6 +15,7 @@
         focus:border-blue
         w-full
       "
+      :class="{'border-0': disabled === true}"
       :value="modelValue"
       :type="type"
       :placeholder="placeholder"
