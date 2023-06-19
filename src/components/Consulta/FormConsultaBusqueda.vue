@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-6xl pb-10 grow">
+    <p class=" w-[17rem]">*Contrato, Convenio de Colaboración, Convenio Modificatorio</p>
     <select-base id="clave_cartera" label="C, CC, CM*" :options="app.listC_CC_CM" class="mb-3"
       v-model="app.busqueda.id_contrato" />
     <select-base id="nombre_proyecto" label="Residente" :options="app.listResident" class="mb-3"
@@ -21,7 +22,6 @@
       <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.fechaFin" />
     </div>
     <button-base label="Buscar" @click="sendForm" class="mr-0 ml-auto mt-5" :disabled="isFormEmpty" />
-    <p>*Contrato, Convenio de Colaboración, Convenio Modificatorio</p>
   </div>
 </template>
 

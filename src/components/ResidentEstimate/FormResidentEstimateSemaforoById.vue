@@ -169,16 +169,16 @@ export default {
       //Residente
       sendReviewArea: {
         id: 3,
-        obs_label: "Observaciones para el área revisora",
-        title: "En esta fecha se enviará la Estimación al área revisora",
-        exito: "Estimación enviada alárea revisora con éxito!",
+        obs_label: "Observaciones para el Área Revisora",
+        title: "En esta fecha se enviará la Estimación al Área Revisora",
+        exito: "Estimación enviada al Área Revisora con éxito!",
       },
       //Area Revisora
       sendFinance: {
         id: 5,
-        obs_label: "Observaciones para finanzas",
-        title: "En esta fecha se enviará la Estimación a finanzas",
-        exito: "Estimación enviada finanzas con éxito!",
+        obs_label: "Observaciones para Finanzas",
+        title: "En esta fecha se enviará la Estimación a Finanzas",
+        exito: "Estimación enviada Finanzas con éxito!",
       },
       returnToResident: {
         id: 4,
@@ -189,15 +189,15 @@ export default {
       //Finanzas
       returnToReviewArea: {
         id: 6,
-        obs_label: "Observaciones para el área revisora",
-        title: "En esta fecha se regresará la Estimación al área revisora",
-        exito: "Estimación enviada al área revisora con éxito!",
+        obs_label: "Observaciones para el Área Revisora",
+        title: "En esta fecha se regresará la Estimación al Área Revisora",
+        exito: "Estimación enviada al Área Revisora con éxito!",
       },
       sendToPaymentProcess: {
         id: 7,
-        obs_label: "Observaciones para el trámite de pago",
-        title: "En esta fecha se regresará la Estimación al trámite de pago",
-        exito: "Estimación enviada al trámite de pago con éxito!",
+        obs_label: "Observaciones para el Trámite de Pago",
+        title: "En esta fecha se regresará la Estimación al Trámite de Pago",
+        exito: "Estimación enviada al Trámite de Pago con éxito!",
       },
       returnToFinance: {
         id: 8,
@@ -207,8 +207,8 @@ export default {
       },
       savePayment: {
         id: 9,
-        obs_label: 'Observaciones para el registro de pago',
-        title: 'En esta fecha quedará registrado el pago de la Estimación',
+        obs_label: 'Observaciones para el Registro de Pago',
+        title: 'En esta fecha quedará Registro de Pago de la Estimación',
         exito: 'Pago registrado con éxito!',
         warning_modal: {
           title: 'Una vez registrado el pago no será posible modificar la Estimación. Esta acción no es reversible.'
