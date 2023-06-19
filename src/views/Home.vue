@@ -159,12 +159,13 @@ export default {
       return indexActiveSubmenu2.value = index
     }
     const logIn = () => {
-      if (localStorage.getItem('acces') === null) {
+      const access = localStorage.getItem('access')
+      if (access === null) {
         router.push({ name: 'Login' })
       }
     }
     const goToRoute = (routerName) => router.push({ name: routerName })
-    /* logIn() */
+    logIn()
     return {
       menu,
       showSubmenu,

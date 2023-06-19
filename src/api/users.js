@@ -1,39 +1,46 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
+
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchUser = () =>
-  fetchApi({
+  addHeader({
     url: "/cat_empleados_maof/",
     method: "GET",
   });
 
 const fetchMAOF_EmployeesQuery = (id_unidad_maof) =>
-  fetchApi({
+  addHeader({
     url: `/cat_empleados_maof/?unidad_maof=${id_unidad_maof}`,
     method: "GET",
   });
 
 const fetchUserById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/cat_empleados_maof/${id}/`,
     method: "GET",
   });
 
 const storeUser = (user) =>
-  fetchApi({
+  addHeader({
     url: "/cat_empleados_maof/",
     method: "POST",
     data: user,
   });
 
 const updateUser = (user) =>
-  fetchApi({
+  addHeader({
     url: `/cat_empleados_maof/${user.empleado_maof}/`,
     method: "PUT",
     data: user,
   });
 
 const deleteUser = (id, userAndRol) =>
-  fetchApi({
+  addHeader({
     url: `/cat_empleados_maof/${id}/`,
     method: "PATCH",
     data: userAndRol,
