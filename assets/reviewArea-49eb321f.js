@@ -1,0 +1,1 @@
+import{f as r}from"./fetchApi-8b9134ef.js";import{g as s}from"./ArrowBack-5369885d.js";const t=s(),a=e=>r({...e,headers:t}),i=()=>a({url:"/area-revisora/",method:"GET"}),h=e=>a({url:`/area-revisora/${e}/`,method:"GET"}),n=e=>a({url:"/area-revisora/",method:"POST",data:e}),m=e=>a({url:`/area-revisora/${e.clave_unidad}/`,method:"PUT",data:e});export{h as a,i as f,n as s,m as u};
