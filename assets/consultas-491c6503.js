@@ -1,1 +1,0 @@
-import{I as s}from"./index-3b5ad1a8.js";const o=s("consultas",{state:()=>({filtros:{pendientes:[],pagados:[],total:[]}}),actions:{addPendientes(t){this.filtros.pendientes=t},addPagados(t){this.filtros.pagados=t},addTotal(t){this.filtros.total=t}},getters:{}});export{o as c};
