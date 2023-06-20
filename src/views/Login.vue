@@ -76,3 +76,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.min-h-screen {
+    min-height: 55vh;
+}
+</style>
