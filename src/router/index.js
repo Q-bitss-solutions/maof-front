@@ -357,9 +357,9 @@ router.beforeEach((to, from, next) => {
   const access =
     localStorage.getItem(
       "access"
-    ); /* Aquí debes verificar si el usuario tiene un token válido */
+    ); /* verifica si el usuario tiene un token válido */
   if (requiresAuth && !access) {
-    // Redireccionar al componente de inicio de sesión u otra página de autenticación
+    // Redireccionar al componente de inicio de sesión
     next({ name: "Login" });
   } else {
     // Permitir el acceso a la ruta

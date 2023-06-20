@@ -97,8 +97,12 @@ export default {
         estatus_estimacion,
         unidad_maof,
       } = app.busqueda;
-      const { diasInicio,
-      diasFin} = app
+      const {
+        diasInicio,
+        diasFin,
+        fechaInicio,
+        fechaFin,
+      } = app
       return (
         !id_contrato &&
         !id_residente &&
@@ -107,7 +111,9 @@ export default {
         !estatus_estimacion &&
         !unidad_maof &&
         !diasInicio &&
-        !diasFin 
+        !diasFin &&
+        !fechaInicio &&
+        !fechaFin
       );
     });
     const getC_CC_CM = async () => {
