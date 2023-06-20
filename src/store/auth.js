@@ -19,6 +19,18 @@ export const auth = defineStore("auth", {
       localStorage.setItem('id_empleado', dataAuth.id_empleado)
       localStorage.setItem('rol', dataAuth.rol)
       localStorage.setItem('refresh', dataAuth.refresh)
+    },
+    clearInfo(){
+      this.access =  ''
+      this.id_empleado = ''
+      this.rol = ''
+      this.refresh = ''
+    },
+    clearLocalStore(){
+      localStorage.removeItem('access');
+      localStorage.removeItem('id_empleado');
+      localStorage.removeItem('rol');
+      localStorage.removeItem('refresh');
     }
   },
   getters: {

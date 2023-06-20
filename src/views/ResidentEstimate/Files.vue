@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
       <div class=" flex flex-row justify-between">
@@ -48,6 +51,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import InputBase from '../../components/InputBase.vue'
 import TableBase from '../../components/TableBase.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 import { fetchResidentEstimateById, archivoResidentEstimate, fetchArchivoResidentEstimateById, deleteArchivoResidentEstimate } from '../../api/residentEstimate'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -64,6 +68,7 @@ export default {
     TableBase,
     ButtonBase,
     Banner,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()
