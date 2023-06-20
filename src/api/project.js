@@ -1,19 +1,12 @@
 import fetchApi from "./fetchApi";
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
-
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
 
 const fetchProjects = () =>
-  addHeader({
+  fetchApi({
     url: "proyecto/",
     method: "GET",
   });
 const fetchProjectsActive = () =>
-  addHeader({
+  fetchApi({
     url: "proyecto/",
     method: "GET",
     params: {
@@ -22,27 +15,27 @@ const fetchProjectsActive = () =>
   });
 
 const fetchProjectById = (id) =>
-  addHeader({
+  fetchApi({
     url: `proyecto/${id}/`,
     method: "GET",
   });
 
 const storeProject = (project) =>
-  addHeader({
+  fetchApi({
     url: "proyecto/",
     method: "POST",
     data: project,
   });
 
 const updateProject = (project) =>
-  addHeader({
+  fetchApi({
     url: `proyecto/${project.id_proyecto}/`,
     method: "PUT",
     data: project,
   });
 
 const deleteProject = (id) =>
-  addHeader({
+  fetchApi({
     url: `proyecto/${id}/`,
     method: "DELETE",
   });
