@@ -70,7 +70,6 @@ export default {
       {
         label: 'Editar',
         action: (userAndRol) => {
-          console.log(userAndRol);
           router.push({
             name: 'EditUsersRolesMAOF',
             params: {

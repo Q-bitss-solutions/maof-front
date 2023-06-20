@@ -10,7 +10,7 @@
       <div class="flex justify-center text-3xl" v-if="!app.loading">
         <div class="px-10 text-red cursor-pointer" @click="
           getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
-        ">
+          ">
           <p class="text-center">{{ app.filtro.data.pendientes.length }}</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
@@ -100,7 +100,6 @@ export default {
               name: "ConsultasPedientesMAOF",
             });
           } else {
-            console.log("No hay estimaciones pendientes");
             Swal.fire(
               "No hay estimaciones",
               "Intenta con otro filtro",
@@ -115,7 +114,6 @@ export default {
               name: "ConsultasPagadosMAOF",
             });
           } else {
-            console.log("No hay estimaciones pagadas");
             Swal.fire(
               "No hay estimaciones",
               "Intenta con otro filtro",
@@ -130,7 +128,6 @@ export default {
               name: "ConsultasTotalesMAOF",
             });
           } else {
-            console.log("No hay estimaciones totales");
             Swal.fire(
               "No hay estimaciones",
               "Intenta con otro filtro",
@@ -270,7 +267,6 @@ export default {
     };
 
     const saveBusqueda = async (criterios) => {
-      console.log("Criterios de busqueda: ", criterios);
       //Funcion para construir los parametros enviados
       const params = Object.entries(criterios)
         .filter(([clave, valor]) => {
@@ -289,32 +285,11 @@ export default {
           return resultado;
         }, {});
 
-      console.log('params: ', params);
-
       const { data } = await fetchBusqueda(params)
-      console.log('data:', data);
       store.addBusqueda(data)
-      console.log('store:', store.busqueda);
       router.push({
         name: "ConsultasBusquedaMAOF",
       });
-      /* try {
-        await storeProject(project)
-        Swal.fire(
-          '¡Éxito!',
-          '!Proyecto guardado con éxito!',
-          'success'
-        )
-        router.push({ name: 'Projects' })
-    
-      } catch (error) {
-        Swal.fire(
-          'Error',
-          `${error.response.data.detail}`,
-          'error'
-        )
-      } */
-      /* showBusqueda(); */
     };
 
     const saveFiltro = async (id_doc, id_typeDoc) => {

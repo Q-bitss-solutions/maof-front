@@ -151,7 +151,6 @@ export default {
         });
       } else {
         const { data } = await fetchReviewAreas();
-        console.log("areas revisoras: ", data);
         app.listUnitsMAOF = data.map((areaRevisora) => ({
           value: areaRevisora.id,
           label: areaRevisora.nombre_unidad,

@@ -39,7 +39,6 @@ export default {
       app.loading = false
     }
     const saveUserAndRols = async (userAndRol) => {
-      console.log('userAndRol: ', userAndRol);
       try {
 
         await updateUser(userAndRol)
