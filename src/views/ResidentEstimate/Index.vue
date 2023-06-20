@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back  />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
@@ -28,6 +31,7 @@ import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
@@ -43,6 +47,7 @@ export default {
     TableBase,
     ToggleSwitch,
     DetailEstimate,
+    LogoutComponent
   },
   setup() {
     const router = useRouter()
