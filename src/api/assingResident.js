@@ -1,38 +1,36 @@
-import fetchApi from "./fetchApi"
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
+import fetchApi from "./fetchApi";
 
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
+const fetchAssingResident = () =>
+  fetchApi({
+    url: "/asignacion_residente_contrato/",
+    method: "GET",
+  });
 
-const fetchAssingResident = () => addHeader({
-  url: '/asignacion_residente_contrato/',
-  method: 'GET',
-})
+const fetchAssingResidentById = (id) =>
+  fetchApi({
+    url: `/asignacion_residente_contrato/${id}/`,
+    method: "GET",
+  });
 
-const fetchAssingResidentById = (id) => addHeader({
-  url: `/asignacion_residente_contrato/${id}/`,
-  method: 'GET',
-})
+const storeAssingResident = (AssingResident) =>
+  fetchApi({
+    url: "/asignacion_residente_contrato/",
+    method: "POST",
+    data: AssingResident,
+  });
 
-const storeAssingResident = (AssingResident) => addHeader({
-  url: '/asignacion_residente_contrato/',
-  method: 'POST',
-  data: AssingResident,
-})
-
-const updateAssingResident = (AssingResident,data) => addHeader({
-  url: `/asignacion_residente_contrato/${AssingResident.id_asignacion_residente_contrato}/`,
-  method: 'PUT',
-  data: data,
-})
-const deleteAssingResident = (AssingResident_id, data) => addHeader({
-  url: `/asignacion_residente_contrato/${AssingResident_id}/`,
-  method: 'PATCH',
-  data: data,
-})
+const updateAssingResident = (AssingResident, data) =>
+  fetchApi({
+    url: `/asignacion_residente_contrato/${AssingResident.id_asignacion_residente_contrato}/`,
+    method: "PUT",
+    data: data,
+  });
+const deleteAssingResident = (AssingResident_id, data) =>
+  fetchApi({
+    url: `/asignacion_residente_contrato/${AssingResident_id}/`,
+    method: "PATCH",
+    data: data,
+  });
 
 export {
   fetchAssingResident,
@@ -40,4 +38,4 @@ export {
   storeAssingResident,
   updateAssingResident,
   deleteAssingResident,
-}
+};

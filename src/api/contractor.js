@@ -1,16 +1,10 @@
-import fetchApi from "./fetchApi"
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
+import fetchApi from "./fetchApi";
 
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
-
-const fetchContractors = () => addHeader({
-  url: 'cat-contratista/',
-  method: 'GET',
-})
+const fetchContractors = () =>
+  fetchApi({
+    url: "cat-contratista/",
+    method: "GET",
+  });
 
 /* const fetchContractors = () => fetchApi({
   url: 'cat-contratista/',
@@ -24,6 +18,4 @@ const fetchContractors = () => addHeader({
   },
 }) */
 
-export {
-  fetchContractors,
-}
+export { fetchContractors };

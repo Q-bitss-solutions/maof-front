@@ -28,7 +28,6 @@ export default {
     const saveUserAndRols = async (userAndRol) => {
       try {
         await storeUser(userAndRol)
-        console.log('Info: ', userAndRol)
         Swal.fire(
           '¡Éxito!',
           '¡Ususario guardado con éxito!',
@@ -36,7 +35,6 @@ export default {
         )
         router.push({ name: 'UsersRolesMAOF' })
       } catch (error) {
-        console.log(error)
         Swal.fire(
           'Error',
           `${error.response.data.detail}`,

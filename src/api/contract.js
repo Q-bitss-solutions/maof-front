@@ -1,46 +1,46 @@
-import fetchApi from "./fetchApi"
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
+import fetchApi from "./fetchApi";
 
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
+const fetchContracts = () =>
+  fetchApi({
+    url: "contrato/",
+    method: "GET",
+  });
 
-const fetchContracts = () => addHeader({
-  url: 'contrato/',
-  method: 'GET',
-})
+const fetchContractStatus = () =>
+  fetchApi({
+    url: "cat-estatus-contrato/",
+    method: "GET",
+  });
 
-const fetchContractStatus = () => addHeader({
-  url: 'cat-estatus-contrato/',
-  method: 'GET',
-})
+const fetchContractById = (id) =>
+  fetchApi({
+    url: `contrato/${id}/`,
+    method: "GET",
+  });
+const fetchContractDetailById = (id) =>
+  fetchApi({
+    url: `contrato/${id}/detalle_convenios/`,
+    method: "GET",
+  });
 
-const fetchContractById = (id) => addHeader({
-  url: `contrato/${id}/`,
-  method: 'GET',
-})
-const fetchContractDetailById = (id) => addHeader({
-  url: `contrato/${id}/detalle_convenios/`,
-  method: 'GET',
-})
+const storeContract = (contract) =>
+  fetchApi({
+    url: "contrato/",
+    method: "POST",
+    data: contract,
+  });
 
-const storeContract = (contract) => addHeader({
-  url: 'contrato/',
-  method: 'POST',
-  data: contract,
-})
-
-const updateContract = (contract) => addHeader({
-  url: `contrato/${contract.id_contrato}/`,
-  method: 'PUT',
-  data: contract,
-})
-const deleteContract = (id) => addHeader({
-  url: `contrato/${id}/`,
-  method: 'DELETE',
-})
+const updateContract = (contract) =>
+  fetchApi({
+    url: `contrato/${contract.id_contrato}/`,
+    method: "PUT",
+    data: contract,
+  });
+const deleteContract = (id) =>
+  fetchApi({
+    url: `contrato/${id}/`,
+    method: "DELETE",
+  });
 
 export {
   fetchContracts,
@@ -50,4 +50,4 @@ export {
   storeContract,
   updateContract,
   deleteContract,
-}
+};

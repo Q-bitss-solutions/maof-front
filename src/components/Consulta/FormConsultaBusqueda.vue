@@ -192,8 +192,6 @@ export default {
           label: `${anioActual + i}`,
         });
       }
-
-      console.log("Años generados", app.listAnios);
     };
     const sendForm = () => {
       if (app.diasInicio !== "") {

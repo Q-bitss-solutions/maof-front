@@ -97,7 +97,6 @@ export default {
       app.userAndRols.last_name = props.userAndRols.last_name.split(' ')[0] */
       app.userAndRols.rol_maof = props.userAndRols.rol_maof_id;
       app.userAndRols.unidad_maof = props.userAndRols.unidad_maof_id;
-      console.log("app: ", app.userAndRols);
     }
     const rules = computed(() => {
       return {
@@ -152,7 +151,6 @@ export default {
         });
       } else {
         const { data } = await fetchReviewAreas();
-        console.log("areas revisoras: ", data);
         app.listUnitsMAOF = data.map((areaRevisora) => ({
           value: areaRevisora.id,
           label: areaRevisora.nombre_unidad,
@@ -198,6 +196,7 @@ export default {
       //se concatenan los apellidos en un solo campo
     };
     getRolesMAOF();
+    getUnitsAndReviewArea()
 
     return {
       app,

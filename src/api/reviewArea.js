@@ -1,37 +1,34 @@
-import fetchApi from "./fetchApi"
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
+import fetchApi from "./fetchApi";
 
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
+const fetchReviewAreas = () =>
+  fetchApi({
+    url: "/area-revisora/",
+    method: "GET",
+  });
 
-const fetchReviewAreas = () => addHeader({
-  url: '/area-revisora/',
-  method: 'GET',
-})
+const fetchReviewAreaById = (id) =>
+  fetchApi({
+    url: `/area-revisora/${id}/`,
+    method: "GET",
+  });
 
-const fetchReviewAreaById = (id) => addHeader({
-  url: `/area-revisora/${id}/`,
-  method: 'GET',
-})
+const storeReviewArea = (reviewArea) =>
+  fetchApi({
+    url: "/area-revisora/",
+    method: "POST",
+    data: reviewArea,
+  });
 
-const storeReviewArea = (reviewArea) => addHeader({
-  url: '/area-revisora/',
-  method: 'POST',
-  data: reviewArea,
-})
-
-const updateReviewArea = (reviewArea) => addHeader({
-  url: `/area-revisora/${reviewArea.clave_unidad}/`,
-  method: 'PUT',
-  data: reviewArea,
-})
+const updateReviewArea = (reviewArea) =>
+  fetchApi({
+    url: `/area-revisora/${reviewArea.clave_unidad}/`,
+    method: "PUT",
+    data: reviewArea,
+  });
 
 export {
   fetchReviewAreas,
   fetchReviewAreaById,
   storeReviewArea,
   updateReviewArea,
-}
+};
