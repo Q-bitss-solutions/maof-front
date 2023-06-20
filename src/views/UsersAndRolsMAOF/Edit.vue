@@ -36,8 +36,6 @@ export default {
       app.loading = true
       const { data } = await fetchUserById(route.params.userRolMAOFId)
       app.userAndRols = data
-      console.log('data: ', data);
-      console.log('app.user: ', app.userAndRols);
       app.loading = false
     }
     const saveUserAndRols = async (userAndRol) => {
