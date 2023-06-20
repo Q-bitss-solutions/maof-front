@@ -1,13 +1,20 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
+
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchSICTUnits = () =>
-  fetchApi({
+  addHeader({
     url: "cat-unidad-maof/",
     method: "GET",
   });
 
 const fetchSICTUnitsActive = () =>
-  fetchApi({
+  addHeader({
     url: "cat-unidad-maof/",
     method: "GET",
     params: {
@@ -16,26 +23,26 @@ const fetchSICTUnitsActive = () =>
   });
 
 const fetchSICTUnitsById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/cat-unidad-maof/${id}/`,
     method: "GET",
   });
 
 const storeSICTUnits = (unit) =>
-  fetchApi({
+  addHeader({
     url: "/cat-unidad-maof/",
     method: "POST",
     data: unit,
   });
 
 const updateSICTUnits = (unit) =>
-  fetchApi({
+  addHeader({
     url: `/cat-unidad-maof/${unit.id_unidad_maof}/`,
     method: "PUT",
     data: unit,
   });
 const deleteSICTUnits = (id_unidad_maof) =>
-  fetchApi({
+  addHeader({
     url: `/cat-unidad-maof/${id_unidad_maof}/`,
     method: "DELETE",
   });

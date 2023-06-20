@@ -96,10 +96,9 @@ export default {
         año_estimacion,
         estatus_estimacion,
         unidad_maof,
-        dias_transcurridos,
-        fechas_autorizacion
       } = app.busqueda;
-
+      const { diasInicio,
+      diasFin} = app
       return (
         !id_contrato &&
         !id_residente &&
@@ -107,8 +106,8 @@ export default {
         !año_estimacion &&
         !estatus_estimacion &&
         !unidad_maof &&
-        dias_transcurridos.length === 0 &&
-        fechas_autorizacion.length === 0
+        !diasInicio &&
+        !diasFin 
       );
     });
     const getC_CC_CM = async () => {
