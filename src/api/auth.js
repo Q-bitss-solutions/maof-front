@@ -6,7 +6,12 @@ const loginUser = (user) => fetchApi({
   method: 'POST',
   data: user,
 })
+const logout = () => fetchApi({
+  url: 'user/logout',
+  method: 'POST',
+})
 
 export {
   loginUser,
+  logout,
 }
