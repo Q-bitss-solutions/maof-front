@@ -9,7 +9,6 @@
       <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/>
     </section>
   </main>
-import LogoutComponent from '../../components/LogoutComponent.vue'
 </template>
 
 <script>
