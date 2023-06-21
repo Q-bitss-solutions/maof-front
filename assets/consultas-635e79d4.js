@@ -1,0 +1,1 @@
+import{j as t}from"./index-9c7881ce.js";const e=t("consultas",{state:()=>({filtros:{pendientes:[],pagados:[],total:[]},busqueda:[]}),actions:{addPendientes(s){this.filtros.pendientes=s},addPagados(s){this.filtros.pagados=s},addTotal(s){this.filtros.total=s},addBusqueda(s){this.busqueda=s}},getters:{}});export{e as c};
