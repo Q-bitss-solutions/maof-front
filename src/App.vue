@@ -1,7 +1,9 @@
 <template>
   <div>
     <header-component/>
-    <router-view  class="pb-24 min-h-screen"/>
+    <div class="pb-24 h-auto">
+      <router-view />
+    </div>
     <footer-component />
   </div>
 </template>
