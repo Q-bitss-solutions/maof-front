@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back  />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Unidades MAOF" subtitle="Inicio" />
     <section class="px-4">
@@ -22,6 +25,7 @@ import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'UnitMAOFIndex',
@@ -31,6 +35,7 @@ export default {
     HomePage,
     ButtonBase,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const router = useRouter()

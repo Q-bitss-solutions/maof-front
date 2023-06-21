@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Usuarios y Roles MAOF" subtitle="Nuevo" />
     <section class="px-4">
       <form-users-and-rols-m-a-o-f @submit="saveUserAndRols" />
@@ -15,6 +18,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import { storeUser } from './../../api/users'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'NewUnitMAOF',
@@ -22,6 +26,7 @@ export default {
     FormUsersAndRolsMAOF,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const router = useRouter()

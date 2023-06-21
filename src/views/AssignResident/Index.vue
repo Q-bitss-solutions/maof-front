@@ -2,11 +2,14 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <home-page />
+      <div>
+        <home-page />
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Asignación Residente" subtitle="Inicio" />
     <section class="px-4">
-      <button-base label="Nueva  Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
+      <button-base label="Nueva Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
       <table-base :options="featureOptions" :headers="headers" :data="assingResident" />
     </section>
   </main>
@@ -21,6 +24,7 @@ import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'AssignResidentIndex',
@@ -30,6 +34,7 @@ export default {
     HomePage,
     ButtonBase,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const router = useRouter()

@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Totales" />
     <section class="px-4">
@@ -48,6 +51,7 @@ import { useRouter, useRoute } from "vue-router";
 import Swal from "sweetalert2";
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from '../../store/consultas';
+import LogoutComponent from "../../components/LogoutComponent.vue";
 export default {
   name: "ConsultaPendientes",
   components: {
@@ -58,6 +62,7 @@ export default {
     TitleBar,
     DetailEstimate,
     ToggleSwitch,
+    LogoutComponent
   },
   setup() {
     const app = ref({

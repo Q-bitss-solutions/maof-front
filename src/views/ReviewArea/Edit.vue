@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Áreas revisoras" subtitle="Editar" />
     <section class="px-4">
       <form-review-area @submit="saveReviewArea" :reviewArea="app.reviewArea" edit-mode v-if="!app.loading" />
@@ -15,6 +18,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import { updateReviewArea, fetchReviewAreaById } from '../../api/reviewArea'
 import { reactive } from 'vue'
 import { useRoute } from 'vue-router'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditReviewArea',
@@ -22,6 +26,7 @@ export default {
     FormReviewArea,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()
