@@ -35,7 +35,8 @@
       type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista"
       :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
     <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
-      v-model="app.fecha_autorizacion_contratista" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
+      v-model="app.fecha_autorizacion_contratista"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
     <span v-if="v$.fecha_autorizacion_contratista.$error" v-for="error in v$.fecha_autorizacion_contratista.$errors"
       :key="error" class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
@@ -49,14 +50,16 @@
       </div>
       <div>
         <input-base id="fecha_periodo_fin_estimacion" label="al" type="date" class="pt-2"
-          v-model="app.fecha_periodo_fin_estimacion" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
+          v-model="app.fecha_periodo_fin_estimacion"
+          :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
       </div>
     </div>
     <input-base id="importe_obra_ejecutada" label="Importe de la obra ejecutada" type="number" class="mb-3"
       v-model="app.residentEstimate.importe_obra_ejecutada"
       :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
     <input-base id="importe_pagar" label="Importe a pagar" type="number" class="mb-3"
-      v-model="app.residentEstimate.importe_pagar" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
+      v-model="app.residentEstimate.importe_pagar"
+      :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' || rol != 'Residente'" />
 
     <input-base id="grado_avance_obra" label="% de grado de avance" type="number" class="mb-3"
       v-model="app.residentEstimate.grado_avance_obra"
@@ -101,7 +104,8 @@
   </div>
 
   <!-- Actions Residente -->
-  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Residente' && rol == 'Residente'">
+  <div class="flex justify-between items-center py-4"
+    v-if="app.residentEstimate.estatus_semaforo === 'Residente' && rol == 'Residente'">
     <button-base label="Inactivar Estimación" class="px-4" @click="deleteForm" v-if="app.residentEstimate.estatus_estimacion === 'Capturada por Residente' ||
       app.residentEstimate.estatus_estimacion === 'Autorizada por Residente'
       " />
@@ -109,13 +113,15 @@
     <button-base label="Enviar al área revisora" class="px-4" @click="changeStatus(STATUS.sendReviewArea)" />
   </div>
   <!-- Actions Area Revisora -->
-  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora' && rol.includes('Área revisora')">
+  <div class="flex justify-between items-center py-4"
+    v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora' && rol.includes('Área revisora')">
     <button-base label="Regresar a  Residente" class="px-4" @click="changeStatus(STATUS.returnToResident)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
     <button-base label="Enviar a finanzas" class="px-4" @click="changeStatus(STATUS.sendFinance)" />
   </div>
   <!-- Actions Finanzas -->
-  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas' && rol.includes('Finanzas')">
+  <div class="flex justify-between items-center py-4"
+    v-if="app.residentEstimate.estatus_semaforo === 'Finanzas' && rol.includes('Finanzas')">
     <button-base label="Regresar al área revisora" class="px-4" @click="changeStatus(STATUS.returnToReviewArea)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
     <button-base label="Enviar a trámite de pago" class="px-4" @click="changeStatus(STATUS.sendToPaymentProcess)" />
@@ -139,7 +145,6 @@ import ButtonBase from "../ButtonBase.vue";
 import SelectBase from "../SelectBase.vue";
 import TextAreaBase from "../TextAreaBase.vue";
 import {
-  sendToReviewArea,
   updateResidentEstimate,
   deleteResidentEstimate,
   sendNewStatus,
@@ -540,5 +545,4 @@ input[id="fecha_periodo_inicio_estimacion"] {
 
 .numEstimacion {
   width: auto;
-}
-</style>
+}</style>

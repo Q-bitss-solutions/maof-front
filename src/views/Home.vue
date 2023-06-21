@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-end pt-10">
-    <logout-component/>
+    <logout-component />
   </div>
   <div class=" flex flex-col px-4 h-[39vh]">
     <div class="flex ">
@@ -43,9 +43,10 @@ import InputBase from '../components/InputBase.vue';
 import SelectBase from '../components/SelectBase.vue';
 import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
+import LogoutComponent from '../components/LogoutComponent.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
-import LogoutComponent from '../components/LogoutComponent.vue';
+import { auth } from '../store/auth'
 
 export default {
   name: 'Home',
@@ -55,7 +56,7 @@ export default {
     TableBase,
     SelectBase,
     LogoutComponent
-},
+  },
   /*  mounted() {
      if (localStorage.getItem('acces') != null) {
        router.push({ name: 'NewUnitMAOF' })
@@ -65,6 +66,8 @@ export default {
    }, */
   setup() {
     const router = useRouter()
+    const store = auth()
+    const { access } = store.getAuthData
     const menu = [
       {
         labelMenu: 'Consulta',
@@ -164,7 +167,6 @@ export default {
       return indexActiveSubmenu2.value = index
     }
     const logIn = () => {
-      const access = localStorage.getItem('access')
       if (access === null) {
         router.push({ name: 'Login' })
       }
@@ -173,10 +175,10 @@ export default {
     logIn()
     return {
       menu,
-      showSubmenu,
-      showSubmenu2,
       indexActiveSubmenu,
       indexActiveSubmenu2,
+      showSubmenu,
+      showSubmenu2,
       goToRoute,
       logIn,
     }
