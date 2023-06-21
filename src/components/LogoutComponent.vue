@@ -9,32 +9,27 @@
 </template>
 
 <script setup>
-    import { useRouter } from 'vue-router'
-    import { logout } from '../api/auth'
-    import { auth } from "../store/auth";
+import { logout } from '../api/auth'
+import { auth } from "../store/auth";
 
-    const router = useRouter()
-    const store = auth();
+const store = auth();
 
-    const logoutUser = async () => {
-      try {
+const logoutUser = async () => {
+    try {
         // await logout()
         await store.clearInfo()
         store.clearLocalStore()
-        goLogin()
+        location.reload();
 
-      } catch (error) {
+    } catch (error) {
         console.log('error: ', error)
 
-      }
-    };
+    }
+};
 
-    const goLogin = () => {
-        router.push({ name: 'Login' });
-    };
 
 </script>
 <style scoped>
-    @import  "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 </style>
   
