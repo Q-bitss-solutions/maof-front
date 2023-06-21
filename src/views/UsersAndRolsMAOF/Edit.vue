@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Usuarios y Roles MAOF" subtitle="Editar" />
     <section class="px-4">
       <form-users-and-rols-m-a-o-f @submit="saveUserAndRols" :userAndRols="app.userAndRols" edit-mode
@@ -17,6 +20,7 @@ import { updateUser, fetchUserById } from './../../api/users'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditUnitMAOF',
@@ -24,6 +28,7 @@ export default {
     FormUsersAndRolsMAOF,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()
@@ -36,12 +41,9 @@ export default {
       app.loading = true
       const { data } = await fetchUserById(route.params.userRolMAOFId)
       app.userAndRols = data
-      console.log('data: ', data);
-      console.log('app.user: ', app.userAndRols);
       app.loading = false
     }
     const saveUserAndRols = async (userAndRol) => {
-      console.log('userAndRol: ', userAndRol);
       try {
 
         await updateUser(userAndRol)

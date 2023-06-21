@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Unidades MAOF" subtitle="Editar" />
     <section class="px-4">
       <form-units-m-a-o-f @submit="saveUnit" :unit="app.unit" edit-mode v-if="!app.loading" />
@@ -16,6 +19,7 @@ import { updateSICTUnits, fetchSICTUnitsById } from './../../api/SICTUnits'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditUnitMAOF',
@@ -23,6 +27,7 @@ export default {
     FormUnitsMAOF,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()

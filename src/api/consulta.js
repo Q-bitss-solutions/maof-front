@@ -1,12 +1,13 @@
 import fetchApi from "./fetchApi";
 import { getHeaders } from "../utils/headerToken";
 const header = getHeaders();
-//Filtros
 
 const addHeader = (request) => {
   const headers = header;
   return fetchApi({ ...request, headers });
 };
+
+//Filtros
 
 const fetchFiltroAll = (params) =>
   addHeader({

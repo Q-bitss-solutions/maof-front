@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Pagadas" />
     <section class="px-4">
@@ -30,6 +33,7 @@ import { useRouter, useRoute } from 'vue-router'
 import Swal from 'sweetalert2'
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from '../../store/consultas';
+import LogoutComponent from '../../components/LogoutComponent.vue';
 export default {
   name: 'ConsultasPagadosMAOF',
   components: {
@@ -39,6 +43,7 @@ export default {
     ButtonBase,
     TitleBar,
     DetailEstimate,
+    LogoutComponent
   },
   setup() {
     const app = ref({
@@ -112,14 +117,11 @@ export default {
         label: 'Detalles',
         action: async (residentEstimate) => {
           detalleEstimacion.value = !detalleEstimacion.value
-          console.log(residentEstimate);
           const { data } = await fetchResidentEstimateById(residentEstimate.id_estimacion)
           data.fecha_recepcion_info_contratista = data.fecha_recepcion_info_contratista.split(" ")[0]
           data.fecha_periodo_inicio_estimacion = data.fecha_periodo_inicio_estimacion.split(" ")[0]
           data.fecha_periodo_fin_estimacion = data.fecha_periodo_fin_estimacion.split(" ")[0]
           detalleEstimacionData.value = data
-          console.log('data: ', data)
-          console.log('detalleEstimacionData: ', detalleEstimacionData)
         }
       },
       {
@@ -166,8 +168,6 @@ export default {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true
       app.value.pagados = store.filtros.pagados
-      console.log(store.filtros.pagados);
-      console.log('Valor del parámetro:', app.value.pagados);
       app.value.loading = false
     }
     getQuery()

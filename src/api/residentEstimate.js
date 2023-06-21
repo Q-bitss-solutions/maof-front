@@ -98,7 +98,7 @@ const sendToReviewArea = (residentEstimate) =>
     data: residentEstimate,
   });
 
-const sendNewStatus = (id_estimacion,params) =>
+const sendNewStatus = (id_estimacion, params) =>
   addHeader({
     url: `/estimacion_residente/${id_estimacion}/cambiar_estatus_estimacion/`,
     method: "PUT",
@@ -106,15 +106,11 @@ const sendNewStatus = (id_estimacion,params) =>
     /* data: residentEstimate, */
   });
 
-
-
 const catStatusEstimate = () =>
   addHeader({
     url: `/cat_estatus_estimacion/`,
     method: "GET",
   });
-
-
 
 export {
   fetchResidentEstimate,

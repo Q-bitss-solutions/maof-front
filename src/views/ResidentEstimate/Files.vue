@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
       <div class=" flex flex-row justify-between">
@@ -20,7 +23,22 @@
         </div>
       </div>
       <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="app.data.estatus_estimacion !== 'Pagada'" />
-      <table-base :options="featureOptions" :headers="headers" :data="filesById" />
+      <div v-if="filesResidente.length" class="flex flex-col py-px">
+        <banner title="Documentos de Residente" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" />
+      </div>
+      <div v-if="filesAreaRevisora.length">
+        <banner title="Documentos de Área Revisora" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora" />
+      </div>
+      <div v-if="filesFinanzas.length">
+        <banner title="Documentos de Finanzas" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" />
+      </div>
+      <div v-if="filesDGPOP.length">
+        <banner title="Documentos de Registro de Pago" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" />
+      </div>
     </section>
   </main>
 </template>
@@ -33,10 +51,12 @@ import TitleBar from '../../components/TitleBar.vue'
 import InputBase from '../../components/InputBase.vue'
 import TableBase from '../../components/TableBase.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 import { fetchResidentEstimateById, archivoResidentEstimate, fetchArchivoResidentEstimateById, deleteArchivoResidentEstimate } from '../../api/residentEstimate'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import Banner from '../../components/Banner.vue'
 
 export default {
   name: 'FilesResidentEstimate',
@@ -47,6 +67,8 @@ export default {
     InputBase,
     TableBase,
     ButtonBase,
+    Banner,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()
@@ -57,7 +79,7 @@ export default {
         field: 'id_archivo_estimacion',
       },
       {
-        label: 'Documentos Residente',
+        label: 'Nombre Archivo',
         field: 'ruta_archivo_residente',
       },
       {
@@ -74,8 +96,16 @@ export default {
       data: {},
       filesById: [],
       loading: true,
+      filesResidente: [],
+      filesAreaRevisora: [],
+      filesFinanzas: [],
+      filesDGPOP: [],
     })
     const filesById = ref([])
+    const filesResidente = ref([])
+    const filesAreaRevisora = ref([])
+    const filesFinanzas = ref([])
+    const filesDGPOP = ref([])
     const getResidentEstimateById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
@@ -88,6 +118,22 @@ export default {
     const getDocumentsResidentEstimateById = async () => {
       const { data } = await fetchArchivoResidentEstimateById(app.file.id_estimacion)
       filesById.value = data
+            
+      if(data.residente) {
+        filesResidente.value = data.residente;
+      }
+
+      if(data.area_Revisora) {
+        filesAreaRevisora.value = data.area_Revisora;
+      }
+
+      if(data.finanzas) {
+        filesFinanzas.value = data.finanzas;
+      }
+
+      if(data.dgpop) {
+        filesDGPOP.value = data.dgpop;
+      }
     }
     const saveResident = async (resident) => {
       await updateResident(resident)
@@ -239,6 +285,10 @@ export default {
       formData,
       headers,
       fileUpload,
+      filesResidente,
+      filesAreaRevisora,
+      filesDGPOP,
+      filesFinanzas,
     }
   },
 }

@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="BusquedaResult" />
     <section class="px-4">
@@ -31,7 +34,8 @@ import DetailEstimate from "../../components/ResidentEstimate/DetailEstimate.vue
 import { useRouter, useRoute } from "vue-router";
 import Swal from "sweetalert2";
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
-import { consultas } from '../../store/consultas';
+import { consultas } from "../../store/consultas";
+import LogoutComponent from "../../components/LogoutComponent.vue";
 export default {
   name: "ConsultasBusquedaMAOF",
   components: {
@@ -42,11 +46,11 @@ export default {
     TitleBar,
     DetailEstimate,
     ToggleSwitch,
+    LogoutComponent
   },
   setup() {
     const app = ref({
-      busqueda: {
-      },
+      busqueda: {},
       loading: true,
     });
     const headers = [
@@ -116,7 +120,6 @@ export default {
         label: "Detalles",
         action: async (residentEstimate) => {
           detalleEstimacion.value = !detalleEstimacion.value;
-          console.log(residentEstimate);
           const { data } = await fetchResidentEstimateById(
             residentEstimate.id_estimacion
           );
@@ -127,8 +130,6 @@ export default {
           data.fecha_periodo_fin_estimacion =
             data.fecha_periodo_fin_estimacion.split(" ")[0];
           detalleEstimacionData.value = data;
-          console.log("data: ", data);
-          console.log("detalleEstimacionData: ", detalleEstimacionData);
         },
       },
       {
@@ -174,11 +175,13 @@ export default {
       procesoVariable = !procesoVariable;
       if (procesoVariable === true) {
         app.value.loading = true;
-        app.value.busqueda = app.value.busqueda.filter(item => item.estatus_semaforo !== "Pago Efectuado");
+        app.value.busqueda = app.value.busqueda.filter(
+          (item) => item.estatus_semaforo !== "Pago Efectuado"
+        );
         app.value.loading = false;
       }
       if (procesoVariable === false) {
-        getQuery()
+        getQuery();
       }
     };
     const goToNewResidentEstimate = () =>

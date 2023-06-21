@@ -2,13 +2,16 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back  />
-      <home-page />
+      <div>
+        <home-page/>
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
-        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
+        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" v-if="rol == 'Residente'"/>
         <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
@@ -28,9 +31,11 @@ import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'ResidentEstimateIndex',
@@ -43,8 +48,11 @@ export default {
     TableBase,
     ToggleSwitch,
     DetailEstimate,
+    LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const router = useRouter()
     const headers = [
       {
@@ -185,6 +193,7 @@ export default {
       procesoVariable,
       detalleEstimacionData,
       detalleEstimacion,
+      rol
     }
   },
 }

@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Convenio Modificatorio" subtitle="Editar" />
     <section class="px-4">
       <form-amending-agreement @submit="saveAmendingAgreement" :amendingAgreement="app.amendingAgreement" edit-mode
@@ -17,6 +20,7 @@ import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditAmendingAgreement',
@@ -24,6 +28,7 @@ export default {
     FormAmendingAgreement,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()

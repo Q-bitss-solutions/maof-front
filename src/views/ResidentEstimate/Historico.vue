@@ -102,7 +102,6 @@ export default {
     const getResidentById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
-      console.log(data)
       app.residentEstimate = data
       app.fecha_recepcion_info_contratista = data.fecha_recepcion_info_contratista.split(" ")[0]
       app.fecha_periodo_inicio_estimacion = data.fecha_periodo_inicio_estimacion.split(" ")[0]
@@ -112,9 +111,7 @@ export default {
     const getHistoryById = async () => {
       app.loading = true
       const { data } = await fetchHistoryResidentEstimateById(route.params.residentEstimateId)
-      console.log('HIstorico: ', data)
       app.residentEstimateHistory = data
-      console.log('app.residentEstimateHistory: ', app.residentEstimateHistory)
       app.loading = false
     }
     const saveResident = async (resident) => {

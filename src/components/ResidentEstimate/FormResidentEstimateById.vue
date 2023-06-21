@@ -84,6 +84,7 @@ import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers, minValue, maxValue } from '@vuelidate/validators'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'FormResidentEstimate',
@@ -104,6 +105,9 @@ export default {
     TextAreaBase,
   },
   setup(props) {
+    const authStore = auth();
+
+    const { rol } = authStore.getAuthData;
     const router = useRouter()
     const app = reactive({
       residentEstimate: {
@@ -256,6 +260,7 @@ export default {
       app,
       sendForm,
       v$,
+      rol
     }
   },
 }

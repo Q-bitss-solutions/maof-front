@@ -1,7 +1,11 @@
-import axios from 'axios'
+import axios from "axios";
 
-const API = import.meta.env.VITE_API
+const API = import.meta.env.VITE_API;
 
-export default axios.create({
+const axiosInstance = axios.create({
   baseURL: API,
-})
+});
+
+axiosInstance.defaults.headers.common["Content-Type"] = `application/json`;
+
+export default axiosInstance;

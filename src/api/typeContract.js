@@ -1,4 +1,4 @@
-import fetchApi from "./fetchApi"
+import fetchApi from "./fetchApi";
 import { getHeaders } from "../utils/headerToken";
 const header = getHeaders();
 
@@ -7,12 +7,10 @@ const addHeader = (request) => {
   return fetchApi({ ...request, headers });
 };
 
-const fetchTypeContracts = () => addHeader({
-  url: '/cat-tipo-contrato/',
-  method: 'GET',
-})
+const fetchTypeContracts = () =>
+  addHeader({
+    url: "/cat-tipo-contrato/",
+    method: "GET",
+  });
 
-
-export {
-  fetchTypeContracts,
-}
+export { fetchTypeContracts };

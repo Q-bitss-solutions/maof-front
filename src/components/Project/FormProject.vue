@@ -47,8 +47,6 @@ export default {
     })
     if (props.editMode) {
       app.project = props.project
-      console.log(props.project)
-
       app.project.fecha_inicio_proyecto = props.project.fecha_inicio_proyecto.split('-').reverse().join('-')
       if (app.project.fecha_fin_proyecto === null) {
         app.project.fecha_fin_proyecto = ''
