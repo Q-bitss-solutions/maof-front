@@ -11,7 +11,9 @@
 <script setup>
 import { logout } from '../api/auth'
 import { auth } from "../store/auth";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const store = auth();
 
 const logoutUser = async () => {
@@ -19,7 +21,7 @@ const logoutUser = async () => {
         // await logout()
         await store.clearInfo()
         store.clearLocalStore()
-        location.reload();
+        router.push({ name: 'Login' })
 
     } catch (error) {
         console.log('error: ', error)
