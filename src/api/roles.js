@@ -1,33 +1,40 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
+
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchRoles = () =>
-  fetchApi({
+  addHeader({
     url: "/cat_rol_maof/",
     method: "GET",
   });
 
 const fetchRolesById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/cat_rol_maof/${id}/`,
     method: "GET",
   });
 
 const storeRoles = (Roles) =>
-  fetchApi({
+  addHeader({
     url: "/cat_rol_maof/",
     method: "POST",
     data: Roles,
   });
 
 const updateRoles = (Roles) =>
-  fetchApi({
+  addHeader({
     url: `/cat_rol_maof/${Roles.id_proyecto}/`,
     method: "PUT",
     data: Roles,
   });
 
 const deleteRoles = (id) =>
-  fetchApi({
+  addHeader({
     url: `/cat_rol_maof/${id}/`,
     method: "DELETE",
   });

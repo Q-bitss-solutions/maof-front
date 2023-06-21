@@ -1,32 +1,39 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
+
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchResident = () =>
-  fetchApi({
+  addHeader({
     url: "/cat_residente/",
     method: "GET",
   });
 
 const fetchResidentById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/cat_residente/${id}/`,
     method: "GET",
   });
 
 const storeResident = (resident) =>
-  fetchApi({
+  addHeader({
     url: "/cat_residente/",
     method: "POST",
     data: resident,
   });
 
 const updateResident = (resident) =>
-  fetchApi({
+  addHeader({
     url: `/cat_residente/${resident.id_residente}/`,
     method: "PUT",
     data: resident,
   });
 const deleteResident = (id_residente) =>
-  fetchApi({
+  addHeader({
     url: `/cat_residente/${id_residente}/`,
     method: "DELETE",
   });

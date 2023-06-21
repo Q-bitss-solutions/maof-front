@@ -1,26 +1,33 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
+
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchReviewAreas = () =>
-  fetchApi({
+  addHeader({
     url: "/area-revisora/",
     method: "GET",
   });
 
 const fetchReviewAreaById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/area-revisora/${id}/`,
     method: "GET",
   });
 
 const storeReviewArea = (reviewArea) =>
-  fetchApi({
+  addHeader({
     url: "/area-revisora/",
     method: "POST",
     data: reviewArea,
   });
 
 const updateReviewArea = (reviewArea) =>
-  fetchApi({
+  addHeader({
     url: `/area-revisora/${reviewArea.clave_unidad}/`,
     method: "PUT",
     data: reviewArea,

@@ -2,7 +2,7 @@
   <div class="flex justify-end pt-10">
     <logout-component/>
   </div>
-  <div class=" flex flex-col px-4 min-h-screen">
+  <div class=" flex flex-col px-4 h-[39vh]">
     <div class="flex ">
       <div v-for="(item, index) in menu" :key="index">
         <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
@@ -183,8 +183,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-.min-h-screen {
-    min-height: 55vh;
-}
-</style>

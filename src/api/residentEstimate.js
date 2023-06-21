@@ -1,51 +1,57 @@
 import fetchApi from "./fetchApi";
+import { getHeaders } from "../utils/headerToken";
+const header = getHeaders();
 
+const addHeader = (request) => {
+  const headers = header;
+  return fetchApi({ ...request, headers });
+};
 
 const fetchResidentEstimate = () =>
-  fetchApi({
+  addHeader({
     url: "/estimacion_residente/",
     method: "GET",
   });
 
 const fetchResidentEstimateById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${id}/`,
     method: "GET",
   });
 const fetchHistoryResidentEstimateById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${id}/historial_estimacion/`,
     method: "GET",
   });
 
 const storeResidentEstimate = (residentEstimate) =>
-  fetchApi({
+  addHeader({
     url: "/estimacion_residente/",
     method: "POST",
     data: residentEstimate,
   });
 
 const updateResidentEstimate = (residentEstimate) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${residentEstimate.id_estimacion}/`,
     method: "PUT",
     data: residentEstimate,
   });
 
 const deleteResidentEstimate = (observacion, id_estimacion) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${id_estimacion}/`,
     method: "PATCH",
     data: observacion,
   });
 const archivoResidentEstimate = (fileData) =>
-  fetchApi({
+  addHeader({
     url: `/archivo_estimacion/`,
     method: "POST",
     data: fileData,
   });
 const fetchArchivoResidentEstimateById = (id) =>
-  fetchApi({
+  addHeader({
     url: `/archivo_estimacion/`,
     method: "GET",
     params: {
@@ -55,19 +61,19 @@ const fetchArchivoResidentEstimateById = (id) =>
   });
 
 const deleteArchivoResidentEstimate = (id_archivo_estimacion) =>
-  fetchApi({
+  addHeader({
     url: `/archivo_estimacion/${id_archivo_estimacion}/`,
     method: "DELETE",
   });
 
 const fetchResidentEstimateHojaViajera = () =>
-  fetchApi({
+  addHeader({
     url: "/estimacion_residente/hoja_viajera/",
     method: "GET",
   });
 
 const fetchResidentEstimateHojaViajeraActivos = () =>
-  fetchApi({
+  addHeader({
     url: "/estimacion_residente/hoja_viajera/",
     method: "GET",
     params: {
@@ -76,7 +82,7 @@ const fetchResidentEstimateHojaViajeraActivos = () =>
   });
 
 const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/hoja_viajera/`,
     method: "GET",
     params: {
@@ -86,14 +92,14 @@ const fetchResidentEstimateHojaViajeraInProgress = (estatus_estimacion) =>
   });
 //Endpoints Funcion Semaforo
 const sendToReviewArea = (residentEstimate) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${residentEstimate.id_estimacion}/enviar_area_revisora/`,
     method: "PUT",
     data: residentEstimate,
   });
 
 const sendNewStatus = (id_estimacion, params) =>
-  fetchApi({
+  addHeader({
     url: `/estimacion_residente/${id_estimacion}/cambiar_estatus_estimacion/`,
     method: "PUT",
     params: params ? params : {},
@@ -101,7 +107,7 @@ const sendNewStatus = (id_estimacion, params) =>
   });
 
 const catStatusEstimate = () =>
-  fetchApi({
+  addHeader({
     url: `/cat_estatus_estimacion/`,
     method: "GET",
   });

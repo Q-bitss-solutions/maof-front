@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { parseToken, startLogoutTimer } from "../utils/refreshToken";
 
 const routes = [
   {
@@ -354,15 +355,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta.requiresAuth; // Verificar si la ruta requiere autenticación
-  const access =
-    localStorage.getItem(
-      "access"
-    ); /* verifica si el usuario tiene un token válido */
+  const access = localStorage.getItem("access"); /* verifica si el usuario tiene un token válido */
+
   if (requiresAuth && !access) {
     // Redireccionar al componente de inicio de sesión
     next({ name: "Login" });
+  } else if (access) {
+    //Acciones para el tokenRefresh
+    const refreshToken = parseToken(localStorage.getItem("access"));
+    startLogoutTimer(refreshToken.exp);
+    next();
   } else {
-    // Permitir el acceso a la ruta
     next();
   }
 });
