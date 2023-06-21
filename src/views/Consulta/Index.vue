@@ -2,7 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <home-page />
+      <div>
+        <home-page />
+        <logout-component/>
+      </div>
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
@@ -52,6 +55,7 @@ import { fetchFiltroAll, fetchBusqueda } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
 import Filtro from "../../components/Consulta/Filtro.vue";
 import Busqueda from "../../components/Consulta/Busqueda.vue";
+import LogoutComponent from "../../components/LogoutComponent.vue";
 
 export default {
   name: "UsersRolesMAOFIndex",
@@ -65,6 +69,7 @@ export default {
     FormConsultaBusqueda,
     Filtro,
     Busqueda,
+    LogoutComponent
   },
   setup() {
     const router = useRouter();

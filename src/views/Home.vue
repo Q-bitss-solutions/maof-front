@@ -1,5 +1,8 @@
 <template>
-  <div class=" flex flex-col px-4 pt-20 min-h-screen">
+  <div class="flex justify-end pt-10">
+    <logout-component/>
+  </div>
+  <div class=" flex flex-col px-4 min-h-screen">
     <div class="flex ">
       <div v-for="(item, index) in menu" :key="index">
         <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
@@ -42,6 +45,7 @@ import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
+import LogoutComponent from '../components/LogoutComponent.vue';
 
 export default {
   name: 'Home',
@@ -50,7 +54,8 @@ export default {
     ButtonBase,
     TableBase,
     SelectBase,
-  },
+    LogoutComponent
+},
   /*  mounted() {
      if (localStorage.getItem('acces') != null) {
        router.push({ name: 'NewUnitMAOF' })

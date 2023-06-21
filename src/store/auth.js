@@ -34,12 +34,12 @@ export const auth = defineStore("auth", {
     }
   },
   getters: {
-    getAuthData() {
+    getAuthData(state) {
       return {
-        access: this.access,
-        id_empleado: this.id_empleado,
-        rol: this.rol,
-        refresh: this.refresh
+        access: state.access,
+        id_empleado: state.id_empleado,
+        rol: state.rol,
+        refresh: state.refresh
       };
     }
   },

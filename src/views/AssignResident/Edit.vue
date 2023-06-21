@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Asignación Residente" subtitle="Editar" />
     <section class="px-4">
       <form-assign-resident @submit="saveAssingResident" :assingResident="app.assingResident" edit-mode
@@ -17,6 +20,7 @@ import { updateAssingResident, fetchAssingResidentById } from '../../api/assingR
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 
 export default {
@@ -25,6 +29,7 @@ export default {
     FormAssignResident,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()

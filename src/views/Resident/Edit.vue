@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Residente" subtitle="Editar" />
     <section class="px-4">
       <form-resident @submit="saveResident" :resident="app.resident" edit-mode v-if="!app.loading" />
@@ -16,6 +19,7 @@ import { updateResident, fetchResidentById } from '../../api/resident'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditResident',
@@ -23,6 +27,7 @@ export default {
     FormResident,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()

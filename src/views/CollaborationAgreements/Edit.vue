@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Contratos y Convenios de colaboración" subtitle="Editar" />
     <section class="px-4">
       <form-collaboration-agreements @submit="saveCollaborationAgreement"
@@ -17,6 +20,7 @@ import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'EditCollaborationAgreement',
@@ -24,6 +28,7 @@ export default {
     FormCollaborationAgreements,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()

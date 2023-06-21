@@ -1,6 +1,9 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <logout-component/>
+    </div>
     <title-bar title="Proyectos" subtitle="Editar" />
     <section class="px-4">
       <form-project @submit="saveProject" :project="app.project" edit-mode v-if="!app.loading" />
@@ -16,6 +19,7 @@ import { updateProject, fetchProjectById } from '../../api/project'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 
 export default {
@@ -24,6 +28,7 @@ export default {
     FormProject,
     ArrowBack,
     TitleBar,
+    LogoutComponent
   },
   setup() {
     const route = useRoute()
