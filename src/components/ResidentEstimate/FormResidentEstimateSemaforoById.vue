@@ -127,7 +127,7 @@
     <button-base label="Enviar a trámite de pago" class="px-4" @click="changeStatus(STATUS.sendToPaymentProcess)" />
   </div>
   <!-- Actions Tramite de pagos -->
-  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP'">
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'DGPOP' && rol.includes('Finanzas')">
     <button-base label="Regresar a Finanzas" class=" px-4" @click="changeStatus(STATUS.returnToFinance)" />
     <button-base label="Cancelar" class=" px-4" @click="back" />
     <button-base label="Registrar Pago" class=" px-4" @click="changeStatus(STATUS.savePayment)" />
