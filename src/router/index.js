@@ -27,6 +27,7 @@ const routes = [
     component: () => import("./../views/Project/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -75,6 +76,8 @@ const routes = [
     component: () => import("./../views/ReviewArea/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
+      
     },
   },
   {
@@ -83,6 +86,7 @@ const routes = [
     component: () => import("./../views/ReviewArea/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -91,6 +95,7 @@ const routes = [
     component: () => import("./../views/ReviewArea/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -99,6 +104,7 @@ const routes = [
     component: () => import("./../views/Resident/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -107,6 +113,7 @@ const routes = [
     component: () => import("./../views/Resident/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -115,6 +122,7 @@ const routes = [
     component: () => import("./../views/Resident/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -123,6 +131,7 @@ const routes = [
     component: () => import("./../views/AssignResident/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -131,6 +140,7 @@ const routes = [
     component: () => import("./../views/AssignResident/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -139,6 +149,7 @@ const routes = [
     component: () => import("./../views/AssignResident/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -147,6 +158,7 @@ const routes = [
     component: () => import("./../views/AssignResident/Delete.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -155,6 +167,8 @@ const routes = [
     component: () => import("./../views/CollaborationAgreements/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
+      
     },
   },
   {
@@ -163,6 +177,7 @@ const routes = [
     component: () => import("./../views/CollaborationAgreements/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -171,6 +186,7 @@ const routes = [
     component: () => import("./../views/CollaborationAgreements/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -179,6 +195,7 @@ const routes = [
     component: () => import("./../views/AmendingAgreement/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -187,6 +204,7 @@ const routes = [
     component: () => import("./../views/AmendingAgreement/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -195,6 +213,7 @@ const routes = [
     component: () => import("./../views/AmendingAgreement/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -203,6 +222,7 @@ const routes = [
     component: () => import("./../views/AmendingAgreement/Detalles.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Obras y Contratos'
     },
   },
   {
@@ -219,6 +239,7 @@ const routes = [
     component: () => import("./../views/ResidentEstimate/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Residente'
     },
   },
   {
@@ -259,6 +280,7 @@ const routes = [
     component: () => import("./../views/UnitsMAOF/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -267,6 +289,7 @@ const routes = [
     component: () => import("./../views/UnitsMAOF/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -275,6 +298,7 @@ const routes = [
     component: () => import("./../views/UnitsMAOF/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -283,6 +307,7 @@ const routes = [
     component: () => import("./../views/UsersAndRolsMAOF/Index.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -291,6 +316,7 @@ const routes = [
     component: () => import("./../views/UsersAndRolsMAOF/New.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -299,6 +325,7 @@ const routes = [
     component: () => import("./../views/UsersAndRolsMAOF/Edit.vue"),
     meta: {
       requiresAuth: true, // Requiere autenticación
+      requiresRol: 'Administrador MAOF'
     },
   },
   {
@@ -357,8 +384,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta.requiresAuth; // Verificar si la ruta requiere autenticación
   const store = auth();
+  const requiresRol = to.meta.requiresRol
   store.setInfo()
-  const { access } = store.getAuthData; /* verifica si el usuario tiene un token válido */
+  const { access, rol } = store.getAuthData; /* verifica si el usuario tiene un token válido */
 
   if (requiresAuth && !access) {
     // Redireccionar al componente de inicio de sesión
@@ -367,7 +395,11 @@ router.beforeEach((to, from, next) => {
     //Acciones para el tokenRefresh
     const refreshToken = parseToken(access);
     startLogoutTimer(refreshToken.exp);
-    next();
+    if(requiresRol == null || rol.includes(requiresRol))
+      next();
+    else{
+      next({ name: "Home" });
+    }
   } else {
     next();
   }
