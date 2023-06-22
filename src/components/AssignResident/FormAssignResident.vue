@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-xl mx-auto">
     <select-base id="id_contrato" label="Contrato" :options="app.listContract" v-model="app.assingResident.id_contrato"
-      class="mb-3" />
+      class="mb-3" @change="getResident(app.assingResident.id_contrato)" />
     <!-- <span v-for="error in v$.id_contrato.$errors" :key="error.$uid" class="text-red text-lg">
       {{ error.$message }}
     </span> -->
@@ -98,7 +98,7 @@ export default {
 
     const getContracts = async () => {
       const { data } = await fetchContracts()
-      app.listContract = data.map(contract => ({ value: contract.id_contrato, label: contract.numero_contrato }))
+      app.listContract = data.map(contract => ({ value: contract.id_contrato, label: contract.numero_contrato, idAreaRevisora: contract.id_area_revisora }))
       app.listContract.sort((a, b) => {
         if (a.label > b.label) {
           return 1;
@@ -109,22 +109,31 @@ export default {
         // a must be equal to b
         return 0;
       })
+      getResident()
     }
 
     const getResident = async () => {
-      const { data } = await fetchResident()
-      app.listResident = data.map(resident => ({ value: resident.id_residente, label: resident.nombre_completo }))
-      app.listResident.sort((a, b) => {
-        if (a.label > b.label) {
-          return 1;
-        }
-        if (a.label < b.label) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      })
+      let params = {};
+      let dataContrat = {};
+      const filteredContracts = app.listContract.filter(obj => obj.value == app.assingResident.id_contrato);
+      if (filteredContracts.length > 0) {
+        dataContrat = filteredContracts[0];
+        const { idAreaRevisora } = dataContrat; // Extraer solo el valor 'idAreaRevisora'
+        params = { id_area_revisora: idAreaRevisora };
+        const { data } = await fetchResident(params);
+        app.listResident = data.map(resident => ({ value: resident.id_residente, label: resident.nombre_completo }));
+        app.listResident.sort((a, b) => {
+          if (a.label > b.label) {
+            return 1;
+          }
+          if (a.label < b.label) {
+            return -1;
+          }
+          return 0;
+        });
+      }
     }
+
 
     const fileUpload = (event) => {
       formData.append('archivo_asignacion', event.target.files[0]);
@@ -136,7 +145,6 @@ export default {
 
 
     getContracts()
-    getResident()
 
     return {
       app,
