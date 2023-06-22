@@ -185,11 +185,11 @@ export default {
       });
     };
     const generateAnios = (cantidad) => {
-      const anioActual = new Date().getFullYear();
+      /* const anioActual = new Date().getFullYear(); */
       for (let i = 0; i < cantidad; i++) {
         app.listAnios.push({
-          value: anioActual + i,
-          label: `${anioActual + i}`,
+          value: 2023 + i,
+          label: `${2023 + i}`,
         });
       }
     };

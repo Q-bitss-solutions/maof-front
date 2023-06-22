@@ -1,14 +1,7 @@
 import fetchApi from "./fetchApi";
-import { getHeaders } from "../utils/headerToken";
-const header = getHeaders();
-
-const addHeader = (request) => {
-  const headers = header;
-  return fetchApi({ ...request, headers });
-};
 
 const fetchContractors = () =>
-  addHeader({
+  fetchApi({
     url: "cat-contratista/",
     method: "GET",
   });
