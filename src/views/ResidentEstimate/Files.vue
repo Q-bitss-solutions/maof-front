@@ -22,22 +22,22 @@
           </div>
         </div>
       </div>
-      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="app.data.estatus_estimacion !== 'Pagada'" />
+      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="isValid" />
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="isValid" />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora" :showOptions="isValid" />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="isValid" />
       </div>
       <div v-if="filesDGPOP.length">
         <banner title="Documentos de Registro de Pago" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="isValid" />
       </div>
     </section>
   </main>
@@ -57,6 +57,7 @@ import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import Banner from '../../components/Banner.vue'
+import { auth } from "../../store/auth";
 
 export default {
   name: 'FilesResidentEstimate',
@@ -73,6 +74,7 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const authStore = auth();
     const headers = [
       {
         label: 'Id',
@@ -106,6 +108,8 @@ export default {
     const filesAreaRevisora = ref([])
     const filesFinanzas = ref([])
     const filesDGPOP = ref([])
+    const { rol } = authStore.getAuthData
+    const isValid = ref([])
     const getResidentEstimateById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
@@ -113,6 +117,7 @@ export default {
       app.file.id_estimacion = data.id_estimacion
       formData.append('id_estimacion', app.file.id_estimacion);
       app.loading = false
+      isValid.value = isInYourArea(app.data.estatus_semaforo);
       getDocumentsResidentEstimateById()
     }
     const getDocumentsResidentEstimateById = async () => {
@@ -275,6 +280,20 @@ export default {
       },
     ]
 
+    const isInYourArea = (estatus_semaforo) => {
+      var flag = false;
+      if(estatus_semaforo === 'Residente' && rol == 'Residente') {
+        flag = true;
+      }
+      if(estatus_semaforo === 'Area Revisora' && rol.includes('Área revisora')) {
+        flag = true;
+      }
+      if((estatus_semaforo === 'Finanzas' || estatus_semaforo === 'DGPOP') && rol.includes('Finanzas')) {
+        flag = true;
+      }
+      return flag;
+    };
+
     getResidentEstimateById()
 
     return {
@@ -289,6 +308,7 @@ export default {
       filesAreaRevisora,
       filesDGPOP,
       filesFinanzas,
+      isValid,
     }
   },
 }
