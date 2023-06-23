@@ -1,9 +1,10 @@
 import fetchApi from "./fetchApi";
 
-const fetchResident = () =>
+const fetchResident = (params) =>
   fetchApi({
     url: "/cat_residente/",
     method: "GET",
+    params: params ? params : {},
   });
 
 const fetchResidentById = (id) =>
