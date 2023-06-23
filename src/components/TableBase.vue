@@ -9,7 +9,7 @@
       <td v-for="(header, index) in headers" :key="index" class="p-2 border border-solid border-black">
         {{ item[header.field] }}
       </td>
-      <td v-if="options.length" class="p-2 border border-solid border-gray-100 relative">
+      <td v-if="showOptions && options.length" class="p-2 border border-solid border-gray-100 relative">
         <div class="flex justify-center">
           <div class="p-1 cursor-pointer" @click="openActions(`table-actions-${index}`)">
             <span v-for="(dot, index) in dots" :key="index" class="rounded-full h-1 w-1 block bg-blue mb-1" />
@@ -61,6 +61,10 @@ export default {
           action: (context) => console.log(context),
         }
       ]), */
+    },
+    showOptions: {
+      type: Boolean,
+      default: true,
     },
   },
   setup() {
