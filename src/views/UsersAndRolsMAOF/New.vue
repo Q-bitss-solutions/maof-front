@@ -35,7 +35,7 @@ export default {
         await storeUser(userAndRol)
         Swal.fire(
           '¡Éxito!',
-          '¡Ususario guardado con éxito!',
+          'Usuario guardado con éxito!',
           'success'
         )
         router.push({ name: 'UsersRolesMAOF' })

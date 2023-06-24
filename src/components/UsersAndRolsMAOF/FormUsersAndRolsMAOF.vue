@@ -55,8 +55,6 @@ import useVuelidate from "@vuelidate/core";
 import {
   required,
   helpers,
-  minValue,
-  maxValue,
   email,
 } from "@vuelidate/validators";
 import Swal from "sweetalert2";
@@ -108,15 +106,27 @@ export default {
           ),
         },
         nombre: {
+          regex: helpers.withMessage(
+            "Solo caracteres alfabéticos",
+            helpers.regex(/^[a-zA-Z\s]*$/)
+          ),
           required: helpers.withMessage("El nombre es requerido", required),
         },
         apellido_paterno: {
+          regex: helpers.withMessage(
+            "Solo caracteres alfabéticos",
+            helpers.regex(/^[a-zA-Z\s]*$/)
+          ),
           required: helpers.withMessage(
             "El apellido paterno es requerido",
             required
           ),
         },
         apellido_materno: {
+          regex: helpers.withMessage(
+            "Solo caracteres alfabéticos",
+            helpers.regex(/^[a-zA-Z\s]*$/)
+          ),
           required: helpers.withMessage(
             "El apellido materno es requerido",
             required
