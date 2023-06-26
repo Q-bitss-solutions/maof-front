@@ -22,22 +22,22 @@
           </div>
         </div>
       </div>
-      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="isValid" />
+      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="canAddNew" />
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="isValid" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="canEditResidente" />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora" :showOptions="isValid" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora" :showOptions="canEditAreaRevisora" />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="isValid" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas" />
       </div>
       <div v-if="filesDGPOP.length">
         <banner title="Documentos de Registro de Pago" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="isValid" />
+        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="canEditPago" />
       </div>
     </section>
   </main>
@@ -109,7 +109,11 @@ export default {
     const filesFinanzas = ref([])
     const filesDGPOP = ref([])
     const { rol } = authStore.getAuthData
-    const isValid = ref([])
+    const canAddNew = ref([])
+    const canEditResidente = ref(false)
+    const canEditAreaRevisora = ref(false)
+    const canEditFinanzas = ref(false)
+    const canEditPago = ref(false)
     const getResidentEstimateById = async () => {
       app.loading = true
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
@@ -117,7 +121,8 @@ export default {
       app.file.id_estimacion = data.id_estimacion
       formData.append('id_estimacion', app.file.id_estimacion);
       app.loading = false
-      isValid.value = isInYourArea(app.data.estatus_semaforo);
+      canAddNew.value = isInYourArea(app.data.estatus_semaforo);
+      canEditFiles();
       getDocumentsResidentEstimateById()
     }
     const getDocumentsResidentEstimateById = async () => {
@@ -295,6 +300,27 @@ export default {
       return flag;
     };
 
+    const canEditFiles = () => {
+      if(rol == 'Residente') {
+        canEditResidente.value = true;
+        canEditAreaRevisora.value = false;
+        canEditFinanzas.value = false;
+        canEditPago.value = false;
+      }
+      if(rol.includes('Área revisora')) {
+        canEditResidente.value = false;
+        canEditAreaRevisora.value = true;
+        canEditFinanzas.value = false;
+        canEditPago.value = false;
+      }
+      if(rol.includes('Finanzas')) {
+        canEditResidente.value = false;
+        canEditAreaRevisora.value = false;
+        canEditFinanzas.value = true;
+        canEditPago.value = true;
+      }
+    }
+
     getResidentEstimateById()
 
     return {
@@ -309,7 +335,11 @@ export default {
       filesAreaRevisora,
       filesDGPOP,
       filesFinanzas,
-      isValid,
+      canAddNew,
+      canEditResidente,
+      canEditAreaRevisora,
+      canEditFinanzas,
+      canEditPago,
     }
   },
 }
