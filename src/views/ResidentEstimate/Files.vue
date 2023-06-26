@@ -244,6 +244,7 @@ export default {
       {
         label: 'Eliminar',
         action: async (files) => {
+          console.log('files: ',files);
           Swal.fire({
             title: `¿Estás seguro que desea eliminar el documento?`,
             text: "Esto quitará el documento",

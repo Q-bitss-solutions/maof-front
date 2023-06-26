@@ -51,7 +51,7 @@
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class=" text-left basis-1/2 font-semibold">% de avance físico</h1>
-              <p class=" text-left "> {{ data.porcentaje_Avance_fisico }}% </p>
+              <p class=" text-left "> {{ data.porcentaje_avance_fisico }}% </p>
             </div>
             <div class="flex justify-center items-center flex-row gap-3 py-1">
               <h1 class=" text-left basis-1/2 font-semibold">% de avance financiero</h1>
