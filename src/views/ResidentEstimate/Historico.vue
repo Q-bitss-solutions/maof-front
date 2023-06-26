@@ -36,7 +36,7 @@
       </div>
       <div class="flex  items-center ">
         <p class="font-semibold text-center">% de avance físico</p>
-        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcentaje_Avance_fisico }}%</p>
+        <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcentaje_avance_fisico }}%</p>
         <p class="font-semibold text-center ml-2">% de avance financiero</p>
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcensaje_avance_financiero }}%</p>
         <p class="font-semibold text-center  ml-2">% de grado de avance</p>
