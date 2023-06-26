@@ -208,7 +208,7 @@ export default {
       sendToPaymentProcess: {
         id: 7,
         obs_label: "Observaciones para el Trámite de Pago",
-        title: "En esta fecha se regresará la Estimación al Trámite de Pago",
+        title: "En esta fecha se enviará la Estimación al Trámite de Pago",
         exito: "Estimación enviada al Trámite de Pago con éxito!",
       },
       returnToFinance: {
