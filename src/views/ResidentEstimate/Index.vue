@@ -127,6 +127,7 @@ export default {
     const featureOptions = [
       {
         label: 'Detalles',
+        disabled: false,
         action: async (residentEstimate) => {
           detalleEstimacion.value = !detalleEstimacion.value
           const { data } = await fetchResidentEstimateById(residentEstimate.id_estimacion)
@@ -138,6 +139,7 @@ export default {
       },
       {
         label: 'Nuevo',
+        disabled: rol != 'Residente' || residentEstimate.estatus_semafor != 'RESIDENTE',
         action: (residentEstimate) => router
           .push({
             name: 'NewResidentEstimateById',
@@ -148,6 +150,7 @@ export default {
       },
       {
         label: 'Archivo',
+        disabled: false,
         action: async (residentEstimate) => {
           router.push({
             name: 'FilesResidentEstimate',
@@ -159,6 +162,7 @@ export default {
       },
       {
         label: 'Histórico',
+        disabled: false,
         action: async (residentEstimate) => {
           router.push({
             name: 'HistoricoResidentEstimate',
