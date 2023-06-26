@@ -18,7 +18,7 @@ import TitleBar from '../../components/TitleBar.vue'
 import { storeContract } from '../../api/contract'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import LogoutComponentVue from '../../components/LogoutComponent.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 
 export default {
   name: 'NewAmendingAgreement',
@@ -26,7 +26,7 @@ export default {
     FormAmendingAgreement,
     ArrowBack,
     TitleBar,
-    LogoutComponentVue
+    LogoutComponent
   },
   setup() {
     const router = useRouter()

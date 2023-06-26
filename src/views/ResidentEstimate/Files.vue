@@ -242,16 +242,17 @@ export default {
         },
       },
       {
-        label: 'Inactivar',
+        label: 'Eliminar',
         action: async (files) => {
+          console.log('files: ',files);
           Swal.fire({
-            title: `¿Estás seguro que desea inactivar el documento?`,
+            title: `¿Estás seguro que desea eliminar el documento?`,
             text: "Esto quitará el documento",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: '¡Si, Inactivar!',
+            confirmButtonText: '¡Si, Eliminar!',
             reverseButtons: true,
           }).then(async (result) => {
             if (result.isConfirmed) {
@@ -259,8 +260,8 @@ export default {
                 await deleteArchivoResidentEstimate(files.id_archivo_estimacion)
                 await getDocumentsResidentEstimateById()
                 Swal.fire(
-                  '¡Inactivo!',
-                  'El documento se inactivó',
+                  'Eliminado!',
+                  'El documento se eliminó',
                   'success'
                 )
               } catch (error) {
