@@ -4,9 +4,9 @@
     <section class="px-4">
       <div class="max-w-xl mx-auto">
         <input-base id="email" label="Email" type="email" class="mb-3" v-model="user.email" />
-        {{ user.email }}
+<!--         {{ user.email }} -->
         <input-base id="password" label="Password" type="password" class="mb-3" v-model="user.password" />
-        {{ user.password }}
+<!--         {{ user.password }} -->
         <button-base label="Enviar" @click="sendForm" class="mr-0 ml-auto" />
       </div>
     </section>
