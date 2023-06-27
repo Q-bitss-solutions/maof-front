@@ -202,6 +202,7 @@ export default {
       featureOptions,
       detalleEstimacionData,
       detalleEstimacion,
+      rol,
       goToNewResidentEstimate,
       getQuery,
       processo,
