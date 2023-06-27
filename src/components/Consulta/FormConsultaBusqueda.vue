@@ -17,6 +17,16 @@
       <input-base id="dias_inicio" label="Días transcurridos del" type="number" class="grow" v-model="app.diasInicio" />
       <input-base id="dias_fin" label="al" type="number" class="flex-auto" v-model="app.diasFin" />
     </div>
+    <div class="grid">
+      <span v-if="v$.diasInicio.$error" v-for="error in v$.diasInicio.$errors" :key="error"
+        class="text-red font-semibold text-center ml-80">
+        {{ error.$message }}
+      </span>
+      <span v-if="v$.diasFin.$error" v-for="error in v$.diasFin.$errors" :key="error"
+        class="text-red font-semibold text-center ml-80">
+        {{ error.$message }}
+      </span>
+    </div>
     <div class="grid grid-cols-2 pt-3">
       <input-base id="fecha_inicio" label="Autorización entre" type="date" class="grow" v-model="app.fechaInicio" />
       <input-base id="fecha_fin" label="y" type="date" class="" v-model="app.fechaFin" />
@@ -34,7 +44,9 @@ import { fetchContracts } from "../../api/contract";
 import { fetchResident } from "../../api/resident";
 import { fetchSICTUnits } from "../../api/SICTUnits";
 import { catStatusEstimate } from "../../api/residentEstimate";
-
+import Swal from "sweetalert2";
+import useVuelidate from "@vuelidate/core";
+import { helpers, minValue, maxValue, } from "@vuelidate/validators";
 export default {
   name: "FormProject",
   props: {
@@ -88,6 +100,51 @@ export default {
       listUnitMAOF: [],
       listStatusEstimate: [],
     });
+    const rules = computed(() => {
+      return {
+        diasFin: {
+          minValue: helpers.withMessage("El valor mínimo es 1", minValue(1)),
+          customValidation: helpers.withMessage(
+            "El valor de días inicio debe ser menor que días fin",
+            (value) => {
+              if (app.diasInicio !== "" && app.diasFin !== "") {
+                return app.diasInicio < app.diasFin;
+              } else {
+                return true; // Permitir que se complete solo uno de los campos o valores nulos
+              }
+            }
+          ),
+        },
+        diasInicio: {
+          minValue: helpers.withMessage("El valor mínimo es 0", minValue(0)),
+          customValidation: helpers.withMessage(
+            "El valor de días inicio debe ser menor que días fin",
+            (value) => {
+              if (app.diasInicio !== "" && app.diasFin !== "") {
+                return app.diasInicio < app.diasFin;
+              } else {
+                return true; // Permitir que se complete solo uno de los campos o valores nulos
+              }
+            }
+          ),
+        },
+        /* fechaInicio: {
+          maxValue: helpers.withMessage(
+            "El valor maximo es 100%",
+            maxValue(100)
+          ),
+          minValue: helpers.withMessage("El valor minimo es 0%", minValue(0)),
+        },
+        fechaFin: {
+          maxValue: helpers.withMessage(
+            "El valor maximo es 100%",
+            maxValue(100)
+          ),
+          minValue: helpers.withMessage("El valor minimo es 0%", minValue(0)),
+        }, */
+      };
+    });
+    const v$ = useVuelidate(rules, app);
     const isFormEmpty = computed(() => {
       const {
         id_contrato,
@@ -193,25 +250,35 @@ export default {
         });
       }
     };
-    const sendForm = () => {
-      if (app.diasInicio !== "") {
-        app.busqueda.dias_transcurridos.push(app.diasInicio);
-        app.diasInicio = "";
+    const sendForm = async () => {
+      const validaciones = await v$.value.$validate();
+      if (validaciones) {
+        if (app.diasInicio !== "") {
+          app.busqueda.dias_transcurridos.push(app.diasInicio);
+          app.diasInicio = "";
+        }
+        if (app.diasFin !== "") {
+          app.busqueda.dias_transcurridos.push(app.diasFin);
+          app.diasFin = "";
+        }
+        if (app.fechaInicio !== "") {
+          app.busqueda.fechas_autorizacion.push(app.fechaInicio);
+          app.fechaInicio = "";
+        }
+        if (app.fechaFin !== "") {
+          app.busqueda.fechas_autorizacion.push(app.fechaFin);
+          app.fechaFin = "";
+        }
+        emit("submit", app.busqueda);
+      } else {
+        let errors = '';
+        v$.value.$errors.forEach((element) => {
+          errors = element.$message; 
+        });
+        Swal.fire("¡Error!", `${errors}`, "error");
       }
-      if (app.diasFin !== "") {
-        app.busqueda.dias_transcurridos.push(app.diasFin);
-        app.diasFin = "";
-      }
-      if (app.fechaInicio !== "") {
-        app.busqueda.fechas_autorizacion.push(app.fechaInicio);
-        app.fechaInicio = "";
-      }
-      if (app.fechaFin !== "") {
-        app.busqueda.fechas_autorizacion.push(app.fechaFin);
-        app.fechaFin = "";
-      }
-      emit("submit", app.busqueda);
     };
+
 
     getC_CC_CM();
     getResident();
@@ -222,6 +289,7 @@ export default {
     return {
       app,
       isFormEmpty,
+      v$,
       sendForm,
       getC_CC_CM,
       getResident,
