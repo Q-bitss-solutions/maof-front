@@ -81,7 +81,7 @@ export default {
         field: 'id_archivo_estimacion',
       },
       {
-        label: 'Nombre Archivo',
+        label: 'Nombre archivo',
         field: 'ruta_archivo_residente',
       },
       {
