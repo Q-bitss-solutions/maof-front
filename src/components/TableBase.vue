@@ -11,12 +11,12 @@
       </td>
       <td v-if="showOptions && options.length" class="p-2 border border-solid border-gray-100 relative">
         <div class="flex justify-center">
-          <div class="p-1 cursor-pointer" @click="openActions(`table-actions-${index}`)">
+          <div class="p-1 cursor-pointer" @click="openActions(`${tableActionId}-${index}`)">
             <span v-for="(dot, index) in dots" :key="index" class="rounded-full h-1 w-1 block bg-blue mb-1" />
           </div>
         </div>
         <div class="hidden absolute right-4 top-8 bg-white z-10" style="box-shadow: -3px 3px 6px #00000029;"
-          :id="`table-actions-${index}`" @mouseleave="openActions(`table-actions-${index}`)">
+          :id="`${tableActionId}-${index}`" @mouseleave="openActions(`${tableActionId}-${index}`)">
           <div class="flex flex-col">
             <div v-for="(option, index) in options" :key="index" class="h-8 flex justify-center items-center py-2 px-8">
               <p class="text-xs border-b border-solid border-gray-100 cursor-pointer hover:border-gray hover:font-medium"
@@ -66,14 +66,20 @@ export default {
       type: Boolean,
       default: true,
     },
+    tableName: {
+      type: String,
+      default: ''
+    },
   },
-  setup() {
+  setup(props) {
     const dots = [1, 2, 3]
     const openActions = (id) => {
       document.getElementById(id).classList.toggle('hidden')
     }
 
-    return { dots, openActions }
+    const tableActionId = 'table-actions' + (props.tableName != ''? '-' + props.tableName: '');
+
+    return { dots, openActions, tableActionId }
   },
 }
 </script>
