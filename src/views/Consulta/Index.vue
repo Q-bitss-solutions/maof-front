@@ -255,7 +255,6 @@ export default {
     const getFiltroDefault = async () => {
       app.value.loading = true;
       const { data } = await fetchFiltroAll();
-      console.log('data: ', data);
       app.value.filtro.data.totales = data.total;
       app.value.filtro.data.pagados = data.pagadas;
       app.value.filtro.data.pendientes = data.pendiente;
