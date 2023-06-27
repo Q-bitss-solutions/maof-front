@@ -4,7 +4,7 @@
       <arrow-back />
       <logout-component/>
     </div>
-    <title-bar title="Estimación Residente" subtitle="Editar" />
+    <title-bar title="Estimación Residente" :subtitle="subtitle" />
     <section class="px-4">
       <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/>
     </section>
@@ -17,7 +17,7 @@ import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import LogoutComponent from '../../components/LogoutComponent.vue'
 import { fetchResidentEstimateById } from '../../api/residentEstimate'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 
@@ -32,6 +32,7 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const subtitle = ref('Editar')
     const app = reactive({
       residentEstimate: {},
       loading: true,
@@ -41,6 +42,7 @@ export default {
       const { data } = await fetchResidentEstimateById(route.params.residentEstimateId)
       app.residentEstimate = data
       app.loading = false
+      changeSubtitle()
     }
     const saveResident = async (resident) => {
       await updateResident(resident)
@@ -53,11 +55,19 @@ export default {
       router.push({ name: 'Resident' })
     }
 
+    const changeSubtitle = () => {
+      if(app.residentEstimate.estatus_semaforo != 'Residente')
+        subtitle.value = app.residentEstimate.estatus_estimacion
+    }
+
+
+
     getResidentById()
 
     return {
       app,
       saveResident,
+      subtitle
     }
   },
 }
