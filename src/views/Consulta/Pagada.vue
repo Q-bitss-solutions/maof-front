@@ -11,7 +11,7 @@
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
-        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" />
+        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" v-if="rol == 'Residente'"/>
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
       <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pagados"
@@ -34,6 +34,7 @@ import Swal from 'sweetalert2'
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from '../../store/consultas';
 import LogoutComponent from '../../components/LogoutComponent.vue';
+import { auth } from '../../store/auth'
 export default {
   name: 'ConsultasPagadosMAOF',
   components: {
@@ -46,6 +47,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const app = ref({
       pagados: {},
       loading: true,
