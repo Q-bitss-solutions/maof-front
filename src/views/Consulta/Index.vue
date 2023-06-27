@@ -4,7 +4,7 @@
       <arrow-back />
       <div>
         <home-page />
-        <logout-component/>
+        <logout-component />
       </div>
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
@@ -254,20 +254,12 @@ export default {
 
     const getFiltroDefault = async () => {
       app.value.loading = true;
-      let pagado = [];
-      let pendiente = [];
       const { data } = await fetchFiltroAll();
-      data.forEach((element) => {
-        if (element.estatus_semaforo !== "Pago Efectuado") {
-          pendiente.push(element);
-        } else {
-          pagado.push(element);
-        }
-      });
-      app.value.filtro.data.totales = data;
-      app.value.filtro.data.pagados = pagado;
-      app.value.filtro.data.pendientes = pendiente;
-      infoToStore(pendiente, pagado, data);
+      console.log('data: ', data);
+      app.value.filtro.data.totales = data.total;
+      app.value.filtro.data.pagados = data.pagadas;
+      app.value.filtro.data.pendientes = data.pendiente;
+      infoToStore(data.pendiente, data.pagadas, data.total);
       app.value.loading = false;
     };
 

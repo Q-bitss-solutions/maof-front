@@ -3,36 +3,20 @@
     <div class="flex justify-between">
       <arrow-back />
       <div>
-        <home-page/>
-        <logout-component/>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Totales" />
     <section class="px-4">
       <div class="flex justify-end">
-        <detail-estimate
-          :data="detalleEstimacionData"
-          :isOpen="detalleEstimacion"
-          @submit="detalleEstimacion = false"
-        />
-        <button-base
-          label="Nueva Estimación Residente"
-          @click="goToNewResidentEstimate"
-          class="mb-3 mr-0 ml-auto"
-        />
-        <toggle-switch
-          label="En Proceso"
-          @change="processo"
-          class="mb-3 mr-0 ml-10"
-        />
+        <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
+        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto"
+          v-if="rol == 'Residente'" />
+        <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
-      <tablero-estimacion-residente
-        :options="featureOptions"
-        :headers="headers"
-        :data="app.total"
-        v-if="!app.loading"
-      />
+      <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.total" v-if="!app.loading" />
       <!-- <tablero-estimacion-residente  /> -->
     </section>
   </main>
@@ -52,6 +36,7 @@ import Swal from "sweetalert2";
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from '../../store/consultas';
 import LogoutComponent from "../../components/LogoutComponent.vue";
+import { auth } from '../../store/auth'
 export default {
   name: "ConsultaPendientes",
   components: {
@@ -65,6 +50,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const app = ref({
       total: {},
       loading: true,
