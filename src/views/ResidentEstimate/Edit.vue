@@ -56,7 +56,7 @@ export default {
     }
 
     const changeSubtitle = () => {
-      if(app.residentEstimate.estatus_semaforo != 'Residente')
+      /* if(app.residentEstimate.estatus_semaforo != 'Residente') */
         subtitle.value = app.residentEstimate.estatus_estimacion
     }
 

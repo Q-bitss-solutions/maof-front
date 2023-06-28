@@ -2,7 +2,8 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back  />
-      <div>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p> 
         <home-page/>
         <logout-component/>
       </div>
