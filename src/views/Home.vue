@@ -1,5 +1,6 @@
 <template>
   <div class="flex justify-end pt-10">
+    <p class=" text-black font-semibold">{{ rol }}</p> 
     <logout-component />
   </div>
   <div class=" flex flex-col px-4 h-[39vh]">
@@ -183,6 +184,7 @@ export default {
       menu,
       indexActiveSubmenu,
       indexActiveSubmenu2,
+      rol,
       showSubmenu,
       showSubmenu2,
       goToRoute,

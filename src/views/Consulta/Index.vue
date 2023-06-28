@@ -2,9 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <div>
-        <home-page />
-        <logout-component />
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p> 
+        <home-page/>
+        <logout-component/>
       </div>
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
@@ -53,6 +54,7 @@ import { fetchProjectsActive } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
 import { fetchFiltroAll, fetchBusqueda } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
+import { auth } from "../../store/auth";
 import Filtro from "../../components/Consulta/Filtro.vue";
 import Busqueda from "../../components/Consulta/Busqueda.vue";
 import LogoutComponent from "../../components/LogoutComponent.vue";
@@ -74,6 +76,8 @@ export default {
   setup() {
     const router = useRouter();
     const store = consultas();
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const app = ref({
       filtro: {
         tipoDocumento: "",
@@ -310,6 +314,7 @@ export default {
     return {
       app,
       showBusquedaValue,
+      rol,
       getStatusEstimations,
       showBusqueda,
       saveBusqueda,
