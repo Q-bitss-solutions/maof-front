@@ -129,6 +129,7 @@ export default {
       },
       {
         label: 'Nuevo',
+        disabled: rol != 'Residente' || residentEstimate.estatus_semafor != 'RESIDENTE',
         action: (residentEstimate) => router
           .push({
             name: 'NewResidentEstimateById',

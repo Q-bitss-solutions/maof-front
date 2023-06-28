@@ -18,12 +18,14 @@
         <div class="hidden absolute right-4 top-8 bg-white z-10" style="box-shadow: -3px 3px 6px #00000029;"
           :id="`${tableActionId}-${index}`" @mouseleave="openActions(`${tableActionId}-${index}`)">
           <div class="flex flex-col">
-            <div v-for="(option, index) in options" :key="index" class="h-8 flex justify-center items-center py-2 px-8">
-              <p class="text-xs border-b border-solid border-gray-100 cursor-pointer hover:border-gray hover:font-medium"
-                @click="option.action(item)">
-                {{ option.label }}
-              </p>
-            </div>
+            <template v-for="(option, index) in options" :key="index">
+              <div v-if="!option.disabled" class="h-8 flex justify-center items-center py-2 px-8">
+                <p class="text-xs border-b border-solid border-gray-100 cursor-pointer hover:border-gray hover:font-medium"
+                  @click="option.action(item)">
+                  {{ option.label }}
+                </p>
+              </div>
+            </template>
           </div>
         </div>
       </td>
