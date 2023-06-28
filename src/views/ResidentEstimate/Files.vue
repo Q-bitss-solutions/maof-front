@@ -27,23 +27,23 @@
       <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="canAddNew" />
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="canEditResidente"
-          :tableName="'residente'" />
+        <table-base :options="featureOptionsResidente.length !== 0 ? featureOptionsResidente : featureOptions"
+          :headers="headers" :data="filesResidente" :showOptions="canEditResidente" :tableName="'residente'" />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora"
-          :showOptions="canEditAreaRevisora" :tableName="'area-revisora'" />
+        <table-base :options="featureOptionsAreaRevisora.length !== 0 ? featureOptionsAreaRevisora : featureOptions"
+          :headers="headers" :data="filesAreaRevisora" :showOptions="canEditAreaRevisora" :tableName="'area-revisora'" />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas"
-          :tableName="'finanzas'" />
+        <table-base :options="featureOptionsFianzas.length !== 0 ? featureOptionsFianzas : featureOptions"
+          :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas" :tableName="'finanzas'" />
       </div>
       <div v-if="filesDGPOP.length">
         <banner title="Documentos de Registro de Pago" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="canEditPago"
-          :tableName="'pago'" />
+        <table-base :options="featureOptionsTramiteDePago.length !== 0 ? featureOptionsTramiteDePago : featureOptions"
+          :headers="headers" :data="filesDGPOP" :showOptions="canEditPago" :tableName="'pago'" />
       </div>
     </section>
   </main>
@@ -125,7 +125,18 @@ export default {
     const canEditAreaRevisora = ref(false);
     const canEditFinanzas = ref(false);
     const canEditPago = ref(false);
-    const featureOptions = ref([]);
+    const featureOptions = ref([
+      {
+        label: "Descargar",
+        action: async (files) => {
+          window.open(`${files.archivo_estimacion}`, "_blank");
+        },
+      },
+    ]);
+    const featureOptionsResidente = ref([]);
+    const featureOptionsAreaRevisora = ref([]);
+    const featureOptionsFianzas = ref([]);
+    const featureOptionsTramiteDePago = ref([]);
     const getResidentEstimateById = async () => {
       app.loading = true;
       const { data } = await fetchResidentEstimateById(
@@ -136,7 +147,7 @@ export default {
       formData.append("id_estimacion", app.file.id_estimacion);
       canAddNew.value = isInYourArea(app.data.estatus_semaforo);
       canEditFiles();
-      featureOptions.value = getFeatureOptions(app.data.estatus_estimacion);
+      getFeatureOptions(app.data.estatus_estimacion);
       getDocumentsResidentEstimateById();
       app.loading = false;
     };
@@ -313,199 +324,107 @@ export default {
     };
 
     const getFeatureOptions = (estatus_estimacion) => {
-      var options = null;
-
+      const openFile = async (files) => {
+        window.open(`${files.archivo_estimacion}`, "_blank");
+      };
+      const deleteFile = async (files) => {
+        Swal.fire({
+          title: `¿Estás seguro que desea eliminar el documento?`,
+          text: "Esto quitará el documento",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "¡Si, Eliminar!",
+          reverseButtons: true,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              await deleteArchivoResidentEstimate(files.id_archivo_estimacion);
+              await getDocumentsResidentEstimateById();
+              Swal.fire("Eliminado!", "El documento se eliminó", "success");
+            } catch (error) {
+              Swal.fire("Error", `${error.response.data.detail}`, "error");
+            }
+          }
+        });
+      };
       if (estatus_estimacion === "Pagada") {
         canEditResidente.value = true;
         canEditAreaRevisora.value = true;
         canEditFinanzas.value = true;
         canEditPago.value = true;
 
-        options = [
+        featureOptions.value = [
           {
             label: "Descargar",
-            action: async (files) => {
-              window.open(`${files.archivo_estimacion}`, "_blank");
-            },
-          },
-        ];
-      } else if (
-        rol.includes("Residente") &&
-        (estatus_estimacion === "Capturada por Residente" ||
-          estatus_estimacion === "Autorizada por Residente" ||
-          estatus_estimacion === "Regresada al Residente")
-      ) {
-        options = [
-          {
-            label: "Descargar",
-            action: async (files) => {
-              window.open(`${files.archivo_estimacion}`, "_blank");
-            },
-          },
-          {
-            label: "Eliminar",
-            action: async (files) => {
-              console.log("files: ", files);
-              Swal.fire({
-                title: `¿Estás seguro que desea eliminar el documento?`,
-                text: "Esto quitará el documento",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "¡Si, Eliminar!",
-                reverseButtons: true,
-              }).then(async (result) => {
-                if (result.isConfirmed) {
-                  try {
-                    await deleteArchivoResidentEstimate(
-                      files.id_archivo_estimacion
-                    );
-                    await getDocumentsResidentEstimateById();
-                    Swal.fire(
-                      "Eliminado!",
-                      "El documento se eliminó",
-                      "success"
-                    );
-                  } catch (error) {
-                    Swal.fire(
-                      "Error",
-                      `${error.response.data.detail}`,
-                      "error"
-                    );
-                  }
-                }
-              });
-              /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-              await deleteResident(resident.id_residente)
-              await getResident()
-            } */
-            },
-          },
-        ];
-      } else if (
-        rol.includes("Obras y Contratos-Titular") ||
-        ((rol.includes("Obras y Contratos-Operación") ||
-          rol.includes("Área revisora-Titular") ||
-          rol.includes("Área revisora-Operación")) &&
-          (estatus_estimacion === "En validación del área revisora" ||
-            estatus_estimacion === "Regresada al área revisora"))
-      ) {
-        options = [
-          {
-            label: "Descargar",
-            action: async (files) => {
-              window.open(`${files.archivo_estimacion}`, "_blank");
-            },
-          },
-          {
-            label: "Eliminar",
-            action: async (files) => {
-              console.log("files: ", files);
-              Swal.fire({
-                title: `¿Estás seguro que desea eliminar el documento?`,
-                text: "Esto quitará el documento",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "¡Si, Eliminar!",
-                reverseButtons: true,
-              }).then(async (result) => {
-                if (result.isConfirmed) {
-                  try {
-                    await deleteArchivoResidentEstimate(
-                      files.id_archivo_estimacion
-                    );
-                    await getDocumentsResidentEstimateById();
-                    Swal.fire(
-                      "Eliminado!",
-                      "El documento se eliminó",
-                      "success"
-                    );
-                  } catch (error) {
-                    Swal.fire(
-                      "Error",
-                      `${error.response.data.detail}`,
-                      "error"
-                    );
-                  }
-                }
-              });
-              /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-              await deleteResident(resident.id_residente)
-              await getResident()
-            } */
-            },
-          },
-        ];
-      } else if (
-        (rol.includes("Finanzas-Titular") ||
-          rol.includes("Finanzas-Operación")) &&
-        (estatus_estimacion === "En validación de Finanzas" ||
-          estatus_estimacion === "Regresada a Finanzas" || estatus_estimacion === "En trámite de pago")
-      ) {
-        options = [
-          {
-            label: "Descargar",
-            action: async (files) => {
-              window.open(`${files.archivo_estimacion}`, "_blank");
-            },
-          },
-          {
-            label: "Eliminar",
-            action: async (files) => {
-              console.log("files: ", files);
-              Swal.fire({
-                title: `¿Estás seguro que desea eliminar el documento?`,
-                text: "Esto quitará el documento",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "¡Si, Eliminar!",
-                reverseButtons: true,
-              }).then(async (result) => {
-                if (result.isConfirmed) {
-                  try {
-                    await deleteArchivoResidentEstimate(
-                      files.id_archivo_estimacion
-                    );
-                    await getDocumentsResidentEstimateById();
-                    Swal.fire(
-                      "Eliminado!",
-                      "El documento se eliminó",
-                      "success"
-                    );
-                  } catch (error) {
-                    Swal.fire(
-                      "Error",
-                      `${error.response.data.detail}`,
-                      "error"
-                    );
-                  }
-                }
-              });
-              /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-              await deleteResident(resident.id_residente)
-              await getResident()
-            } */
-            },
+            action: openFile,
           },
         ];
       } else {
-        options = [
-          {
-            label: "Descargar",
-            action: async (files) => {
-              window.open(`${files.archivo_estimacion}`, "_blank");
+        if (
+          rol.includes("Residente") &&
+          (estatus_estimacion === "Capturada por Residente" ||
+            estatus_estimacion === "Autorizada por Residente" ||
+            estatus_estimacion === "Regresada al Residente")
+        ) {
+          featureOptionsResidente.value = [
+            {
+              label: "Descargar",
+              action: openFile,
             },
-          },
-        ];
+            {
+              label: "Eliminar",
+              action: deleteFile,
+            },
+          ];
+        } else {
+          featureOptionsResidente.value = [];
+        }
+        if (
+          rol.includes("Obras y Contratos-Titular") ||
+          ((rol.includes("Obras y Contratos-Operación") ||
+            rol.includes("Área revisora-Titular") ||
+            rol.includes("Área revisora-Operación")) &&
+            (estatus_estimacion === "En validación del área revisora" ||
+              estatus_estimacion === "Regresada al área revisora"))
+        ) {
+          featureOptionsAreaRevisora.value = [
+            {
+              label: "Descargar",
+              action: openFile,
+            },
+            {
+              label: "Eliminar",
+              action: deleteFile,
+            },
+          ];
+        } else {
+          featureOptionsAreaRevisora.value = [];
+        }
+        if (
+          (rol.includes("Finanzas-Titular") ||
+            rol.includes("Finanzas-Operación")) &&
+          (estatus_estimacion === "En validación de Finanzas" ||
+            estatus_estimacion === "Regresada a Finanzas" ||
+            estatus_estimacion === "En trámite de pago")
+        ) {
+          featureOptionsFianzas.value = [
+            {
+              label: "Descargar",
+              action: openFile,
+            },
+            {
+              label: "Eliminar",
+              action: deleteFile,
+            },
+          ];
+        } else {
+          featureOptionsFianzas.value = [];
+        }
       }
-
-      return options;
     };
+
 
     getResidentEstimateById();
 
@@ -514,6 +433,10 @@ export default {
       filesById,
       saveResident,
       featureOptions,
+      featureOptionsResidente,
+      featureOptionsAreaRevisora,
+      featureOptionsFianzas,
+      featureOptionsTramiteDePago,
       formData,
       headers,
       fileUpload,

@@ -136,10 +136,11 @@ export default {
         },
       },
       {
-        label: "Nuevo",
-        action: (residentEstimate) =>
-          router.push({
-            name: "NewResidentEstimateById",
+        label: 'Nuevo',
+        disabled: rol != 'Residente' || residentEstimate.estatus_semafor != 'RESIDENTE',
+        action: (residentEstimate) => router
+          .push({
+            name: 'NewResidentEstimateById',
             params: {
               residentEstimateId: residentEstimate.contrato_estimacion,
             },
