@@ -10,7 +10,7 @@
     <title-bar title="Convenio Modificatorio" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Convenio Modificatorio" @click="goToNewAmendingAgreement" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="amendingAgreement" />
+      <table-base description="Convenios Modificatorios" :options="featureOptions" :headers="headers" :data="amendingAgreement" />
       <div class="root">
         <teleport to="body">
           <div class="modal items-center justify-center" v-if="isOpen">

@@ -15,7 +15,7 @@
         <span>
           {{ app.fileName[5] }}
         </span>
-        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
+        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile" alt="PDF">
       </div>
     </div>
     <input-base id="fecha_fin_asignacion" label="Fecha de fin del Residente" type="date" class="mb-3"

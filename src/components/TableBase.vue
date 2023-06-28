@@ -1,5 +1,8 @@
 <template>
   <table class="border border-solid border-black border-collapse text-gray-900 w-full">
+    <caption>
+      {{ description }}
+    </caption>
     <tr>
       <th v-for="(header, index) in headers" :key="index" class="p-2 border border-b-2 border-solid border-black">
         {{ header.label }}
@@ -35,6 +38,11 @@
 export default {
   name: 'TableBase',
   props: {
+    description:{
+      type: String,
+      required: false,
+      default: ''
+    },
     headers: {
       type: Array,
       default: () => ([

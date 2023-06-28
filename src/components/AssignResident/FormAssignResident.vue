@@ -18,7 +18,7 @@
         <span>
           {{ app.fileName[5] }}
         </span>
-        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile">
+        <img src="../../assets/PDF.png" class="w-12 h-12 " @click="downloadFile" alt="PDF">
       </div>
     </div>
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />

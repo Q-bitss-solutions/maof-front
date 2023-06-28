@@ -27,22 +27,22 @@
       <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="canAddNew" />
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="canEditResidente"
+        <table-base description="Residente" :options="featureOptions" :headers="headers" :data="filesResidente" :showOptions="canEditResidente"
           :tableName="'residente'" />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesAreaRevisora"
+        <table-base description="Área Revisora" :options="featureOptions" :headers="headers" :data="filesAreaRevisora"
           :showOptions="canEditAreaRevisora" :tableName="'area-revisora'" />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas"
+        <table-base description="Finanzas" :options="featureOptions" :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas"
           :tableName="'finanzas'" />
       </div>
       <div v-if="filesDGPOP.length">
         <banner title="Documentos de Registro de Pago" />
-        <table-base :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="canEditPago"
+        <table-base description="Registro de Pago" :options="featureOptions" :headers="headers" :data="filesDGPOP" :showOptions="canEditPago"
           :tableName="'pago'" />
       </div>
     </section>

@@ -47,7 +47,7 @@
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcentaje_avance_estimacion_acumulado }}%</p>
       </div>
     </div>
-    <table-base-index class="mb-10"  :headers="headers" :data="app.residentEstimateHistory" :option="[]" />
+    <table-base-index class="mb-10" description="Histórico"  :headers="headers" :data="app.residentEstimateHistory" :option="[]" />
     <!-- <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/> -->
   </main>
 </template>

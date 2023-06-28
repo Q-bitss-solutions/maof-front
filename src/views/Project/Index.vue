@@ -10,7 +10,7 @@
     <title-bar title="Proyectos" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo proyecto" @click="goToNewProject" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="projects" />
+      <table-base description="Proyectos" :options="featureOptions" :headers="headers" :data="projects" />
     </section>
   </main>
 </template>

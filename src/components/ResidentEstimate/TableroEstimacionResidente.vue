@@ -1,5 +1,8 @@
 <template>
-  <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
+  <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full"
+    aria-describedby="table1"
+  >
+    <caption>Tablero de estimaciones</caption>
     <Detail-Pop :data="dataContratoConvenio.data" :isOpen="isOpenContratoModal.isOpen"
       @submit="isOpenContratoModal.isOpen = false" />
 

@@ -10,7 +10,7 @@
     <title-bar title="Unidades MAOF" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva Unidad MAOF" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="resident" />
+      <table-base description="Unidades MAOF" :options="featureOptions" :headers="headers" :data="resident" />
     </section>
   </main>
 </template>
