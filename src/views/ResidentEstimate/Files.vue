@@ -24,30 +24,71 @@
           </div>
         </div>
       </div>
-      <button-base label="Nuevo" @click="fileUpload()" class="mr-0 ml-auto mb-5" v-if="canAddNew" />
+      <button-base
+        label="Nuevo"
+        @click="fileUpload()"
+        class="mr-0 ml-auto mb-5"
+        v-if="canAddNew"
+      />
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
-        <table-base description="Residente"
-          :options="featureOptionsResidente.length !== 0 ? featureOptionsResidente : featureOptions" :headers="headers"
-          :data="filesResidente" :showOptions="canEditResidente" :tableName="'residente'" />
+        <table-base
+          description="Residente"
+          :options="
+            featureOptionsResidente.length !== 0
+              ? featureOptionsResidente
+              : featureOptions
+          "
+          :headers="headers"
+          :data="filesResidente"
+          :showOptions="canEditResidente"
+          :tableName="'residente'"
+        />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
-        <table-base description="Área Revisora"
-          :options="featureOptionsAreaRevisora.length !== 0 ? featureOptionsAreaRevisora : featureOptions"
-          :headers="headers" :data="filesAreaRevisora" :showOptions="canEditAreaRevisora" :tableName="'area-revisora'" />
+        <table-base
+          description="Área Revisora"
+          :options="
+            featureOptionsAreaRevisora.length !== 0
+              ? featureOptionsAreaRevisora
+              : featureOptions
+          "
+          :headers="headers"
+          :data="filesAreaRevisora"
+          :showOptions="canEditAreaRevisora"
+          :tableName="'area-revisora'"
+        />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
-        <table-base description="Finanzas"
-          :options="featureOptionsFianzas.length !== 0 ? featureOptionsFianzas : featureOptions" :headers="headers"
-          :data="filesFinanzas" :showOptions="canEditFinanzas" :tableName="'finanzas'" />
+        <table-base
+          description="Finanzas"
+          :options="
+            featureOptionsFianzas.length !== 0
+              ? featureOptionsFianzas
+              : featureOptions
+          "
+          :headers="headers"
+          :data="filesFinanzas"
+          :showOptions="canEditFinanzas"
+          :tableName="'finanzas'"
+        />
       </div>
-      <div v-if="filesDGPOP.length">
+      <div v-if="filesTramite_Pago.length">
         <banner title="Documentos de Registro de Pago" />
-        <table-base description="Registro de Pago"
-          :options="featureOptionsTramiteDePago.length !== 0 ? featureOptionsTramiteDePago : featureOptions"
-          :headers="headers" :data="filesDGPOP" :showOptions="canEditPago" :tableName="'pago'" />
+        <table-base
+          description="Registro de Pago"
+          :options="
+            featureOptionsTramiteDePago.length !== 0
+              ? featureOptionsTramiteDePago
+              : featureOptions
+          "
+          :headers="headers"
+          :data="filesTramite_Pago"
+          :showOptions="canEditPago"
+          :tableName="'pago'"
+        />
       </div>
     </section>
   </main>
@@ -116,13 +157,13 @@ export default {
       filesResidente: [],
       filesAreaRevisora: [],
       filesFinanzas: [],
-      filesDGPOP: [],
+      filesTramite_Pago: [],
     });
     const filesById = ref([]);
     const filesResidente = ref([]);
     const filesAreaRevisora = ref([]);
     const filesFinanzas = ref([]);
-    const filesDGPOP = ref([]);
+    const filesTramite_Pago = ref([]);
     const { rol } = authStore.getAuthData;
     const canAddNew = ref([]);
     const canEditResidente = ref(false);
@@ -159,6 +200,7 @@ export default {
       const { data } = await fetchArchivoResidentEstimateById(
         app.file.id_estimacion
       );
+      console.log(data);
       if (data.residente) {
         filesResidente.value = data.residente;
       }
@@ -172,7 +214,7 @@ export default {
       }
 
       if (data.dgpop) {
-        filesDGPOP.value = data.dgpop;
+        filesTramite_Pago.value = data.tramite_pago;
       }
     };
     const saveResident = async (resident) => {
@@ -235,79 +277,16 @@ export default {
             "warning"
           );
         }
-      } catch (error) { }
+      } catch (error) {}
     };
-    /*const featureOptions = [
-      {
-        label: 'Editar',
-        action: (resident) => {
-          if (resident.estado_residente === 'Activo') {
-            router.push({
-            name: 'EditResident',
-            params: {
-              residentId: resident.id_residente,
-            },
-          })
-          } else {
-            return ''
-            
-          }
-        }
-      },
-      {
-        label: 'Descargar',
-        action: async (files) => {
-          window.open(`${files.archivo_estimacion}`, '_blank');
-        },
-      },
-      {
-        label: 'Eliminar',
-        action: async (files) => {
-          console.log('files: ',files);
-          Swal.fire({
-            title: `¿Estás seguro que desea eliminar el documento?`,
-            text: "Esto quitará el documento",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '¡Si, Eliminar!',
-            reverseButtons: true,
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              try {
-                await deleteArchivoResidentEstimate(files.id_archivo_estimacion)
-                await getDocumentsResidentEstimateById()
-                Swal.fire(
-                  'Eliminado!',
-                  'El documento se eliminó',
-                  'success'
-                )
-              } catch (error) {
-                Swal.fire(
-                  'Error',
-                  `${error.response.data.detail}`,
-                  'error'
-                )
-              }
-            }
-          })
-          /* if (confirm(`Estas seguro que desea eliminar el residente "${resident.nombre_completo}"?,esto finalizara las asignaciones del residente`)) {
-            await deleteResident(resident.id_residente)
-            await getResident()
-          } 
-        },
-      },
-    ] */
-
     const isInYourArea = (estatus_semaforo) => {
       var flag = false;
-      if (estatus_semaforo === "Residente" && rol == "Residente") {
+      if (estatus_semaforo === "Residente" && rol === "Residente") {
         flag = true;
       }
       if (
         estatus_semaforo === "Area Revisora" &&
-        rol.includes("Área revisora")
+        (rol.includes("Área revisora") || rol.includes("Obras y Contratos"))
       ) {
         flag = true;
       }
@@ -386,12 +365,10 @@ export default {
           featureOptionsResidente.value = [];
         }
         if (
-          rol.includes("Obras y Contratos-Titular") ||
-          ((rol.includes("Obras y Contratos-Operación") ||
-            rol.includes("Área revisora-Titular") ||
-            rol.includes("Área revisora-Operación")) &&
-            (estatus_estimacion === "En validación del área revisora" ||
-              estatus_estimacion === "Regresada al área revisora"))
+          (rol.includes("Obras y Contratos") ||
+            rol.includes("Área revisora")) &&
+          (estatus_estimacion === "En validación del área revisora" ||
+            estatus_estimacion === "Regresada al área revisora")
         ) {
           featureOptionsAreaRevisora.value = [
             {
@@ -407,8 +384,7 @@ export default {
           featureOptionsAreaRevisora.value = [];
         }
         if (
-          (rol.includes("Finanzas-Titular") ||
-            rol.includes("Finanzas-Operación")) &&
+          rol.includes("Finanzas") &&
           (estatus_estimacion === "En validación de Finanzas" ||
             estatus_estimacion === "Regresada a Finanzas" ||
             estatus_estimacion === "En trámite de pago")
@@ -429,7 +405,6 @@ export default {
       }
     };
 
-
     getResidentEstimateById();
 
     return {
@@ -446,7 +421,7 @@ export default {
       fileUpload,
       filesResidente,
       filesAreaRevisora,
-      filesDGPOP,
+      filesTramite_Pago,
       filesFinanzas,
       canAddNew,
       canEditResidente,
