@@ -52,7 +52,6 @@ export default {
         logIn()
 
       } catch (error) {
-        console.log('error: ', error)
         Swal.fire(
           "Error",
           "Usuario y/o contraseña incorrecta",

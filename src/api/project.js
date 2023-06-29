@@ -1,9 +1,10 @@
 import fetchApi from "./fetchApi";
 
-const fetchProjects = () =>
+const fetchProjects = (params) =>
   fetchApi({
     url: "proyecto/",
     method: "GET",
+    params: params ? params : {},
   });
 const fetchProjectsActive = () =>
   fetchApi({

@@ -201,7 +201,17 @@ export default {
         /* app.userAndRols.username = app.userAndRols.email */
         emit("submit", app.userAndRols);
       } else {
-        Swal.fire("Error", `Revisa bien los datos`, "error");
+       /*  let errors = ''; */
+        /* v$.value.$errors.forEach((element) => {
+          errors += element.$message + '\t';
+        }); */
+        Swal.fire("Error", `Datos incompletos`, "error");
+        /* for (let i = 0; i < v$.value.$errors.length; i++) {
+          await Swal.fire({
+            title: v$.value.$errors[i].$message,
+            icon: "error",
+          });
+        } */
       }
       //se concatenan los apellidos en un solo campo
     };
