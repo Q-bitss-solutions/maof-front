@@ -11,6 +11,7 @@
     <section class="px-4">
       <button-base label="Nueva área revisora" @click="goToNewReviewArea" class="mb-3 mr-0 ml-auto" />
       <table-base
+        description="Áreas revisoras"
         :options="featureOptions"
         :headers="headers"
         :data="reviewAreas"

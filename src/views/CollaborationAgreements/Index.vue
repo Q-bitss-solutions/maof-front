@@ -11,7 +11,7 @@
     <section class="px-4">
       <button-base label="Nuevo Contrato o Convenio de Colaboración" @click="goToNewCollaborationAgreements"
         class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="collaborationAgreements" />
+      <table-base description="Contratos y convenios de colaboración" :options="featureOptions" :headers="headers" :data="collaborationAgreements" />
     </section>
   </main>
 </template>

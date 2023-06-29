@@ -10,7 +10,7 @@
     <title-bar title="Asignación Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="assingResident" />
+      <table-base description="Asignación Residente" :options="featureOptions" :headers="headers" :data="assingResident" />
     </section>
   </main>
 </template>
