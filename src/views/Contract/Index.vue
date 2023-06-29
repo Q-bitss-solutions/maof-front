@@ -11,6 +11,7 @@
     <section class="px-4">
       <button-base label="Nuevo contrato" @click="goToNewContract" class="mb-3 mr-0 ml-auto" />
       <table-base
+        description="Contratos"
         :options="featureOptions"
         :headers="headers"
         :data="contract"

@@ -1,15 +1,15 @@
 <template>
   <div class="panel panel-default ">
     <div class="panel-heading">
-      <h3 class="panel-title">{{ label}}</h3>
+      <h3 class="panel-title">{{ label }}</h3>
     </div>
     <div class="panel-body">
       <!--Only code you need is this label-->
       <label class="switch">
-        <input type="checkbox">
+        <input :placeholder="placeholder" type="checkbox">
         <div class="slider round"></div>
       </label>
-     <!--  <p>{{ label }}</p> -->
+      <!--  <p>{{ label }}</p> -->
     </div>
   </div>
 </template>
@@ -17,8 +17,13 @@
 <script>
 export default {
   name: 'ToggleSwitch',
+
   props: {
     label: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
       type: String,
       default: '',
     },

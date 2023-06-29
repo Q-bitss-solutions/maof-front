@@ -25,7 +25,7 @@
         label="Aplicar"
         class="border-gray text-black hover:bg-white hover:text-red"
         :class="{
-          'ml-[36rem]': filtro.tipoDocumento === '1',
+          'ml-auto': filtro.tipoDocumento === '1',
           ' ml-[3.7rem]':
             filtro.tipoDocumento !== '1' && filtro.filtroDocValue === '',
           ' ml-[0rem]':

@@ -1,5 +1,8 @@
 <template>
-  <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full">
+  <table class="border border-solid border-t-0 border-l-0  border-black border-collapse text-gray-900 w-full"
+    aria-describedby="table1"
+  >
+    <caption class=" text-white">Tablero de estimaciones</caption>
     <Detail-Pop :data="dataContratoConvenio.data" :isOpen="isOpenContratoModal.isOpen"
       @submit="isOpenContratoModal.isOpen = false" />
 
@@ -19,7 +22,7 @@
           {{ contador + 1 }}
         </p>
         <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
-          v-if="header.field === 'documents' && item.archivo_residente !== null">
+          v-if="header.field === 'documents' && item.archivo_residente !== null" title="PDF">
         <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
           class=" text-blue cursor-pointer contratos text-center" @click="detalleContrato(item)">
           {{ item[header.field] }}
