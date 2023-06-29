@@ -1,6 +1,6 @@
 <template>
   <table class="border border-solid border-black border-collapse text-gray-900 w-full">
-    <caption>
+    <caption class=" text-white">
       {{ description }}
     </caption>
     <tr>
