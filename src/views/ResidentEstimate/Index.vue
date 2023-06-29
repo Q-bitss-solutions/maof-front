@@ -13,7 +13,7 @@
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
         <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" v-if="rol == 'Residente'"/>
-        <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" />
+        <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" :placeholder="'En Proceso'" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
       <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="residentEstimate" />

@@ -490,7 +490,7 @@ export default {
           }
         } else {
           Swal.fire(
-            "No agregaste ninguna observacion",
+            "No agregaste ninguna observación",
             "Agrega uno para continuar",
             "warning"
           );
