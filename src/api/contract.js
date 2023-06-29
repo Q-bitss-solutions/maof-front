@@ -1,9 +1,10 @@
 import fetchApi from "./fetchApi";
 
-const fetchContracts = () =>
+const fetchContracts = (params) =>
   fetchApi({
     url: "contrato/",
     method: "GET",
+    params: params ? params : {},
   });
 
 const fetchContractStatus = () =>

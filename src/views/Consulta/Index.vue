@@ -14,26 +14,17 @@
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center text-3xl" v-if="!app.loading">
-        <div
-          class="px-10 text-red cursor-pointer"
-          @click="
-            getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
-          "
-        >
+        <div class="px-10 text-red cursor-pointer" @click="
+          getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
+          ">
           <p class="text-center">{{ app.filtro.data.pendientes.length }}</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
-        <div
-          class="px-10 text-green cursor-pointer"
-          @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')"
-        >
+        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')">
           <p class="text-center">{{ app.filtro.data.pagados.length }}</p>
           <h1 class="text-center">Pagadas</h1>
         </div>
-        <div
-          class="px-10 cursor-pointer"
-          @click="getStatusEstimations(app.filtro.data.totales, 'totales')"
-        >
+        <div class="px-10 cursor-pointer" @click="getStatusEstimations(app.filtro.data.totales, 'totales')">
           <p class="text-center">{{ app.filtro.data.totales.length }}</p>
           <h1 class="text-center">Total</h1>
         </div>
@@ -41,18 +32,10 @@
       <!-- Filtro y Busqueda -->
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
-        <Filtro
-          :filtro="app.filtro"
-          :getDocsByType="getDocsByType"
-          :saveFiltro="saveFiltro"
-        />
+        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro" />
         <!-- :esperandoAccion="esperandoAccion" -->
         <!-- Busqueda -->
-        <Busqueda
-          :showBusquedaValue="showBusquedaValue"
-          :showBusqueda="showBusqueda"
-          :saveBusqueda="saveBusqueda"
-        />
+        <Busqueda :showBusquedaValue="showBusquedaValue" :showBusqueda="showBusqueda" :saveBusqueda="saveBusqueda" />
       </div>
     </section>
   </main>
@@ -69,7 +52,7 @@ import { useRouter } from "vue-router";
 import TitleBar from "../../components/TitleBar.vue";
 import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda.vue";
 import Swal from "sweetalert2";
-import { fetchProjectsActive } from "./../../api/project";
+import { fetchProjects } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
 import { fetchFiltroAll, fetchBusqueda } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
@@ -205,8 +188,12 @@ export default {
     };
 
     const getProjects = async () => {
+      const params = {
+        estatus_proyecto: 3,
+        activate_filters: true
+      }
       try {
-        const { data } = await fetchProjectsActive();
+        const { data } = await fetchProjects(params);
         app.value.filtro.listDocsFiltrados = data.map((project) => ({
           value: project.id_proyecto,
           label: `${project.clave_cartera}-${project.nombre_proyecto}`,
@@ -219,8 +206,9 @@ export default {
     };
 
     const getContracts = async (id) => {
+      const params = { activate_filters: true }
       try {
-        const { data } = await fetchContracts();
+        const { data } = await fetchContracts(params);
         if (id === "2") {
           data.forEach((contract) => {
             if (contract.id_tipo_contrato !== 3) {
