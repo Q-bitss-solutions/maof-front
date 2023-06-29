@@ -196,7 +196,6 @@ export default {
           return 0;
         });
       } catch (error) {
-        console.log(error);
         Swal.fire("¡Error!", `${error.response.data.detail}`, "error");
         props.showBusqueda()
       }

@@ -163,7 +163,6 @@ export default {
       const { data } = await fetchArchivoResidentEstimateById(
         app.file.id_estimacion
       );
-      console.log(data);
       if (data.residente) {
         filesResidente.value = data.residente;
       }
