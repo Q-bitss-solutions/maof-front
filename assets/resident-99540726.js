@@ -1,1 +1,0 @@
-import{a as t}from"./fetchApi-580c81dd.js";const d=e=>t({url:"/cat_residente/",method:"GET",params:e||{}}),a=e=>t({url:`/cat_residente/${e}/`,method:"GET"}),n=e=>t({url:"/cat_residente/",method:"POST",data:e}),o=e=>t({url:`/cat_residente/${e.id_residente}/`,method:"PUT",data:e}),r=e=>t({url:`/cat_residente/${e}/`,method:"DELETE"});export{a,r as d,d as f,n as s,o as u};
