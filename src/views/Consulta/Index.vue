@@ -3,9 +3,9 @@
     <div class="flex justify-between">
       <arrow-back />
       <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p> 
-        <home-page/>
-        <logout-component/>
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
@@ -186,54 +186,74 @@ export default {
     };
 
     const getProjects = async () => {
-      const { data } = await fetchProjectsActive();
-      app.value.filtro.listDocsFiltrados = data.map((project) => ({
-        value: project.id_proyecto,
-        label: `${project.clave_cartera}-${project.nombre_proyecto}`,
-      }));
+      try {
+        const { data } = await fetchProjectsActive();
+        app.value.filtro.listDocsFiltrados = data.map((project) => ({
+          value: project.id_proyecto,
+          label: `${project.clave_cartera}-${project.nombre_proyecto}`,
+        }));
+      } catch (error) {
+        Swal.fire(
+          "Error",
+          `${error.response.data.detail}`,
+          "error"
+        );
+        app.value.filtro.tipoDocumento = "";
+        app.value.filtro.filtroDocValue = "";
+      }
     };
 
     const getContracts = async (id) => {
-      const { data } = await fetchContracts();
-      if (id === "2") {
-        data.forEach((contract) => {
-          if (contract.id_tipo_contrato !== 3) {
-            app.value.filtro.listDocsFiltrados.push({
-              value: contract.id_contrato,
-              label: contract.numero_contrato,
-            });
-          }
-        });
-        app.value.filtro.listDocsFiltrados.sort((a, b) => {
-          if (a.label > b.label) {
-            return 1;
-          }
-          if (a.label < b.label) {
-            return -1;
-          }
-          // a must be equal to b
-          return 0;
-        });
-      }
-      if (id === "3") {
-        data.forEach((contract) => {
-          if (contract.id_tipo_contrato === 3) {
-            app.value.filtro.listDocsFiltrados.push({
-              value: contract.id_contrato,
-              label: contract.numero_contrato,
-            });
-          }
-        });
-        app.value.filtro.listDocsFiltrados.sort((a, b) => {
-          if (a.label > b.label) {
-            return 1;
-          }
-          if (a.label < b.label) {
-            return -1;
-          }
-          // a must be equal to b
-          return 0;
-        });
+      try {
+        const { data } = await fetchContracts();
+        if (id === "2") {
+          data.forEach((contract) => {
+            if (contract.id_tipo_contrato !== 3) {
+              app.value.filtro.listDocsFiltrados.push({
+                value: contract.id_contrato,
+                label: contract.numero_contrato,
+              });
+            }
+          });
+          app.value.filtro.listDocsFiltrados.sort((a, b) => {
+            if (a.label > b.label) {
+              return 1;
+            }
+            if (a.label < b.label) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+        }
+        if (id === "3") {
+          data.forEach((contract) => {
+            if (contract.id_tipo_contrato === 3) {
+              app.value.filtro.listDocsFiltrados.push({
+                value: contract.id_contrato,
+                label: contract.numero_contrato,
+              });
+            }
+          });
+          app.value.filtro.listDocsFiltrados.sort((a, b) => {
+            if (a.label > b.label) {
+              return 1;
+            }
+            if (a.label < b.label) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+        }
+      } catch (error) {
+        Swal.fire(
+          "Error",
+          `${error.response.data.detail}`,
+          "error"
+        );
+        app.value.filtro.tipoDocumento = "";
+        app.value.filtro.filtroDocValue = "";
       }
     };
 
