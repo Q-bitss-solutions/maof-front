@@ -178,8 +178,9 @@ export default {
       );
     });
     const getC_CC_CM = async () => {
+      const params = { activate_filters: true }
       try {
-        const { data } = await fetchContracts();
+        const { data } = await fetchContracts(params);
         app.listC_CC_CM = data.map((contrato) => ({
           value: contrato.id_contrato,
           label: contrato.numero_contrato,
@@ -281,11 +282,17 @@ export default {
         }
         emit("submit", app.busqueda);
       } else {
-        let errors = '';
-        v$.value.$errors.forEach((element) => {
-          errors = element.$message;
-        });
-        Swal.fire("¡Error!", `${errors}`, "error");
+        /*  let errors = '';
+         v$.value.$errors.forEach((element) => {
+           errors = element.$message;
+         });
+         Swal.fire("¡Error!", `${errors}`, "error"); */
+        for (let i = 0; i < v$.value.$errors.length; i++) {
+          await Swal.fire({
+            title: v$.value.$errors[i].$message,
+            icon: "error",
+          });
+        }
       }
     };
 
