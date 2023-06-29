@@ -1,5 +1,6 @@
 <template>
   <table class="border border-solid border-black border-collapse text-gray-900 w-full">
+    <caption>Usuarios MAOF</caption>
     <tr>
       <th v-for="(header, index) in headers" :key="index" class="p-2 border border-b-2 border-solid border-black">
         {{ header.label }}

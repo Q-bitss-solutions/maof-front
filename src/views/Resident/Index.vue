@@ -10,7 +10,7 @@
     <title-bar title="Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Residente" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="resident" />
+      <table-base description="Residentes" :options="featureOptions" :headers="headers" :data="resident" />
     </section>
   </main>
 </template>

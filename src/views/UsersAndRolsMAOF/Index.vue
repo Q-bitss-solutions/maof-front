@@ -10,7 +10,7 @@
     <title-bar title="Usuarios y Roles MAOF" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Alta de usuarios MAOF" @click="goToNewUserAndRols" class="mb-3 mr-0 ml-auto" />
-      <table-base :options="featureOptions" :headers="headers" :data="userAndRols" />
+      <table-base description="Usuarios MAOF" :options="featureOptions" :headers="headers" :data="userAndRols" />
     </section>
   </main>
 </template>
