@@ -6,7 +6,7 @@
     </div>
     <div class="flex justify-center">
       <!-- Form Busqueda -->
-      <form-consulta-busqueda @submit="saveBusqueda" class="mt-20" v-if="showBusquedaValue" />
+      <form-consulta-busqueda @submit="saveBusqueda" class="mt-20" :showBusqueda="showBusqueda" v-if="showBusquedaValue" />
     </div>
   </template>
   

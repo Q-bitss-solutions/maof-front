@@ -3,7 +3,9 @@
     <div class="flex justify-between">
       <arrow-back />
       <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <p class="text-black font-semibold mr-4 items-center content-center">
+          {{ rol }}
+        </p>
         <home-page />
         <logout-component />
       </div>
@@ -12,17 +14,26 @@
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
       <div class="flex justify-center text-3xl" v-if="!app.loading">
-        <div class="px-10 text-red cursor-pointer" @click="
-          getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
-          ">
+        <div
+          class="px-10 text-red cursor-pointer"
+          @click="
+            getStatusEstimations(app.filtro.data.pendientes, 'pendientes')
+          "
+        >
           <p class="text-center">{{ app.filtro.data.pendientes.length }}</p>
           <h1 class="text-center">Pendientes</h1>
         </div>
-        <div class="px-10 text-green cursor-pointer" @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')">
+        <div
+          class="px-10 text-green cursor-pointer"
+          @click="getStatusEstimations(app.filtro.data.pagados, 'pagadas')"
+        >
           <p class="text-center">{{ app.filtro.data.pagados.length }}</p>
           <h1 class="text-center">Pagadas</h1>
         </div>
-        <div class="px-10 cursor-pointer" @click="getStatusEstimations(app.filtro.data.totales, 'totales')">
+        <div
+          class="px-10 cursor-pointer"
+          @click="getStatusEstimations(app.filtro.data.totales, 'totales')"
+        >
           <p class="text-center">{{ app.filtro.data.totales.length }}</p>
           <h1 class="text-center">Total</h1>
         </div>
@@ -30,10 +41,18 @@
       <!-- Filtro y Busqueda -->
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
-        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro" />
+        <Filtro
+          :filtro="app.filtro"
+          :getDocsByType="getDocsByType"
+          :saveFiltro="saveFiltro"
+        />
         <!-- :esperandoAccion="esperandoAccion" -->
         <!-- Busqueda -->
-        <Busqueda :showBusquedaValue="showBusquedaValue" :showBusqueda="showBusqueda" :saveBusqueda="saveBusqueda" />
+        <Busqueda
+          :showBusquedaValue="showBusquedaValue"
+          :showBusqueda="showBusqueda"
+          :saveBusqueda="saveBusqueda"
+        />
       </div>
     </section>
   </main>
@@ -71,13 +90,13 @@ export default {
     FormConsultaBusqueda,
     Filtro,
     Busqueda,
-    LogoutComponent
+    LogoutComponent,
   },
   setup() {
     const router = useRouter();
     const store = consultas();
     const authStore = auth();
-    const { rol } = authStore.getAuthData
+    const { rol } = authStore.getAuthData;
     const app = ref({
       filtro: {
         tipoDocumento: "",
@@ -193,11 +212,7 @@ export default {
           label: `${project.clave_cartera}-${project.nombre_proyecto}`,
         }));
       } catch (error) {
-        Swal.fire(
-          "Error",
-          `${error.response.data.detail}`,
-          "error"
-        );
+        Swal.fire("Error", `${error.response.data.detail}`, "error");
         app.value.filtro.tipoDocumento = "";
         app.value.filtro.filtroDocValue = "";
       }
@@ -247,11 +262,7 @@ export default {
           });
         }
       } catch (error) {
-        Swal.fire(
-          "Error",
-          `${error.response.data.detail}`,
-          "error"
-        );
+        Swal.fire("Error", `${error.response.data.detail}`, "error");
         app.value.filtro.tipoDocumento = "";
         app.value.filtro.filtroDocValue = "";
       }
@@ -304,12 +315,16 @@ export default {
           }
           return resultado;
         }, {});
-
-      const { data } = await fetchBusqueda(params)
-      store.addBusqueda(data)
-      router.push({
-        name: "ConsultasBusquedaMAOF",
-      });
+      try {
+        const { data } = await fetchBusqueda(params);
+        store.addBusqueda(data);
+        router.push({
+          name: "ConsultasBusquedaMAOF",
+        });
+      } catch (error) {
+        Swal.fire("Error", `${error.response.data.detail}`, "error");
+        showBusqueda()
+      }
     };
 
     const saveFiltro = async (id_doc, id_typeDoc) => {
@@ -327,7 +342,6 @@ export default {
       infoToStore(data.pendiente, data.pagadas, data.total);
       app.value.loading = false;
     };
-
 
     getFiltroDefault();
 

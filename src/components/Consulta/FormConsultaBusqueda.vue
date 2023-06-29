@@ -58,6 +58,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    showBusqueda: {
+      type: Function,
+      required: true,
+    },
   },
   components: {
     InputBase,
@@ -174,21 +178,27 @@ export default {
       );
     });
     const getC_CC_CM = async () => {
-      const { data } = await fetchContracts();
-      app.listC_CC_CM = data.map((contrato) => ({
-        value: contrato.id_contrato,
-        label: contrato.numero_contrato,
-      }));
-      app.listC_CC_CM.sort((a, b) => {
-        if (a.label > b.label) {
-          return 1;
-        }
-        if (a.label < b.label) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
+      try {
+        const { data } = await fetchContracts();
+        app.listC_CC_CM = data.map((contrato) => ({
+          value: contrato.id_contrato,
+          label: contrato.numero_contrato,
+        }));
+        app.listC_CC_CM.sort((a, b) => {
+          if (a.label > b.label) {
+            return 1;
+          }
+          if (a.label < b.label) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+      } catch (error) {
+        console.log(error);
+        Swal.fire("¡Error!", `${error.response.data.detail}`, "error");
+        props.showBusqueda()
+      }
     };
     const getResident = async () => {
       const { data } = await fetchResident();
@@ -273,7 +283,7 @@ export default {
       } else {
         let errors = '';
         v$.value.$errors.forEach((element) => {
-          errors = element.$message; 
+          errors = element.$message;
         });
         Swal.fire("¡Error!", `${errors}`, "error");
       }
