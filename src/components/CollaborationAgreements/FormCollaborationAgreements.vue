@@ -105,6 +105,16 @@ export default {
       data.forEach(contrato => {
         if (contrato.estatus_contratista === 'Activo') {
           app.listContratista.push({ value: contrato.id_contratista, label: contrato.nombre_contratista })
+          app.listContratista.sort((a, b) => {
+        if (a.nombre_contratista > b.nombre_contratista) {
+          return 1;
+        }
+        if (a.nombre_contratista < b.nombre_contratista) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
         }
       });
     }

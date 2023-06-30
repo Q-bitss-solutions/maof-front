@@ -17,8 +17,6 @@
     <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
       v-if="filtro.tipoDocumento === '4'" @click="esperandoAccion()" />
   </div>
-  {{ filtro.listDocsFiltrados }}
-  {{ filtro.tipoDocumento }}
 </template>
   
 <script>

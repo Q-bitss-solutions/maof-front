@@ -51,7 +51,7 @@
           v-if="header.label === 'FINANZAS' && header.field === 'estatus_semaforo' && item[header.field] === 'Finanzas'">
           ab</button>
         <button class=" bg-orange rounded-full text-orange w-6" @click="semaforo(item)"
-          v-if="header.label === 'TRÁMITE DE PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'DGPOP'">
+          v-if="header.label === 'TRÁMITE DE PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'Tramite de Pago'">
           ab</button>
         <button class=" bg-green rounded-full text-green w-6" @click="semaforo(item)"
           v-if="header.label === 'PAGO' && header.field === 'estatus_semaforo' && item[header.field] === 'Pago Efectuado'">

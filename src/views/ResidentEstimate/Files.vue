@@ -259,7 +259,7 @@ export default {
         flag = true;
       }
       if (
-        (estatus_semaforo === "Finanzas" || estatus_semaforo === "DGPOP") &&
+        (estatus_semaforo === "Finanzas" || estatus_semaforo === "Tramite de Pago") &&
         rol.includes("Finanzas")
       ) {
         flag = true;
