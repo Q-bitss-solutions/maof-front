@@ -2,7 +2,11 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <logout-component/>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
+      </div>
     </div>
     <title-bar title="Usuarios y Roles MAOF" subtitle="Nuevo" />
     <section class="px-4">
@@ -19,6 +23,8 @@ import { storeUser } from './../../api/users'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import LogoutComponent from '../../components/LogoutComponent.vue'
+import HomePage from '../../components/HomePage.vue'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'NewUnitMAOF',
@@ -26,9 +32,12 @@ export default {
     FormUsersAndRolsMAOF,
     ArrowBack,
     TitleBar,
+    HomePage,
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const router = useRouter()
     const saveUserAndRols = async (userAndRol) => {
       try {
@@ -49,6 +58,7 @@ export default {
     }
 
     return {
+      rol,
       saveUserAndRols,
     }
   },

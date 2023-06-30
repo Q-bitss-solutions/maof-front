@@ -2,9 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <div>
-        <home-page/>
-        <logout-component/>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Usuarios y Roles MAOF" subtitle="Inicio" />
@@ -26,6 +27,7 @@ import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
 import LogoutComponent from '../../components/LogoutComponent.vue'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'UsersRolesMAOFIndex',
@@ -38,6 +40,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const router = useRouter()
     const headers = [
       {
@@ -128,7 +132,7 @@ export default {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  userAndRolStatus.estatus_empleado  = false
+                  userAndRolStatus.estatus_empleado = false
                   await deleteUser(userAndRol.empleado_maof, userAndRolStatus)
                   await getUserAndRols()
                   Swal.fire(
@@ -158,6 +162,7 @@ export default {
       userAndRolStatus,
       featureOptions,
       headers,
+      rol,
       goToNewUserAndRols,
     }
   },

@@ -1,21 +1,17 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back  />
-      <div>
+      <arrow-back />
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
         <home-page />
-        <logout-component/>
+        <logout-component />
       </div>
     </div>
     <title-bar title="Áreas revisoras" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva área revisora" @click="goToNewReviewArea" class="mb-3 mr-0 ml-auto" />
-      <table-base
-        description="Áreas revisoras"
-        :options="featureOptions"
-        :headers="headers"
-        :data="reviewAreas"
-      />
+      <table-base description="Áreas revisoras" :options="featureOptions" :headers="headers" :data="reviewAreas" />
     </section>
   </main>
 </template>
@@ -30,6 +26,8 @@ import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import LogoutComponent from '../../components/LogoutComponent.vue'
+import { auth } from '../../store/auth'
+
 
 export default {
   name: 'ReviewAreasIndex',
@@ -42,6 +40,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const router = useRouter()
     const headers = [
       {
@@ -75,6 +75,7 @@ export default {
       reviewAreas,
       featureOptions,
       headers,
+      rol,
       goToNewReviewArea,
     }
   },
