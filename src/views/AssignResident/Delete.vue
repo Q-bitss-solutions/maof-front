@@ -2,7 +2,11 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <logout-component/>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
+      </div>
     </div>
     <title-bar title="Asignación Residente" subtitle="Inactivar" />
     <section class="px-4">
@@ -21,6 +25,9 @@ import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
 import LogoutComponent from '../../components/LogoutComponent.vue'
+import HomePage from '../../components/HomePage.vue'
+import { auth } from '../../store/auth'
+
 
 
 export default {
@@ -29,9 +36,12 @@ export default {
     DeleteAssignResident,
     ArrowBack,
     TitleBar,
+    HomePage,
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
@@ -59,6 +69,7 @@ export default {
 
     return {
       app,
+      rol,
       saveAssingResident,
 
     }

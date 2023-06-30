@@ -2,9 +2,10 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <div>
-        <home-page/>
-        <logout-component/>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Busqueda" />
@@ -36,6 +37,8 @@ import Swal from "sweetalert2";
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from "../../store/consultas";
 import LogoutComponent from "../../components/LogoutComponent.vue";
+import { auth } from '../../store/auth'
+
 export default {
   name: "ConsultasBusquedaMAOF",
   components: {
@@ -49,6 +52,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const app = ref({
       busqueda: {},
       loading: true,
@@ -190,6 +195,7 @@ export default {
     const getQuery = () => {
       // Utilizar el valor del parámetro como necesites
       app.value.loading = true;
+      console.log(store.busqueda);
       app.value.busqueda = store.busqueda;
       app.value.loading = false;
     };
@@ -203,6 +209,7 @@ export default {
       featureOptions,
       detalleEstimacionData,
       detalleEstimacion,
+      rol,
       goToNewResidentEstimate,
       getQuery,
       processo,

@@ -2,7 +2,7 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <logout-component/>
+      <logout-component />
     </div>
     <title-bar title="Áreas revisoras" subtitle="Editar" />
     <section class="px-4">

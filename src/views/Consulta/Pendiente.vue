@@ -2,16 +2,18 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <div>
-        <home-page/>
-        <logout-component/>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Pendientes" />
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
-        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" v-if="rol == 'Residente'"/>
+        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto"
+          v-if="rol == 'Residente'" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
       <tablero-estimacion-residente :options="featureOptions" :headers="headers" :data="app.pendiente"

@@ -1,18 +1,19 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back  />
+      <arrow-back />
       <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p> 
-        <home-page/>
-        <logout-component/>
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
       </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
-        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto" v-if="rol == 'Residente'"/>
+        <button-base label="Nueva Estimación Residente" @click="goToNewResidentEstimate" class="mb-3 mr-0 ml-auto"
+          v-if="rol == 'Residente'" />
         <toggle-switch label="En Proceso" @change="processo" class="mb-3 mr-0 ml-10" :placeholder="'En Proceso'" />
       </div>
       <!-- <table-base :options="featureOptions" :headers="headers" /> -->
@@ -26,7 +27,7 @@
 import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
-import {fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
+import { fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
 import ArrowBack from '../../components/ArrowBack.vue'
 import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
@@ -118,6 +119,7 @@ export default {
       },
     ]
     const residentEstimate = ref([])
+    const estatusSemaforo = ref()
     const detalleEstimacionData = ref([])
     let procesoVariable = false
     let detalleEstimacion = ref(false)
@@ -140,14 +142,16 @@ export default {
       },
       {
         label: 'Nuevo',
-        disabled: rol != 'Residente' || residentEstimate.estatus_semafor != 'RESIDENTE',
-        action: (residentEstimate) => router
-          .push({
-            name: 'NewResidentEstimateById',
-            params: {
-              residentEstimateId: residentEstimate.contrato_estimacion,
-            },
-          }),
+        disabled: rol != 'Residente',
+        action: (residentEstimate) => {
+          router
+            .push({
+              name: 'NewResidentEstimateById',
+              params: {
+                residentEstimateId: residentEstimate.contrato_estimacion,
+              },
+            })
+        },
       },
       {
         label: 'Archivo',

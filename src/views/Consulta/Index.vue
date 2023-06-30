@@ -32,7 +32,7 @@
       <!-- Filtro y Busqueda -->
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
-        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro" />
+        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro" :esperandoAccion="esperandoAccion" />
         <!-- :esperandoAccion="esperandoAccion" -->
         <!-- Busqueda -->
         <Busqueda :showBusquedaValue="showBusquedaValue" :showBusqueda="showBusqueda" :saveBusqueda="saveBusqueda" />
@@ -86,7 +86,7 @@ export default {
         listFiltros: [
           { value: 2, label: "Contrato o Convenio de Colaboración" },
           { value: 3, label: "Convenio Modificatorio" },
-          /* { value: 4, label: "Esperando una acción" }, */
+          { value: 4, label: "Esperando una acción" },
           { value: 1, label: "Proyecto / Cartera de inversión" },
         ],
         listDocsFiltrados: [],
@@ -312,10 +312,15 @@ export default {
         }, {});
       try {
         const { data } = await fetchBusqueda(params);
-        store.addBusqueda(data);
-        router.push({
-          name: "ConsultasBusquedaMAOF",
-        });
+        if (data.length) {
+          store.addBusqueda(data);
+          router.push({
+            name: "ConsultasBusquedaMAOF",
+          });
+        } else {
+          Swal.fire("Error", `No hay resultados para estos criterios`, "error");
+          
+        }
       } catch (error) {
         Swal.fire("Error", `${error.response.data.detail}`, "error");
         showBusqueda()
@@ -338,6 +343,10 @@ export default {
       app.value.loading = false;
     };
 
+    const esperandoAccion = () => {
+      console.log('Se ejucuta funcion para esperando una opcion UwU');
+    }
+
     getFiltroDefault();
 
     return {
@@ -353,6 +362,7 @@ export default {
       getContracts,
       getFiltroDefault,
       infoToStore,
+      esperandoAccion,
     };
   },
 };
