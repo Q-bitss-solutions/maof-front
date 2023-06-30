@@ -368,6 +368,14 @@ const routes = [
       requiresAuth: true, // Requiere autenticación
     },
   },
+  {
+    path: "/consultas/responsable_estimacion",
+    name: "ResponsableEstimacionMAOF",
+    component: () => import("../views/Consulta/ResponsableEstimacion.vue"),
+    meta: {
+      requiresAuth: true, // Requiere autenticación
+    },
+  },
   /*
   {
     path: '/areas-revisoras/:reviewAreaId',

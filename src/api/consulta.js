@@ -16,4 +16,11 @@ const fetchBusqueda = (params) =>
     params: params ? params : {},
   });
 
-export { fetchFiltroAll, fetchBusqueda };
+const fetchResponsableEstimacion = (params) =>
+  fetchApi({
+    url: `/agenda_estimacion/responsable_estimacion/`,
+    method: "GET",
+    params: params ? params : {},
+  });
+
+export { fetchFiltroAll, fetchBusqueda, fetchResponsableEstimacion };

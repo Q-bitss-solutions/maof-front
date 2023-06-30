@@ -47,7 +47,7 @@ export default {
         await storeAssingResident(assingResident)
         Swal.fire(
           '¡Éxito!',
-          'Asignacion guardada con éxito!',
+          'Asignación guardada con éxito!',
           'success'
         )
       } catch (error) {
