@@ -7,7 +7,7 @@
       />
       <select-base
         label="Filtros"
-        class="text-center w-48 mr-10"
+        class="text-center w-48 mr-9"
         id="filtros"
         :options="filtro.listFiltros"
         v-model="filtro.tipoDocumento"
@@ -25,7 +25,7 @@
         label="Aplicar"
         class="border-gray text-black hover:bg-white hover:text-red"
         :class="{
-          'ml-auto': filtro.tipoDocumento === '1',
+          ' ml-32': filtro.tipoDocumento === '1',
           ' ml-[3.7rem]':
             filtro.tipoDocumento !== '1' && filtro.filtroDocValue === '',
           ' ml-[0rem]':
