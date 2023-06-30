@@ -2,7 +2,11 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <logout-component />
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
+      </div>
     </div>
     <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
@@ -28,30 +32,30 @@
       <div v-if="filesResidente.length" class="flex flex-col py-px">
         <banner title="Documentos de Residente" />
         <table-base description="Residente" :options="featureOptionsResidente.length !== 0
-            ? featureOptionsResidente
-            : featureOptions
+          ? featureOptionsResidente
+          : featureOptions
           " :headers="headers" :data="filesResidente" :showOptions="canEditResidente" :tableName="'residente'" />
       </div>
       <div v-if="filesAreaRevisora.length">
         <banner title="Documentos de Área Revisora" />
         <table-base description="Área Revisora" :options="featureOptionsAreaRevisora.length !== 0
-            ? featureOptionsAreaRevisora
-            : featureOptions
+          ? featureOptionsAreaRevisora
+          : featureOptions
           " :headers="headers" :data="filesAreaRevisora" :showOptions="canEditAreaRevisora"
           :tableName="'area-revisora'" />
       </div>
       <div v-if="filesFinanzas.length">
         <banner title="Documentos de Finanzas" />
         <table-base description="Finanzas" :options="featureOptionsFianzas.length !== 0
-            ? featureOptionsFianzas
-            : featureOptions
+          ? featureOptionsFianzas
+          : featureOptions
           " :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas" :tableName="'finanzas'" />
       </div>
       <div v-if="filesTramite_Pago.length">
-        <banner title="Documentos de Registro de Pago" />
+        <banner title="Documentos de Tramite de Pago" />
         <table-base description="Registro de Pago" :options="featureOptionsFianzas.length !== 0
-            ? featureOptionsFianzas
-            : featureOptions
+          ? featureOptionsFianzas
+          : featureOptions
           " :headers="headers" :data="filesTramite_Pago" :showOptions="canEditPago" :tableName="'pago'" />
       </div>
     </section>
@@ -77,6 +81,7 @@ import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import Banner from "../../components/Banner.vue";
+import HomePage from '../../components/HomePage.vue'
 import { auth } from "../../store/auth";
 
 export default {
@@ -88,6 +93,7 @@ export default {
     InputBase,
     TableBase,
     ButtonBase,
+    HomePage,
     Banner,
     LogoutComponent,
   },
@@ -372,14 +378,12 @@ export default {
     return {
       app,
       filesById,
-      saveResident,
       featureOptions,
       featureOptionsResidente,
       featureOptionsAreaRevisora,
       featureOptionsFianzas,
       formData,
       headers,
-      fileUpload,
       filesResidente,
       filesAreaRevisora,
       filesTramite_Pago,
@@ -389,6 +393,9 @@ export default {
       canEditAreaRevisora,
       canEditFinanzas,
       canEditPago,
+      rol,
+      saveResident,
+      fileUpload,
     };
   },
 };

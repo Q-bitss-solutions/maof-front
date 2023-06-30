@@ -1,13 +1,21 @@
 <template>
   <main class="px-4 mt-10">
-    <arrow-back />
+    <div class="flex justify-between">
+      <arrow-back />
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
+        <home-page />
+        <logout-component />
+      </div>
+    </div>
     <title-bar title="Estimación Residente" subtitle="Histórico" />
     <div class="mb-10">
       <div class="flex  items-center ">
         <p class="font-semibold text-center">Número de contrato (de origen)</p>
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.numero_contrato }}</p>
         <p class="font-semibold text-center ml-80 text-red">Número de la Estimación</p>
-        <p class=" text-xl font-semibold text-red text-center ml-2">{{ app.residentEstimate.num_consecutivo_estimacion }}</p>
+        <p class=" text-xl font-semibold text-red text-center ml-2">{{ app.residentEstimate.num_consecutivo_estimacion }}
+        </p>
         <p class="font-semibold text-center ml-10 text-red">Días transcurridos</p>
         <p class=" text-sm font-semibold text-red text-center ml-4">{{ app.residentEstimate.dias_transcurridos }}</p>
       </div>
@@ -47,7 +55,8 @@
         <p class=" text-sm text-center ml-2">{{ app.residentEstimate.porcentaje_avance_estimacion_acumulado }}%</p>
       </div>
     </div>
-    <table-base-index class="mb-10" description="Histórico"  :headers="headers" :data="app.residentEstimateHistory" :option="[]" />
+    <table-base-index class="mb-10" description="Histórico" :headers="headers" :data="app.residentEstimateHistory"
+      :option="[]" />
     <!-- <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading"/> -->
   </main>
 </template>
@@ -61,6 +70,10 @@ import { fetchResidentEstimateById, fetchHistoryResidentEstimateById } from '../
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
+import LogoutComponent from '../../components/LogoutComponent.vue'
+import HomePage from '../../components/HomePage.vue'
+import { auth } from '../../store/auth'
+
 
 export default {
   name: 'Historico',
@@ -68,9 +81,13 @@ export default {
     FormResidentEstimate,
     ArrowBack,
     TitleBar,
+    LogoutComponent,
+    HomePage,
     TableBaseIndex,
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
@@ -130,8 +147,9 @@ export default {
 
     return {
       app,
-      saveResident,
       headers,
+      rol,
+      saveResident,
     }
   },
 }

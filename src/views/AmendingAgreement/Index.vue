@@ -1,16 +1,18 @@
 <template>
   <main class="px-4 mt-10">
     <div class="flex justify-between">
-      <arrow-back  />
-      <div>
+      <arrow-back />
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
         <home-page />
-        <logout-component/>
+        <logout-component />
       </div>
     </div>
     <title-bar title="Convenio Modificatorio" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Convenio Modificatorio" @click="goToNewAmendingAgreement" class="mb-3 mr-0 ml-auto" />
-      <table-base description="Convenios Modificatorios" :options="featureOptions" :headers="headers" :data="amendingAgreement" />
+      <table-base description="Convenios Modificatorios" :options="featureOptions" :headers="headers"
+        :data="amendingAgreement" />
       <div class="root">
         <teleport to="body">
           <div class="modal items-center justify-center" v-if="isOpen">
@@ -87,11 +89,12 @@ import TableBase from '../../components/TableBase.vue'
 import { fetchContracts, deleteContract, fetchContractById } from './../../api/contract'
 import ArrowBack from '../../components/ArrowBack.vue'
 import HomePage from '../../components/HomePage.vue'
+import LogoutComponent from '../../components/LogoutComponent.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
-import LogoutComponent from '../../components/LogoutComponent.vue'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'AmendingAgreementIndex',
@@ -104,6 +107,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const isOpen = ref(false)
     const router = useRouter()
     const headers = [
@@ -230,6 +235,7 @@ export default {
       amendingAgreementDetalles,
       featureOptions,
       headers,
+      rol,
       goToNewAmendingAgreement,
     }
   },

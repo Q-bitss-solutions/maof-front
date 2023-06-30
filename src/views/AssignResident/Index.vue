@@ -2,15 +2,17 @@
   <main class="px-4 mt-10">
     <div class="flex justify-between">
       <arrow-back />
-      <div>
+      <div class="flex justify-center items-center">
+        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
         <home-page />
-        <logout-component/>
+        <logout-component />
       </div>
     </div>
     <title-bar title="Asignación Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nueva Asignación" @click="goToNewAssingResident" class="mb-3 mr-0 ml-auto" />
-      <table-base description="Asignación Residente" :options="featureOptions" :headers="headers" :data="assingResident" />
+      <table-base description="Asignación Residente" :options="featureOptions" :headers="headers"
+        :data="assingResident" />
     </section>
   </main>
 </template>
@@ -25,6 +27,7 @@ import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import LogoutComponent from '../../components/LogoutComponent.vue'
+import { auth } from '../../store/auth'
 
 export default {
   name: 'AssignResidentIndex',
@@ -37,6 +40,8 @@ export default {
     LogoutComponent
   },
   setup() {
+    const authStore = auth();
+    const { rol } = authStore.getAuthData
     const router = useRouter()
     const headers = [
       {
@@ -106,6 +111,7 @@ export default {
       assingResident,
       featureOptions,
       headers,
+      rol,
       goToNewAssingResident,
       getAssingResident,
     }
