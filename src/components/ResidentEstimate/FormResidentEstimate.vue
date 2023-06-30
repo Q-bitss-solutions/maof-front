@@ -252,8 +252,13 @@ export default {
     }
 
     const getContratos = async () => {
-      const { data } = await fetchContracts()
-      app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.objeto_contrato }))
+      const params = { activate_filters: true }
+      try {  
+        const { data } = await fetchContracts(params)
+        app.listContrato = data.map(contrato => ({ value: contrato.id_contrato, label: contrato.numero_contrato, name: contrato.objeto_contrato }))
+      } catch (error) {
+        
+      }
     }
 
     const getName = async (id) => {
