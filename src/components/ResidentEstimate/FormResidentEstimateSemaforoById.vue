@@ -15,283 +15,127 @@
       </div>
     </div>
   </div>
-  <button-base
-    label="Archivos"
-    @click="goToArchivos"
-    class="mb-3 mr-0 ml-auto"
-  />
+  <button-base label="Archivos" @click="goToArchivos" class="mb-3 mr-0 ml-auto" />
   <div class="max-w-xl mx-auto">
-    <input-base
-      id="fecha_recepcion_info_contratista"
-      label="Fecha de recepción de información del Contratista"
-      type="date"
-      class="mb-3"
-      v-model="app.fecha_recepcion_info_contratista"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="fecha_recepcion_info_contratista" label="Fecha de recepción de información del Contratista"
+      type="date" class="mb-3" v-model="app.fecha_recepcion_info_contratista" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <input-base
-      id="fecha_autorizacion_contratista"
-      label="Fecha de autorización al Contratista"
-      type="date"
-      class="mb-3"
-      v-model="app.fecha_autorizacion_contratista"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+        " />
+    <input-base id="fecha_autorizacion_contratista" label="Fecha de autorización al Contratista" type="date" class="mb-3"
+      v-model="app.fecha_autorizacion_contratista" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.fecha_autorizacion_contratista.$error"
-      v-for="error in v$.fecha_autorizacion_contratista.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.fecha_autorizacion_contratista.$error" v-for="error in v$.fecha_autorizacion_contratista.$errors"
+      :key="error" class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
 
     <div class="flex flex-row">
       <div>
-        <input-base
-          id="fecha_periodo_inicio_estimacion"
-          label="Período de la Estimación"
-          type="date"
-          v-model="app.fecha_periodo_inicio_estimacion"
-          :disabled="
-            app.residentEstimate.estatus_semaforo !== 'Residente' ||
+        <input-base id="fecha_periodo_inicio_estimacion" label="Período de la Estimación" type="date"
+          v-model="app.fecha_periodo_inicio_estimacion" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
             rol != 'Residente'
-          "
-        />
+            " />
       </div>
       <div>
-        <input-base
-          id="fecha_periodo_fin_estimacion"
-          label="al"
-          type="date"
-          class="pt-2"
-          v-model="app.fecha_periodo_fin_estimacion"
-          :disabled="
-            app.residentEstimate.estatus_semaforo !== 'Residente' ||
+        <input-base id="fecha_periodo_fin_estimacion" label="al" type="date" class="pt-2"
+          v-model="app.fecha_periodo_fin_estimacion" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
             rol != 'Residente'
-          "
-        />
+            " />
       </div>
     </div>
-    <input-base
-      id="importe_obra_ejecutada"
-      label="Importe de la obra ejecutada"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.importe_obra_ejecutada"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="importe_obra_ejecutada" label="Importe de la obra ejecutada" type="number" class="mb-3"
+      v-model="app.residentEstimate.importe_obra_ejecutada" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <input-base
-      id="importe_pagar"
-      label="Importe a pagar"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.importe_pagar"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+        " />
+    <input-base id="importe_pagar" label="Importe a pagar" type="number" class="mb-3"
+      v-model="app.residentEstimate.importe_pagar" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
+        " />
 
-    <input-base
-      id="grado_avance_obra"
-      label="% de grado de avance"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.grado_avance_obra"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="grado_avance_obra" label="% de grado de avance" type="number" class="mb-3"
+      v-model="app.residentEstimate.grado_avance_obra" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.grado_avance_obra.$error"
-      v-for="error in v$.grado_avance_obra.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.grado_avance_obra.$error" v-for="error in v$.grado_avance_obra.$errors" :key="error"
+      class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
 
-    <input-base
-      id="porcentaje_avance_estimacion"
-      label="% de avance de la Estimación"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.porcentaje_avance_estimacion"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="porcentaje_avance_estimacion" label="% de avance de la Estimación" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcentaje_avance_estimacion" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.porcentaje_avance_estimacion.$error"
-      v-for="error in v$.porcentaje_avance_estimacion.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.porcentaje_avance_estimacion.$error" v-for="error in v$.porcentaje_avance_estimacion.$errors"
+      :key="error" class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
 
-    <input-base
-      id="porcentaje_avance_estimacion_acumulado"
-      label="% de avance de la Estimación acumulado"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.porcentaje_avance_estimacion_acumulado"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="porcentaje_avance_estimacion_acumulado" label="% de avance de la Estimación acumulado" type="number"
+      class="mb-3" v-model="app.residentEstimate.porcentaje_avance_estimacion_acumulado" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.porcentaje_avance_estimacion_acumulado.$error"
-      v-for="error in v$.porcentaje_avance_estimacion_acumulado.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.porcentaje_avance_estimacion_acumulado.$error"
+      v-for="error in v$.porcentaje_avance_estimacion_acumulado.$errors" :key="error"
+      class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
 
-    <input-base
-      id="porcentaje_avance_fisico"
-      label="% de avance físico"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.porcentaje_avance_fisico"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="porcentaje_avance_fisico" label="% de avance físico" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcentaje_avance_fisico" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.porcentaje_avance_fisico.$error"
-      v-for="error in v$.porcentaje_avance_fisico.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.porcentaje_avance_fisico.$error" v-for="error in v$.porcentaje_avance_fisico.$errors" :key="error"
+      class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
 
-    <input-base
-      id="porcensaje_avance_financiero"
-      label="% de avance financiero"
-      type="number"
-      class="mb-3"
-      v-model="app.residentEstimate.porcensaje_avance_financiero"
-      :disabled="
-        app.residentEstimate.estatus_semaforo !== 'Residente' ||
+    <input-base id="porcensaje_avance_financiero" label="% de avance financiero" type="number" class="mb-3"
+      v-model="app.residentEstimate.porcensaje_avance_financiero" :disabled="app.residentEstimate.estatus_semaforo !== 'Residente' ||
         rol != 'Residente'
-      "
-    />
-    <span
-      v-if="v$.porcensaje_avance_financiero.$error"
-      v-for="error in v$.porcensaje_avance_financiero.$errors"
-      :key="error"
-      class="text-red font-semibold text-center ml-80"
-    >
+        " />
+    <span v-if="v$.porcensaje_avance_financiero.$error" v-for="error in v$.porcensaje_avance_financiero.$errors"
+      :key="error" class="text-red font-semibold text-center ml-80">
       {{ error.$message }}
     </span>
   </div>
 
   <!-- Actions Residente -->
-  <div
-    class="flex justify-between items-center py-4"
-    v-if="
-      app.residentEstimate.estatus_semaforo === 'Residente' &&
-      rol == 'Residente'
-    "
-  >
-    <button-base
-      label="Inactivar Estimación"
-      class="px-4"
-      @click="deleteForm"
-      v-if="
-        app.residentEstimate.estatus_estimacion === 'Capturada por Residente' ||
-        app.residentEstimate.estatus_estimacion === 'Autorizada por Residente'
-      "
-    />
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Residente' &&
+    rol == 'Residente'
+    ">
+    <button-base label="Inactivar Estimación" class="px-4" @click="deleteForm" v-if="app.residentEstimate.estatus_estimacion === 'Capturada por Residente' ||
+      app.residentEstimate.estatus_estimacion === 'Autorizada por Residente'
+      " />
     <button-base label="Actualizar datos" class="px-4" @click="editForm" />
-    <button-base
-      label="Enviar al área revisora"
-      class="px-4"
-      @click="changeStatus(STATUS.sendReviewArea)"
-    />
+    <button-base label="Enviar al área revisora" class="px-4" @click="changeStatus(STATUS.sendReviewArea)" />
   </div>
   <!-- Actions Area Revisora -->
-  <div
-    class="flex justify-between items-center py-4"
-    v-if="
-      app.residentEstimate.estatus_semaforo === 'Area Revisora' &&
-      (rol.includes('Área revisora') || rol.includes('Obras y Contratos'))
-    "
-  >
-    <button-base
-      label="Regresar a  Residente"
-      class="px-4"
-      @click="changeStatus(STATUS.returnToResident)"
-    />
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Area Revisora' &&
+    (rol.includes('Área revisora') || rol.includes('Obras y Contratos'))
+    ">
+    <button-base label="Regresar a  Residente" class="px-4" @click="changeStatus(STATUS.returnToResident)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
-    <button-base
-      label="Enviar a finanzas"
-      class="px-4"
-      @click="changeStatus(STATUS.sendFinance)"
-    />
+    <button-base label="Enviar a finanzas" class="px-4" @click="changeStatus(STATUS.sendFinance)" />
   </div>
   <!-- Actions Finanzas -->
-  <div
-    class="flex justify-between items-center py-4"
-    v-if="
-      app.residentEstimate.estatus_semaforo === 'Finanzas' &&
-      rol.includes('Finanzas')
-    "
-  >
-    <button-base
-      label="Regresar al área revisora"
-      class="px-4"
-      @click="changeStatus(STATUS.returnToReviewArea)"
-    />
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Finanzas' &&
+    rol.includes('Finanzas')
+    ">
+    <button-base label="Regresar al área revisora" class="px-4" @click="changeStatus(STATUS.returnToReviewArea)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
-    <button-base
-      label="Enviar a trámite de pago"
-      class="px-4"
-      @click="changeStatus(STATUS.sendToPaymentProcess)"
-    />
+    <button-base label="Enviar a trámite de pago" class="px-4" @click="changeStatus(STATUS.sendToPaymentProcess)" />
   </div>
   <!-- Actions Tramite de pagos -->
-  <div
-    class="flex justify-between items-center py-4"
-    v-if="
-      app.residentEstimate.estatus_semaforo === 'DGPOP' &&
-      rol.includes('Finanzas')
-    "
-  >
-    <button-base
-      label="Regresar a Finanzas"
-      class="px-4"
-      @click="changeStatus(STATUS.returnToFinance)"
-    />
+  <div class="flex justify-between items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Tramite de Pago' &&
+    rol.includes('Finanzas')
+    ">
+    <button-base label="Regresar a Finanzas" class="px-4" @click="changeStatus(STATUS.returnToFinance)" />
     <button-base label="Cancelar" class="px-4" @click="back" />
-    <button-base
-      label="Registrar Pago"
-      class="px-4"
-      @click="changeStatus(STATUS.savePayment)"
-    />
+    <button-base label="Registrar Pago" class="px-4" @click="changeStatus(STATUS.savePayment)" />
   </div>
   <!-- Actions Pagos -->
-  <div
-    class="flex justify-center items-center py-4"
-    v-if="app.residentEstimate.estatus_semaforo === 'Pago Efectuado'"
-  >
+  <div class="flex justify-center items-center py-4" v-if="app.residentEstimate.estatus_semaforo === 'Pago Efectuado'">
     <button-base label="Regresar" class="px-4" @click="back" />
   </div>
 </template>

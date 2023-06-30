@@ -32,8 +32,8 @@
       <!-- Filtro y Busqueda -->
       <div class="flex flex-col mt-20">
         <!-- Filtro -->
-        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro" :esperandoAccion="esperandoAccion" />
-        <!-- :esperandoAccion="esperandoAccion" -->
+        <Filtro :filtro="app.filtro" :getDocsByType="getDocsByType" :saveFiltro="saveFiltro"
+          :esperandoAccion="esperandoAccion" />
         <!-- Busqueda -->
         <Busqueda :showBusquedaValue="showBusquedaValue" :showBusqueda="showBusqueda" :saveBusqueda="saveBusqueda" />
       </div>
@@ -54,7 +54,7 @@ import FormConsultaBusqueda from "../../components/Consulta/FormConsultaBusqueda
 import Swal from "sweetalert2";
 import { fetchProjects } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
-import { fetchFiltroAll, fetchBusqueda } from "../../api/consulta";
+import { fetchFiltroAll, fetchBusqueda, fetchResponsableEstimacion } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
 import { auth } from "../../store/auth";
 import Filtro from "../../components/Consulta/Filtro.vue";
@@ -319,7 +319,7 @@ export default {
           });
         } else {
           Swal.fire("Error", `No hay resultados para estos criterios`, "error");
-          
+
         }
       } catch (error) {
         Swal.fire("Error", `${error.response.data.detail}`, "error");
@@ -343,8 +343,21 @@ export default {
       app.value.loading = false;
     };
 
-    const esperandoAccion = () => {
-      console.log('Se ejucuta funcion para esperando una opcion UwU');
+    const esperandoAccion = async () => {
+      app.value.loading = true;
+      try {
+        const { data } = await fetchResponsableEstimacion()
+        store.addResponsableEstimacion(data)
+        app.value.loading = false;
+        router.push({
+          name: "ResponsableEstimacionMAOF",
+        });
+      } catch (error) {
+        Swal.fire("Error", `${error.response.data.detail}`, "error");
+        app.value.filtro.tipoDocumento = "";
+        app.value.filtro.filtroDocValue = "";
+        app.value.loading = false;
+      }
     }
 
     getFiltroDefault();
