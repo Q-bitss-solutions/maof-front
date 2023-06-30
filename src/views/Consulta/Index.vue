@@ -277,11 +277,18 @@ export default {
 
     const getFiltroDefault = async () => {
       app.value.loading = true;
-      const { data } = await fetchFiltroAll();
-      app.value.filtro.data.totales = data.total;
-      app.value.filtro.data.pagados = data.pagadas;
-      app.value.filtro.data.pendientes = data.pendiente;
-      infoToStore(data.pendiente, data.pagadas, data.total);
+      try {
+        const { data } = await fetchFiltroAll();
+        app.value.filtro.data.totales = data.total;
+        app.value.filtro.data.pagados = data.pagadas;
+        app.value.filtro.data.pendientes = data.pendiente;
+        infoToStore(data.pendiente, data.pagadas, data.total);
+      } catch (error) {
+        Swal.fire("Error", `${error.response.data.detail}`, "error");
+        router.push({
+          name: "Home",
+        })
+      }
       app.value.loading = false;
     };
 
