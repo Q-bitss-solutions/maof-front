@@ -121,16 +121,6 @@ export default {
         },
         diasInicio: {
           minValue: helpers.withMessage("El valor mínimo es 0", minValue(0)),
-          customValidation: helpers.withMessage(
-            "El valor de días inicio debe ser menor que días fin",
-            (value) => {
-              if (app.diasInicio !== "" && app.diasFin !== "") {
-                return app.diasInicio < app.diasFin;
-              } else {
-                return true; // Permitir que se complete solo uno de los campos o valores nulos
-              }
-            }
-          ),
         },
         /* fechaInicio: {
           maxValue: helpers.withMessage(
