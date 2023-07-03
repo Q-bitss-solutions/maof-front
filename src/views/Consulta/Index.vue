@@ -152,6 +152,7 @@ export default {
           break;
       }
     };
+    
     const getDocsByType = async (id) => {
       if (showBusquedaValue.value === true) {
         showBusquedaValue.value = false;

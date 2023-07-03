@@ -167,6 +167,7 @@ export default {
         !fechaFin
       );
     });
+
     const getC_CC_CM = async () => {
       const params = { activate_filters: true }
       try {
@@ -190,8 +191,10 @@ export default {
         props.showBusqueda()
       }
     };
+
     const getResident = async () => {
-      const { data } = await fetchResident();
+      const params = { activate_filters: true }
+      const { data } = await fetchResident(params);
       app.listResident = data.map((residente) => ({
         value: residente.id_residente,
         label: residente.nombre_completo,
@@ -207,6 +210,7 @@ export default {
         return 0;
       });
     };
+
     const getUnitMAOF = async () => {
       const { data } = await fetchSICTUnits();
       app.listUnitMAOF = data.map((UnidadMAOF) => ({
@@ -224,6 +228,7 @@ export default {
         return 0;
       });
     };
+
     const getStatusEstimate = async () => {
       const { data } = await catStatusEstimate();
       app.listStatusEstimate = data.map((statusEstimate) => ({
@@ -241,6 +246,7 @@ export default {
         return 0;
       });
     };
+
     const generateAnios = (cantidad) => {
       /* const anioActual = new Date().getFullYear(); */
       for (let i = 0; i < cantidad; i++) {
@@ -250,6 +256,7 @@ export default {
         });
       }
     };
+    
     const sendForm = async () => {
       const validaciones = await v$.value.$validate();
       if (validaciones) {

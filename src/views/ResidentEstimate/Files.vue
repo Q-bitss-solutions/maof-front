@@ -145,6 +145,11 @@ export default {
         label: "Descargar",
         action: async (files) => {
           window.open(`${files.archivo_estimacion}`, "_blank");
+          
+          /* const link = document.createElement('a');
+          link.href = files.archivo_estimacion;
+          link.download = `${files.nombre_archivo_residente}${files.tipo_archivo}`;
+          link.click(); */
         },
       },
     ]);
@@ -276,6 +281,8 @@ export default {
 
     const getFeatureOptions = (estatus_estimacion) => {
       const openFile = async (files) => {
+       /*  console.log('Hola');
+        console.log('files: ', files); */
         window.open(`${files.archivo_estimacion}`, "_blank");
       };
       const deleteFile = async (files) => {
