@@ -86,7 +86,7 @@ export default {
         listFiltros: [
           { value: 2, label: "Contrato o Convenio de Colaboración" },
           { value: 3, label: "Convenio Modificatorio" },
-          { value: 4, label: "Esperando una acción" },
+          { value: 4, label: "Estimaciones bajo su responsabilidad" },
           { value: 1, label: "Proyecto / Cartera de inversión" },
         ],
         listDocsFiltrados: [],
