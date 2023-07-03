@@ -8,7 +8,7 @@
         <logout-component />
       </div>
     </div>
-    <title-bar title="Estimación Residente" subtitle="Responsable Estimacion" />
+    <title-bar title="Estimación Residente" subtitle="Estimaciones bajo su responsabilidad" />
     <section class="px-4">
       <div class=" flex justify-end">
         <detail-estimate :data="detalleEstimacionData" :isOpen="detalleEstimacion" @submit="detalleEstimacion = false" />
