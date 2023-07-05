@@ -15,6 +15,7 @@
       v-model="app.collaborationAgreements.monto_sin_iva" />
     <input-base id="plazo_inicio" label="Plazo (inicio)" type="date" class="mb-3"
       v-model="app.collaborationAgreements.plazo_inicio" />
+      {{ app.collaborationAgreements.plazo_inicio }}
     <input-base id="plazo_fin" label="Plazo (fin)" type="date" class="mb-3"
       v-model="app.collaborationAgreements.plazo_fin" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
@@ -72,8 +73,8 @@ export default {
     if (props.editMode) {
       app.collaborationAgreements = props.collaborationAgreements
       delete props.collaborationAgreements.id_contrato_padre
-      app.collaborationAgreements.plazo_inicio = props.collaborationAgreements.plazo_inicio.split('-').reverse().join('-')
-      app.collaborationAgreements.plazo_fin = props.collaborationAgreements.plazo_fin.split('-').reverse().join('-')
+      app.collaborationAgreements.plazo_inicio = props.collaborationAgreements.plazo_inicio.split('/').reverse().join('-')
+      app.collaborationAgreements.plazo_fin = props.collaborationAgreements.plazo_fin.split('/').reverse().join('-')
     }
     const sendForm = () => emit('submit', app.collaborationAgreements)
 

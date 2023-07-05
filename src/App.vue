@@ -4,7 +4,9 @@
     <div class="pb-24 h-auto">
       <router-view />
     </div>
-    <footer-component />
+    <div class=" w-auto">
+      <footer-component class=" w-auto" />
+    </div>
   </div>
 </template>
 
