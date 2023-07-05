@@ -284,7 +284,7 @@ address {
     page-break-after: avoid;
   }
   .navbar {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     display: none;
     font-size: 17.5px;
     font-weight: 300;
@@ -324,7 +324,7 @@ body {
   position: relative;
   top: 1px;
   display: inline-block;
-  font-family: "Glyphicons Halflings";
+  font-family: "Glyphicons Halflings", Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;;
   font-weight: 400;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
@@ -1041,7 +1041,7 @@ fieldset[disabled] .navbar-inverse .btn-link:hover {
 
 
 .navbar {
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
   margin-bottom: 0;
   font-size: 16px;
   font-weight: 300;
