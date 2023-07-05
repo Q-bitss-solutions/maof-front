@@ -3,10 +3,10 @@
     <img src="../../assets/Filter.png" alt="filter" class="w-10 items-center" />
     <select-base label="Filtros" class="text-center w-48 mr-9" id="filtros" :options="filtro.listFiltros"
       v-model="filtro.tipoDocumento" @change="getDocsByType(filtro.tipoDocumento)" />
-    <select-base ref="selectBase" label="" class="text-center w-48 ml-36" id="filtrosDocs" :options="filtro.listDocsFiltrados"
+    <select-base :ref="selectBaseRef" label="" class="text-center w-48 ml-36" id="filtrosDocs" :options="filtro.listDocsFiltrados"
       v-if="filtro.listDocsFiltrados !== '' && (filtro.tipoDocumento !== '' && filtro.tipoDocumento !== '4')"
       v-model="filtro.filtroDocValue" />
-    <button-base ref="buttonBase" label="Aplicar" class="border-gray text-black hover:bg-white hover:text-red" :class="buttonClass"
+    <button-base :ref="buttonBaseRef" label="Aplicar" class="border-gray text-black hover:bg-white hover:text-red" :class="buttonClass"
       v-if="filtro.listDocsFiltrados !== '' && (filtro.tipoDocumento !== '' && filtro.tipoDocumento !== '4')"
       @click="saveFiltro(filtro.filtroDocValue, filtro.tipoDocumento)" :disabled="filtro.filtroDocValue === ''" />
     <button-base label="Aplicar" class="ml-40 border-gray text-black hover:bg-white hover:text-red"
