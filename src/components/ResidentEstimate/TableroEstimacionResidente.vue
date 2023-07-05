@@ -22,7 +22,7 @@
           {{ contador + 1 }}
         </p>
         <img src="../../assets/PDF.png" @click="downloadFile(item)" class="cursor-pointer"
-          v-if="header.field === 'documents' && item.archivo_residente !== null" title="PDF">
+          v-if="header.field === 'documents' && item.archivo_residente !== null" title="PDF" alt="PDF">
         <p v-if="header.field === 'numero_contrato' && item.contrato_padre === null"
           class=" text-blue cursor-pointer contratos text-center" @click="detalleContrato(item)">
           {{ item[header.field] }}

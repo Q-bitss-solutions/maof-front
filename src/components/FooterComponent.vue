@@ -64,7 +64,7 @@
 
 /* cyrillic-ext */
 @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -73,7 +73,7 @@
   }
   /* cyrillic */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -82,7 +82,7 @@
   }
   /* vietnamese */
   @font-face {
-    font-family: 'Montserrat';
+    font-family:'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -91,7 +91,7 @@
   }
   /* latin-ext */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -100,7 +100,7 @@
   }
   /* latin */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-display: swap;
@@ -109,7 +109,7 @@
   }
   /* cyrillic-ext */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -118,7 +118,7 @@
   }
   /* cyrillic */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -127,7 +127,7 @@
   }
   /* vietnamese */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -136,7 +136,7 @@
   }
   /* latin-ext */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -145,7 +145,7 @@
   }
   /* latin */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-display: swap;
@@ -154,7 +154,7 @@
   }
   /* cyrillic-ext */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -163,7 +163,7 @@
   }
   /* cyrillic */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -172,7 +172,7 @@
   }
   /* vietnamese */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -181,7 +181,7 @@
   }
   /* latin-ext */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -190,7 +190,7 @@
   }
   /* latin */
   @font-face {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     font-style: normal;
     font-weight: 600;
     font-display: swap;
@@ -621,7 +621,7 @@ a:focus {
     padding: 0px 0 0px;
     text-align: left;
     font-weight: 300;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     background-position: bottom;
 }
 
@@ -634,7 +634,7 @@ a:focus {
     background-size: cover;
     background-position: bottom;
     padding: 30px 10px 10px;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', Arial, Helvetica, Verdana, Tahoma, Geneva, sans-serif;
     /*margin-bottom: 30px*/
 }
 
