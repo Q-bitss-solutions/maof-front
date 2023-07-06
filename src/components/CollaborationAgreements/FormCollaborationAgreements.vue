@@ -15,7 +15,6 @@
       v-model="app.collaborationAgreements.monto_sin_iva" />
     <input-base id="plazo_inicio" label="Plazo (inicio)" type="date" class="mb-3"
       v-model="app.collaborationAgreements.plazo_inicio" />
-      {{ app.collaborationAgreements.plazo_inicio }}
     <input-base id="plazo_fin" label="Plazo (fin)" type="date" class="mb-3"
       v-model="app.collaborationAgreements.plazo_fin" />
     <button-base label="Guardar" @click="sendForm" class="mr-0 ml-auto" />
@@ -107,15 +106,15 @@ export default {
         if (contrato.estatus_contratista === 'Activo') {
           app.listContratista.push({ value: contrato.id_contratista, label: contrato.nombre_contratista })
           app.listContratista.sort((a, b) => {
-        if (a.nombre_contratista > b.nombre_contratista) {
-          return 1;
-        }
-        if (a.nombre_contratista < b.nombre_contratista) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      })
+            if (a.nombre_contratista > b.nombre_contratista) {
+              return 1;
+            }
+            if (a.nombre_contratista < b.nombre_contratista) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          })
         }
       });
     }
