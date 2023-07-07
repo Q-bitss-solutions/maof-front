@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Estimación Residente" subtitle="Archivos" />
     <section class="px-4">
       <div class="flex flex-row justify-between">
@@ -65,12 +58,10 @@
 <script>
 import { ref } from "vue";
 import FormResident from "../../components/Resident/FormResident.vue";
-import ArrowBack from "../../components/ArrowBack.vue";
 import TitleBar from "../../components/TitleBar.vue";
 import InputBase from "../../components/InputBase.vue";
 import TableBase from "../../components/TableBase.vue";
 import ButtonBase from "../../components/ButtonBase.vue";
-import LogoutComponent from "../../components/LogoutComponent.vue";
 import {
   fetchResidentEstimateById,
   archivoResidentEstimate,
@@ -81,21 +72,19 @@ import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Swal from "sweetalert2";
 import Banner from "../../components/Banner.vue";
-import HomePage from '../../components/HomePage.vue'
 import { auth } from "../../store/auth";
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
 
 export default {
   name: "FilesResidentEstimate",
   components: {
     FormResident,
-    ArrowBack,
     TitleBar,
     InputBase,
     TableBase,
     ButtonBase,
-    HomePage,
     Banner,
-    LogoutComponent,
+    CustomHeaderApp,
   },
   setup() {
     const route = useRoute();

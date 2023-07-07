@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Estimación Residente" :subtitle="subtitle" />
     <section class="px-4">
       <form-resident-estimate :residentEstimate="app.residentEstimate" editMode v-if="!app.loading" />
@@ -17,29 +10,22 @@
 
 <script>
 import FormResidentEstimate from '../../components/ResidentEstimate/FormResidentEstimateSemaforoById.vue'
-import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import LogoutComponent from '../../components/LogoutComponent.vue'
 import { fetchResidentEstimateById } from '../../api/residentEstimate'
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import { auth } from '../../store/auth'
-import HomePage from '../../components/HomePage.vue'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
 
 
 export default {
   name: 'EditResident',
   components: {
     FormResidentEstimate,
-    ArrowBack,
     TitleBar,
-    HomePage,
-    LogoutComponent
+    CustomHeaderApp,
   },
   setup() {
-    const authStore = auth();
-    const { rol } = authStore.getAuthData
     const route = useRoute()
     const router = useRouter()
     const subtitle = ref('Editar')
@@ -77,7 +63,6 @@ export default {
     return {
       app,
       subtitle,
-      rol,
       saveResident,
     }
   },

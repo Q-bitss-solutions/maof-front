@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Estimación Residente" subtitle="Pagadas" />
     <section class="px-4">
       <div class=" flex justify-end">
@@ -26,27 +19,23 @@
 <script>
 import { ref } from 'vue';
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
-import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
-import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
 import { useRouter, useRoute } from 'vue-router'
-import Swal from 'sweetalert2'
 import { fetchResidentEstimateById } from "../../api/residentEstimate";
 import { consultas } from '../../store/consultas';
-import LogoutComponent from '../../components/LogoutComponent.vue';
 import { auth } from '../../store/auth'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
+
 export default {
   name: 'ConsultasPagadosMAOF',
   components: {
     TableroEstimacionResidente,
-    ArrowBack,
-    HomePage,
     ButtonBase,
     TitleBar,
     DetailEstimate,
-    LogoutComponent
+    CustomHeaderApp,
   },
   setup() {
     const authStore = auth();

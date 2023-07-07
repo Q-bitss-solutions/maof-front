@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Convenio Modificatorio" subtitle="Editar" />
     <section class="px-4">
       <form-amending-agreement @submit="saveAmendingAgreement" :amendingAgreement="app.amendingAgreement" edit-mode
@@ -18,28 +11,22 @@
 
 <script>
 import FormAmendingAgreement from '../../components/AmendingAgreement/FormAmendingAgreement.vue'
-import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { updateContract, fetchContractById } from '../../api/contract'
 import { reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import LogoutComponent from '../../components/LogoutComponent.vue'
-import HomePage from '../../components/HomePage.vue'
-import { auth } from '../../store/auth'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
+
 
 export default {
   name: 'EditAmendingAgreement',
   components: {
     FormAmendingAgreement,
-    ArrowBack,
     TitleBar,
-    HomePage,
-    LogoutComponent
+    CustomHeaderApp,
   },
   setup() {
-    const authStore = auth();
-    const { rol } = authStore.getAuthData
     const route = useRoute()
     const router = useRouter()
     const app = reactive({
@@ -90,7 +77,6 @@ export default {
 
     return {
       app,
-      rol,
       saveAmendingAgreement,
     }
   },

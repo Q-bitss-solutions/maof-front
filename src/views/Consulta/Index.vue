@@ -1,15 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class="text-black font-semibold mr-4 items-center content-center">
-          {{ rol }}
-        </p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Consulta MAOF" subtitle="Agenda de Estimaciones" />
     <section class="px-4">
       <!-- Pendientes Pagadas Total -->
@@ -44,8 +35,6 @@
 <script>
 import { ref } from "vue";
 import TableBase from "../../components/UsersAndRolsMAOF/TableUsers.vue";
-import ArrowBack from "../../components/ArrowBack.vue";
-import HomePage from "../../components/HomePage.vue";
 import SelectBase from "../../components/SelectBase.vue";
 import ButtonBase from "../../components/ButtonBase.vue";
 import { useRouter } from "vue-router";
@@ -56,30 +45,25 @@ import { fetchProjects } from "./../../api/project";
 import { fetchContracts } from "./../../api/contract";
 import { fetchFiltroAll, fetchBusqueda, fetchResponsableEstimacion } from "../../api/consulta";
 import { consultas } from "../../store/consultas";
-import { auth } from "../../store/auth";
 import Filtro from "../../components/Consulta/Filtro.vue";
 import Busqueda from "../../components/Consulta/Busqueda.vue";
-import LogoutComponent from "../../components/LogoutComponent.vue";
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
 
 export default {
   name: "UsersRolesMAOFIndex",
   components: {
     TableBase,
-    ArrowBack,
-    HomePage,
     ButtonBase,
     TitleBar,
     SelectBase,
     FormConsultaBusqueda,
     Filtro,
     Busqueda,
-    LogoutComponent,
+    CustomHeaderApp,
   },
   setup() {
     const router = useRouter();
     const store = consultas();
-    const authStore = auth();
-    const { rol } = authStore.getAuthData;
     const app = ref({
       filtro: {
         tipoDocumento: "",
@@ -366,7 +350,6 @@ export default {
     return {
       app,
       showBusquedaValue,
-      rol,
       getStatusEstimations,
       showBusqueda,
       saveBusqueda,

@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Estimación Residente" subtitle="Inicio" />
     <section class="px-4">
       <div class=" flex justify-end">
@@ -28,29 +21,24 @@ import { ref } from 'vue'
 import TableroEstimacionResidente from '../../components/ResidentEstimate/TableroEstimacionResidente.vue'
 import TableBase from '../../components/TableBase.vue'
 import { fetchResidentEstimateById, fetchResidentEstimateHojaViajeraInProgress, fetchResidentEstimateHojaViajeraActivos } from './../../api/residentEstimate'
-import ArrowBack from '../../components/ArrowBack.vue'
-import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import ToggleSwitch from '../../components/ToggleSwtich.vue'
 import DetailEstimate from '../../components/ResidentEstimate/DetailEstimate.vue'
-import LogoutComponent from '../../components/LogoutComponent.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
-import Swal from 'sweetalert2'
 import { auth } from '../../store/auth'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
 
 export default {
   name: 'ResidentEstimateIndex',
   components: {
     TableroEstimacionResidente,
-    ArrowBack,
-    HomePage,
+    CustomHeaderApp,
     ButtonBase,
     TitleBar,
     TableBase,
     ToggleSwitch,
     DetailEstimate,
-    LogoutComponent
   },
   setup() {
     const authStore = auth();
@@ -202,7 +190,7 @@ export default {
       procesoVariable,
       detalleEstimacionData,
       detalleEstimacion,
-      rol
+      rol,
     }
   },
 }
