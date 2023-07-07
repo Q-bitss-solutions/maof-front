@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Residente" subtitle="Inicio" />
     <section class="px-4">
       <button-base label="Nuevo Residente" @click="goToNewResident" class="mb-3 mr-0 ml-auto" />
@@ -20,29 +13,23 @@
 import { ref } from 'vue'
 import TableBase from '../../components/TableBase.vue'
 import { fetchResident, deleteResident } from './../../api/resident'
-import ArrowBack from '../../components/ArrowBack.vue'
-import HomePage from '../../components/HomePage.vue'
 import ButtonBase from '../../components/ButtonBase.vue'
 import { useRouter } from 'vue-router'
 import TitleBar from '../../components/TitleBar.vue'
 import Swal from 'sweetalert2'
-import LogoutComponent from '../../components/LogoutComponent.vue'
-import { auth } from '../../store/auth'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
+
 
 
 export default {
   name: 'ResidenteIndex',
   components: {
     TableBase,
-    ArrowBack,
-    HomePage,
     ButtonBase,
     TitleBar,
-    LogoutComponent
+    CustomHeaderApp,
   },
   setup() {
-    const authStore = auth();
-    const { rol } = authStore.getAuthData
     const router = useRouter()
     const headers = [
       {
@@ -138,7 +125,6 @@ export default {
       resident,
       featureOptions,
       headers,
-      rol,
       goToNewResident,
     }
   },

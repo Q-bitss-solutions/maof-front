@@ -386,6 +386,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory("/maof-front/"),
+  /* history: createWebHistory("/"), */
   routes,
 });
 

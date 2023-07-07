@@ -1,6 +1,7 @@
 <template>
   <div class="flex justify-end pt-10">
-    <p class=" text-black font-semibold">{{ rol }}</p> 
+    <p class=" text-black font-semibold pr-4">{{ nombre_completo }}</p>
+    <p class=" text-black font-semibold">{{ rol }}</p>
     <logout-component />
   </div>
   <div class=" flex flex-col px-4 h-[39vh]">
@@ -70,7 +71,7 @@ export default {
   setup() {
     const router = useRouter()
     const store = auth()
-    const { access, rol } = store.getAuthData
+    const { access, rol, nombre_completo } = store.getAuthData
     const menu = [
       {
         labelMenu: 'Consulta',
@@ -185,6 +186,7 @@ export default {
       indexActiveSubmenu,
       indexActiveSubmenu2,
       rol,
+      nombre_completo,
       showSubmenu,
       showSubmenu2,
       goToRoute,

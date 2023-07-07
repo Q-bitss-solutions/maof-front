@@ -1,13 +1,6 @@
 <template>
   <main class="px-4 mt-10">
-    <div class="flex justify-between">
-      <arrow-back />
-      <div class="flex justify-center items-center">
-        <p class=" text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
-        <home-page />
-        <logout-component />
-      </div>
-    </div>
+    <CustomHeaderApp />
     <title-bar title="Contratos y Convenios de colaboración" subtitle="Nuevo" />
     <section class="px-4">
       <form-collaboration-agreements @submit="saveCollaborationAgreements" />
@@ -17,14 +10,11 @@
 
 <script>
 import FormCollaborationAgreements from '../../components/CollaborationAgreements/FormCollaborationAgreements.vue'
-import ArrowBack from '../../components/ArrowBack.vue'
 import TitleBar from '../../components/TitleBar.vue'
 import { storeContract } from '../../api/contract'
 import { useRouter } from 'vue-router'
 import Swal from 'sweetalert2'
-import LogoutComponent from '../../components/LogoutComponent.vue'
-import HomePage from '../../components/HomePage.vue'
-import { auth } from '../../store/auth'
+import CustomHeaderApp from '../../components/CustomHeaderApp.vue'
 
 
 
@@ -32,14 +22,10 @@ export default {
   name: 'NewFormCollaborationAgreements',
   components: {
     FormCollaborationAgreements,
-    ArrowBack,
     TitleBar,
-    HomePage,
-    LogoutComponent
+    CustomHeaderApp,
   },
   setup() {
-    const authStore = auth();
-    const { rol } = authStore.getAuthData
     const router = useRouter()
     const saveCollaborationAgreements = async (collaborationAgreements) => {
       /* await storeCollaborationAgreements(collaborationAgreements) */
@@ -79,7 +65,6 @@ export default {
     }
 
     return {
-      rol,
       saveCollaborationAgreements,
     }
   },
