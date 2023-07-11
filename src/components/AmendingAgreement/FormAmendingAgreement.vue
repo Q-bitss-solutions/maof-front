@@ -73,8 +73,8 @@ export default {
     })
     if (props.editMode) {
       app.amendingAgreement = props.amendingAgreement
-      app.amendingAgreement.plazo_inicio = props.amendingAgreement.plazo_inicio.split('-').reverse().join('-')
-      app.amendingAgreement.plazo_fin = props.amendingAgreement.plazo_fin.split('-').reverse().join('-')
+      app.amendingAgreement.plazo_inicio = props.amendingAgreement.plazo_inicio.split('/').reverse().join('-')
+      app.amendingAgreement.plazo_fin = props.amendingAgreement.plazo_fin.split('/').reverse().join('-')
     }
     const sendForm = () => emit('submit', app.amendingAgreement)
 

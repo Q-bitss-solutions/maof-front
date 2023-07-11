@@ -1,7 +1,7 @@
 <template>
   <div>
     <header-component/>
-    <div class="pb-24 h-auto">
+    <div class="pb-10 h-auto">
       <router-view />
     </div>
     <div class=" w-auto">
