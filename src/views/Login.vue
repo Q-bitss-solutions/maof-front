@@ -1,5 +1,5 @@
 <template>
-  <main class="px-4 mt-10 h-[41vh]">
+  <main class="px-4 mt-10 h-[47vh]">
     <title-bar title="Login" subtitle="Inicio" />
     <section class="px-4">
       <div class="max-w-xl mx-auto">

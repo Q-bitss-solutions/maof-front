@@ -1,42 +1,43 @@
+Certainly! Here's the code without the background image and related styling:
+
+```html
 <template>
-  <div class="flex justify-end pt-10">
-    <p class=" text-black font-semibold pr-4">{{ nombre_completo }}</p>
-    <p class=" text-black font-semibold">{{ rol }}</p>
-    <logout-component />
-  </div>
-  <div class=" flex flex-col px-4 h-[39vh]">
-    <div class="flex ">
-      <div v-for="(item, index) in menu" :key="index">
-        <template v-if="item.activo">
-          <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
-            class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
-            @click="goToRoute(item.routeName)" />
-          <button-base :label="item.labelMenu" v-if="item.routeName === ''"
-            class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
-            @click="showSubmenu(index)" />
-          <div
-            class="flex flex-col bg-white rounded shadow-lg border border-gray-100 border-solid absolute py-1 text-gray-900 text-lg"
-            v-show="indexActiveSubmenu === index">
-            <p v-for="(item, index) in item.submenu" :key="index" class="py-2 px-5 cursor-pointer hover:bg-gray-50">
-            <div v-if="item.subMenu2.length !== 0">
-              <p @click="showSubmenu2(index)">
-                {{ item.labelSubMenu }}
-              </p>
-              <div v-show="indexActiveSubmenu2 === index" class="flex flex-col justify-end justify-items-end">
-                <span v-for="(item, index) in item.subMenu2" :key="index"
-                  class="py-2 px-5 cursor-pointer hover:bg-gray-50 relative">
-                  <router-link :to="{ name: item.routeName }">
-                    {{ item.label }}
-                  </router-link>
-                </span>
+  <div class=" h-[55vh]">
+    <div class="flex justify-end pt-10">
+      <p class="text-black font-semibold pr-4">{{ nombre_completo }}</p>
+      <p class="text-black font-semibold">{{ rol }}</p>
+      <logout-component />
+    </div>
+    <div class="flex flex-col px-4 h-[85%]">
+      <div class="flex">
+        <div v-for="(item, index) in menu" :key="index">
+          <template v-if="item.activo">
+            <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
+              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
+              @click="goToRoute(item.routeName)" />
+            <button-base :label="item.labelMenu" v-if="item.routeName === ''"
+              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
+              @click="showSubmenu(index)" />
+            <div
+              class="flex flex-col bg-white rounded shadow-lg border border-gray-100 border-solid absolute py-1 text-gray-900 text-lg"
+              v-show="indexActiveSubmenu === index">
+              <p v-for="(item, index) in item.submenu" :key="index" class="py-2 px-5 cursor-pointer hover:bg-gray-50">
+              <div v-if="item.subMenu2.length !== 0">
+                <p @click="showSubmenu2(index)">{{ item.labelSubMenu }}</p>
+                <div v-show="indexActiveSubmenu2 === index" class="flex flex-col justify-end justify-items-end">
+                  <span v-for="(item, index) in item.subMenu2" :key="index"
+                    class="py-2 px-5 cursor-pointer hover:bg-gray-50 relative">
+                    <router-link :to="{ name: item.routeName }">{{ item.label }}</router-link>
+                  </span>
+                </div>
               </div>
+              <router-link :to="{ name: item.routeName }" v-if="item.subMenu2.length === 0">
+                {{ item.labelSubMenu }}
+              </router-link>
+              </p>
             </div>
-            <router-link :to="{ name: item.routeName }" v-if="item.subMenu2.length === 0">
-              {{ item.labelSubMenu }}
-            </router-link>
-            </p>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
     </div>
   </div>
