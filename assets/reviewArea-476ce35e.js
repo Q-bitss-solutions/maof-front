@@ -1,0 +1,1 @@
+import{a as e}from"./fetchApi-c943dcd0.js";const s=()=>e({url:"/area-revisora/",method:"GET"}),o=a=>e({url:`/area-revisora/${a}/`,method:"GET"}),t=a=>e({url:"/area-revisora/",method:"POST",data:a}),d=a=>e({url:`/area-revisora/${a.clave_unidad}/`,method:"PUT",data:a});export{o as a,s as f,t as s,d as u};
