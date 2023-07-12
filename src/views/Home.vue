@@ -37,9 +37,9 @@
           </template>
         </div>
       </div>
-      <div class="flex w-[80%] h-[10rem] justify-center mt-20 ml-48">
+      <!-- <div class="flex w-[80%] h-[10rem] justify-center mt-20 ml-48">
         <Carrusel :images="imagenArray"  /> 
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -56,9 +56,6 @@ import { useRouter } from 'vue-router'
 import { auth } from '../store/auth'
 //Imagenes
 import tren from '../assets/tren.jpeg';
-import tren2 from '../assets/tren2.jpeg';
-import tren3 from '../assets/tren3.jpeg';
-import tren4 from '../assets/tren4.jpeg';
 
 export default {
   name: 'Home',
@@ -169,25 +166,6 @@ export default {
         ],
       },
     ]
-    const imagenArray = [
-      {
-        image: tren,
-        alt: 'Descripción de la imagen 1',
-      },
-      {
-        image: tren2,
-        alt: 'Descripción de la imagen 2',
-      },
-      {
-        image: tren3,
-        alt: 'Descripción de la imagen 2',
-      },
-      {
-        image: tren4,
-        alt: 'Descripción de la imagen 2',
-      },
-      // Agrega más objetos de imagen según sea necesario
-    ]
     const indexActiveSubmenu = ref(null)
     const indexActiveSubmenu2 = ref(null)
     const showSubmenu = (index) => {
@@ -215,7 +193,6 @@ export default {
       indexActiveSubmenu2,
       rol,
       nombre_completo,
-      imagenArray,
       showSubmenu,
       showSubmenu2,
       goToRoute,
