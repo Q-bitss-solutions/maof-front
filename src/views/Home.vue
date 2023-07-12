@@ -1,14 +1,12 @@
-Certainly! Here's the code without the background image and related styling:
 
-```html
 <template>
-  <div class=" h-[55vh]">
+  <div class=" h-[80vh]">
     <div class="flex justify-end pt-10">
       <p class="text-black font-semibold pr-4">{{ nombre_completo }}</p>
       <p class="text-black font-semibold">{{ rol }}</p>
       <logout-component />
     </div>
-    <div class="flex flex-col px-4 h-[85%]">
+    <div class="flex flex-col px-4 ">
       <div class="flex">
         <div v-for="(item, index) in menu" :key="index">
           <template v-if="item.activo">
@@ -39,6 +37,9 @@ Certainly! Here's the code without the background image and related styling:
           </template>
         </div>
       </div>
+      <div class="flex w-[80%] h-[10rem] justify-center mt-20 ml-48">
+        <Carrusel :images="imagenArray"  /> 
+      </div>
     </div>
   </div>
 </template>
@@ -49,9 +50,15 @@ import SelectBase from '../components/SelectBase.vue';
 import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
 import LogoutComponent from '../components/LogoutComponent.vue';
+import Carrusel from '../components/Carrusel.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { auth } from '../store/auth'
+//Imagenes
+import tren from '../assets/tren.jpeg';
+import tren2 from '../assets/tren2.jpeg';
+import tren3 from '../assets/tren3.jpeg';
+import tren4 from '../assets/tren4.jpeg';
 
 export default {
   name: 'Home',
@@ -60,7 +67,8 @@ export default {
     ButtonBase,
     TableBase,
     SelectBase,
-    LogoutComponent
+    LogoutComponent,
+    Carrusel,
   },
   /*  mounted() {
      if (localStorage.getItem('acces') != null) {
@@ -161,6 +169,25 @@ export default {
         ],
       },
     ]
+    const imagenArray = [
+      {
+        image: tren,
+        alt: 'Descripción de la imagen 1',
+      },
+      {
+        image: tren2,
+        alt: 'Descripción de la imagen 2',
+      },
+      {
+        image: tren3,
+        alt: 'Descripción de la imagen 2',
+      },
+      {
+        image: tren4,
+        alt: 'Descripción de la imagen 2',
+      },
+      // Agrega más objetos de imagen según sea necesario
+    ]
     const indexActiveSubmenu = ref(null)
     const indexActiveSubmenu2 = ref(null)
     const showSubmenu = (index) => {
@@ -188,6 +215,7 @@ export default {
       indexActiveSubmenu2,
       rol,
       nombre_completo,
+      imagenArray,
       showSubmenu,
       showSubmenu2,
       goToRoute,
