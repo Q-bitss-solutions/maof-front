@@ -71,7 +71,7 @@ export default {
 
     const buttonClass = computed(() => {
       return {
-        'ml-[25rem]': props.filtro.tipoDocumento === '1',
+        'ml-[8rem]': props.filtro.tipoDocumento === '1',
         'ml-[3.7rem]': props.filtro.tipoDocumento !== '1' && props.filtro.filtroDocValue === '',
         'ml-[0rem]': props.filtro.tipoDocumento !== '1' && props.filtro.filtroDocValue !== '',
       };
@@ -98,6 +98,6 @@ select[id="filtros"] {
 }
 
 select[id="filtrosDocs"] {
-  width: fit-content;
+  width: 100%;
 }
 </style>
