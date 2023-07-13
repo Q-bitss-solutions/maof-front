@@ -1,12 +1,14 @@
+Certainly! Here's the code without the background image and related styling:
 
+```html
 <template>
-  <div class=" h-[80vh]">
+  <div class="h-[55vh] bg-filter-image">
     <div class="flex justify-end pt-10">
       <p class="text-black font-semibold pr-4">{{ nombre_completo }}</p>
       <p class="text-black font-semibold">{{ rol }}</p>
       <logout-component />
     </div>
-    <div class="flex flex-col px-4 ">
+    <div class="flex flex-col px-4 h-[85%]">
       <div class="flex">
         <div v-for="(item, index) in menu" :key="index">
           <template v-if="item.activo">
@@ -37,9 +39,6 @@
           </template>
         </div>
       </div>
-      <!-- <div class="flex w-[80%] h-[10rem] justify-center mt-20 ml-48">
-        <Carrusel :images="imagenArray"  /> 
-      </div> -->
     </div>
   </div>
 </template>
@@ -50,12 +49,9 @@ import SelectBase from '../components/SelectBase.vue';
 import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
 import LogoutComponent from '../components/LogoutComponent.vue';
-import Carrusel from '../components/Carrusel.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { auth } from '../store/auth'
-//Imagenes
-import tren from '../assets/tren.jpeg';
 
 export default {
   name: 'Home',
@@ -64,8 +60,7 @@ export default {
     ButtonBase,
     TableBase,
     SelectBase,
-    LogoutComponent,
-    Carrusel,
+    LogoutComponent
   },
   /*  mounted() {
      if (localStorage.getItem('acces') != null) {
@@ -201,3 +196,11 @@ export default {
   },
 }
 </script>
+<style>
+.bg-filter-image {
+  background-image: url('../assets/tren.jpeg');
+  background-size: 45%;
+  background-repeat: no-repeat;
+  background-position: 50% 30px;
+}
+</style>
