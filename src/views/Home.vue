@@ -4,6 +4,7 @@ Certainly! Here's the code without the background image and related styling:
 <template>
   <div class="h-[55vh] bg-filter-image">
     <div class="flex justify-end pt-10">
+      <ManualComponent />
       <p class="text-black font-semibold pr-4">{{ nombre_completo }}</p>
       <p class="text-black font-semibold">{{ rol }}</p>
       <logout-component />
@@ -49,6 +50,7 @@ import SelectBase from '../components/SelectBase.vue';
 import ButtonBase from '../components/ButtonBase.vue';
 import TableBase from '../components/TableBase.vue';
 import LogoutComponent from '../components/LogoutComponent.vue';
+import ManualComponent from '../components/ManualComponent.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { auth } from '../store/auth'
@@ -60,7 +62,8 @@ export default {
     ButtonBase,
     TableBase,
     SelectBase,
-    LogoutComponent
+    LogoutComponent,
+    ManualComponent,
   },
   /*  mounted() {
      if (localStorage.getItem('acces') != null) {

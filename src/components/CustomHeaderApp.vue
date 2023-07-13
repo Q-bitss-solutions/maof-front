@@ -2,6 +2,7 @@
   <div class="flex justify-between">
     <arrow-back />
     <div class="flex justify-center items-center">
+      <ManualComponent />
       <p class="text-black font-semibold mr-4 items-center content-center">{{ nombre_completo }}</p>
       <p class="text-black font-semibold mr-4 items-center content-center">{{ rol }}</p>
       <home-page />
@@ -14,13 +15,15 @@
 import ArrowBack from './ArrowBack.vue'
 import HomePage from './HomePage.vue'
 import LogoutComponent from './LogoutComponent.vue'
+import ManualComponent from '../components/ManualComponent.vue';
 import { auth } from '../store/auth'
 
 export default {
   components: {
     ArrowBack,
     HomePage,
-    LogoutComponent
+    LogoutComponent,
+    ManualComponent,
   },
   setup() {
     const authStore = auth();
