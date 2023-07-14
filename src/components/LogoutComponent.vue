@@ -1,5 +1,5 @@
 <template>
-    <div class="inline-block justify-end pl-8">
+    <div class="inline-block justify-end pl-3">
         <div @click="logoutUser" class="flex cursor-pointer justify-end">
             <span class="material-icons text-red" title="Cerrar sesión">
                 logout
