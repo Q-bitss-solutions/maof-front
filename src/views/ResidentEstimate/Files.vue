@@ -45,7 +45,7 @@
           " :headers="headers" :data="filesFinanzas" :showOptions="canEditFinanzas" :tableName="'finanzas'" />
       </div>
       <div v-if="filesTramite_Pago.length">
-        <banner title="Documentos de Tramite de Pago" />
+        <banner title="Documentos de Trámite de Pago" />
         <table-base description="Registro de Pago" :options="featureOptionsFianzas.length !== 0
           ? featureOptionsFianzas
           : featureOptions
