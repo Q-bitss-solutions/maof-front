@@ -8,6 +8,10 @@ module.exports = {
     extend: {
       width: {
         '128': '35.5rem',
+      },
+
+      fontFamily:{
+        "monserrat" : ['"Montserrat"', 'sans-serif']
       }
 
     },
