@@ -1,10 +1,10 @@
 <template>
   <div class="font-bold text-gray-900 mt-10 mb-12">
-    <h1 class="text-4xl">Módulo de Administración de Obra Ferroviaria</h1>
-    <h2 class="text-3xl">
+    <h1 class="text-3xl md:text-4xl">Módulo de Administración de Obra Ferroviaria</h1>
+    <h2 class="text-2xl md:text-3xl">
       {{ title }}
     </h2>
-    <h3 class="text-2xl mt-4">
+    <h3 class="text-xl md:text-2xl mt-4">
       {{ subtitle }}
     </h3>
     <div class="flex mt-3">

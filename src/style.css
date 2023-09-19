@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/******* custom ******/
+
+/* home */
+.bg-home{
+  background: url('/src/assets/bgHome1.png') left center;
+  background-size:cover;
+}

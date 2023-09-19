@@ -9,10 +9,9 @@ module.exports = {
       width: {
         '128': '35.5rem',
       },
-
       fontFamily:{
         "monserrat" : ['"Montserrat"', 'sans-serif']
-      }
+      },
 
     },
     colors: {
@@ -30,6 +29,15 @@ module.exports = {
       'brown-300': '#B38E5D',
       'green': '#00FF00',
       'orange': '#FF7514',
+      'red-of': '#9F2241',
+      'black-of' : '#545454',
+      'green-of': '#235B4E',
+      'beige-of': '#DDC9A3',
+      'gray-of': '#98989A',
+      'red-dark-of': '#691C32',
+      'green-dark-of': '#10312B',
+      'gold-of': '#BC955C',
+      'gray-dark-of': '#6F7271',
     },
   },
   plugins: [],

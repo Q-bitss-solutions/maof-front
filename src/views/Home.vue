@@ -2,22 +2,29 @@ Certainly! Here's the code without the background image and related styling:
 
 ```html
 <template>
-  <div class="h-[55vh] bg-filter-image">
-    <div class="flex justify-end pt-10">
+<div class="bg-home">
+  <div class="h-[70vh] bg-filter-image xl:max-w-6xl lg:max-w-screen-lg md:max-w-4xl mx-auto">
+    <div class="flex justify-end pt-10 px-2 sm:px-4">
       <ManualComponent />
-      <p class="text-black font-semibold pr-4">{{ nombre_completo }}</p>
-      <p class="text-black font-semibold">{{ rol }}</p>
+      <div>
+        <p class="text-black-of pr-4 sm:w-64">
+          <span class="font-semibold">{{ nombre_completo }}</span><br />
+          <span class="text-sm">{{ rol }}</span>
+        </p>
+      </div>
+      
+      <p class="text-black"></p>
       <logout-component />
     </div>
-    <div class="flex flex-col px-4 h-[85%]">
-      <div class="flex">
+    <div class="flex flex-col px-4 h-[85%] pt-4 md:pt-2">
+      <div class="sm:flex">
         <div v-for="(item, index) in menu" :key="index">
           <template v-if="item.activo">
             <button-base :label="item.labelMenu" v-if="item.routeName !== ''"
-              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
+              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-base md:text-lg font-normal relative w-full mb-2"
               @click="goToRoute(item.routeName)" />
             <button-base :label="item.labelMenu" v-if="item.routeName === ''"
-              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg font-normal relative"
+              class="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-base md:text-lg font-normal relative w-full mb-2"
               @click="showSubmenu(index)" />
             <div
               class="flex flex-col bg-white rounded shadow-lg border border-gray-100 border-solid absolute py-1 text-gray-900 text-lg"
@@ -42,6 +49,7 @@ Certainly! Here's the code without the background image and related styling:
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -201,9 +209,9 @@ export default {
 </script>
 <style>
 .bg-filter-image {
-  background-image: url('../assets/tren.jpeg');
+  /*background-image: url('../assets/tren.jpeg');
   background-size: 45%;
   background-repeat: no-repeat;
-  background-position: 50% 30px;
+  background-position: 50% 30px;*/
 }
 </style>

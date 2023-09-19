@@ -1,14 +1,28 @@
 <template>
-  <main class="px-4 mt-10 h-[47vh]">
-    <title-bar title="Login" subtitle="Inicio" />
-    <section class="px-4">
-      <div class="max-w-xl mx-auto">
-        <input-base id="email" label="Email" type="email" class="mb-3" v-model="user.email" />
-        <!--         {{ user.email }} -->
-        <input-base id="password" label="Password" type="password" class="mb-3" v-model="user.password" />
-        <!--         {{ user.password }} -->
-        <button-base label="Enviar" @click="sendForm" class="mr-0 ml-auto" />
+  <main class="pb-10">
+    <section>
+    <div class="mx-auto px-4 pt-4 lg:px-6 xl:px-2 xl:max-w-6xl lg:max-w-screen-lg md:max-w-4xl">
+      <title-bar title="Login" subtitle="Inicio" />
+    </div>
+    
+    <!-- Grid wrapper -->
+    <div class="grid">
+      <!-- Columns -->
+      <div>
+        <section class="px-4">
+          <div class="max-w-xl mx-auto">
+            <input-base id="email" label="Email" type="email" class="mb-3" v-model="user.email" />
+            <!--         {{ user.email }} -->
+            <input-base id="password" label="Password" type="password" class="mb-3" v-model="user.password" />
+            <!--         {{ user.password }} -->
+            <button-base label="Enviar" @click="sendForm" class="mr-0 ml-auto" />
+          </div>
+        </section>
       </div>
+
+      <!-- Columns -->
+    </div>
+    <!-- Grid wrapper -->
     </section>
   </main>
 </template>
